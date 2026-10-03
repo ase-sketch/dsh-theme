@@ -1,0 +1,10 @@
+# dsh-theme bundle patch: inserts this bundle's dsh.client row into the web roster.
+#
+# The row is the whole wiring. `name` resolves to the installed package, and the
+# loader then reads that package's `exports['./client']` — so the browser half is
+# addressed by package name, never by a path into this checkout. A profile that
+# lists dsh-theme in `dsh.profile.bundles` applies this patch after the earlier
+# layers, which is what puts the row in front of the GUI.
+- insert:
+    - id: ui-skin-dsh-theme
+      name: 'dsh-theme'
