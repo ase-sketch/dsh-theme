@@ -6,7 +6,7 @@
 
 - 构建皮肤：`node scripts/build-skin.mjs`（从 dsh-ui/preview/index.html :root 按映射表生成 skins/dsh-ui/skin.css）
 - 同步上架：`node scripts/sync-skin.mjs`（skins/dsh-ui/ → C:\Users\pass\.dsh\skins\dsh-ui\）
-- 验证：设置 → 皮肤中心应用皮肤，截图对照 dsh-ui preview（M2 起有自动化脚本）
+- 验证：隔离 web profile 实例 + Playwright（完整流程见 HANDOFF.md §5；桌面 GUI 有 token 认证，勿硬闯）
 
 ## 项目红线
 
