@@ -63,7 +63,14 @@ Playwright 要点（脚本参考 .agents/shots/_e2e*.py，M1 实证可用）：
 3. 构建 + 同步 + §5 验收（重点：与 dsh-ui preview/index.html 截图逐项对照）。
 4. M3 才碰 L2/L3（patches.css、预览图）；M2 只做 L1。
 
-## 7. 环境状态快照
+## 7. 架构边界：纯皮肤 vs 功能插件（二期选型）
+
+当前交付是**纯皮肤**（纯资产目录，零可执行代码）：不出现在插件管理页、无自有开关、hooks.mjs 本地不执行。这是有意的取舍（视觉先行、一键还原）。二期要加功能（Deepy 状态机/设置开关）时二选一：
+- **A. 皮肤上架官方市场**：官方市场字节校验的皮肤可执行 hooks.mjs，皮肤自包含可执行逻辑，保留皮肤中心一键管理。
+- **B. 配套小插件**：皮肤纯管视觉，另写轻量 bundle 插件管功能；需解决旧 client 半激活失败问题，但可用 skin-center（能跑通的活样本，其 client inject 声明模式）对照调试。
+决策未定，届时按需求选。纯皮肤能力边界对照表见会话记录或 spec。
+
+## 8. 环境状态快照
 
 - desktop profile：旧 dsh-theme bundle 已摘净（备份 .bak-20261004-cleanup-dsh-theme 在 profile 根）；skin-center 启用中；claude-style 行仍在（用户自行开关，与本皮肤互斥）。
 - web profile：已还原干净（M1 验收后）。
