@@ -1,0 +1,38 @@
+{
+  "name": "dsh-theme",
+  "version": "0.1.0",
+  "description": "dsh-ui design-spec skin theme bundle for the DeepSeek Harness web GUI",
+  "type": "module",
+  "license": "MIT",
+  "main": "host/index.js",
+  "exports": {
+    ".": "./host/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.1.7"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "files": [
+    "host",
+    "lib",
+    "cordis.patch.yml"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "theme",
+    "skin",
+    "web-ui"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schemas.linxin666.org/dsh-skin/v2.json",
+  "skinManifestVersion": 2,
+  "id": "dsh-ui",
+  "name": "dsh-ui 设计规范",
+  "nameEn": "dsh-ui Design Spec",
+  "version": "0.1.0",
+  "author": "pass (dsh-ui project)",
+  "tagline": "蓝调画布 · DeepSeek 品牌蓝 · 明暗双套",
+  "description": "按 E:\\dsh-ui 设计规范生成的皮肤：蓝调画布 + 纯白卡片层次、DeepSeek 品牌蓝主色、明暗双套 token 全部由规范 preview :root 构建生成。",
+  "tags": [
+    "dsh-ui",
+    "deepseek",
+    "blue",
+    "design-spec"
+  ],
+  "accent": "#4D6BFE",
+  "order": 10,
+  "contributes": {
+    "stylesheet": "skin.css"
+  }
+}
