@@ -35,3 +35,7 @@ M1 验收（GUI 变色 + 卸载还原）直接验证路线可行性；M2 起注�
 **新路线**：皮肤目录（skins/dsh-ui/）+ 映射表（dsh-ui→--dsw-*，人工策展）+ 构建脚本生成 skin.css + 同步到 $DSH_HOME/skins/。原「借形态不 fork」与「静态先行」决策保留；原「bundle 骨架」决策被本条取代。旧 bundle 遗物退役至 .agents/retired/2026-10-03-m1-bundle/，profile 装配残留已清理（备份 .bak-20261004-cleanup-dsh-theme），HANDOFF-M1.md 标 SUPERSEDED 留证。
 
 **落败路线教训**：① 调研期把 skin-center 误判为「另一个参考插件」而未读其 README/contracts，错过正解——「有现成就适配」的调研必须读完候选的文档而非只看 package.json；② 上一轮把「合批脚本里有自己的代码」当「已生效」的弱证据教训（HANDOFF-M1 §8）同样适用于路线选择。
+
+## 修订二（2026-10-03）：终局定位 = 自研皮肤插件
+
+用户明确：纯皮肤不足以承载目标形态（需要样式之外的自有功能与插件页开关），后期必走皮肤插件。据此：纯皮肤降级为**过渡路线**（M1–M3 价值 = 低成本完成 token 映射策展与视觉验收，产出物路线无关可复用）；**终局 = 自研皮肤插件**（M5，样式 + Deepy 状态机 + 设置开关，形态参照 dsh-claude-style）。插件期开工前置条件 = 根因自制 bundle client 半未激活问题（本机有 skin-center 活样本对照）。上架官方市场的皮肤 hooks 路线降级为分发期备选。

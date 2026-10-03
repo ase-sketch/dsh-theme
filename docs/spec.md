@@ -3,6 +3,7 @@
 > 状态：待用户确认 · 轻量流程：spec → 简版里程碑 → 开发，每步确认
 > 视觉权威：E:\dsh-ui\docs\design-spec.md（已验收）；机器可读源 = dsh-ui/preview/index.html 的 :root 块
 > 本版取代 2026-10-03 初版（自建 bundle 插件路线，已废弃，证据见 .agents/retired/ 与 HANDOFF-M1.md）
+> **路线定位（2026-10-03 用户明确）**：纯皮肤是**过渡路线**（M1–M3：低成本完成 token 映射策展与视觉验收），**终局 = 自研皮肤插件**（样式 + 功能：Deepy 状态机、设置开关等，形态参照 dsh-claude-style）。M1–M3 的产出物（映射表/构建链/验收方法论）路线无关，插件期直接复用。
 
 ## 约束
 
@@ -32,9 +33,9 @@ DSH 使用者（本人）：让 Web GUI 用上 dsh-ui 设计规范的皮肤，�
 4. 构建与同步脚本：build（preview :root → skin.css）+ sync（→ $DSH_HOME/skins/）。
 5. 验收：皮肤应用后的 GUI 截图与 dsh-ui preview 基准对照。
 
-## 非目标
+## 非目标（本期 = 纯皮肤阶段）
 
-- 自建 bundle 插件（已证伪：client 半激活链路不通，且皮肤中心已覆盖需求）。
+- 本期不做自研插件（**终局要做**，见路线定位；初次尝试失败未根因，插件期开工前须对照 skin-center 源码先根因 client 半激活问题）。
 - Deepy 状态机动画（本地皮肤无 hooks 执行权；二期另议：上市场/官方渠道才有 hooks）。
 - 交互改造、右侧边栏、改 DSH 本体、fork dsh-claude-style。
 
