@@ -7,10 +7,10 @@
 - 验收证据（隔离 web profile + Playwright 实跑）：① 设置 → 皮肤面板出现「dsh-ui Design Spec」卡（试穿/应用/卸载按钮齐全）；② 激活后 html[data-dsh-skin="dsh-ui"]、body 背景 = rgb(247,250,255)（#F7FAFF 规范画布）、主按钮 = #4D6BFE 品牌蓝；③ 切官方默认 → 当场回 rgb(255,255,255) 纯白；④ 再切回 dsh-ui → 当场回蓝调；⑤ 深色 body bg = rgb(19,22,29)（#13161D）。截图在 .agents/shots/e2e-*.png。
 - 桌面端生效方式：激活态已写入 $DSH_HOME/skin-center-active.json（共享文件），用户刷新 GUI 即盖上皮肤，无需重启。
 
-## M2 全量 L1 token 映射
-- 产出：映射表（dsh-ui token → 官方 --dsw-* alias，人工策展的语义对应）+ 构建脚本从 preview :root 生成完整 skin.css（明暗双套）。
-- 依赖：M1。
-- 验收：应用后 GUI 主色板/表面层次/文本三级/按钮各态与 dsh-ui preview 观感一致（截图对照）；明暗切换正常。
+## M2 全量 L1 token 映射 —— ✅ 已完成（2026-10-04 自动化验收）
+- 产出：映射表扩到 91 token × 明暗双套（bg/border/brand/button/code/file/interactive/label/link/markdown/scrollbar/state/toast/specific/hovercard 15 组），跳过项与理由显式写在 mapping.json $comment；裁决口径与备选见归属笔记 .agents/notes/implemented/feature/2026-10-04-m2-full-l1-token-mapping.md。已同步 $DSH_HOME/skins/dsh-ui/。
+- 验收证据（隔离 web profile + Playwright，脚本 .agents/shots/_m2_verify.py）：91 token × 明暗 + 根底色全部命中 preview :root 期望值；API 切官方默认 → bg 回 rgb(255,255,255)、skin 属性消失；再切回 → rgb(247,250,255)。截图 m2-light/dark/stock 在 .agents/shots/。
+- 留 M3 裁定：font 全家 181 个未映射（排版非色板，shorthand 覆盖分项）；elevation/corner-shape 等非色 token 未碰。
 
 ## M3 组件级打磨与预览图
 - 产出：L2 语义选择器覆盖 + 必要 patches.css（L3）；preview/light.jpg + dark.jpg 皮肤卡预览图。

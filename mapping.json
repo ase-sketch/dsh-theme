@@ -1,5 +1,5 @@
 {
-  "$comment": "dsh-ui token → 官方 --dsw-* alias 语义映射（唯一手工维护物）。值永远取自 dsh-ui/preview/index.html :root，不在此写死。",
+  "$comment": "dsh-ui token → 官方 --dsw-* alias 语义映射（唯一手工维护物）。值永远取自 dsh-ui/preview/index.html :root，不在此写死。M2 全量 L1：91 token。跳过项及原因：bg-mask-1/2/3、bg-mask-drop、bg-mask-photo（dsh-ui 纯色层次无半透明 mask token）；file-diff-added/deleted-bg+gutter（纯色 success/danger 刷整行背景会糊，官方默认即半透明）；interactive-bg-hover-danger（无 subtle danger）；state-success/warn-tertiary（无 subtle 变体）；tooltip-bg（官方为前景主导深色、tooltip-fg 不在契约内，改了 bg 保不住对比度）；font 全家 181 个（字距/字号属排版非色板，且 shorthand 会覆盖分项，留 M3 评估）；corner-shape/elevation/mask-blur/menu-backdrop-filter/linear-gradient-think/linear-think-select（值类型非色或 dsh-ui 无对应）。",
   "root": {
     "background-color": {
       "light": "--dsh-bg-base",
@@ -15,6 +15,10 @@
       "light": "--dsh-bg-surface",
       "dark": "--dsh-bg-surface"
     },
+    "--dsw-alias-bg-document-preview": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
+    },
     "--dsw-alias-bg-layer-1": {
       "light": "--dsh-bg-subtle",
       "dark": "--dsh-bg-subtle"
@@ -27,15 +31,43 @@
       "light": "--dsh-bg-active",
       "dark": "--dsh-bg-active"
     },
+    "--dsw-alias-bg-layer-4": {
+      "light": "--dsh-bg-active",
+      "dark": "--dsh-bg-active"
+    },
+    "--dsw-alias-bg-module-platform": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
+    },
+    "--dsw-alias-bg-multi-select": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
     "--dsw-alias-bg-overlay": {
       "light": "--dsh-bg-surface",
       "dark": "--dsh-bg-surface"
+    },
+    "--dsw-alias-bg-skeleton": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
+    },
+    "--dsw-alias-border-inverted": {
+      "light": "--dsh-bg-base",
+      "dark": "--dsh-bg-base"
+    },
+    "--dsw-alias-border-inverted2": {
+      "light": "--dsh-bg-base",
+      "dark": "--dsh-bg-base"
     },
     "--dsw-alias-border-l1": {
       "light": "--dsh-border-subtle",
       "dark": "--dsh-border-subtle"
     },
     "--dsw-alias-border-l2": {
+      "light": "--dsh-border-subtle",
+      "dark": "--dsh-border-subtle"
+    },
+    "--dsw-alias-border-l2-darkmode-thin": {
       "light": "--dsh-border-subtle",
       "dark": "--dsh-border-subtle"
     },
@@ -51,19 +83,43 @@
       "light": "--dsh-accent",
       "dark": "--dsh-accent"
     },
+    "--dsw-alias-brand-primary-invert": {
+      "light": "--dsh-bg-base",
+      "dark": "--dsh-bg-base"
+    },
+    "--dsw-alias-brand-primary-new-colorprimary-new-color": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
     "--dsw-alias-brand-text": {
       "light": "--dsh-accent",
       "dark": "--dsh-accent"
     },
-    "--dsw-alias-button-primary-fill": {
+    "--dsw-alias-button-contrast-fill": {
       "light": "--dsh-accent",
       "dark": "--dsh-accent"
     },
-    "--dsw-alias-button-primary-hover": {
-      "light": "--dsh-accent-hover",
-      "dark": "--dsh-accent-hover"
+    "--dsw-alias-button-elevated-fill": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
     },
-    "--dsw-alias-button-primary-dimmed": {
+    "--dsw-alias-button-floating-fill": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
+    },
+    "--dsw-alias-button-floating-hover": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
+    },
+    "--dsw-alias-button-ghost-active-border": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
+    "--dsw-alias-button-ghost-active-fill": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-button-ghost-active-hover": {
       "light": "--dsh-accent-subtle",
       "dark": "--dsh-accent-subtle"
     },
@@ -75,9 +131,61 @@
       "light": "--dsh-accent-hover",
       "dark": "--dsh-accent-hover"
     },
-    "--dsw-alias-label-primary": {
-      "light": "--dsh-text-primary",
-      "dark": "--dsh-text-primary"
+    "--dsw-alias-button-primary-dimmed": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-button-primary-fill": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
+    "--dsw-alias-button-primary-hover": {
+      "light": "--dsh-accent-hover",
+      "dark": "--dsh-accent-hover"
+    },
+    "--dsw-alias-button-tool-bar-fill": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-button-tool-bar-fill-invisible": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-button-tool-bar-hover": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-code-diff-added": {
+      "light": "--dsh-success",
+      "dark": "--dsh-success"
+    },
+    "--dsw-alias-code-diff-deleted": {
+      "light": "--dsh-danger",
+      "dark": "--dsh-danger"
+    },
+    "--dsw-alias-file-diff-added-marker": {
+      "light": "--dsh-success",
+      "dark": "--dsh-success"
+    },
+    "--dsw-alias-file-diff-deleted-marker": {
+      "light": "--dsh-danger",
+      "dark": "--dsh-danger"
+    },
+    "--dsw-alias-interactive-bg-active": {
+      "light": "--dsh-bg-active",
+      "dark": "--dsh-bg-active"
+    },
+    "--dsw-alias-interactive-bg-hover": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
+    },
+    "--dsw-alias-interactive-bg-hover-accent": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-interactive-bg-hover-solid": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
     },
     "--dsw-alias-label-caption": {
       "light": "--dsh-text-secondary",
@@ -87,21 +195,185 @@
       "light": "--dsh-text-tertiary",
       "dark": "--dsh-text-tertiary"
     },
+    "--dsw-alias-label-document-preview": {
+      "light": "--dsh-text-secondary",
+      "dark": "--dsh-text-secondary"
+    },
+    "--dsw-alias-label-error": {
+      "light": "--dsh-danger",
+      "dark": "--dsh-danger"
+    },
+    "--dsw-alias-label-primary": {
+      "light": "--dsh-text-primary",
+      "dark": "--dsh-text-primary"
+    },
+    "--dsw-alias-label-primary-bluish": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
+    "--dsw-alias-label-primary-dimmed": {
+      "light": "--dsh-text-secondary",
+      "dark": "--dsh-text-secondary"
+    },
     "--dsw-alias-label-primary-foreground": {
       "light": "--dsh-on-accent",
       "dark": "--dsh-on-accent"
     },
-    "--dsw-alias-interactive-bg-hover": {
-      "light": "--dsh-bg-hover",
-      "dark": "--dsh-bg-hover"
+    "--dsw-alias-label-primary-inverted": {
+      "light": "--dsh-bg-base",
+      "dark": "--dsh-bg-base"
     },
-    "--dsw-alias-interactive-bg-active": {
+    "--dsw-alias-label-secondary": {
+      "light": "--dsh-text-secondary",
+      "dark": "--dsh-text-secondary"
+    },
+    "--dsw-alias-label-tertiary": {
+      "light": "--dsh-text-tertiary",
+      "dark": "--dsh-text-tertiary"
+    },
+    "--dsw-alias-link": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
+    "--dsw-alias-markdown-citation": {
+      "light": "--dsh-bg-subtle",
+      "dark": "--dsh-bg-subtle"
+    },
+    "--dsw-alias-markdown-code-block": {
+      "light": "--dsh-code-bg",
+      "dark": "--dsh-code-bg"
+    },
+    "--dsw-alias-markdown-code-block-banner": {
+      "light": "--dsh-code-bg",
+      "dark": "--dsh-code-bg"
+    },
+    "--dsw-alias-markdown-code-segment-selected": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
+    },
+    "--dsw-alias-markdown-code-segment-unselected": {
+      "light": "--dsh-code-bg",
+      "dark": "--dsh-code-bg"
+    },
+    "--dsw-alias-markdown-inline-code": {
+      "light": "--dsh-code-bg",
+      "dark": "--dsh-code-bg"
+    },
+    "--dsw-alias-markdown-placeholder": {
+      "light": "--dsh-code-bg",
+      "dark": "--dsh-code-bg"
+    },
+    "--dsw-alias-markdown-tag": {
+      "light": "--dsh-bg-subtle",
+      "dark": "--dsh-bg-subtle"
+    },
+    "--dsw-alias-scrollbar-bg-l1": {
+      "light": "--dsh-border-strong",
+      "dark": "--dsh-border-strong"
+    },
+    "--dsw-alias-scrollbar-bg-l2": {
+      "light": "--dsh-border-strong",
+      "dark": "--dsh-border-strong"
+    },
+    "--dsw-alias-scrollbar-hover-l1": {
+      "light": "--dsh-text-tertiary",
+      "dark": "--dsh-text-tertiary"
+    },
+    "--dsw-alias-scrollbar-hover-l2": {
+      "light": "--dsh-text-tertiary",
+      "dark": "--dsh-text-tertiary"
+    },
+    "--dsw-alias-state-business-primary": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
+    "--dsw-alias-state-business-tertiary": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-state-error-primary": {
+      "light": "--dsh-danger",
+      "dark": "--dsh-danger"
+    },
+    "--dsw-alias-state-error-secondary": {
+      "light": "--dsh-danger",
+      "dark": "--dsh-danger"
+    },
+    "--dsw-alias-state-idle-primary": {
+      "light": "--dsh-text-tertiary",
+      "dark": "--dsh-text-tertiary"
+    },
+    "--dsw-alias-state-success-primary": {
+      "light": "--dsh-success",
+      "dark": "--dsh-success"
+    },
+    "--dsw-alias-state-success-secondary": {
+      "light": "--dsh-success",
+      "dark": "--dsh-success"
+    },
+    "--dsw-alias-state-warn-label": {
+      "light": "--dsh-warning",
+      "dark": "--dsh-warning"
+    },
+    "--dsw-alias-state-warn-primary": {
+      "light": "--dsh-warning",
+      "dark": "--dsh-warning"
+    },
+    "--dsw-alias-state-warn-secondary": {
+      "light": "--dsh-warning",
+      "dark": "--dsh-warning"
+    },
+    "--dsw-alias-toast-bg": {
       "light": "--dsh-bg-active",
       "dark": "--dsh-bg-active"
     },
-    "--dsw-alias-interactive-bg-hover-accent": {
+    "--dsw-alias-specific-bubble": {
       "light": "--dsh-accent-subtle",
       "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-specific-bubble-highlight": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-specific-input-major": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
+    },
+    "--dsw-alias-specific-login-input": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
+    },
+    "--dsw-alias-specific-menu": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
+    },
+    "--dsw-alias-specific-selector": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
+    },
+    "--dsw-alias-specific-sidebar-fill": {
+      "light": "--dsh-bg-subtle",
+      "dark": "--dsh-bg-subtle"
+    },
+    "--dsw-alias-specific-sidebar-nav-item-active": {
+      "light": "--dsh-accent-subtle",
+      "dark": "--dsh-accent-subtle"
+    },
+    "--dsw-alias-specific-sidebar-nav-item-active-accent": {
+      "light": "--dsh-accent",
+      "dark": "--dsh-accent"
+    },
+    "--dsw-alias-specific-sidebar-nav-item-hover": {
+      "light": "--dsh-bg-hover",
+      "dark": "--dsh-bg-hover"
+    },
+    "--dsw-alias-specific-tip": {
+      "light": "--dsh-bg-subtle",
+      "dark": "--dsh-bg-subtle"
+    },
+    "--dsw-hovercard-bg": {
+      "light": "--dsh-bg-surface",
+      "dark": "--dsh-bg-surface"
     }
   }
 }

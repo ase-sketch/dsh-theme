@@ -1,11 +1,11 @@
-# dsh-theme 交接文档（2026-10-03 · M1 完成后）
+# dsh-theme 交接文档（2026-10-04 · M2 完成后）
 
-> 给下一个会话：本项目当前状态、继续施工所需的一切。读完这份直接开 M2，不需要重调研。
+> 给下一个会话：本项目当前状态、继续施工所需的一切。读完这份直接开 M3，不需要重调研。
 > 权威文档：docs/spec.md（范围）· docs/milestones.md（M1 ✅ / M2–M4 待做）· ARCHITECTURE.md（结构）· AGENTS.md（红线与命令）。
 
 ## 1. 一句话现状
 
-**M1 已完成并自动化验收通过**：dsh-ui 皮肤 v0.1.0（23 个官方 token 映射 × 明暗双套）已上架 $DSH_HOME/skins/dsh-ui/，激活态已写入，皮肤在 GUI 实页验证可应用/可还原/深色正常。git 基线 7a09034。**下一步 = M2 全量 L1 token 映射。**
+**M2 已完成并自动化验收通过**：映射表扩到 91 个官方 token × 明暗双套（15 组，跳过项显式决策见 mapping.json $comment 与归属笔记 2026-10-04-m2-full-l1-token-mapping），91 token × 明暗 + 根底色 Playwright 全量断言通过，明暗/还原切换正常。已同步上架，active=dsh-ui 不变。**下一步 = M3 组件级打磨与预览图（先裁定 font 全家 181 个映射不映射，见 milestones.md M2 备注）。**
 
 ## 2. 路线（为什么是这个形态）
 
@@ -54,14 +54,14 @@ Playwright 要点（脚本参考 .agents/shots/_e2e*.py，M1 实证可用）：
 - 进设置：pg.mouse.click(56, 869)；进皮肤面板：(373, 308)。
 - 卡片操作：DOM evaluate 找 textContent === 'dsh-ui Design Spec' 的叶元素 → scrollIntoView → 向上找含 button 的卡片容器 → 点「应用」（官方默认卡无按钮，用 API POST active:null 还原）。
 - 验证断言：html[data-dsh-skin]、getComputedStyle(document.body).backgroundColor（light 期望 rgb(247,250,255)、dark 期望 rgb(19,22,29)——dark 可手动 setAttribute 试）。
-- **验收后必须还原 web profile**：恢复 package.json / cordis.patch.yml 备份 → pnpm install → 停实例（job_kill）。
+- **验收后必须还原 web profile**：恢复 package.json / cordis.patch.yml 备份 → **删 node_modules/.pnpm/lock.yaml（pnpm 藏在这的 lockfile 副本会「复活」已移除的依赖，M2 实测被复活 3 次）** → 删 pnpm-lock.yaml → pnpm install → 停实例（job_kill 后还要确认端口真的空了，后台进程可能残留）。
 
-## 6. M2 施工要点（下一个里程碑）
+## 6. M3 施工要点（下一个里程碑）
 
-1. 扩 mapping.json：对照 contracts/official-tokens-v1.json 的 299 个 token 与 blue-fantasy/skin.css 的映射模式，把 dsh-ui 色板语义覆盖到可映射的全部 alias（bg/border/brand/button/label/interactive 各组）。
-2. 注意 blue-fantasy 的 --dsw-skin-scrim 模式（半透明面板）我们**不用**——dsh-ui 是纯色层次（蓝调画布 + 纯白卡片）。
-3. 构建 + 同步 + §5 验收（重点：与 dsh-ui preview/index.html 截图逐项对照）。
-4. M3 才碰 L2/L3（patches.css、预览图）；M2 只做 L1。
+1. 先裁定 M2 留下的口子：font 全家 181 个（排版非色板，且 --dsw-font-* shorthand 会覆盖分项，映射需扩构建脚本合成 shorthand 或只映分项实测优先级）；elevation/shadow/corner-shape 值类型确认后可映 --dsh-shadow-*/--dsh-radius-*。
+2. L2 语义选择器（data-dsh-surface/part）+ 必要 patches.css（L3）。
+3. preview/light.jpg + dark.jpg 皮肤卡预览图。
+4. 验收：与 dsh-ui preview/index.html 基准截图逐项对照（自动化 diff + 人工核看）；皮肤中心卡片显示预览图。
 
 ## 7. 架构边界：纯皮肤 vs 功能插件（二期选型）
 
@@ -70,6 +70,6 @@ Playwright 要点（脚本参考 .agents/shots/_e2e*.py，M1 实证可用）：
 ## 8. 环境状态快照
 
 - desktop profile：旧 dsh-theme bundle 已摘净（备份 .bak-20261004-cleanup-dsh-theme 在 profile 根）；skin-center 启用中；claude-style 行仍在（用户自行开关，与本皮肤互斥）。
-- web profile：已还原干净（M1 验收后）。
+- web profile：已还原干净（M2 验收后，含 .pnpm/lock.yaml 隐藏副本已清）。
 - $DSH_HOME/skin-center-active.json：active=dsh-ui（用户的桌面 GUI 刷新即生效）。
-- E:\dsh-theme：git master，基线 7a09034，工作区干净。.agents/shots/ 里是 M1 验收截图与脚本。
+- E:\dsh-theme：git master。.agents/shots/ 里是 M1+M2 验收截图与脚本（M2 脚本 _m2_verify.py 可直接复跑做回归）。
