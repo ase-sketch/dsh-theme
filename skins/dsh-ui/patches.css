@@ -1,0 +1,75 @@
+/* dsh-ui 皮肤 · L2/L3 层（手工维护，唯一数值来源仍是 dsh-ui/preview/index.html :root）
+ *
+ * 为什么需要这一层（M3 实测结论）：
+ * 皮肤中心的 loader 会把 skin.css 里的 --dsw-alias-* 声明派生到 shell 真正消费的
+ * 非 alias 命名空间（--dsw-specific-* = color-mix(bg-layer-1 60%, transparent)），
+ * 且 --dsw-radius-* 这类 shell 内部 token 不在 299 官方契约里、从不被覆盖。
+ * 结果：M2 的 L1 映射只换了色板，组件几何与浮起表面的实心色仍是官方值。
+ * 本文件因此做两件事：
+ *   ① 非 alias 命名空间的 token 重绑定（数值引用 skin.css 发射的 --dsh-*，不手抄）
+ *   ② 契约能表达的组件几何（半径/描边/指示条）与语义属性规则
+ * 规则一律引用 var(--dsh-*) / var(--dsw-*)；引用不存在的 --dsh-* 时构建期报错。
+ */
+
+/* ── ① 非 alias 命名空间：shell 实际消费的就是这些名字 ───────────────────── */
+
+:root,
+body {
+  /* 圆角语言（规范 §3） */
+  --dsw-radius-panel: var(--dsh-radius-xl);
+  --dsw-radius-lg: var(--dsh-radius-lg);
+  --dsw-radius-md: var(--dsh-radius-md);
+  --dsw-radius-sm: var(--dsh-radius-sm);
+
+  /* 浮起表面：规范 §6.2 输入卡 = 纯白卡片，§6.1 侧栏 = 淡蓝衬底 */
+  --dsw-specific-input-major: var(--dsh-input-bg);
+  --dsw-specific-login-input: var(--dsh-input-bg);
+  --dsw-specific-menu: var(--dsh-menu-bg);
+  --dsw-specific-selector: var(--dsh-card-bg);
+  --dsw-specific-sidebar-fill: var(--dsh-sidebar-bg);
+  --dsw-specific-bubble: var(--dsh-bubble-user-bg);
+  --dsw-specific-bubble-highlight: var(--dsh-bubble-user-bg);
+}
+
+/* ── ② L2 语义属性规则 ─────────────────────────────────────────────────── */
+
+/* §6.1 侧栏主按钮 = 实心 primary（shell 默认是描边 elevated 样式） */
+[data-dsh-part="new-session"] {
+  min-height: var(--dsh-btn-block-h);
+  border: 0;
+  border-radius: var(--dsh-radius-md);
+  background: var(--dsw-alias-button-primary-fill);
+  color: var(--dsw-alias-label-primary-foreground);
+}
+[data-dsh-part="new-session"]:hover:not(:disabled) {
+  background: var(--dsw-alias-button-primary-hover);
+}
+
+/* §6.1 会话选中态 = bg-active + 左缘指示条 */
+[data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"] {
+  background: var(--dsh-bg-active);
+  box-shadow: inset var(--dsh-indicator-w) 0 0 0 var(--dsh-accent);
+}
+
+/* §6.2 输入卡：静态用描边不用阴影；聚焦给品牌色描边 + 中档阴影 */
+[data-dsh-surface="composer"] [class*="card"] {
+  border: var(--dsh-border-w) solid var(--dsw-alias-border-l1);
+  box-shadow: none;
+}
+[data-dsh-surface="composer"] [class*="card"]:focus-within {
+  border-color: var(--dsw-alias-brand-primary);
+  box-shadow: var(--dsh-shadow-md);
+}
+
+/* ── ③ L3 全局规则（无语义属性可锚，按契约纪律最小化） ─────────────────── */
+
+/* §6.1 侧栏分隔线用 subtle 档（shell 用了更重的 l3） */
+[class*="sidebarCol"] {
+  border-right: var(--dsh-border-w) solid var(--dsw-alias-border-l1);
+}
+
+/* §3 聚焦态：品牌色 1.5px + 2px 外晕位 */
+:focus-visible {
+  outline: var(--dsh-focus-w) solid var(--dsw-alias-brand-primary);
+  outline-offset: var(--dsh-focus-halo);
+}
