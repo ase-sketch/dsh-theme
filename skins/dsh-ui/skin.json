@@ -4,10 +4,10 @@
   "id": "dsh-ui",
   "name": "dsh-ui 设计规范",
   "nameEn": "dsh-ui Design Spec",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "pass (dsh-ui project)",
   "tagline": "蓝调画布 · DeepSeek 品牌蓝 · 明暗双套",
-  "description": "按 E:\\dsh-ui 设计规范生成的皮肤：蓝调画布 + 纯白卡片层次、DeepSeek 品牌蓝主色、明暗双套 token 全部由规范 preview :root 构建生成。",
+  "description": "按 E:\\dsh-ui 设计规范生成的皮肤：蓝调画布 + 纯白卡片层次、DeepSeek 品牌蓝主色、明暗双套 token 全部由规范 preview :root 构建生成；L2/L3 层覆盖组件圆角、输入卡与侧栏表面、选中态指示条与聚焦环。",
   "tags": [
     "dsh-ui",
     "deepseek",
@@ -16,7 +16,12 @@
   ],
   "accent": "#4D6BFE",
   "order": 10,
+  "preview": {
+    "light": "preview/light.jpg",
+    "dark": "preview/dark.jpg"
+  },
   "contributes": {
-    "stylesheet": "skin.css"
+    "stylesheet": "skin.css",
+    "patches": "patches.css"
   }
 }

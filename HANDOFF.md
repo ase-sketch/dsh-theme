@@ -1,11 +1,11 @@
-# dsh-theme 交接文档（2026-10-04 · M2 完成后）
+# dsh-theme 交接文档（2026-10-04 · M3 完成后）
 
-> 给下一个会话：本项目当前状态、继续施工所需的一切。读完这份直接开 M3，不需要重调研。
+> 给下一个会话：本项目当前状态、继续施工所需的一切。读完这份直接开 M4，不需要重调研。
 > 权威文档：docs/spec.md（范围）· docs/milestones.md（M1 ✅ / M2–M4 待做）· ARCHITECTURE.md（结构）· AGENTS.md（红线与命令）。
 
 ## 1. 一句话现状
 
-**M2 已完成并自动化验收通过**：映射表扩到 91 个官方 token × 明暗双套（15 组，跳过项显式决策见 mapping.json $comment 与归属笔记 2026-10-04-m2-full-l1-token-mapping），91 token × 明暗 + 根底色 Playwright 全量断言通过，明暗/还原切换正常。已同步上架，active=dsh-ui 不变。**下一步 = M3 组件级打磨与预览图（先裁定 font 全家 181 个映射不映射，见 milestones.md M2 备注）。**
+**M3 已完成并自动化验收通过**：组件层（patches.css = L2 语义属性规则 + L3 兜底 + 非 alias 命名空间 token 重绑定）落地，输入卡/侧栏/主按钮/选中态/设置面板几何与 preview 基准逐项一致（24 条断言 + 跨页对照，仅 1 项可接受偏差），皮肤卡已显示 preview/light.jpg + dark.jpg。**下一步 = M4 收口（README、三件套补齐、决策笔记归档、用户真机验收）；已知缺口见 milestones.md M3 备注与归属笔记。**
 
 ## 2. 路线（为什么是这个形态）
 
