@@ -17,11 +17,12 @@
 - 验收证据：① _m3_verify.py 24 条断言全绿（输入卡 20px 白底 1px 描边、侧栏纯色 + subtle 分隔线、新建会话实心主按钮、会话选中 bg-active + 2px 品牌色指示条、设置面板 20px，明暗双套）；② _m3_compare.py 与 preview 基准逐项对照，5 组件 × bg/radius/border 仅剩 1 项可接受偏差（GUI「预览版」徽章多 1px 近同色描边）；③ 构建守卫负控制已证明会红；④ 皮肤卡加载 preview/light.jpg（natural 1440×900）。截图 m3-*.png。
 - 关键发现：皮肤中心把 --dsw-alias-* 派生到 shell 实际消费的非 alias 命名空间（--dsw-specific-*），且 --dsw-radius-* 不在 299 契约内——这是 M2 只改色板、改不动组件几何的根因。
 - 用户裁定：font 全家 181 个不纳入本期（官方 72 处 font: shorthand 消费使「只映分项」自相矛盾；全量接管会作废本期截图基线）。
-- 已知缺口（M4 候选）：模型档位 pill 无稳定语义属性（需向 dsh-ui 提 data-dsh-part）；font 排版层未接管；卡片预览图缩放后细节偏小。
+- 已知缺口（**M5/二期候选**，不在 M4 范围）：模型档位 pill 无稳定语义属性（需向 dsh-ui 提 data-dsh-part）；font 排版层未接管；卡片预览图缩放后细节偏小；对 loader 派生区的隐式依赖需回归。
 
-## M4 收口
-- 产出：README（启用条件/应用方法/与 claude-style 互斥说明）、三件套补齐、决策笔记归档、用户真机验收。
-- 验收：应用 → 日常使用 → 切回官方默认，全链路用户确认。
+## M4 收口 —— ⏳ 自动化部分完成（2026-10-04），待用户真机验收
+- 产出：README.md（先讲怎么用：启用条件 / 试穿·应用·切回 / 换机器安装 / 构建链 / 验证 / 已知缺口）；三件套补齐（AGENTS.md Quick Commands 分快慢两层、ARCHITECTURE.md 回写 M3 边界、.agents/notes/ 归档 M1 bundle 笔记至 archived/ 并更新 Status）；仓库清理（移除误跟踪的 _instance_url.txt——含实例 token，.gitignore 加规则防复发）。
+- 验收证据（自动化部分，2026-10-04 重跑）：隔离实例跑 _m2_verify.py（91 token × 明暗 + 根底色全绿）、_m3_verify.py（组件层 24 断言全绿）、_m3_compare.py（与 preview 基准逐项对照，仅 1 项已知可接受偏差）；快层构建 + 守卫通过。
+- 待用户完成：真机验收清单（HANDOFF.md §9）——应用 → 日常使用 → 切回官方默认，全链路确认。
 ## M5 插件化（终局，用户 2026-10-03 明确方向）
 - 前置：先根因 2026-10-03 自制 bundle client 半未激活问题（对照 skin-center 的 client inject 声明与装配源码，活样本在本机）。
 - 产出：自研皮肤插件（bundle 形态参照 dsh-claude-style）：样式层复用 mapping.json 与构建链注入全量视觉；功能层 = Deepy 状态机（design-spec §7.2 事件映射）+ 设置面板开关。

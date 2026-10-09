@@ -156,7 +156,7 @@ E:\dsh-theme\
 ├─ ARCHITECTURE.md         结构地图
 ├─ docs/spec.md            范围权威
 ├─ docs/milestones.md      M1–M4 里程碑与验收
-└─ .agents/notes/implemented/feature/2026-10-03-m1-hello-skin-wiring.md
+└─ .agents/notes/archived/feature/2026-10-03-m1-bundle-wiring.md（2026-10-04 随路线废弃归档）
 ```
 
 ---

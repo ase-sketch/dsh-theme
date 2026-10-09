@@ -4,9 +4,14 @@
 
 ## Quick Commands
 
-- 构建皮肤：`node scripts/build-skin.mjs`（从 dsh-ui/preview/index.html :root 生成 skin.css：91 契约 token + 99 个 --dsh-* 变量；同时校验 patches.css 的 var() 引用）
-- 同步上架：`node scripts/sync-skin.mjs`（skins/dsh-ui/ → C:\Users\pass\.dsh\skins\dsh-ui\）
-- 验证：隔离 web profile 实例 + Playwright（完整流程见 HANDOFF.md §5；桌面 GUI 有 token 认证，勿硬闯）
+**快层（秒级，改完随时跑）**
+
+- 构建 + 守卫校验：`node scripts/build-skin.mjs`（从 dsh-ui/preview/index.html :root 生成 skin.css：91 契约 token + 99 个 --dsh-* 变量；校验 patches.css 的 var() 引用与 shell 保留变量重名）
+
+**全量层（收口用）**
+
+- 同步上架：`node scripts/sync-skin.mjs`（skins/dsh-ui/ → C:\Users\pass\.dsh\skins\dsh-ui\，含 preview/ 子目录）
+- 验收：隔离 web profile 实例 + Playwright 跑 `.agents/shots/_m2_verify.py` / `_m3_verify.py` / `_m3_compare.py`（完整起停与还原流程见 HANDOFF.md §5；桌面 GUI 有 token 认证，勿硬闯）
 
 ## 项目红线
 
