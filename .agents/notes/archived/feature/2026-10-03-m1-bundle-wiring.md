@@ -1,6 +1,6 @@
-# Agent Note: M1 注入链路契约（bundle → client → 页面）
+# Agent Note: M1 注入链路契约（bundle → client → 页面）【已归档】
 
-Status: implemented — M1 落地，desktop 装机待用户重启确认
+Status: archived — 该路线 2026-10-03 被皮肤目录路线取代（见 .agents/notes/implemented/feature/2026-10-03-project-scope-and-tech-route.md 修订段），遗物在 .agents/retired/2026-10-03-m1-bundle/。本笔记保留为失败证据：它记录的 client 半加载契约仍然真实，但已无施工价值。
 
 ## Problem
 
