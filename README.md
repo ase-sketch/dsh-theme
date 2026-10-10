@@ -27,11 +27,22 @@
 
 把整个 `skins/dsh-ui/` 目录拷到 `$DSH_HOME/skins/`（本机 = `C:\Users\pass\.dsh\skins\`），刷新 GUI 即出现在皮肤列表里。
 
+### 插件期（M5 已可用 · 本地自用）
+
+这套视觉已做成**自研插件** `dsh-theme`（bundle 形态），web profile 自动化验收通过（明暗双套 + 设置面板开关 + 卸载还原）。用它而不是皮肤卡时：
+
+- **启用**：插件已装进 desktop profile（待机禁用态）——重启 DSH，设置 → Plugins 里启用 `dsh-theme`，然后到设置页的「dsh-theme 主题」面板拨开关（默认开）。
+- **自带设置面板开关**——拨一下就生效/停用，状态由插件落盘、跨重启保持，不用再进皮肤中心切卡片。
+- **皮肤卡仍然保留**，作为回退通道：不想用插件时，关掉插件开关（或禁用插件），装回皮肤卡照旧用。
+- **别让两套同时生效**：插件启用时会自动把 skin-center 的皮肤切回官方默认；手动再开皮肤卡会双注入、互相打架。
+- 与 **dsh-claude-style 的互斥不变**：用本主题时它必须关闭。
+- 改了插件源码要**重装才生效**（file: 依赖是复制语义）：在 desktop profile 里重跑 `pnpm install` 或重新指 file: 依赖。
+
 ---
 
 ## 它改了什么
 
-皮肤是**纯资产目录**——不写插件、不接任何可执行代码，只有 CSS 与图片：
+M1–M4 的皮肤卡是**纯资产目录**——不写插件、不接任何可执行代码，只有 CSS 与图片；插件期换的是**注入方式**，视觉本身不变：
 
 - **L1 色板层**：91 个官方 `--dsw-*` token 重映射（明暗双套），值全部取自 dsh-ui 规范的 `:root`。
 - **L2/L3 组件层**：输入卡（20px 圆角白卡 + 1px 描边 + 聚焦品牌色）、侧栏（纯色衬底 + subtle 分隔线）、新建会话（实心主按钮）、会话选中态（底色 + 2px 品牌色左缘指示条）、设置面板圆角、聚焦环。
@@ -43,7 +54,7 @@
 |---|---|
 | 模型档位 pill | 规范里档位选择器是浅蓝胶囊，GUI 里该控件只有哈希类名、无语义属性可锚——按契约纪律不硬上，待上游补 `data-dsh-part`。 |
 | 排版层（font） | 181 个 font token 未接管，GUI 仍是官方字号体系（官方有 72 处 `font:` 简写消费，局部映射会自相矛盾）。 |
-| loader 派生区依赖 | 组件层依赖皮肤中心把 `--dsw-alias-*` 派生到非 alias 命名空间的行为；loader 升级后需重跑验收脚本回归。 |
+| loader 派生区依赖 | 组件层依赖皮肤中心把 `--dsw-alias-*` 派生到非 alias 命名空间的行为；loader 升级后需重跑验收脚本回归。插件期会把这层派生显式复刻进插件版 CSS，不再吃这层隐式行为。 |
 | 卡片预览图 | 1440×900 缩到卡片尺寸后细节偏小，可考虑更聚焦的构图。 |
 
 ---
@@ -65,7 +76,7 @@ node scripts/sync-skin.mjs
 ## 验证
 
 - **快层（秒级，随时跑）**：`node scripts/build-skin.mjs` —— 顺带校验 `patches.css` 引用存在、与 shell 自有变量不重名。
-- **全量层（隔离实例 + Playwright）**：`.agents/shots/_m2_verify.py`（91 token × 明暗全量断言）、`_m3_verify.py`（组件层断言）、`_m3_compare.py`（与 dsh-ui preview 基准逐项对照）。完整起停流程见 [HANDOFF.md](HANDOFF.md) §5。
+- **全量层（隔离实例 + Playwright）**：`.agents/shots/_m2_verify.py`（91 token × 明暗全量断言）、`_m3_verify.py`（组件层断言）、`_m3_compare.py`（与 dsh-ui preview 基准逐项对照）。完整起停流程见 [HANDOFF.md](HANDOFF.md) §8。
 
 ---
 
@@ -76,6 +87,7 @@ node scripts/sync-skin.mjs
 | `skins/dsh-ui/` | 皮肤源目录（skin.json 清单 + 生成的 skin.css + 手写 patches.css + preview/ 预览图） |
 | `mapping.json` | L1 映射表（dsh-ui token → 官方 `--dsw-*`，人工策展） |
 | `scripts/` | 构建与同步脚本 |
+| `plugins/dsh-theme/` | 自研 bundle 插件（M5 在建：host 半 = 开关持久化，client 半 = 样式注入 + 设置面板） |
 | [AGENTS.md](AGENTS.md) | 项目规矩与 Quick Commands |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 结构地图（改动该落在哪） |
 | [.agents/notes/](.agents/notes/) | 决策史（目录树即索引） |

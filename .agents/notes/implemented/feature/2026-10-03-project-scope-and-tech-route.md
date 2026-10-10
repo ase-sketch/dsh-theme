@@ -30,7 +30,7 @@ M1 验收（GUI 变色 + 卸载还原）直接验证路线可行性；M2 起注�
 
 ## 修订（2026-10-03 二轮调研）：技术路线推翻——改走 skin-center 皮肤目录
 
-**原路线（自建 bundle 插件）已废弃。** M1 实践中装配四层全绿但 client 半始终未在页面执行（GUI 颜色从未变化，用户两次重启无效），且同轮深读发现决定性问题：**skin-center（@linxin666/dsh-client-ui-skin-center v0.4.4）才是本机皮肤生态的正解**——皮肤是纯资产目录（skin.json v2 + skin.css + 可选 patches.css），由它做唯一加载器/渲染器，用户皮肤放 $DSH_HOME/skins/<id>/ 即收录，应用/试穿原子切换、不刷新不重启；desktop profile 中它本就已启用（cordis 后层 disabled:false 覆盖前层 true）。官方 --dsw-* token 契约（299 个，contracts/official-tokens-v1.json）+ L2 语义属性 + L3 patches 覆盖能力完整。
+**原路线（自建 bundle 插件）已废弃。** M1 实践中装配四层全绿但 client 半始终未在页面执行（GUI 颜色从未变化，用户两次重启无效；**此诊断已被下方修订三推翻——不是没激活，是激活后被自己立刻撤掉**），且同轮深读发现决定性问题：**skin-center（@linxin666/dsh-client-ui-skin-center v0.4.4）才是本机皮肤生态的正解**——皮肤是纯资产目录（skin.json v2 + skin.css + 可选 patches.css），由它做唯一加载器/渲染器，用户皮肤放 $DSH_HOME/skins/<id>/ 即收录，应用/试穿原子切换、不刷新不重启；desktop profile 中它本就已启用（cordis 后层 disabled:false 覆盖前层 true）。官方 --dsw-* token 契约（299 个，contracts/official-tokens-v1.json）+ L2 语义属性 + L3 patches 覆盖能力完整。
 
 **新路线**：皮肤目录（skins/dsh-ui/）+ 映射表（dsh-ui→--dsw-*，人工策展）+ 构建脚本生成 skin.css + 同步到 $DSH_HOME/skins/。原「借形态不 fork」与「静态先行」决策保留；原「bundle 骨架」决策被本条取代。旧 bundle 遗物退役至 .agents/retired/2026-10-03-m1-bundle/，profile 装配残留已清理（备份 .bak-20261004-cleanup-dsh-theme），HANDOFF-M1.md 标 SUPERSEDED 留证。
 
@@ -38,4 +38,14 @@ M1 验收（GUI 变色 + 卸载还原）直接验证路线可行性；M2 起注�
 
 ## 修订二（2026-10-03）：终局定位 = 自研皮肤插件
 
-用户明确：纯皮肤不足以承载目标形态（需要样式之外的自有功能与插件页开关），后期必走皮肤插件。据此：纯皮肤降级为**过渡路线**（M1–M3 价值 = 低成本完成 token 映射策展与视觉验收，产出物路线无关可复用）；**终局 = 自研皮肤插件**（M5，样式 + Deepy 状态机 + 设置开关，形态参照 dsh-claude-style）。插件期开工前置条件 = 根因自制 bundle client 半未激活问题（本机有 skin-center 活样本对照）。上架官方市场的皮肤 hooks 路线降级为分发期备选。
+用户明确：纯皮肤不足以承载目标形态（需要样式之外的自有功能与插件页开关），后期必走皮肤插件。据此：纯皮肤降级为**过渡路线**（M1–M3 价值 = 低成本完成 token 映射策展与视觉验收，产出物路线无关可复用）；**终局 = 自研皮肤插件**（M5，样式 + Deepy 状态机 + 设置开关，形态参照 dsh-claude-style；**注：M5 范围已于 2026-10-10 收窄为「样式注入 + 设置面板开关」，Deepy 归二期，见修订三**）。插件期开工前置条件 = 根因自制 bundle client 半未激活问题（本机有 skin-center 活样本对照；根因已于 2026-10-10 查明，见修订三）。上架官方市场的皮肤 hooks 路线降级为分发期备选。
+
+## 修订三（2026-10-10）：M1「client 半未激活」诊断被推翻，M5 形态与范围落定
+
+**M1 的诊断结论错了。** 上一条修订把「client 半始终未在页面执行」连同「装配四层全绿」一并记为 bundle 路线不可行的证据，该证据作废。真相不是「没激活」，而是**激活了又被自己立刻撤掉**：M1 把卸载代码当成了 `ctx.effect` 的 effect body 传进去，而 Cordis 的 `effect(execute)` 会立即执行 execute、只把它的**返回值**登记为 disposer，于是刚注入的 `<style>` 与根属性在同一毫秒被这段「本该只在卸载时跑」的代码删掉；返回值 `undefined` 属合法形态，平台不报任何错。证据链（源码契约 + 运行时栈 + 模块系统内部状态 + 变异证伪由红转绿 + 未装插件的负控制）见 HANDOFF.md §3.4；实验产物 `.agents/tmp/m5-rootcause/REPORT.md` 目前是**未跟踪的临时产物**，长期归档仍待办。**更正（2026-10-10 D4 探针门发现）**：变异实验的 `falsify-fixedonly.png` 与负控制截图逐字节相同（md5 一致），**不能作为视觉证据**——shell 自带不透明白层（#root/.BynINW_frame）盖住 body，body 背景永不入像素；三行断言证据不受影响、仍然有效。教训：视觉结论必须有「绿灯截图 ≠ 负控制截图」的 md5 对照打底。教训与上一条的教训同类：**mock 掉了被验证对象本身**——M1 的单测用假 ctx（`{ effect(fn){…} }`）重定义了 effect 语义，3/3 全绿却漏掉真实契约。
+
+**形态选型落定 A（本地 bundle 插件）**：只有 A 同时满足已裁定的能力（样式注入 + 自有设置开关），且二期 Deepy 需要的事件钩子只有 A 的 host/client 双面拿得到；本机两个活样本（skin-center、dsh-claude-style）声明形状一致可对照。分发先本地自用（desktop profile），官方市场上架留后续里程碑。Plan B：若 A 的 client 半激活再次不通，退化为「host 半 HTTP 路由 + 皮肤目录 patches.css」、开关做成 skin-center 的既有能力，代价是放弃自有设置面板与二期事件钩子。
+
+**M5 范围 = 样式注入 + 设置面板开关**（用户 2026-10-10 裁定），Deepy 状态机归二期。本笔记开头「第一期静态皮肤先行、Deepy 状态机第二期」的排期不变，但**第二期的技术前提变了**：不再是「本地皮肤无 hooks 执行权、需评估官方市场渠道」，而是插件经 `ctx.on` + SessionEventStream 拿得到会话事件，映射 design-spec §7.2 即可。
+
+**bundle 形态本身从未被否定，被否的是 M1 的写法。** 2026-10-03 修订里「自建 bundle 插件路线已废弃」的适用范围限于 M1–M4 纯皮肤期；.agents/retired/2026-10-03-m1-bundle/ 仍是坑（其 ctx.effect 用法即上述根因），勿复活的是旧写法，不是形态。

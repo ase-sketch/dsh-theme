@@ -1,0 +1,11 @@
+# dsh-theme bundle patch：把本插件的 dsh.client 行插进 web roster。
+#
+# 这一行就是全部接线。name 解析到已安装的包，loader 随后读该包的 exports["./client"]，
+# 所以浏览器半按包名寻址，绝不写进 checkout 的路径。
+#
+# disabled 只写静态 true/false —— 不依赖 !!js 表达式求值（postmortem 0002：元数据字段上的
+# 表达式对象恒为 truthy，会让插件永久禁用且无任何诊断）。整体禁用 = 把 false 改成 true。
+- insert:
+    - id: ui-skin-dsh-theme
+      name: 'dsh-theme'
+      disabled: false
