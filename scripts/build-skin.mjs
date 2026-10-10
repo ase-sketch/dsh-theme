@@ -1,12 +1,17 @@
 // build-skin.mjs — 从 dsh-ui/preview/index.html :root 按 mapping.json 生成 skins/dsh-ui/skin.css
 // 红线：skin.css 是生成物，禁止手改；视觉数值只准来自 preview :root。
 // M3 起额外发射 --dsh-* 变量全集，供 patches.css（L2/L3）以 var() 引用，避免手抄数值。
+// M5 起额外产出 plugins/dsh-theme/assets/theme.css —— 插件版自包含样式（见文件末 §M5 段）。
 import fs from 'node:fs'
 
 const PREVIEW = 'E:/dsh-ui/preview/index.html'
 const MAPPING = new URL('../mapping.json', import.meta.url)
 const OUT = new URL('../skins/dsh-ui/skin.css', import.meta.url)
 const PATCHES = new URL('../skins/dsh-ui/patches.css', import.meta.url)
+// M5：插件版自包含样式的产出位置
+const PLUGIN_THEME = new URL('../plugins/dsh-theme/assets/theme.css', import.meta.url)
+// 插件版的作用域头：html[data-dsh-theme] body 的特异性是 (0,0,1,2)，稳定胜出官方 body{--dsw-*} 的 (0,0,0,1)
+const PLUGIN_SCOPE = 'html[data-dsh-theme]'
 
 // shell 自己声明并消费的 --dsh-* 变量：皮肤发射同名变量会打架，构建期直接拒绝
 const SHELL_RESERVED = new Set([
@@ -70,3 +75,417 @@ css += '}\n'
 
 fs.writeFileSync(OUT, css)
 console.log('skin.css 生成：' + Object.keys(mapping.tokens).length + ' 个 token × 明暗双套 + 根底色 + ' + Object.keys(light).length + ' 个 --dsh-* 变量 ' + patchesGuard)
+
+
+// ── M5 §A：loader 变换的显式复刻（作用域化 + token 派生） ─────────────────────
+//
+// 为什么需要（HANDOFF.md §6.2）：纯皮肤期皮肤由 skin-center loader 代注入，loader
+// 在服务端对每份样式做了一次 transform —— 作用域重写 + 裸 :root 的 token 重置 +
+// token 克隆到 body + 对"皮肤未声明的官方 token"的 color-mix 派生
+// （skin-center lib/index.js:2245 transformSkinCss / :1979 deriveFallbackTokens）。
+// 插件自注入时这一层不存在，原样塞 skin.css 会让 patches.css 约一半规则失去前提。
+// 本段把这层变换复刻成构建期产物，使 theme.css 自包含、不依赖 skin-center 行为。
+//
+// 复刻条目（与 loader 逐条对齐）：
+//   ① 选择器按 scope 重写：:root/html 并入 scope；body 与裸 [data-ds-*] 头降为后代；
+//      其余一律降为后代。
+//   ② 裸 :root 块里的 --dsw-alias-* / --dsw-specific-* 在 scope 上重置为 initial
+//      （!important）—— 防止 html 上的亮色 token 被暗色 body 继承（loader 注释 #646）。
+//   ③ 同一批 token + background-color/background-image 克隆到 "<scope> body"，
+//      让官方 body{--dsw-*}（0,0,0,1）被 <scope> body（0,0,1,2）稳定压过。
+//   ④ deriveFallbacks 打开时，对官方 token 表中 skin.css 未声明的 token 按组派生
+//      color-mix(in srgb, var(<anchor>) <alpha>%, transparent)。
+
+/** 官方 shell 的 --dsw-* 自定义属性全集（299 条，静态色板除外）。
+ *  来源：skin-center lib/index.js:1605 OFFICIAL_TOKENS（其自身由官方 asar 快照生成）。
+ *  只用于判定"皮肤没声明哪些 token"，不引入任何数值。 */
+const OFFICIAL_TOKENS = [
+  '--dsw-alias-bg-base', '--dsw-alias-bg-document-preview', '--dsw-alias-bg-layer-1', '--dsw-alias-bg-layer-2',
+  '--dsw-alias-bg-layer-3', '--dsw-alias-bg-layer-4', '--dsw-alias-bg-mask-1', '--dsw-alias-bg-mask-2',
+  '--dsw-alias-bg-mask-3', '--dsw-alias-bg-mask-drop', '--dsw-alias-bg-mask-photo', '--dsw-alias-bg-module-platform',
+  '--dsw-alias-bg-multi-select', '--dsw-alias-bg-overlay', '--dsw-alias-bg-skeleton', '--dsw-alias-border-inverted',
+  '--dsw-alias-border-inverted2', '--dsw-alias-border-l1', '--dsw-alias-border-l2', '--dsw-alias-border-l2-darkmode-thin',
+  '--dsw-alias-border-l3', '--dsw-alias-border-l4', '--dsw-alias-brand-primary', '--dsw-alias-brand-primary-invert',
+  '--dsw-alias-brand-primary-new-colorprimary-new-color', '--dsw-alias-brand-text', '--dsw-alias-button-contrast-fill', '--dsw-alias-button-elevated-fill',
+  '--dsw-alias-button-floating-fill', '--dsw-alias-button-floating-hover', '--dsw-alias-button-ghost-active-border', '--dsw-alias-button-ghost-active-fill',
+  '--dsw-alias-button-ghost-active-hover', '--dsw-alias-button-info-fill', '--dsw-alias-button-info-hover', '--dsw-alias-button-primary-dimmed',
+  '--dsw-alias-button-primary-fill', '--dsw-alias-button-primary-hover', '--dsw-alias-button-tool-bar-fill', '--dsw-alias-button-tool-bar-fill-invisible',
+  '--dsw-alias-button-tool-bar-hover', '--dsw-alias-code-diff-added', '--dsw-alias-code-diff-deleted', '--dsw-alias-file-diff-added-bg',
+  '--dsw-alias-file-diff-added-gutter', '--dsw-alias-file-diff-added-marker', '--dsw-alias-file-diff-deleted-bg', '--dsw-alias-file-diff-deleted-gutter',
+  '--dsw-alias-file-diff-deleted-marker', '--dsw-alias-interactive-bg-active', '--dsw-alias-interactive-bg-hover', '--dsw-alias-interactive-bg-hover-accent',
+  '--dsw-alias-interactive-bg-hover-danger', '--dsw-alias-interactive-bg-hover-solid', '--dsw-alias-label-caption', '--dsw-alias-label-dimmed',
+  '--dsw-alias-label-document-preview', '--dsw-alias-label-error', '--dsw-alias-label-primary', '--dsw-alias-label-primary-bluish',
+  '--dsw-alias-label-primary-dimmed', '--dsw-alias-label-primary-foreground', '--dsw-alias-label-primary-inverted', '--dsw-alias-label-secondary',
+  '--dsw-alias-label-tertiary', '--dsw-alias-link', '--dsw-alias-markdown-citation', '--dsw-alias-markdown-code-block',
+  '--dsw-alias-markdown-code-block-banner', '--dsw-alias-markdown-code-segment-selected', '--dsw-alias-markdown-code-segment-unselected', '--dsw-alias-markdown-inline-code',
+  '--dsw-alias-markdown-placeholder', '--dsw-alias-markdown-tag', '--dsw-alias-scrollbar-bg-l1', '--dsw-alias-scrollbar-bg-l2',
+  '--dsw-alias-scrollbar-hover-l1', '--dsw-alias-scrollbar-hover-l2', '--dsw-alias-state-business-primary', '--dsw-alias-state-business-tertiary',
+  '--dsw-alias-state-error-primary', '--dsw-alias-state-error-secondary', '--dsw-alias-state-idle-primary', '--dsw-alias-state-success-primary',
+  '--dsw-alias-state-success-secondary', '--dsw-alias-state-success-tertiary', '--dsw-alias-state-warn-label', '--dsw-alias-state-warn-primary',
+  '--dsw-alias-state-warn-secondary', '--dsw-alias-state-warn-tertiary', '--dsw-alias-toast-bg', '--dsw-alias-tooltip-bg',
+  '--dsw-corner-shape', '--dsw-elevation-panel', '--dsw-elevation-prominent', '--dsw-elevation-soft',
+  '--dsw-elevation-stroke', '--dsw-elevation-stroke-color', '--dsw-font-base-16', '--dsw-font-base-16-font-family',
+  '--dsw-font-base-16-font-size', '--dsw-font-base-16-font-style', '--dsw-font-base-16-font-weight', '--dsw-font-base-16-line-height',
+  '--dsw-font-base-strong-16', '--dsw-font-base-strong-16-font-family', '--dsw-font-base-strong-16-font-size', '--dsw-font-base-strong-16-font-style',
+  '--dsw-font-base-strong-16-font-weight', '--dsw-font-base-strong-16-line-height', '--dsw-font-family', '--dsw-font-l-20',
+  '--dsw-font-l-20-font-family', '--dsw-font-l-20-font-size', '--dsw-font-l-20-font-style', '--dsw-font-l-20-font-weight',
+  '--dsw-font-l-20-line-height', '--dsw-font-m-18', '--dsw-font-m-18-font-family', '--dsw-font-m-18-font-size',
+  '--dsw-font-m-18-font-style', '--dsw-font-m-18-font-weight', '--dsw-font-m-18-line-height', '--dsw-font-markdown-base',
+  '--dsw-font-markdown-base-font-family', '--dsw-font-markdown-base-font-size', '--dsw-font-markdown-base-font-style', '--dsw-font-markdown-base-font-weight',
+  '--dsw-font-markdown-base-italic', '--dsw-font-markdown-base-italic-font-family', '--dsw-font-markdown-base-italic-font-size', '--dsw-font-markdown-base-italic-font-style',
+  '--dsw-font-markdown-base-italic-font-weight', '--dsw-font-markdown-base-italic-line-height', '--dsw-font-markdown-base-line-height', '--dsw-font-markdown-base-strong',
+  '--dsw-font-markdown-base-strong-font-family', '--dsw-font-markdown-base-strong-font-size', '--dsw-font-markdown-base-strong-font-style', '--dsw-font-markdown-base-strong-font-weight',
+  '--dsw-font-markdown-base-strong-italic', '--dsw-font-markdown-base-strong-italic-font-family', '--dsw-font-markdown-base-strong-italic-font-size', '--dsw-font-markdown-base-strong-italic-font-style',
+  '--dsw-font-markdown-base-strong-italic-font-weight', '--dsw-font-markdown-base-strong-italic-line-height', '--dsw-font-markdown-base-strong-line-height', '--dsw-font-markdown-code',
+  '--dsw-font-markdown-code-block', '--dsw-font-markdown-code-block-font-family', '--dsw-font-markdown-code-block-font-size', '--dsw-font-markdown-code-block-font-style',
+  '--dsw-font-markdown-code-block-font-weight', '--dsw-font-markdown-code-block-line-height', '--dsw-font-markdown-code-block-small', '--dsw-font-markdown-code-block-small-font-family',
+  '--dsw-font-markdown-code-block-small-font-size', '--dsw-font-markdown-code-block-small-font-style', '--dsw-font-markdown-code-block-small-font-weight', '--dsw-font-markdown-code-block-small-line-height',
+  '--dsw-font-markdown-code-font-family', '--dsw-font-markdown-code-font-size', '--dsw-font-markdown-code-font-style', '--dsw-font-markdown-code-font-weight',
+  '--dsw-font-markdown-code-line-height', '--dsw-font-markdown-h1', '--dsw-font-markdown-h1-font-family', '--dsw-font-markdown-h1-font-size',
+  '--dsw-font-markdown-h1-font-style', '--dsw-font-markdown-h1-font-weight', '--dsw-font-markdown-h1-line-height', '--dsw-font-markdown-h2',
+  '--dsw-font-markdown-h2-font-family', '--dsw-font-markdown-h2-font-size', '--dsw-font-markdown-h2-font-style', '--dsw-font-markdown-h2-font-weight',
+  '--dsw-font-markdown-h2-line-height', '--dsw-font-markdown-h3', '--dsw-font-markdown-h3-font-family', '--dsw-font-markdown-h3-font-size',
+  '--dsw-font-markdown-h3-font-style', '--dsw-font-markdown-h3-font-weight', '--dsw-font-markdown-h3-line-height', '--dsw-font-markdown-h4',
+  '--dsw-font-markdown-h4-font-family', '--dsw-font-markdown-h4-font-size', '--dsw-font-markdown-h4-font-style', '--dsw-font-markdown-h4-font-weight',
+  '--dsw-font-markdown-h4-line-height', '--dsw-font-markdown-small', '--dsw-font-markdown-small-font-family', '--dsw-font-markdown-small-font-size',
+  '--dsw-font-markdown-small-font-style', '--dsw-font-markdown-small-font-weight', '--dsw-font-markdown-small-italic', '--dsw-font-markdown-small-italic-font-family',
+  '--dsw-font-markdown-small-italic-font-size', '--dsw-font-markdown-small-italic-font-style', '--dsw-font-markdown-small-italic-font-weight', '--dsw-font-markdown-small-italic-line-height',
+  '--dsw-font-markdown-small-line-height', '--dsw-font-markdown-small-strong', '--dsw-font-markdown-small-strong-font-family', '--dsw-font-markdown-small-strong-font-size',
+  '--dsw-font-markdown-small-strong-font-style', '--dsw-font-markdown-small-strong-font-weight', '--dsw-font-markdown-small-strong-italic', '--dsw-font-markdown-small-strong-italic-font-family',
+  '--dsw-font-markdown-small-strong-italic-font-size', '--dsw-font-markdown-small-strong-italic-font-style', '--dsw-font-markdown-small-strong-italic-font-weight', '--dsw-font-markdown-small-strong-italic-line-height',
+  '--dsw-font-markdown-small-strong-line-height', '--dsw-font-markdown-table', '--dsw-font-markdown-table-font-family', '--dsw-font-markdown-table-font-size',
+  '--dsw-font-markdown-table-font-style', '--dsw-font-markdown-table-font-weight', '--dsw-font-markdown-table-head', '--dsw-font-markdown-table-head-font-family',
+  '--dsw-font-markdown-table-head-font-size', '--dsw-font-markdown-table-head-font-style', '--dsw-font-markdown-table-head-font-weight', '--dsw-font-markdown-table-head-line-height',
+  '--dsw-font-markdown-table-line-height', '--dsw-font-s-14', '--dsw-font-s-14-font-family', '--dsw-font-s-14-font-size',
+  '--dsw-font-s-14-font-style', '--dsw-font-s-14-font-weight', '--dsw-font-s-14-line-height', '--dsw-font-s-strong-14',
+  '--dsw-font-s-strong-14-font-family', '--dsw-font-s-strong-14-font-size', '--dsw-font-s-strong-14-font-style', '--dsw-font-s-strong-14-font-weight',
+  '--dsw-font-s-strong-14-line-height', '--dsw-font-xl-24', '--dsw-font-xl-24-font-family', '--dsw-font-xl-24-font-size',
+  '--dsw-font-xl-24-font-style', '--dsw-font-xl-24-font-weight', '--dsw-font-xl-24-line-height', '--dsw-font-xs-13',
+  '--dsw-font-xs-13-font-family', '--dsw-font-xs-13-font-size', '--dsw-font-xs-13-font-style', '--dsw-font-xs-13-font-weight',
+  '--dsw-font-xs-13-line-height', '--dsw-font-xs-strong-13', '--dsw-font-xs-strong-13-font-family', '--dsw-font-xs-strong-13-font-size',
+  '--dsw-font-xs-strong-13-font-style', '--dsw-font-xs-strong-13-font-weight', '--dsw-font-xs-strong-13-line-height', '--dsw-font-xxs-12',
+  '--dsw-font-xxs-12-font-family', '--dsw-font-xxs-12-font-size', '--dsw-font-xxs-12-font-style', '--dsw-font-xxs-12-font-weight',
+  '--dsw-font-xxs-12-line-height', '--dsw-font-xxs-strong-12', '--dsw-font-xxs-strong-12-font-family', '--dsw-font-xxs-strong-12-font-size',
+  '--dsw-font-xxs-strong-12-font-style', '--dsw-font-xxs-strong-12-font-weight', '--dsw-font-xxs-strong-12-line-height', '--dsw-font-xxxs-11',
+  '--dsw-font-xxxs-11-font-family', '--dsw-font-xxxs-11-font-size', '--dsw-font-xxxs-11-font-style', '--dsw-font-xxxs-11-font-weight',
+  '--dsw-font-xxxs-11-line-height', '--dsw-font-xxxs-strong-11', '--dsw-font-xxxs-strong-11-font-family', '--dsw-font-xxxs-strong-11-font-size',
+  '--dsw-font-xxxs-strong-11-font-style', '--dsw-font-xxxs-strong-11-font-weight', '--dsw-font-xxxs-strong-11-line-height', '--dsw-hovercard-bg',
+  '--dsw-linear-gradient-think', '--dsw-linear-think-select', '--dsw-mask-blur', '--dsw-menu-backdrop-filter',
+  '--dsw-shadow-lv1', '--dsw-shadow-lv1-blur', '--dsw-shadow-lv2', '--dsw-shadow-lv3',
+  '--dsw-specific-bubble', '--dsw-specific-bubble-highlight', '--dsw-specific-input-major', '--dsw-specific-login-input',
+  '--dsw-specific-menu', '--dsw-specific-selector', '--dsw-specific-sidebar-fill', '--dsw-specific-sidebar-nav-item-active',
+  '--dsw-specific-sidebar-nav-item-active-accent', '--dsw-specific-sidebar-nav-item-hover', '--dsw-specific-tip',
+];
+
+const ROOT_BODY_TOKEN = /^(?:--dsw-alias-|--dsw-specific-)/
+const HEAD_DATA_DS = /^\[data-ds-[a-z0-9-]+/
+
+/** 顶层逗号切分（括号/中括号/字符串感知）。 */
+function splitSelectors(selectorText) {
+  const parts = []
+  let parens = 0, brackets = 0, quote = null, current = ''
+  for (let i = 0; i < selectorText.length; i += 1) {
+    const ch = selectorText[i]
+    if (quote !== null) {
+      current += ch
+      if (ch === '\\') { current += selectorText[i + 1] ?? ''; i += 1 }
+      else if (ch === quote) quote = null
+      continue
+    }
+    if (ch === '"' || ch === "'") { quote = ch; current += ch; continue }
+    if (ch === '(') parens += 1
+    else if (ch === ')') parens -= 1
+    else if (ch === '[') brackets += 1
+    else if (ch === ']') brackets -= 1
+    if (ch === ',' && parens === 0 && brackets === 0) { parts.push(current); current = ''; continue }
+    current += ch
+  }
+  parts.push(current)
+  return parts
+}
+
+/** 找一个规则头之后的第一个顶层 '{'（跳过括号/中括号/字符串）。 */
+function findOpenBrace(source, start) {
+  let parens = 0, brackets = 0, quote = null
+  for (let i = start; i < source.length; i += 1) {
+    const ch = source[i]
+    if (quote !== null) {
+      if (ch === '\\') i += 1
+      else if (ch === quote) quote = null
+      continue
+    }
+    if (ch === '"' || ch === "'") { quote = ch; continue }
+    if (ch === '(') parens += 1
+    else if (ch === ')') parens -= 1
+    else if (ch === '[') brackets += 1
+    else if (ch === ']') brackets -= 1
+    else if (ch === '{' && parens === 0 && brackets === 0) return i
+    else if (ch === ';' && parens === 0 && brackets === 0) return -1
+  }
+  return -1
+}
+
+/** 找与 openBrace 配对的 '}'（计花括号，跳过字符串与注释）。 */
+function findCloseBrace(source, openBrace) {
+  let depth = 0, i = openBrace, inString = null, inComment = false
+  for (; i < source.length; i += 1) {
+    const ch = source[i], next = source[i + 1]
+    if (inComment) {
+      if (ch === '*' && next === '/') { inComment = false; i += 1 }
+      continue
+    }
+    if (inString !== null) {
+      if (ch === '\\') i += 1
+      else if (ch === inString) inString = null
+      continue
+    }
+    if (ch === '/' && next === '*') { inComment = true; i += 1; continue }
+    if (ch === '"' || ch === "'") { inString = ch; continue }
+    if (ch === '{') depth += 1
+    else if (ch === '}') { depth -= 1; if (depth === 0) return i }
+  }
+  return -1
+}
+
+/** 从 pos 起跳过空白与块注释，返回真正的规则头起点。
+ *  必须做这一步：源文件开头的注释若被当成选择器文本，就会产出
+ *  "html[data-dsh-theme] <注释> :root {...}" 这种把 :root 留在作用域外的垃圾规则。
+ *  loader 走 lightningcss 的 rule 位置，天然不含前导注释；这里是文本级复刻，需自己跳。 */
+function skipSpaceAndComments(source, pos) {
+  let i = pos
+  for (;;) {
+    while (i < source.length && /\s/.test(source[i])) i += 1
+    if (source[i] === '/' && source[i + 1] === '*') {
+      const end = source.indexOf('*/', i + 2)
+      if (end === -1) return source.length
+      i = end + 2
+      continue
+    }
+    return i
+  }
+}
+
+/** 把单个选择器重写到 scope 下（与 loader scopeSelectorText 逐条等价）。 */
+function scopeSelectorText(selector, scope) {
+  const trimmed = selector.trim()
+  const leading = selector.slice(0, selector.length - selector.trimStart().length)
+  const trailing = selector.slice(leading.length + trimmed.length)
+  if (trimmed === ':root' || trimmed.startsWith(':root ') || trimmed.startsWith(':root,')) return leading + scope + trimmed.slice(5) + trailing
+  if (/^html\[data-ds-/.test(trimmed)) return leading + scope + ' body' + trimmed.slice(4) + trailing
+  if (trimmed === 'html' || trimmed.startsWith('html ')) return leading + scope + trimmed.slice(4) + trailing
+  if (trimmed === 'body' || trimmed.startsWith('body ') || trimmed.startsWith('body[') || trimmed.startsWith('body:')) return leading + scope + ' ' + trimmed + trailing
+  if (HEAD_DATA_DS.test(trimmed)) return leading + scope + ' body' + trimmed + trailing
+  return leading + scope + ' ' + trimmed + trailing
+}
+
+function scopeSelectorList(selectorText, scope) {
+  return splitSelectors(selectorText).map((sel) => scopeSelectorText(sel, scope)).join(',')
+}
+
+function hasBareRootSelector(selectorText) {
+  return splitSelectors(selectorText).some((s) => {
+    const t = s.trim()
+    return t === ':root' || t === 'html'
+  })
+}
+function withoutCssComments(value) {
+  return value.replace(/\/\*[\s\S]*?\*\//g, '')
+}
+/** 裸 :root 里需要在 scope 上重置为 initial 的 token（附 !important 标记）。 */
+function rootBodyTokens(blockText) {
+  const tokens = new Map()
+  for (const match of withoutCssComments(blockText).matchAll(/(?:^|[;{])\s*(--[\w-]+)\s*:\s*([^;}]*)/gm)) {
+    const name = match[1]
+    if (name !== undefined && ROOT_BODY_TOKEN.test(name)) tokens.set(name, /!\s*important\s*$/i.test(match[2] ?? ''))
+  }
+  return [...tokens].map(([name, important]) => ({ name, important }))
+}
+/** 克隆到 body 时保留哪些声明：ROOT_BODY_TOKEN 的自定义属性，或 background-*。 */
+function bodyCloneProperty(line) {
+  const custom = line.match(/^(--[\w-]+)\s*:/)
+  if (custom !== null) {
+    const name = custom[1] ?? ''
+    return ROOT_BODY_TOKEN.test(name) ? line.replace(/\s*!important(?=\s*;?\s*$)/i, '') : null
+  }
+  return /^background-(color|image)\s*:/.test(line) ? line : null
+}
+
+const EXCLUDED = /(^|-)(mask|shadow|button|state|error|warning|success|danger|info|caution|brand|scrollbar|foreground|inverted|dimmed)(-|$)|-font-|linear-|ease|duration|transition/
+const GROUPS = [
+  { skip: /-bg-/, anchors: ['--dsw-alias-bg-layer-1', '--dsw-alias-bg-base'], alpha: 65 },
+  { skip: /-label-/, anchors: ['--dsw-alias-label-primary'], alpha: 70 },
+  { skip: /-border-/, anchors: ['--dsw-alias-border-l2', '--dsw-alias-border-l1'], alpha: 55 },
+  { skip: /-interactive-/, anchors: ['--dsw-alias-bg-layer-1'], alpha: 50 },
+  { skip: /-specific-/, anchors: ['--dsw-alias-bg-layer-1', '--dsw-alias-bg-base'], alpha: 60 },
+]
+function groupFor(token) {
+  if (EXCLUDED.test(token)) return null
+  for (const group of GROUPS) if (group.skip.test(token)) return group
+  return null
+}
+/** 对官方 token 表中"皮肤未声明"的 token 派生半透明色（loader deriveFallbackTokens）。 */
+function deriveFallbackTokens(defined) {
+  const out = []
+  for (const token of OFFICIAL_TOKENS) {
+    if (defined.has(token)) continue
+    const group = groupFor(token)
+    if (group === null) continue
+    const anchor = group.anchors.find((candidate) => defined.has(candidate))
+    if (anchor === undefined) continue
+    out.push(token + ': color-mix(in srgb, var(' + anchor + ') ' + group.alpha + '%, transparent);')
+  }
+  return out
+}
+
+const PRIMARY_ACTION_FILL = '--dsw-alias-button-primary-fill'
+const PRIMARY_ACTION_HOVER = '--dsw-alias-button-primary-hover'
+const PRIMARY_ACTION_DIMMED = '--dsw-alias-button-primary-dimmed'
+const PRIMARY_ACTION_FOREGROUND = '--dsw-alias-label-primary-foreground'
+const PRIMARY_ACTION_BRAND = '--dsw-alias-brand-primary'
+const PRIMARY_ACTION_BRAND_INVERT = '--dsw-alias-brand-primary-invert'
+/** 主按钮 token 家族的补全（loader derivePrimaryActionFallbacks）。 */
+function derivePrimaryActionFallbacks(defined) {
+  const out = []
+  const hasBrand = defined.has(PRIMARY_ACTION_BRAND)
+  const branded = hasBrand || defined.has(PRIMARY_ACTION_FILL)
+  if (!hasBrand && !defined.has(PRIMARY_ACTION_FILL)) return out
+  if (!defined.has(PRIMARY_ACTION_FILL) && hasBrand) out.push(PRIMARY_ACTION_FILL + ': var(' + PRIMARY_ACTION_BRAND + ');')
+  if (branded && !defined.has(PRIMARY_ACTION_HOVER)) out.push(PRIMARY_ACTION_HOVER + ': color-mix(in srgb, var(' + PRIMARY_ACTION_FILL + ') 82%, var(--dsw-alias-bg-layer-1));')
+  if (branded && !defined.has(PRIMARY_ACTION_DIMMED)) out.push(PRIMARY_ACTION_DIMMED + ': color-mix(in srgb, var(' + PRIMARY_ACTION_FILL + ') 60%, var(--dsw-alias-bg-layer-1));')
+  if (!defined.has(PRIMARY_ACTION_FOREGROUND) && hasBrand && defined.has(PRIMARY_ACTION_BRAND_INVERT)) out.push(PRIMARY_ACTION_FOREGROUND + ': var(' + PRIMARY_ACTION_BRAND_INVERT + ');')
+  return out
+}
+
+/** 收集一份样式里声明的全部自定义属性名（等价 loader 的 Declaration.custom 访问）。 */
+function collectDefined(cssText) {
+  const defined = new Set()
+  for (const match of cssText.matchAll(/(?:^|[;{])\s*(--[\w-]+)\s*:/gm)) defined.add(match[1])
+  return defined
+}
+
+/**
+ * 作用域化一份样式。scope 形如 html[data-dsh-theme]。
+ * @param cssText 源样式文本
+ * @param options.scope 作用域选择器头
+ * @param options.deriveFallbacks 是否追加 loader 的 token 派生段（只对 skin.css 开）
+ * @param options.defined 派生用的"已声明"集合；缺省从本文件收集
+ */
+function scopeSkinCss(cssText, options) {
+  const scope = options.scope
+  if (/(^|\n)\s*@(media|supports|layer|container)\b/.test(cssText)) {
+    throw new Error('skin-scope：源样式含 @media/@supports 等嵌套 at-rule，本复刻未覆盖——请先扩展 scopeSkinCss 再产出')
+  }
+  // 收集规则 span。游标必须按规则边界推进：若从 '{' 之后继续扫，块内的 ';' 会被
+  // findOpenBrace 当成顶层分号而提前终止整轮扫描（这正是第一版只收到 1 条 span 的原因）。
+  const spans = []
+  let scan = 0
+  while (scan < cssText.length) {
+    const headStart = skipSpaceAndComments(cssText, scan)
+    if (headStart >= cssText.length) break
+    const openBrace = findOpenBrace(cssText, headStart)
+    if (openBrace === -1) break
+    const close = findCloseBrace(cssText, openBrace)
+    const head = cssText.slice(headStart, openBrace)
+    // 顶层 ';' 意味着这不是一条规则（如 @import）；@ 开头的是 at-rule，本复刻不处理
+    if (head.trim() !== '' && !head.includes(';') && !head.trimStart().startsWith('@')) {
+      spans.push({ start: headStart, openBrace, close })
+    }
+    scan = close === -1 ? cssText.length : close + 1
+  }
+  let out = ''
+  let cursor = 0
+  for (const span of spans) {
+    const selectorText = cssText.slice(span.start, span.openBrace)
+    const close = span.close
+    out += cssText.slice(cursor, span.start)
+    out += scopeSelectorList(selectorText, scope) + (close === -1 ? cssText.slice(span.openBrace) : cssText.slice(span.openBrace, close + 1))
+    if (close !== -1 && hasBareRootSelector(selectorText)) {
+      const body = cssText.slice(span.openBrace, close + 1)
+      const tokens = rootBodyTokens(body)
+      if (tokens.length > 0) {
+        out += '\n' + scope + ' {\n  ' + tokens.map((t) => t.name + ': initial' + (t.important ? ' !important' : '') + ';').join('\n  ') + '\n}\n'
+      }
+      const props = withoutCssComments(cssText.slice(span.openBrace + 1, close))
+        .split('\n').map((line) => bodyCloneProperty(line.trim())).filter((line) => line !== null)
+      if (props.length > 0) out += '\n' + scope + ' body {\n  ' + props.join('\n  ') + '\n}\n'
+    }
+    cursor = close === -1 ? span.openBrace : close + 1
+  }
+  out += cssText.slice(cursor)
+  if (options.deriveFallbacks === true) {
+    const set = options.defined ?? collectDefined(cssText)
+    const fallbacks = [...deriveFallbackTokens(set), ...derivePrimaryActionFallbacks(set)]
+    if (fallbacks.length > 0) out += '\n' + scope + ' body {\n  ' + fallbacks.join('\n  ') + '\n}\n'
+  }
+  return out
+}
+
+// ── M5 §B：插件版自包含样式（assets/theme.css） ────────────────────────────
+//
+// 为什么是构建产物而不是手写（AGENTS.md 红线）：数值唯一来源仍是 preview :root。
+// 自包含的含义：把纯皮肤期由 skin-center loader 承担的那层变换（§A）显式复刻进来，
+// 使这份 CSS 单独注入时也能得到与纯皮肤期一致的视觉——即
+//   theme.css = scope(skin.css, 派生) + scope(patches.css)
+// 顺序与纯皮肤期的 loader 加载顺序一致（skin.css 先、patches.css 后），
+// 因此 patches.css 的 L2/L3 规则仍然压在同名 token 之上。
+//
+// 与纯皮肤期的一处**有意**差异：纯皮肤期 loader 会把选择器包成 html[data-dsh-skin="dsh-ui"]，
+// 插件期包成 html[data-dsh-theme]；两者都要求根元素上有对应属性，互不干扰。
+
+const patchSrc = fs.existsSync(PATCHES) ? fs.readFileSync(PATCHES, 'utf8') : ''
+if (patchSrc === '') throw new Error('patches.css 不存在——插件版自包含样式需要它，拒绝产出半成品')
+
+// ── 深色别名层重声明（S4 独立验收抓到的真红点） ──────────────────────────────
+//
+// 现象：插件期切深色后侧栏仍是 rgb(243,247,254)、输入卡仍是纯白，与纯皮肤期深色
+// 基线（侧栏 #171B24）差 220+ 通道。
+//
+// 根因：preview 的 :root 里有 9 个 --dsh-* 是**别名**（值形如 var(--dsh-bg-subtle)），
+// 例如 --dsh-sidebar-bg: var(--dsh-bg-subtle)、--dsh-card-bg: var(--dsh-bg-surface)。
+// skin.css 把亮色 99 个变量发射在 :root（html 层），把暗色 22 个原语发射在
+// body[data-ds-dark-theme]。var() 在**声明所在元素**上求值：
+//   · html 层声明 --dsh-sidebar-bg: var(--dsh-bg-subtle) → 在 html 求值 = 亮色 #F3F7FE，锁死
+//   · body 层只重定义了原语 --dsh-bg-subtle: #171B24，没有重定义别名本身
+//   · body 上读 var(--dsh-sidebar-bg) 沿继承拿到 html 那个已求值的亮色
+// patches.css 的 L2 规则正是引用这批别名（--dsw-specific-sidebar-fill: var(--dsh-sidebar-bg)），
+// 于是深色下组件表面全被钉在亮色。
+//
+// 纯皮肤期为何是对的：skin-center 的 transform 会把裸 :root 的自定义属性**克隆到 body**
+// （lib/index.js:2306-2308 bodyCloneProperty，规则见 :2205）。body 上同时有
+//   --dsh-sidebar-bg: var(--dsh-bg-subtle)   ← 克隆来的别名声明（在 body 求值）
+//   --dsh-bg-subtle: #171B24                 ← 暗色原语
+// 于是别名在 body 层重新求值成深色。我们的复刻漏了"别名也要克隆到 body"这一半。
+//
+// 修法：把别名层原样克隆到深色作用域，让它在 body 上重新求值。
+// 只克隆别名（值含 var() 的那 9 个），不克隆字面量——字面量没有求值时机问题，
+// 且整块克隆会改变与 skin.css 的层叠关系。这里从 preview :root 现算，不手抄。
+const aliasEntries = Object.entries(light).filter(([, value]) => value.includes('var('))
+if (aliasEntries.length === 0) throw new Error('深色别名克隆：preview :root 里没找到 var() 别名，规则前提不成立，拒绝产出')
+
+let darkAliasBlock = '\n/* ── 深色别名层：让 var() 别名在 body 上重新求值（见 build-skin.mjs 注释） ── */\n'
+darkAliasBlock += PLUGIN_SCOPE + ' body[data-ds-dark-theme] {\n'
+for (const [name, value] of aliasEntries) darkAliasBlock += '  ' + name + ': ' + value + ';\n'
+darkAliasBlock += '}\n'
+
+const scopedSkin = scopeSkinCss(css, { scope: PLUGIN_SCOPE, deriveFallbacks: true, defined: collectDefined(css) })
+const scopedPatches = scopeSkinCss(patchSrc, { scope: PLUGIN_SCOPE, deriveFallbacks: false })
+
+let pluginCss = '/* GENERATED by scripts/build-skin.mjs — 禁止手改。\n'
+pluginCss += '   dsh-theme 插件版自包含样式：skins/dsh-ui/skin.css + patches.css 的作用域化结果，\n'
+pluginCss += '   并把纯皮肤期由 skin-center loader 承担的 token 派生层显式复刻进来。\n'
+pluginCss += '   作用域头：' + PLUGIN_SCOPE + '（body 级特异性 0,0,1,2，胜出官方 body{--dsw-*} 的 0,0,0,1） */\n\n'
+pluginCss += '/* ── 段 1/2：L1 token 重映射 + L2/L3 组件规则（源 skins/dsh-ui/skin.css） ── */\n'
+pluginCss += scopedSkin
+pluginCss += darkAliasBlock
+pluginCss += '\n/* ── 段 2/2：L2/L3 组件规则（源 skins/dsh-ui/patches.css） ── */\n'
+pluginCss += scopedPatches
+
+fs.mkdirSync(new URL('../plugins/dsh-theme/assets/', import.meta.url), { recursive: true })
+fs.writeFileSync(PLUGIN_THEME, pluginCss)
+
+// 自包含守卫：派生段必须真的进了产物，否则 patches.css 的 specific 组规则会回落到官方值
+const derivedCount = (pluginCss.match(/color-mix\(in srgb, var\(--dsw-alias-bg-layer-1\) 60%, transparent\)/g) || []).length
+if (derivedCount === 0) throw new Error('插件版样式缺少 loader 派生段——patches.css 的前提不成立，拒绝产出')
+const unscoped = /(^|\n)\s*(:root|body)\s*\{/.test(pluginCss)
+if (unscoped) throw new Error('插件版样式里还有未作用域化的 :root/body 规则——作用域化没生效')
+console.log('theme.css 生成：' + pluginCss.length + ' 字节，作用域头 ' + PLUGIN_SCOPE + '，派生段 ' + derivedCount + ' 条 color-mix，未作用域化规则 0 条')

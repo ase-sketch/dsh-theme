@@ -23,12 +23,15 @@
 - 产出：README.md（先讲怎么用：启用条件 / 试穿·应用·切回 / 换机器安装 / 构建链 / 验证 / 已知缺口）；三件套补齐（AGENTS.md Quick Commands 分快慢两层、ARCHITECTURE.md 回写 M3 边界、.agents/notes/ 归档 M1 bundle 笔记至 archived/ 并更新 Status）；仓库清理（移除误跟踪的 _instance_url.txt——含实例 token，.gitignore 加规则防复发）。
 - 验收证据（自动化部分，2026-10-04 重跑）：隔离实例跑 _m2_verify.py（91 token × 明暗 + 根底色全绿）、_m3_verify.py（组件层 24 断言全绿）、_m3_compare.py（与 preview 基准逐项对照，仅 1 项已知可接受偏差）；快层构建 + 守卫通过。
 - 待用户完成：真机验收清单（HANDOFF.md §9）——应用 → 日常使用 → 切回官方默认，全链路确认。
-## M5 插件化（终局，用户 2026-10-03 明确方向）
-- 前置：先根因 2026-10-03 自制 bundle client 半未激活问题（对照 skin-center 的 client inject 声明与装配源码，活样本在本机）。
-- 产出：自研皮肤插件（bundle 形态参照 dsh-claude-style）：样式层复用 mapping.json 与构建链注入全量视觉；功能层 = Deepy 状态机（design-spec §7.2 事件映射）+ 设置面板开关。
-- 验收：插件页可管理开关；Deepy 按事件动；皮肤层视觉与纯皮肤期一致（同基准截图对照）。
-- 分发备选：官方市场上架（若走市场，皮肤 hooks 路线可作为轻量备选形态）。
+
+## M5 插件化（终局；2026-10-03 定方向，2026-10-10 定形态与范围）—— ✅ web profile 自动化验收通过（2026-10-10），待用户 desktop 真机验收
+- 形态：自研 **bundle 插件**（形态 A，本地 desktop profile 自用先行）。骨架照抄本机活样本 skin-center 的 package.json 三要素，不 fork dsh-claude-style。
+- 前置：**已完成**。2026-10-03「自制 bundle client 半未激活」的诊断已被推翻——真相是 `ctx.effect` 把卸载函数当 effect body 传，装上即被同毫秒撤掉（证据链见 HANDOFF.md §3.4；实验产物 .agents/tmp/m5-rootcause/REPORT.md，未跟踪）。
+- 产出：plugins/dsh-theme/（host 半开关持久化 + client 半样式注入/设置面板/语义锚点适配器 + assets/theme.css 构建生成物）；build-skin.mjs 新增插件版自包含 CSS 产出（复刻 loader 变换：作用域重写 + 派生 + var() 别名深色重求值）。
+- 验收证据（隔离 web profile，生产者自检 + 独立复验双轮）：① D4 探针门三行断言 + 负控制 + console 零错（.agents/tmp/m5-probe/）；② 功能七条全绿（面板出现、ON 注入/OFF 卸载/跨重载持久化/loader 级静态禁用可逆）；③ parity_m3 17/17 与纯皮肤期一致；④ 像素采样证明真实可见（品牌蓝 ON=2316/OFF=0）；⑤ 深色曾被独立验收抓红（var() 别名锁死浅色），修复后 7 采样点 Δ=0、暗区占比 98.21% vs 基线 98.15%，浅色截图 md5 零回归（.agents/tmp/m5-plugin/、.agents/tmp/m5-verify/REVERIFY-report.md）。验收**不含** Deepy——它已移出本期。
+- 分发：已装 desktop profile（**disabled:true 待机**，重启后插件页可见、手动启用生效）；官方市场上架留后续里程碑。
+- 待用户完成：desktop 真机验收（重启 DSH → 插件页启用 dsh-theme → 走 HANDOFF.md §9 清单 + 设置面板开关 + 深色切换）。
 
 
 ## 下一期（不在本期）
-Deepy 状态机（本地皮肤无 hooks 执行权，需评估官方市场渠道或二期技术方案）。
+Deepy 状态机——M5 之后做，技术前提已变：走插件事件钩子能力（`ctx.on` + SessionEventStream，已查实 57 种会话事件），直接映射 design-spec §7.2 事件表，§7.1 帧表输入已备齐。不再是「本地皮肤无 hooks 执行权、需评估官方市场渠道」的老问题。二期待排期。
