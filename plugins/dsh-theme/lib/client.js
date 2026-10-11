@@ -302,6 +302,33 @@ window.__ModuleLoader__.load({
     }
 
     /**
+     * 帧序号 → 精灵几何。纯函数，单测覆盖两条红线：
+     *   ① 元素宽度必须 === displayPx（否则相邻帧泄入；typing/building 有 48/48 帧触格边）
+     *   ② 取模必须用**该态真实帧数**（happy 52 帧有行尾 padding，按 8×rows 取模会显示 padding 帧）
+     * @param frame - 当前帧序号（可为任意整数）
+     * @param meta - manifest.states[<state>]，需 {frames, rows}
+     * @param manifest - manifest 根，需 {cols, displayPx}
+     * @returns {index, col, row, width, height, backgroundSize, backgroundPosition}
+     */
+    function deepyFrameGeometry(frame, meta, manifest) {
+      var cols = manifest.cols
+      var px = manifest.displayPx
+      var total = meta.frames
+      var index = total > 0 ? ((frame % total) + total) % total : 0
+      var col = index % cols
+      var row = Math.floor(index / cols)
+      return {
+        index: index,
+        col: col,
+        row: row,
+        width: px + 'px',
+        height: px + 'px',
+        backgroundSize: (cols * px) + 'px ' + (meta.rows * px) + 'px',
+        backgroundPosition: (-col * px) + 'px ' + (-row * px) + 'px',
+      }
+    }
+
+    /**
      * 活跃工具数 → 持久态。**唯一**的档位映射，tool/call 与 tool/result 共用，
      * 保证「档位始终反映当前活跃工具数」而不是某个事件的固定收敛值（R3 修正）。
      * 0→thinking / 1→typing / 2→music / ≥3→building
@@ -541,8 +568,21 @@ window.__ModuleLoader__.load({
       var frameIndex = 0
       var rafId = null
       var lastFrameAt = 0
-      var container = null
-      var sprite = null
+      // Route A：DOM 由 slot 的 React 组件拥有。我们只在渲染时从 ref 拿到
+      // sprite 节点往它身上写 style —— 不再手动 appendChild 进 React 容器
+      //（切会话时 React 会清掉它不认识的子节点，旧写法因此永久失效）。
+      var spriteEl = null
+      var viewReady = false
+      var viewListeners = new Set()
+      function bumpView() {
+        viewListeners.forEach(function (listener) {
+          try { listener() } catch (error) { /* 订阅者异常不该影响渲染 */ }
+        })
+      }
+      function subscribeView(listener) {
+        viewListeners.add(listener)
+        return function () { viewListeners.delete(listener) }
+      }
       var currentState = null
       var currentDisplayPx = 0
       var subscribed = {}          // sessionId -> unsubscribe
@@ -578,74 +618,55 @@ window.__ModuleLoader__.load({
         if (style) style.remove()
       }
 
-      // ── DOM：容器 + 精灵 ───────────────────────────────────────────────
-      /** slot 的渲染容器；未就绪时为 null（此时容器暂挂 body 末尾）。 */
-      function slotHost() {
-        return document.querySelector('[data-slot="' + DEEPY_SLOT + '"]')
+      // ── DOM：由 slot 的 React 组件拥有（Route A） ─────────────────────
+      // 为什么不再手动 appendChild：conversation.input.left 是 React 拥有的容器，
+      // 切会话重渲染时它会清掉不认识的子节点；手动挂进去的 host 会留下、sprite 被删，
+      // 且旧守卫（container.isConnected / if (!sprite)）让播放器无法自愈 —— 永久黑屏。
+      // 现在元素的存在性交给 React，我们只在每帧通过 ref 拿到的节点写 style；
+      // React 重建节点后 ref 会重新赋值，下一帧自然画到新节点上（自愈是结构性保证）。
+
+      /** 精灵组件：ref 把真实节点交回给渲染循环。 */
+      function DeepySprite() {
+        return react.createElement('span', {
+          className: 'dsh-theme-deepy-sprite',
+          ref: function (node) { spriteEl = node },
+        })
       }
 
-      /**
-       * 若容器当初退回了 body 末尾（slot 还没挂上），一旦 slot 出现就搬回去。
-       * 不这么做的话，早期 boot 窗口装上的精灵会永久留在 body 里、脱离输入卡布局。
-       */
-      function reparentIfNeeded() {
-        if (!container || !container.isConnected) return
-        var slot = slotHost()
-        if (!slot) return
-        if (container.parentNode === slot) return
-        slot.appendChild(container)
-      }
-
-      function ensureContainer() {
-        if (container && container.isConnected) return container
-        var host = document.getElementById(DEEPY_ROOT_ID)
-        if (!host) {
-          host = document.createElement('span')
-          host.id = DEEPY_ROOT_ID
-          host.setAttribute('data-dsh-part', 'deepy')
-          // 挂在 slot 的渲染容器上；slot 未就绪时退回 body 末尾（tick 里会搬回来）。
-          var slot = slotHost()
-          if (slot) slot.appendChild(host)
-          else document.body.appendChild(host)
-        }
-        container = host
-        if (!sprite) {
-          sprite = document.createElement('span')
-          sprite.className = 'dsh-theme-deepy-sprite'
-          container.appendChild(sprite)
-        }
-        return container
-      }
-
-      function removeContainer() {
-        if (container && container.parentNode) container.parentNode.removeChild(container)
-        container = null
-        sprite = null
+      /** 容器组件：素材未就绪时返回 null（避免闪一帧空白框）。 */
+      function DeepyView() {
+        var tick0 = react.useState(0)
+        var rerender = tick0[1]
+        react.useEffect(function () {
+          return subscribeView(function () { rerender(function (n) { return n + 1 }) })
+        }, [])
+        if (!viewReady) return null
+        return react.createElement(
+          'span',
+          { id: DEEPY_ROOT_ID, 'data-dsh-part': 'deepy' },
+          react.createElement(DeepySprite)
+        )
       }
 
       /**
        * 按 manifest 把某态某帧画到精灵上。
        * 元素宽度必须 === displayPx，否则相邻帧会泄入（typing/building 有 48/48 帧触格边）。
+       * spriteEl 由 React ref 维护；节点被 React 换掉后这里读到的是新节点。
        */
       function paint(name, frame, manifest) {
         var meta = manifest.states[name]
         if (!meta) return false
         var image = deepyImages[name]
         if (!image) return false
-        var cols = manifest.cols
-        var px = manifest.displayPx
-        var total = meta.frames
-        var index = total > 0 ? ((frame % total) + total) % total : 0
-        var col = index % cols
-        var row = Math.floor(index / cols)
-        var el = ensureContainer()
-        var target = el.firstChild
-        if (!target) return false
-        target.style.width = px + 'px'        // ← 必须 = displayPx
-        target.style.height = px + 'px'
+        var target = spriteEl
+        // 节点还没挂上（React 尚未渲染 / 刚被换掉）→ 本帧不画，下一帧重试。
+        if (!target || !target.isConnected) return false
+        var g = deepyFrameGeometry(frame, meta, manifest)
+        target.style.width = g.width            // ← 必须 = displayPx
+        target.style.height = g.height
         target.style.backgroundImage = 'url("' + image.src + '")'
-        target.style.backgroundSize = (cols * px) + 'px ' + (meta.rows * px) + 'px'
-        target.style.backgroundPosition = (-col * px) + 'px ' + (-row * px) + 'px'
+        target.style.backgroundSize = g.backgroundSize
+        target.style.backgroundPosition = g.backgroundPosition
         return true
       }
 
@@ -653,7 +674,6 @@ window.__ModuleLoader__.load({
       function tick(timestamp) {
         rafId = window.requestAnimationFrame(tick)
         if (hidden) return
-        reparentIfNeeded()
         var manifest = deepyManifest
         if (!manifest) return
         var now = Date.now()
@@ -669,6 +689,11 @@ window.__ModuleLoader__.load({
           deepyLoadState(display).catch(function () { /* 已 warn 过一次 */ })
         }
         if (!deepyImages[display]) return    // 素材未就绪：不渲染
+        // 首帧素材就绪 → 让 React 挂上容器（只通知一次，避免每帧 setState）
+        if (!viewReady) {
+          viewReady = true
+          bumpView()
+        }
         var interval = manifest.frameMs
         if (reduceMotion) {
           // 减速偏好：停在代表帧（首帧），不推进
@@ -738,7 +763,19 @@ window.__ModuleLoader__.load({
 
       // ── 安装 ───────────────────────────────────────────────────────────
       installStyle()
-      ensureContainer()
+      // 经 slot 注册 React 组件（与 M5 设置面板同一机制）。槽未声明时静默跳过，
+      // 由 slots.inject 在槽出现时回调——不假设 apply 与槽声明的先后。
+      try {
+        if (ctx.slots && typeof ctx.slots.inject === 'function') {
+          var offSlot = ctx.slots.inject(DEEPY_SLOT, function () {
+            return ctx.slots.register(
+              { name: DEEPY_SLOT, id: 'dsh-theme-deepy', order: 40, label: function () { return 'Deepy' } },
+              DeepyView
+            )
+          })
+          if (typeof offSlot === 'function') disposers.push(offSlot)
+        }
+      } catch (error) { console.error('[dsh-theme] deepy slot registration failed:', error) }
       document.addEventListener('visibilitychange', onVisibility)
       disposers.push(function () { document.removeEventListener('visibilitychange', onVisibility) })
 
@@ -774,8 +811,9 @@ window.__ModuleLoader__.load({
             displayPx: currentDisplayPx,
           }
         },
-        getSprite: function () { return sprite },
-        getContainer: function () { return container },
+        getSprite: function () { return spriteEl },
+        getContainer: function () { return document.getElementById(DEEPY_ROOT_ID) },
+        isViewReady: function () { return viewReady },
       }
 
       return {
@@ -789,7 +827,11 @@ window.__ModuleLoader__.load({
             try { subscribed[id]() } catch (error) { /* 退订失败不该影响卸载 */ }
           })
           subscribed = {}
-          removeContainer()
+          // 容器 DOM 归 React 所有：slot 注册的 disposer 已在上面的循环里撤掉，
+          // React 随之卸载节点；这里只需把 ref 引用与就绪标志清干净。
+          spriteEl = null
+          viewReady = false
+          viewListeners.clear()
           removeStyle()
         },
         debug: debugHandle,
@@ -942,6 +984,9 @@ window.__ModuleLoader__.load({
       concurrencyState: deepyConcurrencyState,
       displayState: deepyDisplayState,
       isTransient: deepyIsTransient,
+      frameGeometry: deepyFrameGeometry,
+      // 渲染层回归测试用：驱动真实 installDeepy（需要调用方自备最小 DOM/React 桩）
+      install: installDeepy,
     }
     return module.exports
   },
