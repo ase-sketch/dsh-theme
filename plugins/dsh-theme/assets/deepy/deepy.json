@@ -1,0 +1,47 @@
+{
+  "cols": 8,
+  "frameMs": 50,
+  "displayPx": 64,
+  "states": {
+    "idle": {
+      "file": "idle.png",
+      "frames": 48,
+      "rows": 6
+    },
+    "thinking": {
+      "file": "thinking.png",
+      "frames": 48,
+      "rows": 6
+    },
+    "typing": {
+      "file": "typing.png",
+      "frames": 48,
+      "rows": 6
+    },
+    "happy": {
+      "file": "happy.png",
+      "frames": 52,
+      "rows": 7
+    },
+    "error": {
+      "file": "error.png",
+      "frames": 48,
+      "rows": 6
+    },
+    "notification": {
+      "file": "notification.png",
+      "frames": 32,
+      "rows": 4
+    },
+    "music": {
+      "file": "music.png",
+      "frames": 32,
+      "rows": 4
+    },
+    "building": {
+      "file": "building.png",
+      "frames": 48,
+      "rows": 6
+    }
+  }
+}

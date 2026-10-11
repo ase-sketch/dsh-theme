@@ -57,7 +57,7 @@ flowchart LR
 |---|---|
 | 资产路径 | `plugins/dsh-theme/assets/deepy/<state>.png`——构建生成物，**禁止手改**（同 skin.css / theme.css 纪律） |
 | 元数据 | `plugins/dsh-theme/assets/deepy/deepy.json` = `{cols:8, frameMs:50, displayPx:64, states:{<key>:{file,frames,rows}}}` |
-| host 路由 | `GET /api/dsh-theme/deepy/<name>`；`name` 必须匹配 `^[a-z][a-z0-9-]*\.(png\|json)$` 且 `path.resolve` 后仍在资产目录内——现有 `sameOrigin()` 只防跨站写、**不防路径穿越**，必须新增校验 |
+| host 路由 | `ctx.webServer.register({ kind: 'prefix', path: '/api/dsh-theme/deepy' })`——**不能用 `exact`**：框架无参数化路由，`exact` 是 pathname 严格相等，`<name>` 永远匹配不上（依据 dsh-host-webserver/lib/index.js:178 分表、:323-331 匹配、:232 rawPath 取自 `URL.pathname` 且保留 percent 编码）。handler 从 pathname 取前缀后残段、**只解码一次**（解码两次会被 `%252e` 绕过，不解码会被 `%2e%2e%2f` 绕过），再按 `^[a-z][a-z0-9-]*\.(png\|json)$` 校验 + `path.resolve` 后仍在资产目录内；**非法 / 越界 / 不存在一律 404**（响应上不可区分），非 GET/HEAD → 405。现有 `sameOrigin()` 只防跨站写、**不防路径穿越** |
 | 显示落点 | slot `conversation.input.left`（空会话与活跃态都渲染）。**不用** `conversation.hero.brand.mark`：它只在空会话渲染，而事件只在活跃时发生 |
 | 状态源 | client 侧 `sessions` + `uiSession` 服务；不引入 host 转发与轮询 |
 | 切帧 | `col=i%8, row=⌊i/8⌋`；`background-size = 8×displayPx × rows×displayPx`；元素宽度 **必须 = displayPx**（防相邻帧泄入） |
