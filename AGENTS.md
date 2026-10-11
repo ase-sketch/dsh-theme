@@ -24,6 +24,9 @@
   - `ctx.effect` 红线：effect body 里做安装、**`return` 卸载函数**；卸载函数绝不能直接当 body 传（execute 会立即执行，装上即被同毫秒撤掉，且平台不报错）。
   - 插件启用/禁用只用 `disabled: true/false` 静态值，不依赖 `!!js` 表达式求值。
   - 插件激活时须确保 skin-center 皮肤退到**官方默认**，避免与插件双注入。
+  - **Deepy 渲染必须走 slot 的 React 渲染注入**（`ctx.slots.inject` + `ctx.slots.register` 注册组件、用 ref 拿节点）。**不要手动 `appendChild` 进 slot 容器**——那是 React 拥有的节点，重渲染会清掉它不认识的子节点，导致「切会话后精灵永久消失」（M6 缺陷①，已修；回归脚本 `.agents/tmp/m6-e2e/repro_sprite_loss.py`）。
+  - **瞬时态契约**：`persistent()` 只换 base、**不动瞬时态**；只有 `turn/start` 清瞬时态。照搬作者 HTML 的「持久态清瞬时态」会让规范给的 hold 值（4800/5200/3200ms）形同虚设（M6 缺陷②，实测 error 只活 10–270ms）。
+  - **Deepy 素材是构建生成物**（`plugins/dsh-theme/assets/deepy/` 由 `scripts/build-deepy.mjs` 产出），**禁止手改**；改素材源后重跑该脚本。
 - 视觉数值唯一来源 = dsh-ui/preview/index.html :root；skin.css 一律构建生成，**禁止手抄 hex/尺寸**。手工维护物两个：`mapping.json`（L1 契约 token 映射）与 `skins/dsh-ui/patches.css`（L2/L3 组件规则 + 非 alias 命名空间重绑定），两者都只准用 `var(--dsh-*)` / `var(--dsw-*)` 引用数值，构建期会校验 `--dsh-*` 引用存在。
 - 不改 DSH 本体、不改 dsh-ui（发现规范缺口回 dsh-ui 提）、不 fork dsh-claude-style。
 - 使用本皮肤时 dsh-claude-style 必须关闭（README 写明）；skin-center 保持启用。

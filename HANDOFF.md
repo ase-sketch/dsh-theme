@@ -7,7 +7,7 @@
 
 ## 1. 一句话现状
 
-M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机确认）。**M5 插件已装进 desktop profile（disabled:true 待机）**，重启 DSH 后在插件页启用即用。**当前 = M6 Deepy 状态机动画（2026-10-11 开工，三项任务并行）**——范围与验收标准见 docs/milestones.md 的 M6 段，接口契约见 ARCHITECTURE.md 的「Deepy 子系统（M6）」。
+M1–M6 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机确认；**M6 = 四轮 web 自动化 + 独立验收方 + 用户 desktop 真机确认**）。dsh-theme 插件已装进 desktop profile 且为**启用态**（`disabled: false`；开关在设置页「dsh-theme 主题」面板，状态落 `$DSH_HOME/dsh-theme/state.json`）。范围与验收标准见 docs/milestones.md 的 M6 段，接口契约见 ARCHITECTURE.md 的「Deepy 子系统（M6）」，设计理由与被否方案见归属笔记 `.agents/notes/implemented/feature/2026-10-11-m6-deepy-state-machine.md`。下一期候选见 milestones 的「下一期（M7+）」。
 
 ## 2. M5 交付物（plugins/dsh-theme/）
 
@@ -42,8 +42,11 @@ M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机
 
 ## 6. desktop 装配现状
 
-- desktop profile：package.json 加 `"dsh-theme": "file:E:/dsh-theme/plugins/dsh-theme"` + bundles 追加；cordis.patch.yml 末尾追加 `ui-skin-dsh-theme / disabled: true` 覆盖行（待机）；pnpm install 已完成，安装副本与源逐字节一致。备份在 .agents/tmp/m5-desktop-install/backup-*/。
-- **启用方法（用户手动）**：重启 DSH → 设置 → Plugins → 启用 dsh-theme → 设置页出现「dsh-theme 主题」面板（默认 ON）。
+- desktop profile：package.json 加 `"dsh-theme": "file:E:/dsh-theme/plugins/dsh-theme"` + bundles 追加；cordis.patch.yml 有 `ui-skin-dsh-theme` 覆盖行，**当前 `disabled: false`（启用态）**。安装副本与源逐字节一致（M6 版，含 `assets/deepy/` 8 张图）。
+- **改源码后必须重装**（file: 依赖是复制语义）：`cd C:\Users\pass\.dsh\profiles\desktop && pnpm remove dsh-theme && pnpm add "file:E:/dsh-theme/plugins/dsh-theme"`。
+  ⚠️ **只跑 `pnpm install` 不够**（2026-10-12 实测）：pnpm 会依据 `node_modules/.modules.yaml` 判定「已是最新」而跳过复制；删目录、删 `.modules.yaml`、`--force` 都无效，**只有 remove + add 能真正刷新副本**。
+- 备份：`.agents/tmp/m5-desktop-install/backup-*/`（M5 期）、`.agents/tmp/m6-desktop-install/backup-*/`（M6 期，三份配置）。
+- **启用方法**：设置 → Plugins 启用 dsh-theme（已启用）→ 设置页「dsh-theme 主题」面板拨开关（状态落 `$DSH_HOME/dsh-theme/state.json`）。
 - 插件激活时会经 skin-center v2 API 把皮肤卡切回官方默认（防双注入）；皮肤卡保留作回退。
 - 桌面 GUI（19387）有 token 认证，代理**不要硬闯**；重启由用户本人执行。
 
