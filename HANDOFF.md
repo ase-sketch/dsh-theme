@@ -7,7 +7,7 @@
 
 ## 1. 一句话现状
 
-M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机确认）。**M5 插件已装进 desktop profile（disabled:true 待机）**，重启 DSH 后在插件页启用即用。下一期 = M6 Deepy 状态机动画。
+M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机确认）。**M5 插件已装进 desktop profile（disabled:true 待机）**，重启 DSH 后在插件页启用即用。**当前 = M6 Deepy 状态机动画（2026-10-11 开工，三项任务并行）**——范围与验收标准见 docs/milestones.md 的 M6 段，接口契约见 ARCHITECTURE.md 的「Deepy 子系统（M6）」。
 
 ## 2. M5 交付物（plugins/dsh-theme/）
 
@@ -76,3 +76,36 @@ M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机
 7. 回退演练：设置 → Plugins 禁用 dsh-theme → 重启后完全官方；皮肤卡可重新启用。
 
 **发现问题怎么回传**：说明「哪一步 + 期望 vs 实际」，附截图更好；代理可据此补断言、写进验收脚本再修。
+
+## 10. M6 前置调查证据索引（2026-10-11）
+
+两项只读调查（DSH 侧落地能力 / Deepy 素材与状态机）+ 调度方独立复核。**全部为源码层静态存在，运行时行为待隔离实例验证。**
+
+**A. design-spec §7.2 的事件表在 DSH 侧不存在**
+- 7 个字面同名事件只出现在 Claude Code hooks 兼容桥：`app.asar/dsh/node_modules/@deepseek-ai/dsh-hooks-claude-code/lib/index.js:13`（`CLAUDE_EVENTS`）
+- DSH 真实持久会话事件（`SessionEventMap`）：`dsh-tool-cordis/lib/types/api-catalog.js:6443-6444` = turn/start、turn/end、step/start、step/end、user/message、assistant/message、assistant/attempt、tool/call、tool/result、request/header、request/context
+- 兼容桥的内部映射恰好是最强对应证据：SessionStart→`agent/created`、UserPromptSubmit→`agent/pre-step`、PreToolUse→`tools/pre-execute`、Stop→`agent/turn-stopping`、PermissionRequest→`approval/request`、SubagentStart→`subagent/start`（api-catalog.js:3716 / 3764 / 4236 / 3796 / 3852 / 4188）
+- `WorktreeCreate` 全 asar 无对应；`PreCompact` 只有**事后**的 `compaction/start|end`（dsh-compaction/lib/types/invariant.js:77,80）
+
+**B. client 侧事件通道（无需 host 转发）**
+- `sessions` 服务：dsh-api-session-controller/lib/client.js:3192 `rootCtx.reflect.provide("sessions", this)`；`binding(id)` → `{sessionId, session, eventSource, ctx}`；`eventSource.subscribe` 返回 unsubscribe
+- `uiSession` 服务：dsh-client-ui-session/lib/client.js:148 `sessionStatus`，数据源 :180 `ctx.remote.$on("api-session/status")`（覆盖全部会话）
+- client 的 cordis `ctx.on` **只有 4 个事件**（connection/reset、locale/change、slots/changed、theme/change）——拿不到会话事件，必须走上面的服务
+
+**C. 注入点**
+- `conversation.hero.brand.mark`（root/single）：渲染条件 dsh-client-ui-conversation/lib/client.js:16016 `sessionId === void 0 || shellPhase === "blank" && (...)` → **只在空会话渲染**
+- `conversation.input.left` / `.right`（session/list）：:17524 / :17532，**空会话与活跃态都渲染** → M6 选它
+- `shell.overlay`（root/list）：dsh-client-ui-layout/lib/client.js:312，全局浮动层
+
+**D. 素材核对（20/20）**
+- 逐张内存解码：帧数与 §7.1 表 **20/20 一致**；统一 2080px 宽（8 列 × 260px/帧）、50ms/帧
+- 三张有行尾 padding：happy 56格/52帧、idle-look 72/68、waking 32/30（逐格验证尾部全透明）
+- 全部 20 态帧**底对齐 y=249** → 容器 bottom 对齐即可
+- typing / conducting **48/48 帧触格边** → 切帧窗口宽必须 = 帧宽
+- 源总体积 801.6 KB；降采样到 64px/帧约 159 KB（全 20 态）
+
+**E. 现成先例（本机已装）**
+- `@linxin666/dsh-pet` v0.4.6（Apache-2.0，源码随包分发）：host 侧 `ctx.on('session/event')` 投影 + client 轮询；纯函数投影 + clock-injected 状态机；挂 `document.body`（dock 是会话作用域，挂那里在新会话页会消失）。**M6 只借鉴设计，不引依赖。**
+- `dsh-claude-style` 的 mascot（feature chunk 实测存在）：状态源与 M6 同路（uiSession + sessions），并发计数 `>=3 building / ===2 music`；WAAPI steps 播放；构建期每格四周留 gutter
+
+**取证方法备忘**：DSH 安装体是 app.asar 归档，`read` 工具与 bash 都读不了，但 **run_code 内的 node fs 是 asar-aware 的**（`fs.readFileSync(ASAR + '/dsh/...')` 可读、`readdirSync` 可列）。DSH 版本 0.2.0-rc.2。
