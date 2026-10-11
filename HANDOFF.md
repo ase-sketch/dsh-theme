@@ -61,6 +61,7 @@ M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机
 - 起实例：`dsh.cmd --profile web --port 19488 --no-open`（后台任务）；Playwright 设 `PYTHONUTF8=1`；首屏「预览版说明」弹窗用坐标 `pg.mouse.click(933,577)` 关闭。
 - 还原四步：恢复 package.json / cordis.patch.yml / pnpm-lock.yaml 备份（**整体覆盖**）→ 删 node_modules/.pnpm/lock.yaml 隐藏副本 → pnpm install → 确认 19488 端口释放 + dump-config 零命中。
 - 重型验证互斥：同一时刻只跑一份隔离实例。
+- **停实例要按 PID 杀**（2026-10-11 M6 探针实测）：`job_kill` **不会**终止 dsh 的子进程树，端口仍被占用、重启撞 EADDRINUSE。必须 `Get-NetTCPConnection -LocalPort 19488 -State Listen` 找 PID → `Stop-Process`，再确认端口为空。
 
 ## 9. 真机验收清单（M4 皮肤卡 + M5 插件）—— ✅ 2026-10-10 用户确认通过（保留作回归清单）
 
@@ -108,4 +109,15 @@ M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机
 - `@linxin666/dsh-pet` v0.4.6（Apache-2.0，源码随包分发）：host 侧 `ctx.on('session/event')` 投影 + client 轮询；纯函数投影 + clock-injected 状态机；挂 `document.body`（dock 是会话作用域，挂那里在新会话页会消失）。**M6 只借鉴设计，不引依赖。**
 - `dsh-claude-style` 的 mascot（feature chunk 实测存在）：状态源与 M6 同路（uiSession + sessions），并发计数 `>=3 building / ===2 music`；WAAPI steps 播放；构建期每格四周留 gutter
 
-**取证方法备忘**：DSH 安装体是 app.asar 归档，`read` 工具与 bash 都读不了，但 **run_code 内的 node fs 是 asar-aware 的**（`fs.readFileSync(ASAR + '/dsh/...')` 可读、`readdirSync` 可列）。DSH 版本 0.2.0-rc.2。
+**F. 探针活体验证（2026-10-11，隔离 web profile :19488，T3 执行 + 调度方复核）**
+
+- **落点成立**：hero 态 `[data-conversation-session]` **有值**（走「有 id 但会话 blank」路径，不是无会话路径），`conversation.input.left` 在空会话与活跃态**都渲染**；像素采样 `rgb(255,138,0)` 两态各命中 170px。
+- **注入**：`exports.inject = ['slots','sessions','uiSession']` 生效（服务名）；package.json 的 `dsh.client.inject` 是包名、仅信息性。
+- **`eventSource.subscribe` 是失效通知（回调 0 参数）**，不是带 payload 的推送——必须自己 `getSnapshot()`。`change.kind` 实测 `append` / `settle-assistant`（**后者无 entries**）；transient 事件的 `seq` 是**小数**。
+- **`tool/result` 的 `data` 上没有 `callId`**——配对必须走 `data.message.toolCallId`（实测与 `tool/call.callId` 逐字符相同）。`data.error` 只在失败时出现，`message.isError` 恒存在。
+- **流事件真实词汇**：`assistant/live-chunk`（client-only transient），`data.chunk.type` ∈ block-start / reasoning-delta / text-delta / tool-call-delta / block-end / usage / finish。
+- **`uiSession.sessionStatus` 是真 `Map`**，value = `{running, pendingInteraction, completionUnread}`；`running` 只有 true/false；**初始 size=0**（首帧无数据）。
+- `sessions.list.byId[id].origin` 路径可读，但**无活体 subagent 行可验证过滤行为**（列为未验证，实现用防御性写法）。
+- 证据：`.agents/tmp/m6-probe/probe-result.json` + `m6-probe-firstScreen.png` / `-active.png` + `probe_m6.py`（可复跑）+ `toplevel-scan.mjs`（顶层零声明扫描器，对现有 `lib/client.js` 基线 0 违规）。
+
+**取证方法备忘**：DSH 安装体有**两份且版本一致**（`0.2.0-rc.2`）——桌面壳在 `app.asar`（`@deepseek-ai/dsh-desktop-runtime`），CLI 在全局 npm `C:\Users\pass\AppData\Roaming\npm\node_modules\@deepseek-ai\dsh`（隔离实例跑的是这份）。两份都可用 run_code 内的 node fs 直读：asar 那份要 asar-aware 的 fs（`fs.readFileSync(ASAR + '/dsh/...')`），npm 那份是普通目录。
