@@ -135,21 +135,21 @@ function fresh() { return D.initial() }
   // 正确配对：用 message.toolCallId
   const s2 = run(s, ev('tool/result', { message: { isError: false, toolCallId: 'a' } }))
   eq('用 toolCallId 配对 -> 计数下降到 3', s2.activeTools.length, 3)
-  // 契约：成功的 tool/result 一律收敛到 typing（仍有活跃工具）/ thinking（没有了）；
-  // 并发档位由 tool/call 决定，不由 tool/result 重算。
-  eq('成功的 tool/result 收敛到 typing（仍有活跃工具）', s2.base, 'typing')
+  // R3 契约：档位始终反映**剩余**活跃工具数（0→thinking / 1→typing / 2→music / ≥3→building）。
+  eq('剩 3 个仍 building', s2.base, 'building')
 
   // 故意用错字段（data.callId）——配对必须失败，计数不下降
   const wrong = run(s, ev('tool/result', { callId: 'a', message: { isError: false } }))
   eq('用错字段 data.callId -> 计数不下降（配对是承重的）', wrong.activeTools.length, 4)
   eq('计数未降到 3', wrong.activeTools.length === 3, false)
 
-  // 继续降到 1 仍按契约是 typing
+  // 逐级下降：3→music、2→typing、1→thinking（本次 R3 修正的回归测试）
   const s3 = run(s2, ev('tool/result', { message: { isError: false, toolCallId: 'b' } }))
-  eq('降到 2 仍 typing（契约）', s3.base, 'typing')
+  eq('降到 2 -> music', s3.base, 'music')
+  eq('降到 2 时计数', s3.activeTools.length, 2)
   const s4 = run(s3, ev('tool/result', { message: { isError: false, toolCallId: 'c' } }))
-  eq('降到 1 仍 typing（契约）', s4.base, 'typing')
-  // 全部收完后回到 thinking
+  eq('降到 1 -> typing', s4.base, 'typing')
+  eq('降到 1 时计数', s4.activeTools.length, 1)
   const s4b = run(s4, ev('tool/result', { message: { isError: false, toolCallId: 'd' } }))
   eq('全部收完 -> thinking', s4b.base, 'thinking')
   eq('全部收完计数为 0', s4b.activeTools.length, 0)
@@ -157,6 +157,35 @@ function fresh() { return D.initial() }
   // turn/end 清零
   const s5 = run(s4, ev('turn/end', { reason: { kind: 'aborted' } }))
   eq('turn/end 清零活跃工具', s5.activeTools.length, 0)
+}
+
+// ── 分组 3b：R3 回归——3 并发完成 1 个后应显示 music（不是固定 typing） ──
+{
+  let s = fresh()
+  s = run(s, ev('tool/call', { callId: 'x1' }))
+  s = run(s, ev('tool/call', { callId: 'x2' }))
+  s = run(s, ev('tool/call', { callId: 'x3' }))
+  eq('R3: 3 个并发 call -> building', s.base, 'building')
+
+  s = run(s, ev('tool/result', { message: { isError: false, toolCallId: 'x1' } }))
+  eq('R3: 完成 1 个后 -> music（旧契约会错误地给 typing）', s.base, 'music')
+
+  s = run(s, ev('tool/result', { message: { isError: false, toolCallId: 'x2' } }))
+  eq('R3: 再完成 1 个 -> typing', s.base, 'typing')
+
+  s = run(s, ev('tool/result', { message: { isError: false, toolCallId: 'x3' } }))
+  eq('R3: 全部完成 -> thinking', s.base, 'thinking')
+  eq('R3: 计数归零', s.activeTools.length, 0)
+
+  // 失败路径：error 瞬时态到期后应回落到「当时的剩余活跃数」档位，不是固定 base
+  let f = fresh()
+  f = run(f, ev('tool/call', { callId: 'y1' }), T0)
+  f = run(f, ev('tool/call', { callId: 'y2' }), T0)
+  f = run(f, ev('tool/result', { message: { isError: true, toolCallId: 'y1' } }), T0)
+  eq('R3: 失败 -> error 瞬时态', D.resolve(f, T0), 'error')
+  eq('R3: 失败时剩余 1 个工具，base 记 typing', f.base, 'typing')
+  eq('R3: error 到期后回落 typing（非固定 base）', D.resolve(f, T0 + 4800), 'typing')
+  eq('R3: 失败也把该 callId 从计数移除', f.activeTools.length, 1)
 }
 
 // ── 分组 4：live-chunk ────────────────────────────────────────────────
@@ -224,11 +253,13 @@ function fresh() { return D.initial() }
 {
   const base = fresh()
   for (const [state, hold] of [['happy', 5200], ['error', 4800], ['notification', 3200]]) {
+    // 三种瞬时态统一用 turn/end 触发：base 保持 idle，回落断言才可比。
+    // tool/result 触发的 error 会按 R3 回落到工具档位，单独在下方测。
     const entry = state === 'happy'
       ? ev('turn/end', { reason: { kind: 'completed' } })
       : state === 'notification'
         ? ev('turn/end', { reason: { kind: 'blocked' } })
-        : ev('tool/result', { message: { isError: true, toolCallId: 'zz' } })
+        : ev('turn/end', { reason: { kind: 'error' } })
     const s = run(base, entry, T0)
     eq(state + ' 立刻可见', D.resolve(s, T0), state)
     eq(state + ' 到期前 1ms 仍可见', D.resolve(s, T0 + hold - 1), state)
@@ -238,10 +269,15 @@ function fresh() { return D.initial() }
     eq(state + ' decay 后 transient=null', D.decay(s, T0 + hold).transient, null)
     eq(state + ' decay 前 transient 保留', D.decay(s, T0 + hold - 1).transient, state)
   }
-  // error 由 tool/result 触发时 base 保持 idle
+  // error 由 tool/result 触发：base 记下「此刻剩余活跃数」的档位（R3），
+  // 无活跃工具时该档位就是 thinking，到期后回落到它。
   const e = run(base, ev('tool/result', { message: { isError: true, toolCallId: 'zz' } }), T0)
-  eq('瞬时 error 不夺 base（仍 idle）', e.base, 'idle')
-  eq('error 到期回落 idle', D.resolve(e, T0 + 4800), 'idle')
+  eq('瞬时 error 不夺显示（base 记档位）', e.base, 'thinking')
+  eq('error 到期回落 thinking（剩余 0 个工具）', D.resolve(e, T0 + 4800), 'thinking')
+  // 对比：turn/end 触发的 error 不回落到工具档位，而是 idle
+  const e2 = run(base, ev('turn/end', { reason: { kind: 'error' } }), T0)
+  eq('turn/end error 的 base 保持 idle', e2.base, 'idle')
+  eq('turn/end error 到期回落 idle', D.resolve(e2, T0 + 4800), 'idle')
 }
 
 // ── 分组 8：抢占语义 ──────────────────────────────────────────────────
@@ -251,10 +287,10 @@ function fresh() { return D.initial() }
   eq('happy base 仍是 idle', s.base, 'idle')
   s = run(s, ev('tool/result', { message: { isError: true, toolCallId: 'x' } }), T0 + 1000)  // error 覆盖
   eq('error 覆盖 happy', D.resolve(s, T0 + 1000), 'error')
-  eq('覆盖后 base 未变', s.base, 'idle')
+  eq('覆盖后 base 被记为工具档位（剩余 0 -> thinking）', s.base, 'thinking')
   eq('error 重新计时（T0+1000+4800）', s.until, T0 + 1000 + 4800)
   eq('原 happy 到期时刻不再生效（T0+5200 时仍是 error）', D.resolve(s, T0 + 5200), 'error')
-  eq('新窗口到期才回落', D.resolve(s, T0 + 1000 + 4800), 'idle')
+  eq('新窗口到期才回落', D.resolve(s, T0 + 1000 + 4800), 'thinking')
 
   // 8b 瞬时态覆盖期间来持久态：base 换新，瞬时态被清
   let t = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)       // happy 覆盖中

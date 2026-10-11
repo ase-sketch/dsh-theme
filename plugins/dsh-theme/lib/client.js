@@ -302,6 +302,18 @@ window.__ModuleLoader__.load({
     }
 
     /**
+     * 活跃工具数 → 持久态。**唯一**的档位映射，tool/call 与 tool/result 共用，
+     * 保证「档位始终反映当前活跃工具数」而不是某个事件的固定收敛值（R3 修正）。
+     * 0→thinking / 1→typing / 2→music / ≥3→building
+     */
+    function deepyToolState(count) {
+      if (count >= 3) return 'building'
+      if (count === 2) return 'music'
+      if (count === 1) return 'typing'
+      return 'thinking'
+    }
+
+    /**
      * 纯函数投影：把一个事件套用到机器状态上，返回新状态（不修改入参）。
      * 无 DOM、无服务、无时钟副作用——now 由调用方传入，便于单测。
      *
@@ -352,10 +364,7 @@ window.__ModuleLoader__.load({
       if (type === 'tool/call') {
         var callId = data.callId === undefined || data.callId === null ? null : String(data.callId)
         if (callId !== null && next.activeTools.indexOf(callId) === -1) next.activeTools.push(callId)
-        var n = next.activeTools.length
-        if (n === 1) persistent('typing')
-        else if (n === 2) persistent('music')
-        else if (n >= 3) persistent('building')
+        persistent(deepyToolState(next.activeTools.length))
         return next
       }
 
@@ -371,11 +380,16 @@ window.__ModuleLoader__.load({
           var at = next.activeTools.indexOf(doneId)
           if (at !== -1) next.activeTools.splice(at, 1)
         }
+        // R3 修正：档位始终反映**剩余**活跃工具数，不由本事件固定收敛。
+        var remainingState = deepyToolState(next.activeTools.length)
         if (failed) {
+          // 失败：显示 error 瞬时态；base 同步记下「此刻还剩几个工具」的档位，
+          // 这样 4800ms 到期后回落到当时的真实档位，而不是固定回 thinking/idle。
+          next.base = remainingState
           transient('error')
           return next
         }
-        persistent(next.activeTools.length > 0 ? 'typing' : 'thinking')
+        persistent(remainingState)
         return next
       }
 
