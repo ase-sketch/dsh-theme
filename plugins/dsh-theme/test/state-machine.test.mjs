@@ -188,6 +188,63 @@ function fresh() { return D.initial() }
   eq('R3: 失败也把该 callId 从计数移除', f.activeTools.length, 1)
 }
 
+// ── 分组 3c：瞬时态 hold 窗口（契约变更 2026-10-11） ──────────────────
+// 真实事件流：用户点「停止生成」→ tool/result(isError) 紧接着 turn/end(aborted)。
+// 原规则下 turn/end 的 persistent 会立刻清掉 error，实测只可见 10–270ms。
+// 新规则：瞬时态在 hold 窗口内保持可见，只有 turn/start 清除它。
+{
+  // 3c-1 复现验收方观测序列：error 必须活满 4800ms
+  let s = fresh()
+  s = run(s, ev('turn/start', {}), T0)                                  // thinking
+  s = run(s, tr('assistant/live-chunk', { chunk: { type: 'text-delta' } }), T0 + 100)  // typing
+  s = run(s, ev('tool/call', { callId: 'c1', name: 'pwsh' }), T0 + 200) // typing
+  s = run(s, ev('tool/result', { message: { isError: true, toolCallId: 'c1' } }), T0 + 300)
+  eq('停止生成：工具失败 -> error', D.resolve(s, T0 + 300), 'error')
+  s = run(s, ev('turn/end', { reason: { kind: 'aborted' } }), T0 + 310)  // ← 原规则在这里清掉 error
+  eq('turn/end(aborted) 不再清掉 error', D.resolve(s, T0 + 310), 'error')
+  eq('error 仍在窗口内（+2000ms）', D.resolve(s, T0 + 2300), 'error')
+  eq('error 仍在窗口内（+4799ms）', D.resolve(s, T0 + 300 + 4799), 'error')
+  eq('aborted 把 base 设为 idle', s.base, 'idle')
+  // 到期后回落到「此刻的 base」——turn/end(aborted) 已把 base 设为 idle。
+  eq('error 到期后回落 idle（turn/end aborted 的 base）', D.resolve(s, T0 + 300 + 4800), 'idle')
+
+  // 3c-2 瞬时态期间来 tool/result 成功 -> 仍是 error
+  let t = fresh()
+  t = run(t, ev('tool/call', { callId: 'a' }), T0)
+  t = run(t, ev('tool/result', { message: { isError: true, toolCallId: 'a' } }), T0)
+  eq('失败 -> error', D.resolve(t, T0), 'error')
+  t = run(t, ev('tool/result', { message: { isError: false, toolCallId: 'b' } }), T0 + 500)
+  eq('error 期间成功 result 不夺显示', D.resolve(t, T0 + 500), 'error')
+  eq('但 base 已按剩余数更新为 thinking', t.base, 'thinking')
+
+  // 3c-3 瞬时态期间来 turn/start -> 清除并进 thinking
+  let u = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)
+  eq('happy 覆盖中', D.resolve(u, T0 + 10), 'happy')
+  u = run(u, ev('turn/start', {}), T0 + 20)
+  eq('turn/start 清除瞬时态', u.transient, null)
+  eq('turn/start 后显示 thinking', D.resolve(u, T0 + 20), 'thinking')
+
+  // 3c-4 step/start 不清瞬时态（同轮内的下一次模型调用）
+  let v = run(fresh(), ev('tool/result', { message: { isError: true, toolCallId: 'z' } }), T0)
+  eq('error 覆盖中', D.resolve(v, T0 + 10), 'error')
+  v = run(v, ev('step/start', { turn: 1, step: 2 }), T0 + 20)
+  eq('step/start 不清瞬时态（仍是 error）', D.resolve(v, T0 + 20), 'error')
+  eq('step/start 仍换 base 为 thinking', v.base, 'thinking')
+
+  // 3c-5 瞬时态期间来 live-chunk 也不夺显示
+  let w = run(fresh(), ev('turn/end', { reason: { kind: 'blocked' } }), T0)
+  eq('notification 覆盖中', D.resolve(w, T0 + 10), 'notification')
+  w = run(w, tr('assistant/live-chunk', { chunk: { type: 'text-delta' } }), T0 + 20)
+  eq('notification 期间 live-chunk 不夺显示', D.resolve(w, T0 + 20), 'notification')
+  eq('notification 到期后回落 typing', D.resolve(w, T0 + 3200), 'typing')
+
+  // 3c-6 瞬时态期间来 tool/call 也不夺显示
+  let x = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)
+  x = run(x, ev('tool/call', { callId: 'k1' }), T0 + 20)
+  eq('happy 期间 tool/call 不夺显示', D.resolve(x, T0 + 20), 'happy')
+  eq('happy 到期后回落 typing（1 个活跃工具）', D.resolve(x, T0 + 5200), 'typing')
+}
+
 // ── 分组 4：live-chunk ────────────────────────────────────────────────
 {
   eq('reasoning-delta -> thinking', run(fresh(), tr('assistant/live-chunk', { chunk: { type: 'reasoning-delta' } })).base, 'thinking')
@@ -292,13 +349,19 @@ function fresh() { return D.initial() }
   eq('原 happy 到期时刻不再生效（T0+5200 时仍是 error）', D.resolve(s, T0 + 5200), 'error')
   eq('新窗口到期才回落', D.resolve(s, T0 + 1000 + 4800), 'thinking')
 
-  // 8b 瞬时态覆盖期间来持久态：base 换新，瞬时态被清
+  // 8b 契约变更后：**只有 turn/start**（新一轮）能清瞬时态。
+  // 旧版这里写的是「持久态夺回显示」——那条已被 2026-10-11 的契约变更取代，
+  // 见分组 3c。此处保留 turn/start 这一条，并明确它不是通用规则。
   let t = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)       // happy 覆盖中
   eq('覆盖中先确认瞬时态', D.resolve(t, T0 + 10), 'happy')
   t = run(t, ev('turn/start', {}), T0 + 20)
-  eq('持久态夺回显示', D.resolve(t, T0 + 20), 'thinking')
-  eq('持久态清掉瞬时态', t.transient, null)
-  eq('持久态 base 换新', t.base, 'thinking')
+  eq('turn/start（新一轮）夺回显示', D.resolve(t, T0 + 20), 'thinking')
+  eq('turn/start 清掉瞬时态', t.transient, null)
+  eq('turn/start 换 base', t.base, 'thinking')
+  // 反例：step/start 是同一轮内的事件，不得清瞬时态（分组 3c-4 已详测）
+  const t2 = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)
+  const t3 = run(t2, ev('step/start', { turn: 1, step: 2 }), T0 + 20)
+  eq('反例：step/start 不清瞬时态', D.resolve(t3, T0 + 20), 'happy')
 
   // 8c 显示优先级：瞬时态优先于跨会话档位（Q3 裁定）
   const instant = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)
