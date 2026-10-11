@@ -7,6 +7,7 @@
 **快层（秒级，改完随时跑）**
 
 - 构建 + 守卫校验：`node scripts/build-skin.mjs`（从 dsh-ui/preview/index.html :root 生成 skin.css：91 契约 token + 99 个 --dsh-* 变量；校验 patches.css 的 var() 引用与 shell 保留变量重名）
+- Deepy 素材构建：`node scripts/build-deepy.mjs`（从 E:\dsh-ui 精灵图降采样到 64px/帧 → `plugins/dsh-theme/assets/deepy/`；四条守卫：源图尺寸、产出尺寸、非空格数=帧数、manifest 原子落盘。产物入库，改素材源后才需重跑）
 
 **全量层（收口用）**
 
