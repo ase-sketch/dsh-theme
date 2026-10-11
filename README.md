@@ -27,7 +27,7 @@
 
 把整个 `skins/dsh-ui/` 目录拷到 `$DSH_HOME/skins/`（本机 = `C:\Users\pass\.dsh\skins\`），刷新 GUI 即出现在皮肤列表里。
 
-### 插件期（M5 已可用 · 本地自用）
+### 插件期（M5 已完成 · 本地自用）
 
 这套视觉已做成**自研插件** `dsh-theme`（bundle 形态），web profile 自动化验收通过（明暗双套 + 设置面板开关 + 卸载还原）。用它而不是皮肤卡时：
 
@@ -87,7 +87,7 @@ node scripts/sync-skin.mjs
 | `skins/dsh-ui/` | 皮肤源目录（skin.json 清单 + 生成的 skin.css + 手写 patches.css + preview/ 预览图） |
 | `mapping.json` | L1 映射表（dsh-ui token → 官方 `--dsw-*`，人工策展） |
 | `scripts/` | 构建与同步脚本 |
-| `plugins/dsh-theme/` | 自研 bundle 插件（M5 在建：host 半 = 开关持久化，client 半 = 样式注入 + 设置面板） |
+| `plugins/dsh-theme/` | 自研 bundle 插件（M5 已落地：host 半 = 开关持久化，client 半 = 样式注入 + 设置面板） |
 | [AGENTS.md](AGENTS.md) | 项目规矩与 Quick Commands |
 | [ARCHITECTURE.md](ARCHITECTURE.md) | 结构地图（改动该落在哪） |
 | [.agents/notes/](.agents/notes/) | 决策史（目录树即索引） |

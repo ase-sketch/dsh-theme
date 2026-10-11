@@ -9,7 +9,7 @@
 
 | 条目 | 类型 | 说明 |
 |---|---|---|
-| 加载器 | 硬约束 | **M1–M4 纯皮肤期**：皮肤是纯资产目录，由 skin-center（@linxin666/dsh-client-ui-skin-center，desktop profile 已装已启用）加载渲染，不写插件、不接 cordis 接线。**M5 起**改走自研 bundle 插件（形态 A，在建未验收）：client 半自注入样式 + 注册设置面板；皮肤卡保留作回退，插件激活时须把皮肤切回官方默认，防双注入 |
+| 加载器 | 硬约束 | **M1–M4 纯皮肤期**：皮肤是纯资产目录，由 skin-center（@linxin666/dsh-client-ui-skin-center，desktop profile 已装已启用）加载渲染，不写插件、不接 cordis 接线。**M5 起**改走自研 bundle 插件（形态 A，已落地验收）：client 半自注入样式 + 注册设置面板；皮肤卡保留作回退，插件激活时须把皮肤切回官方默认，防双注入 |
 | 皮肤格式 | 硬约束 | 遵循 skin-center contracts v2：skin.json（fail-closed 校验）+ skin.css（L1 token 重映射 + L2 语义选择器）+ 可选 patches.css（L3）；本地皮肤 hooks.mjs 不会被执行（信任模型），不依赖它 |
 | 视觉来源 | 硬约束 | 全部色值取自 dsh-ui preview :root，由构建脚本按映射表生成 skin.css，**禁止手抄 hex/尺寸**；映射表是唯一手工维护物 |
 | 放置 | 硬约束 | 成品同步到 $DSH_HOME/skins/dsh-ui/（= C:\Users\pass\.dsh\skins\dsh-ui\）；源文件在 E:\dsh-theme\skins\dsh-ui\ |

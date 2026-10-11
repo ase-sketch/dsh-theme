@@ -16,7 +16,7 @@
 ## 项目红线
 
 - **M1–M4 纯皮肤期**：皮肤是**纯资产目录**——不写插件、不接 cordis 接线、不写 hooks.mjs（本地皮肤无执行权）。
-- **M5 插件期**（自研 bundle 插件，在建未验收；形态与红线见 HANDOFF.md §5/§6）：
+- **M5 插件期**（自研 bundle 插件，已落地验收；形态与红线见 HANDOFF.md §5/§6）：
   - 插件目录 `plugins/dsh-theme/`：host 半负责开关持久化（官方 settings 服务优先），client 半负责样式注入与设置面板。
   - **client 半文件顶层零声明**：所有 `const`/`let`/`function` 必须进 factory 函数体或包 IIFE——client 脚本被合批拼进同一个 `<script>`、顶层作用域共享，跨包同名标识符会触发 `Identifier 'X' has already been declared` 并**整批解析失败**（见 HANDOFF.md §3.6）。
   - 插件版 CSS 由 `scripts/build-skin.mjs` **额外产出**，仍是构建生成物、**禁止手抄**。必须做成**自包含**文件，自包含有两层：① 复刻 loader 的 token 变换（作用域重写 + `--dsw-alias-*` → `--dsw-specific-*` 派生 + **var() 别名在深色 body 作用域重求值**——var() 在声明所在元素求值，:root 上的别名会锁死浅色，漏克隆深色即失效）；② client 半自带**语义锚点适配器**（patches.css 的 3 条 L2 规则靠 `data-dsh-part`/`data-dsh-surface` 属性，纯皮肤期由 skin-center 代打）。缺任一层都会撞上 M5 验收「与纯皮肤期一致」。

@@ -1,6 +1,6 @@
 # Agent Note: M5 bundle 插件落地（plugins/dsh-theme）
 
-Status: implemented — 2026-10-10 web profile 自动化验收通过（生产者自检 + 独立复验双轮），desktop 真机验收待用户
+Status: implemented — 2026-10-10 web profile 自动化验收通过（生产者自检 + 独立复验双轮）+ 用户 desktop 真机验收确认通过
 
 ## Problem
 
@@ -27,8 +27,8 @@ plugins/dsh-theme/ = host/client 双半 bundle（本地自用，desktop profile 
 - M5 验收门禁从此含**深色必备项**与**像素采样**（防「计算绿但不可见」假绿——shell 不透明白层盖 body，截图必须 ON/OFF md5 不同才有效）。
 - 皮肤卡保留作回退；两条注入链并存、同一时刻只许一条生效。
 - file: 依赖是复制语义：改插件源码必须在各 profile 重装才生效。
-- 已知遗留：desktop 侧未验（用户真机验收合并 M4）；互斥 API 路径未实测；状态文件在 $DSH_HOME 全局目录（跨 profile 共享，自用可接受）；官方市场上架留后续。
+- 已知遗留：互斥 API 路径未实测；状态文件在 $DSH_HOME 全局目录（跨 profile 共享，自用可接受）；desktop 侧运行留痕缺失（插件回到 disabled:true 待机、`$DSH_HOME/dsh-theme/state.json` 未落盘，跨重启持久化目前仅有 web 侧直证）；官方市场上架留后续。
 
 ## Confirmation
 
-自动化验收双轮制：生产者跑 .agents/tmp/m5-plugin/（verify_m5 七条 + parity_m3 17 项 + pixel_acceptance）；独立验收方从零重装复跑 + 深色专项 + 负控制（.agents/tmp/m5-verify/REVERIFY-report.md 全绿）。复跑入口与起停流程见 HANDOFF.md §8。desktop 侧由用户按 §9 清单真机验收。
+自动化验收双轮制：生产者跑 .agents/tmp/m5-plugin/（verify_m5 七条 + parity_m3 17 项 + pixel_acceptance）；独立验收方从零重装复跑 + 深色专项 + 负控制（.agents/tmp/m5-verify/REVERIFY-report.md 全绿）。复跑入口与起停流程见 HANDOFF.md §8。desktop 侧由用户按 §9 清单真机验收，2026-10-10 确认通过。
