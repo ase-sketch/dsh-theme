@@ -19,10 +19,10 @@
 - 用户裁定：font 全家 181 个不纳入本期（官方 72 处 font: shorthand 消费使「只映分项」自相矛盾；全量接管会作废本期截图基线）。
 - 已知缺口（**M5/二期候选**，不在 M4 范围）：模型档位 pill 无稳定语义属性（需向 dsh-ui 提 data-dsh-part）；font 排版层未接管；卡片预览图缩放后细节偏小；对 loader 派生区的隐式依赖需回归。
 
-## M4 收口 —— ⏳ 自动化部分完成（2026-10-04），待用户真机验收
+## M4 收口 —— ✅ 已完成（2026-10-04 自动化验收 + 用户真机验收）
 - 产出：README.md（先讲怎么用：启用条件 / 试穿·应用·切回 / 换机器安装 / 构建链 / 验证 / 已知缺口）；三件套补齐（AGENTS.md Quick Commands 分快慢两层、ARCHITECTURE.md 回写 M3 边界、.agents/notes/ 归档 M1 bundle 笔记至 archived/ 并更新 Status）；仓库清理（移除误跟踪的 _instance_url.txt——含实例 token，.gitignore 加规则防复发）。
 - 验收证据（自动化部分，2026-10-04 重跑）：隔离实例跑 _m2_verify.py（91 token × 明暗 + 根底色全绿）、_m3_verify.py（组件层 24 断言全绿）、_m3_compare.py（与 preview 基准逐项对照，仅 1 项已知可接受偏差）；快层构建 + 守卫通过。
-- 待用户完成：真机验收清单（HANDOFF.md §9）——应用 → 日常使用 → 切回官方默认，全链路确认。
+- 真机验收：**用户确认通过**（皮肤卡应用 → 日常使用 → 切回官方默认，全链路）；2026-10-11 随 M5 口径一并回写。
 
 ## M5 插件化（终局；2026-10-03 定方向，2026-10-10 定形态与范围）—— ✅ 已完成（2026-10-10 web 自动化验收 + 用户 desktop 真机验收通过）
 - 形态：自研 **bundle 插件**（形态 A，本地 desktop profile 自用先行）。骨架照抄本机活样本 skin-center 的 package.json 三要素，不 fork dsh-claude-style。
@@ -34,5 +34,19 @@
 - 复盘：本轮三条隐性假设（计算绿≠可见 / var() 在声明处求值 / file: 是复制语义）已沉淀进 HANDOFF.md §5 与归属笔记 Consequences，收口门禁四项齐。
 
 
-## 下一期（不在本期）
-Deepy 状态机——M5 之后做，技术前提已变：走插件事件钩子能力（`ctx.on` + SessionEventStream，已查实 57 种会话事件），直接映射 design-spec §7.2 事件表，§7.1 帧表输入已备齐。不再是「本地皮肤无 hooks 执行权、需评估官方市场渠道」的老问题。二期待排期。
+## M6 Deepy 状态机动画（2026-10-11 定范围，开工中）
+- 目标：把 dsh-ui 规范的 Deepy 角色接进 dsh-theme 插件，按 DSH **真实**会话事件实时切状态。
+- 范围（用户 2026-10-11 拍板）：**核心 8 态** = idle / thinking / typing / happy / error / notification / music / building；**落点 = 常驻输入卡片**（slot `conversation.input.left`）；不做交互层（点击/连点/拖拽/游走——作者源 HTML 零实现）与空闲彩蛋/睡眠（留二期）；与已装的 @linxin666/dsh-pet 互不相干、各自开关，不写互斥逻辑。
+- 关键前置发现（两项只读调查 + 调度方独立复核，证据见 HANDOFF.md §10）：
+  1. **design-spec §7.2 的事件表是 Claude Code 钩子名，DSH 侧不存在**（7 个字面同名事件只出现在 dsh-hooks-claude-code 兼容桥里）。DSH 真实词汇：`turn/start`、`step/start`、`assistant/message`、`tool/call`、`tool/result`、`turn/end`（+ `compaction/start|end`）；`WorktreeCreate` 全 asar 无对应，`PreCompact` 只有事后事件。→ 按真实事件实现，并**回 dsh-ui 记规范缺口**（项目红线：不改 dsh-ui）。
+  2. **品牌区 hero 只在空会话渲染**（dsh-client-ui-conversation/lib/client.js:16016），而会话事件只在会话活跃时发生——两者互斥；`conversation.input.left/right` 两态都渲染，故落点选它。
+  3. 素材 20 张精灵图逐张核对：帧数与 §7.1 表 **20/20 一致**、统一 260px/帧 × 8 列 × 50ms；三张有行尾 padding（happy/idle-look/waking），切帧必须用**每态真实帧数**取模；**切帧窗口宽度必须 = 帧宽**（typing/conducting 48/48 帧触格边，M3「多只鲸鱼」教训有据）。
+  4. DSH 版本 0.2.0-rc.2；client 半可 inject `sessions`（`binding(id).eventSource.subscribe`）与 `uiSession`（`sessionStatus` 跨会话源），**无需 host 转发**。
+- 验收标准：① 快层构建通过（新增 deepy 资产流水线守卫：帧数/网格整除、manifest 与素材一致）；② 隔离 web profile + Playwright：slot 注入成功、连续帧 md5 不同（在动）、帧窗口 = 帧宽、事件→状态断言、开关 OFF 时 Deepy 一并卸载、console 零错；③ 像素采样证明真实可见（防「计算绿 ≠ 可见」）；④ 独立复验方从零重装复跑；⑤ 动画手感属感官类 → 用户真机走查。
+- 待复核：素材许可（作者经 QQ 提供，随插件分发需确认）；并发档位口径（`uiSession.running` 是「会话活跃」，§7.2 文字写「会话」、注释写「跑工具」）。
+
+## 下一期（M7+，不在本期）
+- Deepy 二期：交互层（点击/连点/拖拽/游走）、空闲彩蛋与 60s 睡眠、其余 12 态。
+- 官方市场上架（M5 分发行）。
+- 视觉缺口：font 排版层 181 token；模型档位 pill（需 dsh-ui 补 `data-dsh-part`）。
+- M5 残留风险：互斥 API 路径实测、持久化迁官方 settings 服务、验收脚本从 `.agents/tmp` 迁 `.agents/shots` 并纳管。
