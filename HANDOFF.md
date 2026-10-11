@@ -3,10 +3,11 @@
 > 给下一个会话：本项目当前状态、继续施工所需的一切。
 > 权威文档：docs/spec.md（范围）· docs/milestones.md（里程碑）· ARCHITECTURE.md（结构）· AGENTS.md（红线与命令）。
 > 本版取代 2026-10-10 午间的「M4 收口 + M5 开工前置」版——M5 已施工完毕并通过 web profile 双轮验收。
+> 2026-10-11 修订：M5 收口口径全量同步（desktop 真机验收经用户确认通过），各文档「在建未验收 / 待真机验收」措辞已改齐。
 
 ## 1. 一句话现状
 
-M1–M3 完成；M4/M5 自动化验收全部通过；**M5 插件已装进 desktop profile（disabled:true 待机）**，重启 DSH 后在插件页启用即用。剩余 = 用户真机验收（§9，M4 皮肤卡 + M5 插件一张清单）。
+M1–M5 全部完成并验收（M5 = web 双轮自动化 + 用户 desktop 真机确认）。**M5 插件已装进 desktop profile（disabled:true 待机）**，重启 DSH 后在插件页启用即用。下一期 = M6 Deepy 状态机动画。
 
 ## 2. M5 交付物（plugins/dsh-theme/）
 
@@ -24,7 +25,8 @@ M1–M3 完成；M4/M5 自动化验收全部通过；**M5 插件已装进 deskto
 
 - **已验证（web profile 隔离实例，双轮制）**：① D4 探针门（三行断言 + 负控制 + console 零错，.agents/tmp/m5-probe/）；② 生产者七条自检（.agents/tmp/m5-plugin/acceptance-report.json）；③ 独立验收方从零重装复跑全绿 + 深色专项 + 负控制（.agents/tmp/m5-verify/REVERIFY-report.md）。
 - **返工记录**：独立验收首轮抓红深色模式（var() 别名在 html 层求值锁死浅色，侧栏/输入卡仍亮）；修复 = 把 9 条 var() 别名在深色 body 作用域重声明（从 preview :root 现算）；复验 7 采样点 Δ=0、暗区占比 98.21%（基线 98.15%）、浅色截图 md5 零回归、克隆完备性 needClone==cloned。
-- **未验证**：desktop profile（装机态配置正确性已静态核验：安装副本与源逐字节一致；运行生效待用户重启后真机确认）；skin-center 共存下的互斥 API 路径（代码已写、未实测）。
+- **已验证**：desktop profile 运行生效（2026-10-10 用户真机确认通过；安装副本与源逐字节一致为静态核验）。
+- **未验证**：skin-center 共存下的互斥 API 路径（代码已写、未实测）；desktop 侧 state.json 未落盘（跨重启持久化目前仅有 web 侧直证）。
 
 ## 4. 三条施工红线（已进 AGENTS.md，这里留索引）
 
@@ -60,7 +62,7 @@ M1–M3 完成；M4/M5 自动化验收全部通过；**M5 插件已装进 deskto
 - 还原四步：恢复 package.json / cordis.patch.yml / pnpm-lock.yaml 备份（**整体覆盖**）→ 删 node_modules/.pnpm/lock.yaml 隐藏副本 → pnpm install → 确认 19488 端口释放 + dump-config 零命中。
 - 重型验证互斥：同一时刻只跑一份隔离实例。
 
-## 9. 真机验收清单（用户执行，M4 皮肤卡 + M5 插件，约 5 分钟）
+## 9. 真机验收清单（M4 皮肤卡 + M5 插件）—— ✅ 2026-10-10 用户确认通过（保留作回归清单）
 
 **A. 皮肤卡（M4，如已验可跳）**：刷新 GUI → 蓝调画布/白卡/实心主按钮/选中态竖条 → 深色切换无发白残留 → 切回官方默认当场还原。
 

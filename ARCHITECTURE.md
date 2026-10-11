@@ -4,7 +4,7 @@
 
 ## 用途
 
-把 dsh-ui 设计规范做成 DSH Web GUI 的主题：M1–M4 是 skin-center 皮肤（纯资产目录），一键应用/切回；**M5 起是自研 bundle 插件**（自带设置面板开关，本地自用先行，**在建未验收**）。两条路并存，视觉数值同源。
+把 dsh-ui 设计规范做成 DSH Web GUI 的主题：M1–M4 是 skin-center 皮肤（纯资产目录），一键应用/切回；**M5 起是自研 bundle 插件**（自带设置面板开关，本地自用，**已落地验收**）。两条路并存，视觉数值同源。
 
 ## 结构
 
@@ -19,7 +19,7 @@ flowchart LR
     SC --> GUI["DSH Web GUI<br/>html[data-dsh-skin=dsh-ui]"]
 ```
 
-### 插件期结构（M5，在建）
+### 插件期结构（M5，已落地）
 
 纯皮肤链原样保留；插件期另起一条注入链，视觉数值同源、两条链互不消费。
 
@@ -44,7 +44,7 @@ flowchart LR
 - **skins/dsh-ui/patches.css**：手工维护物之二——L2 语义属性规则（data-dsh-surface/part）、L3 最小兜底（class* / 全局）、以及**非 alias 命名空间**（shell 实际消费的 --dsw-specific-* / --dsw-radius-*）的重绑定。规则一律引用 var(--dsh-*) 或 var(--dsw-*)，不写死数值。
 - **scripts/build-skin.mjs**：preview :root + mapping.json → skin.css，并额外发射 --dsh-* 变量全集（明暗双套）供 patches.css 引用。两条守卫：patches.css 引用 preview :root 里不存在的变量 → 报错；preview :root 与 shell 自有变量重名 → 报错。
 - **scripts/sync-skin.mjs**：皮肤源 → $DSH_HOME/skins/dsh-ui/（含子目录，目录册收录点）。
-- **plugins/dsh-theme/**（M5 在建）：自研 bundle 插件，host/client 双半。host 半 = 开关持久化；client 半 = 样式注入 + 设置面板，顶层零声明（须包在 factory/IIFE 内）。详见上文「插件期结构」。
+- **plugins/dsh-theme/**（M5 已落地）：自研 bundle 插件，host/client 双半。host 半 = 开关持久化；client 半 = 样式注入 + 设置面板，顶层零声明（须包在 factory/IIFE 内）。详见上文「插件期结构」。
 - **docs/spec.md / docs/milestones.md**：范围与验收的唯一权威。
 
 ## 数据流
