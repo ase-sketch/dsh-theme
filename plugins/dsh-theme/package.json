@@ -19,7 +19,10 @@
     },
     "client": {
       "platform": "web",
-      "inject": []
+      "inject": [
+        "dsh-client-ui-session",
+        "dsh-client-ui-conversation"
+      ]
     }
   },
   "peerDependencies": {
