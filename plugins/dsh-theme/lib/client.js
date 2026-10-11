@@ -367,14 +367,38 @@ window.__ModuleLoader__.load({
         next.transient = name
         next.until = now + (DEEPY_HOLD_MS[name] || 0)
       }
-      /** 设定持久态：换 base，并清掉正在覆盖的瞬时态。 */
+      /**
+       * 设定持久态：只换 base，**不动**正在显示的瞬时态。
+       *
+       * ⚠️ 契约变更（2026-10-11，见回报「新规则 vs 原规则」）：
+       * 原规则（作者 HTML 的 P3）是「持久态夺回显示、清掉瞬时态」。那套状态机是
+       * 单机演示，没有 DSH 这种「工具失败后紧接着 turn 结束」的事件流 —— 实测中
+       * 用户点「停止生成」会连发 tool/result(isError) 与 turn/end(aborted)，error
+       * 只活 10–270ms，规范给的 4800ms hold 完全失效。
+       * 现在：瞬时态在自己的 hold 窗口内保持可见，只有 beginRound() 才清它；
+       * 到期后 deepyResolve 回落到**此刻的 base**（也就是「当时真实的档位」）。
+       */
       function persistent(name) {
+        next.base = name
+      }
+      /**
+       * 新一轮开始：换 base 且**清除**瞬时态。
+       * 只有 turn/start 用这个 —— 它是「用户又发起了一轮」的明确信号，
+       * 此时上一轮的 happy/error/notification 不该再压着新工作。
+       */
+      function beginRound(name) {
         next.base = name
         next.transient = null
         next.until = 0
       }
 
-      if (type === 'turn/start' || type === 'step/start') {
+      if (type === 'turn/start') {
+        beginRound('thinking')
+        return next
+      }
+      // step/start 是同一轮内的下一次模型调用（可能紧随工具失败），
+      // 按契约只换 base、不清瞬时态 —— error 让它在自己的窗口里显示完。
+      if (type === 'step/start') {
         persistent('thinking')
         return next
       }
