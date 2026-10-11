@@ -34,16 +34,25 @@
 - 复盘：本轮三条隐性假设（计算绿≠可见 / var() 在声明处求值 / file: 是复制语义）已沉淀进 HANDOFF.md §5 与归属笔记 Consequences，收口门禁四项齐。
 
 
-## M6 Deepy 状态机动画（2026-10-11 定范围，开工中）
+## M6 Deepy 状态机动画（2026-10-11 定范围并完成）—— ✅ 已完成（四轮 web 自动化验收 + 用户 desktop 真机验收通过）
 - 目标：把 dsh-ui 规范的 Deepy 角色接进 dsh-theme 插件，按 DSH **真实**会话事件实时切状态。
-- 范围（用户 2026-10-11 拍板）：**核心 8 态** = idle / thinking / typing / happy / error / notification / music / building；**落点 = 常驻输入卡片**（slot `conversation.input.left`）；不做交互层（点击/连点/拖拽/游走——作者源 HTML 零实现）与空闲彩蛋/睡眠（留二期）；与已装的 @linxin666/dsh-pet 互不相干、各自开关，不写互斥逻辑。
-- 关键前置发现（两项只读调查 + 调度方独立复核，证据见 HANDOFF.md §10）：
-  1. **design-spec §7.2 的事件表是 Claude Code 钩子名，DSH 侧不存在**（7 个字面同名事件只出现在 dsh-hooks-claude-code 兼容桥里）。DSH 真实词汇：`turn/start`、`step/start`、`assistant/message`、`tool/call`、`tool/result`、`turn/end`（+ `compaction/start|end`）；`WorktreeCreate` 全 asar 无对应，`PreCompact` 只有事后事件。→ 按真实事件实现，并**回 dsh-ui 记规范缺口**（项目红线：不改 dsh-ui）。
-  2. **品牌区 hero 只在空会话渲染**（dsh-client-ui-conversation/lib/client.js:16016），而会话事件只在会话活跃时发生——两者互斥；`conversation.input.left/right` 两态都渲染，故落点选它。
-  3. 素材 20 张精灵图逐张核对：帧数与 §7.1 表 **20/20 一致**、统一 260px/帧 × 8 列 × 50ms；三张有行尾 padding（happy/idle-look/waking），切帧必须用**每态真实帧数**取模；**切帧窗口宽度必须 = 帧宽**（typing/conducting 48/48 帧触格边，M3「多只鲸鱼」教训有据）。
-  4. DSH 版本 0.2.0-rc.2；client 半可 inject `sessions`（`binding(id).eventSource.subscribe`）与 `uiSession`（`sessionStatus` 跨会话源），**无需 host 转发**。
-- 验收标准：① 快层构建通过（新增 deepy 资产流水线守卫：帧数/网格整除、manifest 与素材一致）；② 隔离 web profile + Playwright：slot 注入成功、连续帧 md5 不同（在动）、帧窗口 = 帧宽、事件→状态断言、开关 OFF 时 Deepy 一并卸载、console 零错；③ 像素采样证明真实可见（防「计算绿 ≠ 可见」）；④ 独立复验方从零重装复跑；⑤ 动画手感属感官类 → 用户真机走查。
-- 待复核：素材许可（作者经 QQ 提供，随插件分发需确认）；并发档位口径（`uiSession.running` 是「会话活跃」，§7.2 文字写「会话」、注释写「跑工具」）。
+- 范围（用户 2026-10-11 拍板）：**核心 8 态** = idle / thinking / typing / happy / error / notification / music / building；**落点 = 常驻输入卡片**（slot `conversation.input.left`）；不做交互层（点击/连点/拖拽/游走——作者源 HTML 零实现）与空闲彩蛋/睡眠（留二期）；与 @linxin666/dsh-pet 互不相干、各自开关，不写互斥逻辑。
+- 关键前置发现（两项只读调查 + 调度方独立复核，证据见 HANDOFF.md §10）：① **design-spec §7.2 的事件表是 Claude Code 钩子名，DSH 侧不存在**，按真实词汇（`turn/start`、`step/start`、`tool/call`、`tool/result`、`turn/end`、`assistant/live-chunk`）实现并回 dsh-ui 记缺口；② **品牌区 hero 只在空会话渲染**、与会话事件互斥，故落点选 input.left；③ 素材 20 张帧数与 §7.1 表 20/20 一致（三张有行尾 padding，切帧按每态真实帧数取模），**切帧窗口宽度必须 = 帧宽**；④ client 半可 inject `sessions`/`uiSession`，无需 host 转发。
+- 产出：`scripts/build-deepy.mjs`（素材流水线，预乘 alpha 面积加权降采样 260px→64px，四条守卫）+ `plugins/dsh-theme/assets/deepy/`（8 态 PNG + manifest，**构建生成物禁手改**）+ host 素材路由（`kind:'prefix'` + 白名单 + 只解码一次）+ client.js Deepy 段（纯函数投影 + 无 IO 状态机 + slot 的 React 渲染注入）+ 两个测试文件（状态机 130 条 + 渲染层 36 条）。归属笔记：`.agents/notes/implemented/feature/2026-10-11-m6-deepy-state-machine.md`。
+- 验收证据（四轮隔离 web profile，每轮从零重装、按 PID 停实例、四步还原；编排方重跑关键验证，不采纳自述）：
+  - **端到端 12/12**：slot 注入、帧在推进（875ms 内 17 个不同帧位置）、帧窗口宽 = 帧宽（64px）、素材按需加载（首屏仅 idle.png）、事件→状态链、开关 OFF 全撤（含 rAF 增量 0）、ON 恢复、console 零错、**像素可见**（非背景像素 776/4096，其中 559 与素材饱和色同源）、深色模式、负控制。
+  - **四态三合一**（状态切 + 对应 PNG 被拉取 + 像素可见）：building / music / error PASS；**notification 未验证**（隔离实例切不到「仅可查看」访问模式，触发不了审批请求）。
+  - **生命周期边界 4/4**：会话归档、极窄视口（420px 与 320px 下精灵均在视口内）、隐藏/恢复（frozen→resumed）、切工作区。
+  - **dsh-pet 共存**：功能 PASS（pet 可召唤、Deepy 正常切状态、console 零错）；视觉 overlap=0、间距 518px（pet 可拖拽，拖过去会重叠属用户行为）。
+  - **事件层归因**：error 触发率 6/10 属**设计非缺陷**——有 in-flight 工具的失败 `tool/result` 才有 error，随后 `turn/end(aborted)` 在新契约下不再清它（6 次中断 1:1 相关）。
+  - **多订阅**：同一 `eventSource` 支持多订阅、无单订阅限制，多插件可安全共享（探针 2 个 + 本插件 1 个，6/6 session 命中数一致）。
+  - **变异负控制 7 条**全绿，其中 r1/r2 是缺陷①的两个成因、h1/h2 是缺陷②的契约。
+  - **快层构建**：deepy 守卫 1–4 全绿，产出与入库**逐字节一致**。
+- **两个真缺陷**（均由独立验收方发现 → 实现方修复 → 复验转绿，各有回归测试）：① **切会话后精灵永久消失**（手动 `appendChild` 进 React 拥有的 slot 容器，React 重渲染清掉它不认识的子节点；改为 React 渲染注入后修复，`repro_sprite_loss.py` 红→绿）；② **瞬时态被持久态覆盖**（照搬作者单机演示的抢占规则，使规范给的 4800/5200/3200ms hold 形同虚设，error 只活 10–270ms；改为 `persistent` 只换 base、仅 `turn/start` 清瞬时态后，实测 hold 4724–4790ms）。
+- 真机验收：**用户 2026-10-12 确认通过**（动画手感、切会话后精灵仍在、开关联动）。
+- 仍未验证：notification 活体（隔离实例触发不了审批请求）；隐藏/恢复用了 override `document.hidden` 的等价路径（本机 Chromium 无 `Emulation.setPageVisibilityOverride`）。
+- 待复核：**素材许可**（作者经 QQ 提供，随插件分发需确认——本地自用不阻塞）；**并发档位口径**（`uiSession.running` 是「会话活跃」，§7.2 文字写「会话」、注释写「跑工具」——按规范文字实现，偏差留档）。
+- 复盘（门禁④）：本轮三条隐性假设已沉淀进归属笔记——**单测不能替代活体验收**（109 条纯函数单测全绿时两个缺陷毫无察觉）、**规范与作者实现不能照搬**（§7.2 是 Claude Code 钩子名；作者的抢占规则在长会话事件流下失效）、**探针/测试的输出格式本身也要被验证**（`{type:null}` 实为 `settle-assistant` 包装条目，曾导致假设偏差）。
 
 ## 下一期（M7+，不在本期）
 - Deepy 二期：交互层（点击/连点/拖拽/游走）、空闲彩蛋与 60s 睡眠、其余 12 态。
