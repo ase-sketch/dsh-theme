@@ -1,0 +1,342 @@
+{
+ "points": {
+  "plugin_dark_ON": {
+   "sidebar_fill": {
+    "rgb": [
+     243,
+     247,
+     254
+    ],
+    "lum": 246.7
+   },
+   "sidebar_fill_2": {
+    "rgb": [
+     243,
+     247,
+     254
+    ],
+    "lum": 246.7
+   },
+   "canvas": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "composer_card_center": {
+    "rgb": [
+     255,
+     255,
+     255
+    ],
+    "lum": 255.0
+   },
+   "composer_card_2": {
+    "rgb": [
+     255,
+     255,
+     255
+    ],
+    "lum": 255.0
+   },
+   "new_session_btn": {
+    "rgb": [
+     247,
+     255,
+     255
+    ],
+    "lum": 253.3
+   },
+   "selected_row": {
+    "rgb": [
+     44,
+     51,
+     65
+    ],
+    "lum": 50.5
+   }
+  },
+  "plugin_dark_OFF": {
+   "sidebar_fill": {
+    "rgb": [
+     27,
+     27,
+     28
+    ],
+    "lum": 27.1
+   },
+   "sidebar_fill_2": {
+    "rgb": [
+     27,
+     27,
+     28
+    ],
+    "lum": 27.1
+   },
+   "canvas": {
+    "rgb": [
+     21,
+     21,
+     23
+    ],
+    "lum": 21.1
+   },
+   "composer_card_center": {
+    "rgb": [
+     44,
+     44,
+     46
+    ],
+    "lum": 44.1
+   },
+   "composer_card_2": {
+    "rgb": [
+     44,
+     44,
+     46
+    ],
+    "lum": 44.1
+   },
+   "new_session_btn": {
+    "rgb": [
+     237,
+     250,
+     223
+    ],
+    "lum": 245.3
+   },
+   "selected_row": {
+    "rgb": [
+     45,
+     45,
+     46
+    ],
+    "lum": 45.1
+   }
+  },
+  "skin_baseline_m2": {
+   "sidebar_fill": {
+    "rgb": [
+     23,
+     27,
+     36
+    ],
+    "lum": 26.8
+   },
+   "sidebar_fill_2": {
+    "rgb": [
+     23,
+     27,
+     36
+    ],
+    "lum": 26.8
+   },
+   "canvas": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "composer_card_center": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "composer_card_2": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "new_session_btn": {
+    "rgb": [
+     247,
+     255,
+     255
+    ],
+    "lum": 253.3
+   },
+   "selected_row": {
+    "rgb": [
+     44,
+     51,
+     65
+    ],
+    "lum": 50.5
+   }
+  },
+  "skin_baseline_m3": {
+   "sidebar_fill": {
+    "rgb": [
+     23,
+     27,
+     36
+    ],
+    "lum": 26.8
+   },
+   "sidebar_fill_2": {
+    "rgb": [
+     23,
+     27,
+     36
+    ],
+    "lum": 26.8
+   },
+   "canvas": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "composer_card_center": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "composer_card_2": {
+    "rgb": [
+     29,
+     34,
+     44
+    ],
+    "lum": 33.7
+   },
+   "new_session_btn": {
+    "rgb": [
+     247,
+     255,
+     255
+    ],
+    "lum": 253.3
+   },
+   "selected_row": {
+    "rgb": [
+     44,
+     51,
+     65
+    ],
+    "lum": 50.5
+   }
+  }
+ },
+ "darkPct": {
+  "plugin_dark_ON": 74.19,
+  "plugin_dark_OFF": 97.93,
+  "skin_baseline_m2": 98.15,
+  "skin_baseline_m3": 98.15
+ },
+ "verdict": {
+  "sidebar_fill": {
+   "plugin": [
+    243,
+    247,
+    254
+   ],
+   "skin_baseline": [
+    23,
+    27,
+    36
+   ],
+   "maxChannelDelta": 220,
+   "match_within_2": false
+  },
+  "sidebar_fill_2": {
+   "plugin": [
+    243,
+    247,
+    254
+   ],
+   "skin_baseline": [
+    23,
+    27,
+    36
+   ],
+   "maxChannelDelta": 220,
+   "match_within_2": false
+  },
+  "canvas": {
+   "plugin": [
+    29,
+    34,
+    44
+   ],
+   "skin_baseline": [
+    29,
+    34,
+    44
+   ],
+   "maxChannelDelta": 0,
+   "match_within_2": true
+  },
+  "composer_card_center": {
+   "plugin": [
+    255,
+    255,
+    255
+   ],
+   "skin_baseline": [
+    29,
+    34,
+    44
+   ],
+   "maxChannelDelta": 226,
+   "match_within_2": false
+  },
+  "composer_card_2": {
+   "plugin": [
+    255,
+    255,
+    255
+   ],
+   "skin_baseline": [
+    29,
+    34,
+    44
+   ],
+   "maxChannelDelta": 226,
+   "match_within_2": false
+  },
+  "new_session_btn": {
+   "plugin": [
+    247,
+    255,
+    255
+   ],
+   "skin_baseline": [
+    247,
+    255,
+    255
+   ],
+   "maxChannelDelta": 0,
+   "match_within_2": true
+  },
+  "selected_row": {
+   "plugin": [
+    44,
+    51,
+    65
+   ],
+   "skin_baseline": [
+    44,
+    51,
+    65
+   ],
+   "maxChannelDelta": 0,
+   "match_within_2": true
+  }
+ }
+}

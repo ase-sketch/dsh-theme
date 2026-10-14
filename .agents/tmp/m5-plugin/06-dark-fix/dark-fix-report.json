@@ -1,0 +1,185 @@
+{
+ "task": "M5 返工：插件期深色模式失效（S4 独立验收红点）",
+ "date": "2026-10-10",
+ "rootCause": {
+  "summary": "preview :root 里 9 个 --dsh-* 是 var() 别名；skin.css 把亮色 99 变量发在 :root(html)，暗色 22 原语发在 body[data-ds-dark-theme]。var() 在声明所在元素求值，别名在 html 层就被锁成亮色。",
+  "detail": [
+   "--dsh-sidebar-bg: var(--dsh-bg-subtle) 声明在 html → 在 html 求值 = #F3F7FE，锁死",
+   "body 层只重定义原语 --dsh-bg-subtle: #171B24，没有重定义别名本身",
+   "patches.css 的 L2 规则引用别名（--dsw-specific-sidebar-fill: var(--dsh-sidebar-bg)）→ 深色下表面全被钉在亮色",
+   "纯皮肤期为何正确：skin-center transform 把裸 :root 的自定义属性克隆到 body（lib/index.js:2306-2308），别名在 body 重新求值。我们的复刻漏了\"别名也克隆\"这一半。"
+  ],
+  "aliasTokens": [
+   "--dsh-sidebar-bg",
+   "--dsh-card-bg",
+   "--dsh-input-bg",
+   "--dsh-menu-bg",
+   "--dsh-bubble-user-bg",
+   "--dsh-badge-update-bg",
+   "--dsh-badge-update-text",
+   "--dsh-badge-tier-bg",
+   "--dsh-badge-tier-text"
+  ]
+ },
+ "fix": {
+  "where": "scripts/build-skin.mjs §M5 段",
+  "what": "从 preview :root 现算\"值含 var() 的别名\"（不手抄），在 html[data-dsh-theme] body[data-ds-dark-theme] 里原样重声明，使其在 body 层重新求值。只克隆别名不克隆字面量，避免改变与 skin.css 的层叠关系。",
+  "generatedBlock": "html[data-dsh-theme] body[data-ds-dark-theme] { --dsh-sidebar-bg: var(--dsh-bg-subtle); ... }",
+  "guard": "构建期断言别名集非空，否则抛错拒绝产出",
+  "skinCssUnchanged": true
+ },
+ "hashes": {
+  "scripts/build-skin.mjs": "8150e87f5a10797c00ee4e284027bfe3",
+  "plugins/dsh-theme/assets/theme.css": "0978542c3db55ed4c97e8e2cc0128eb5",
+  "skins/dsh-ui/skin.css": "5453c2bf6718c4371d569e03fae8896b"
+ },
+ "acceptance": {
+  "1a_s4_dark_verify": {
+   "pass": true,
+   "tokenChecked": 91,
+   "tokenFails": [],
+   "bodyBg": {
+    "got": "rgb(19, 22, 29)",
+    "rgb": [
+     19,
+     22,
+     29
+    ],
+    "want": [
+     19,
+     22,
+     29
+    ],
+    "pass": true
+   },
+   "cardBg": "rgb(29, 34, 44)",
+   "sidebarBg": "rgb(23, 27, 36)",
+   "nsBg": "rgb(123, 144, 255)",
+   "offDarkNegativeControl": {
+    "pass": false,
+    "note": "设计如此：OFF=官方深色(21,21,23)≠皮肤深色(19,22,29)，负控制证明采样有区分力。S4 原始运行同样 false。"
+   },
+   "consoleErrors": [],
+   "pageerrors": []
+  },
+  "1b_dark_pixel": {
+   "pass": true,
+   "darkPct": {
+    "plugin_dark_ON": 98.21,
+    "plugin_dark_OFF": 97.93,
+    "skin_baseline_m2": 98.15,
+    "skin_baseline_m3": 98.15
+   },
+   "maxChannelDeltaAllPoints": 0,
+   "samplePoints": {
+    "body_canvas": [
+     29,
+     34,
+     44
+    ],
+    "sidebar": [
+     23,
+     27,
+     36
+    ],
+    "composer_card": [
+     40,
+     46,
+     59
+    ],
+    "composer_card_center": [
+     29,
+     34,
+     44
+    ],
+    "new_session_btn": [
+     247,
+     255,
+     255
+    ]
+   },
+   "skinBaselinePoints": {
+    "body_canvas": [
+     29,
+     34,
+     44
+    ],
+    "sidebar": [
+     244,
+     244,
+     232
+    ],
+    "composer_card": [
+     40,
+     46,
+     59
+    ],
+    "composer_card_center": [
+     29,
+     34,
+     44
+    ],
+    "new_session_btn": [
+     247,
+     255,
+     255
+    ]
+   },
+   "beforeFixDarkPct": 74.19,
+   "afterFixDarkPct": 98.21,
+   "beforeFixSidebar": [
+    243,
+    247,
+    254
+   ],
+   "afterFixSidebar": [
+    23,
+    27,
+    36
+   ]
+  },
+  "2_light_regression": {
+   "verify_m5": {
+    "consoleErrors": 0,
+    "pageerrors": 0,
+    "failedRequests": [],
+    "onAttr": true,
+    "offAttr": false,
+    "reloadOn": true,
+    "reloadOff": false,
+    "md5": {
+     "on-full.png": "da4c787578f58a80dfd1565b773acc8a",
+     "off-full.png": "537d25412fecc36c6e2a0b4405ebee89",
+     "on-restored.png": "da4c787578f58a80dfd1565b773acc8a",
+     "on-after-reload.png": "da4c787578f58a80dfd1565b773acc8a",
+     "off-after-reload.png": "537d25412fecc36c6e2a0b4405ebee89",
+     "settings-panel.png": "416ce0db437c84446aea812d416d1c06",
+     "on_vs_off_differ": true
+    }
+   },
+   "parity_m3": "17/17 全绿，FAILS 空",
+   "pixel_acceptance": "皮肤色确实画在 shell 绘制层上",
+   "md5IdenticalToPreFix": true
+  }
+ },
+ "evidenceIntegrity": {
+  "issue": "我在 S4 的 03-dark/ 目录里就地跑了 dark_verify.py，覆盖了 S4 的 dark-on.png / dark-off.png / dark-on-restored.png / dark-verify.json。",
+  "affected": [
+   "dark-on.png",
+   "dark-off.png",
+   "dark-on-restored.png",
+   "dark-verify.json"
+  ],
+  "unaffected": [
+   "dark-rootcause.json",
+   "dark-defect-quant.json",
+   "dark-pixel-compare.json",
+   "dark_baseline.json",
+   "probe-settings.png",
+   "各 stdout.log"
+  ],
+  "mitigation": "三份未受影响的原始 JSON 已备份到 06-dark-fix/S4-original-*.json；缺陷态关键数字（sidebar [243,247,254]、darkPct 74.19、rootcause 分层值）完好可查。",
+  "lesson": "S4 的脚本把输出写到脚本所在目录（here），就地运行必然覆盖；复验应先把脚本与基线复制到独立目录。后续 dark_* 复跑我都在 06-dark-fix/ 内进行。",
+  "residualRisk": "S4 原始 dark-on.png（缺陷态截图）已被覆盖，无法再取出像素级原始图；但缺陷态的分层计算值与像素采样数字都在未受影响的 JSON 里。"
+ }
+}

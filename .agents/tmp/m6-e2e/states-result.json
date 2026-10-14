@@ -1,0 +1,158 @@
+{
+ "music": {
+  "createdSessions": [
+   true,
+   true
+  ],
+  "sequence": [],
+  "reachedMusic": false,
+  "musicPngRequested": false,
+  "pngRequestsSoFar": [
+   "thinking.png",
+   "typing.png"
+  ]
+ },
+ "building": {
+  "createdSessions": [
+   true,
+   true,
+   true
+  ],
+  "sequence": [],
+  "reachedBuilding": false,
+  "buildingPngRequested": true,
+  "pngRequestsSoFar": [
+   "building.png",
+   "thinking.png",
+   "typing.png"
+  ]
+ },
+ "error": {
+  "sequence": [],
+  "reachedError": false,
+  "errorPngRequested": false,
+  "stateAfter4800msWindow": null,
+  "secondsObservedPastError": null,
+  "pngRequestsSoFar": [
+   "building.png",
+   "happy.png",
+   "thinking.png",
+   "typing.png"
+  ],
+  "note": "R3 修正行为：error 瞬时态到期后应回落到『当时剩余活跃工具数』对应档位，而非固定 thinking/idle"
+ },
+ "notification": {
+  "attempts": [
+   {
+    "probe": "DOM approval surface",
+    "result": {
+     "approvalNodes": 0,
+     "bodyHasApprovalText": false
+    }
+   },
+   {
+    "probe": "dangerous command (Remove-Item outside workspace)",
+    "sequence": [],
+    "reachedNotification": false
+   }
+  ],
+  "notificationPngRequested": false,
+  "pngRequestsSoFar": [
+   "building.png",
+   "happy.png",
+   "thinking.png",
+   "typing.png"
+  ]
+ },
+ "_console": {
+  "errors": [],
+  "pageerrors": []
+ },
+ "_results": [
+  {
+   "id": "music",
+   "name": "music：2 会话并发 → 精灵切 music 且 music.png 按需新拉",
+   "pass": false,
+   "raw": {
+    "createdSessions": [
+     true,
+     true
+    ],
+    "sequence": [],
+    "reachedMusic": false,
+    "musicPngRequested": false,
+    "pngRequestsSoFar": [
+     "thinking.png",
+     "typing.png"
+    ]
+   }
+  },
+  {
+   "id": "building",
+   "name": "building：3 会话并发 → 精灵切 building 且 building.png 按需新拉",
+   "pass": false,
+   "raw": {
+    "createdSessions": [
+     true,
+     true,
+     true
+    ],
+    "sequence": [],
+    "reachedBuilding": false,
+    "buildingPngRequested": true,
+    "pngRequestsSoFar": [
+     "building.png",
+     "thinking.png",
+     "typing.png"
+    ]
+   }
+  },
+  {
+   "id": "error",
+   "name": "error：工具失败 → 精灵切 error 且 error.png 按需新拉；4800ms 后按档位回落",
+   "pass": false,
+   "raw": {
+    "sequence": [],
+    "reachedError": false,
+    "errorPngRequested": false,
+    "stateAfter4800msWindow": null,
+    "secondsObservedPastError": null,
+    "pngRequestsSoFar": [
+     "building.png",
+     "happy.png",
+     "thinking.png",
+     "typing.png"
+    ],
+    "note": "R3 修正行为：error 瞬时态到期后应回落到『当时剩余活跃工具数』对应档位，而非固定 thinking/idle"
+   }
+  },
+  {
+   "id": "notification",
+   "name": "notification：本实例无法活体触发（见 raw 中的尝试与原因）",
+   "pass": null,
+   "raw": {
+    "attempts": [
+     {
+      "probe": "DOM approval surface",
+      "result": {
+       "approvalNodes": 0,
+       "bodyHasApprovalText": false
+      }
+     },
+     {
+      "probe": "dangerous command (Remove-Item outside workspace)",
+      "sequence": [],
+      "reachedNotification": false
+     }
+    ],
+    "notificationPngRequested": false,
+    "pngRequestsSoFar": [
+     "building.png",
+     "happy.png",
+     "thinking.png",
+     "typing.png"
+    ]
+   }
+  }
+ ]
+}

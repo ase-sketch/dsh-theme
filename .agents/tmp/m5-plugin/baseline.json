@@ -1,0 +1,11 @@
+{
+ "capturedAt": "2026-10-10T14:17:00.605Z",
+ "skins/dsh-ui/skin.css": {
+  "md5": "5453c2bf6718c4371d569e03fae8896b",
+  "bytes": 11850
+ },
+ "skins/dsh-ui/patches.css": {
+  "md5": "f1bab90d1725e97e0af4c36760c1e300",
+  "bytes": 3442
+ }
+}

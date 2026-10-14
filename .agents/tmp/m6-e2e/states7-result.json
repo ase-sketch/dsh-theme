@@ -1,0 +1,79 @@
+{
+ "head": "bda3c5a",
+ "results": [
+  {
+   "id": "error",
+   "name": "error：回合被中断 → 状态切 error + error.png 拉取 + 像素可见（三合一）",
+   "pass": false,
+   "raw": {
+    "preSequence": [
+     {
+      "t": 0.27,
+      "state": "thinking",
+      "alive": true
+     },
+     {
+      "t": 2.64,
+      "state": "typing",
+      "alive": true
+     }
+    ],
+    "stopClick": {
+     "clicked": true,
+     "aria": "停止生成",
+     "title": "",
+     "text": ""
+    },
+    "errorSequence": [
+     {
+      "t": 0.26,
+      "state": "idle",
+      "alive": true
+     }
+    ],
+    "reached": false,
+    "state": "idle",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "errorPngRequested": true,
+    "pixels": null,
+    "fallback": null,
+    "pngRequests": [
+     "error.png",
+     "thinking.png",
+     "typing.png"
+    ],
+    "note": "turn/end reason=interrupted 走 deepyProject 的 error 分支；4800ms 后应按档位回落（R3）"
+   }
+  },
+  {
+   "id": "notification-recon",
+   "name": "notification：审批面侦察（access-mode 选项 + approval 插件存在性）",
+   "pass": null,
+   "raw": {
+    "recon": {
+     "found": true,
+     "aria": "访问模式，当前：工作区内修改",
+     "options": [
+      "doc-reader-v2",
+      "dsh-theme标准模式",
+      "标准模式",
+      "仅可查看工作区内修改完全权限",
+      "完全权限"
+     ]
+    },
+    "approvalPluginsInBoot": [
+     "@deepseek-ai/dsh-client-ui-approval",
+     "@deepseek-ai/dsh-client-ui-permission-presets"
+    ],
+    "note": "若存在可切换的严格访问模式，下一轮据此构造审批请求"
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

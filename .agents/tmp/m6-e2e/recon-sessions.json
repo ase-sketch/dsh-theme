@@ -1,0 +1,240 @@
+{
+ "buttons": [
+  {
+   "text": "",
+   "aria": "新建会话",
+   "title": "",
+   "cls": "hHd-Xa_brand hHd-Xa_wide",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "收起侧边栏",
+   "title": "",
+   "cls": "hHd-Xa_iconButton hHd-Xa_toggle",
+   "visible": true
+  },
+  {
+   "text": "新会话Ctrl+Alt+N",
+   "aria": "新建会话",
+   "title": "",
+   "cls": "hHd-Xa_newSession",
+   "visible": true
+  },
+  {
+   "text": "插件",
+   "aria": "插件",
+   "title": "",
+   "cls": "hHd-Xa_panelRow",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "搜索会话",
+   "title": "",
+   "cls": "bhn1Oq_searchButton",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "视图选项",
+   "title": "",
+   "cls": "bhn1Oq_iconButton bhn1Oq_wide",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "添加工作区",
+   "title": "",
+   "cls": "bhn1Oq_iconButton",
+   "visible": true
+  },
+  {
+   "text": "展开其余 2 个会话",
+   "aria": null,
+   "title": "",
+   "cls": "bhn1Oq_sessionOverflowButton",
+   "visible": true
+  },
+  {
+   "text": "设置",
+   "aria": "设置",
+   "title": "",
+   "cls": "VOzbGW_trigger",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "打开右侧边栏",
+   "title": "",
+   "cls": "_button_1rv3m_2 _ghost_1rv3m_45 _sm_1rv3m_28 _1kL4",
+   "visible": true
+  },
+  {
+   "text": "dsh-theme",
+   "aria": "选择工作区",
+   "title": "",
+   "cls": "pXSMma_workspace",
+   "visible": true
+  },
+  {
+   "text": "标准模式",
+   "aria": null,
+   "title": "选择新任务使用的 Agent 预设",
+   "cls": "cubgiG_seat",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "添加文件或调用指令",
+   "title": "",
+   "cls": "uV2eYG_add",
+   "visible": true
+  },
+  {
+   "text": "工作区内修改",
+   "aria": "访问模式，当前：工作区内修改",
+   "title": "",
+   "cls": "iWlSmW_trigger",
+   "visible": true
+  },
+  {
+   "text": "DeepSeek-V41-FlashHigh",
+   "aria": "选择模型，当前 DeepSeek-V41-Flash，推理等级 High",
+   "title": "DeepSeek-V41-Flash · High",
+   "cls": "_7KE1Ra_trigger",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "发送消息",
+   "title": "",
+   "cls": "uV2eYG_primary",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "新标签页",
+   "title": "",
+   "cls": "_addTab_6nhg2_449",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "分栏",
+   "title": "",
+   "cls": "_iconButton_6nhg2_511",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "全屏",
+   "title": "",
+   "cls": "P3OORG_iconButton",
+   "visible": true
+  },
+  {
+   "text": "",
+   "aria": "收起右侧边栏",
+   "title": "",
+   "cls": "P3OORG_iconButton",
+   "visible": true
+  }
+ ],
+ "newSessionCandidates": [
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "新会话Ctrl+Alt+N",
+   "aria": "新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“dsh-theme”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“Celestea-Harness-Studio”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“kimi-code-swarm-analysis”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“dsh-ui”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“codex-ui”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“inkwell”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“dsh-computer-use-linux”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“sol-pi-port”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“doc-reader-v2”中新建会话",
+   "title": ""
+  },
+  {
+   "tag": "BUTTON",
+   "text": "",
+   "aria": "在“ds-cs”中新建会话",
+   "title": ""
+  }
+ ],
+ "sessionRows": [
+  {
+   "tag": "DIV",
+   "attrs": [
+    "class=wSkVaW_body",
+    "data-conversation-content=",
+    "data-conversation-region=chat",
+    "data-content-phase=hero",
+    "data-conversation-session=session-7ff049c4-cc22-4736-ad16-6a1b5b26cb12"
+   ]
+  }
+ ],
+ "sidebarLinks": [],
+ "htmlAttrs": [
+  "lang",
+  "data-ds-theme-source",
+  "style",
+  "data-dsh-theme",
+  "data-input-modality"
+ ],
+ "sessionAttrVal": "session-7ff049c4-cc22-4736-ad16-6a1b5b26cb12",
+ "url": "http://127.0.0.1:19488/"
+}

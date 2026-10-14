@@ -1,0 +1,157 @@
+{
+ "summonButtons": [
+  {
+   "cls": "v78Lda_summon",
+   "rect": {
+    "x": 1265,
+    "y": 707,
+    "w": 121,
+    "h": 21
+   },
+   "text": "召唤鲸鱼娘（原版）",
+   "aria": null
+  }
+ ],
+ "allClassSamples": [
+  "BUTTON.v78Lda_summon"
+ ],
+ "workspaceBtn": [
+  {
+   "aria": "添加工作区",
+   "cls": "bhn1Oq_iconButton"
+  },
+  {
+   "aria": "工作区“dsh-theme”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“Celestea-Harness-Studio”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“kimi-code-swarm-analysis”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“dsh-ui”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“codex-ui”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“inkwell”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“dsh-computer-use-linux”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“sol-pi-port”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“doc-reader-v2”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "工作区“ds-cs”的操作",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "选择工作区",
+   "cls": "pXSMma_workspace"
+  },
+  {
+   "aria": "访问模式，当前：工作区内修改",
+   "cls": "iWlSmW_trigger"
+  }
+ ],
+ "sidebarSessionRows": [
+  {
+   "tag": "DIV",
+   "cls": "YDXeBa_sessionRow",
+   "text": "Run Start-Sleep for 20 seconds2分钟"
+  },
+  {
+   "tag": "DIV",
+   "cls": "YDXeBa_sessionRow",
+   "text": "Run Start-Sleep command with pwsh11分钟"
+  },
+  {
+   "tag": "DIV",
+   "cls": "YDXeBa_sessionRow",
+   "text": "Run sleep command once via pwsh11分钟"
+  },
+  {
+   "tag": "DIV",
+   "cls": "YDXeBa_sessionRow",
+   "text": "Run Start-Sleep 150 once11分钟"
+  },
+  {
+   "tag": "DIV",
+   "cls": "YDXeBa_sessionRow",
+   "text": "Run pwsh sleep command once12分钟"
+  }
+ ],
+ "hoverReveal": {
+  "found": true,
+  "x": 248,
+  "y": 292,
+  "text": "Run Start-Sleep for 20 seconds2分钟"
+ },
+ "revealedButtons": [
+  {
+   "aria": "收起侧边栏",
+   "title": "",
+   "cls": "hHd-Xa_iconButton hHd-Xa_toggle"
+  },
+  {
+   "aria": "搜索会话",
+   "title": "",
+   "cls": "bhn1Oq_searchButton"
+  },
+  {
+   "aria": "视图选项",
+   "title": "",
+   "cls": "bhn1Oq_iconButton bhn1Oq_wide"
+  },
+  {
+   "aria": "添加工作区",
+   "title": "",
+   "cls": "bhn1Oq_iconButton"
+  },
+  {
+   "aria": "会话“Run Start-Sleep for 20 seconds”的操作",
+   "title": "",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "归档会话",
+   "title": "",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "置顶会话",
+   "title": "",
+   "cls": "YDXeBa_iconButton"
+  },
+  {
+   "aria": "打开右侧边栏",
+   "title": "",
+   "cls": "_button_1rv3m_2 _ghost_1rv3m_45 _sm_1rv3m_28 _1kL4"
+  },
+  {
+   "aria": "添加文件或调用指令",
+   "title": "",
+   "cls": "uV2eYG_add"
+  },
+  {
+   "aria": "发送消息",
+   "title": "",
+   "cls": "uV2eYG_primary"
+  }
+ ]
+}

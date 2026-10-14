@@ -371,6 +371,91 @@ function fresh() { return D.initial() }
   eq('瞬时态到期后 building 接管', D.displayState(instant, T0 + 5200, 'building'), 'building')
 }
 
+// ── M9：抬头投影（编辑区 filled → idle 抬到 idle-look） ──────────────
+{
+  eq('M9-1 抬头态常量', D.LOOK_STATE, 'idle-look')
+  eq('M9-2 抬头态不在事件驱动 base 态清单里（语义分离）', D.STATES.indexOf('idle-look'), -1)
+  eq('M9-3 base 态仍是 8 个', D.STATES.length, 8)
+
+  // 纯投影：只动空闲档
+  eq('M9-4 空闲 + 在打字 → idle-look', D.lookUp('idle', true), 'idle-look')
+  eq('M9-5 空闲 + 没打字 → idle', D.lookUp('idle', false), 'idle')
+  eq('M9-6 工作档不受影响（thinking）', D.lookUp('thinking', true), 'thinking')
+  eq('M9-7 工作档不受影响（typing）', D.lookUp('typing', true), 'typing')
+  eq('M9-8 工作档不受影响（building）', D.lookUp('building', true), 'building')
+  eq('M9-9 工作档不受影响（music）', D.lookUp('music', true), 'music')
+  eq('M9-10 瞬时态不被顶掉（happy）', D.lookUp('happy', true), 'happy')
+  eq('M9-11 瞬时态不被顶掉（error）', D.lookUp('error', true), 'error')
+  eq('M9-12 瞬时态不被顶掉（notification）', D.lookUp('notification', true), 'notification')
+  eq('M9-13 editing 非布尔真值时不动（undefined）', D.lookUp('idle', undefined), 'idle')
+  eq('M9-14 editing 非布尔真值时不动（0）', D.lookUp('idle', 0), 'idle')
+
+  // 组合入口：状态机 → 跨会话档位 → 抬头投影，一条链
+  const idleMachine = fresh()
+  eq('M9-15 组合：空闲会话 + 没打字 → idle', D.displayWithLook(idleMachine, T0, null, false), 'idle')
+  eq('M9-16 组合：空闲会话 + 在打字 → idle-look', D.displayWithLook(idleMachine, T0, null, true), 'idle-look')
+  const busy = run(fresh(), ev('turn/start', {}), T0)
+  eq('M9-17 组合：正在生成（thinking）+ 在打字 → 仍是 thinking（不东张西望）', D.displayWithLook(busy, T0, null, true), 'thinking')
+  const happy = run(fresh(), ev('turn/end', { reason: { kind: 'completed' } }), T0)
+  eq('M9-18 组合：happy 瞬时态 + 在打字 → 仍是 happy', D.displayWithLook(happy, T0, null, true), 'happy')
+  eq('M9-19 组合：happy 到期回落 + 在打字 → idle-look（抬头接管空闲档）', D.displayWithLook(happy, T0 + 5200, null, true), 'idle-look')
+  eq('M9-20 组合：跨会话 building + 在打字 → building 优先', D.displayWithLook(idleMachine, T0, 'building', true), 'building')
+  eq('M9-21 组合：base 为 null 的兜底也吃抬头投影', D.displayWithLook({ base: null, transient: null, until: 0, activeTools: [], focus: null }, T0, null, true), 'idle-look')
+}
+
+// ── M10 回归：真实轮次走完后，填写态必须抬头（不能卡在 typing）─────────
+// 复现（实机 .dsh-tmp/v3-integration/main-report.json「真实填写抬头」failed）：
+//   turn/start → text-delta(typing) → turn/end(completed) → happy 窗口过期 → 用户仍在填写。
+// 旧行为：turn/end 只设瞬时态、不落 base，base 停在 typing；抬头投影只认 idle，
+// 于是精灵永远 typing、idle-look 不出（宿主 data-state="typing" + data-dsh-editing 同时存在）。
+// 新契约：回合结束 = 焦点会话不再生成 → base 一律归 idle，瞬时态照旧只设不夺。
+{
+  // ── 主序列：completed 终态 ──
+  let s = fresh()
+  s = run(s, ev('turn/start', {}), T0)
+  eq('M10-1 真实序列：turn/start → thinking', D.resolve(s, T0), 'thinking')
+  eq('M10-2 真实序列：忙态不被填写顶掉', D.displayWithLook(s, T0, null, true), 'thinking')
+  s = run(s, tr('assistant/live-chunk', { chunk: { type: 'text-delta' } }), T0 + 100)
+  eq('M10-3 真实序列：text-delta → typing', D.resolve(s, T0 + 100), 'typing')
+  eq('M10-4 真实序列：流式中填写仍是 typing（不抬头）', D.displayWithLook(s, T0 + 100, null, true), 'typing')
+  s = run(s, ev('turn/end', { reason: { kind: 'completed' } }), T0 + 200)
+  eq('M10-5 真实序列：回合完成瞬间显示 happy（终态优先）', D.resolve(s, T0 + 200), 'happy')
+  eq('M10-6 真实序列：happy 窗口内填写也不夺显示', D.displayWithLook(s, T0 + 200, null, true), 'happy')
+  eq('M10-7 真实序列：happy 窗口最后一刻仍 happy', D.displayWithLook(s, T0 + 200 + 5199, null, true), 'happy')
+  eq('M10-8 真实序列：happy 过期 + 仍在填写 → **idle-look**（不再卡 typing）', D.displayWithLook(s, T0 + 200 + 5200, null, true), 'idle-look')
+  eq('M10-9 真实序列：happy 过期 + 没填写 → idle', D.displayWithLook(s, T0 + 200 + 5200, null, false), 'idle')
+  eq('M10-10 真实序列：turn/end 把 base 归 idle（回合结束不再生成）', s.base, 'idle')
+  eq('M10-11 真实序列：turn/end 不清瞬时态（铁律：瞬时态只被 turn/start 清）', s.transient, 'happy')
+  eq('M10-12 真实序列：活跃工具清零（跨回合残留不会锁死档位）', s.activeTools.length, 0)
+
+  // ── 铁律：turn/end 之后 persistent 类事件仍只换 base、不清瞬时态 ──
+  const stepped = run(s, ev('step/start', { turn: 1, step: 2 }), T0 + 300)
+  eq('M10-13 铁律：step/start 只换 base', stepped.base, 'thinking')
+  eq('M10-14 铁律：step/start 不清 happy（persistent 不清瞬时态不破）', stepped.transient, 'happy')
+  eq('M10-15 铁律：happy 仍压着显示', D.displayWithLook(stepped, T0 + 300, null, true), 'happy')
+  eq('M10-16 铁律：happy 过期后回到当时 base 的档位（thinking 不抬头）', D.displayWithLook(stepped, T0 + 300 + 5200, null, true), 'thinking')
+
+  // ── 其余终态 kind：同样落 idle，窗口过后该抬头就抬头 ──
+  for (const [kind, want] of [['error', 'error'], ['max-tokens', 'error'], ['interrupted', 'error'], ['blocked', 'notification']]) {
+    const e = run(run(fresh(), ev('turn/start', {}), T0), ev('turn/end', { reason: { kind } }), T0 + 100)
+    eq('M10-17 ' + kind + '：终态仍是 ' + want, D.resolve(e, T0 + 100), want)
+    eq('M10-18 ' + kind + '：终态窗口内填写不夺显示', D.displayWithLook(e, T0 + 100, null, true), want)
+    eq('M10-19 ' + kind + '：base 归 idle', e.base, 'idle')
+  }
+  const errSeq = run(run(fresh(), ev('turn/start', {}), T0), ev('turn/end', { reason: { kind: 'error' } }), T0 + 100)
+  eq('M10-20 error：4800ms 后填写 → idle-look', D.displayWithLook(errSeq, T0 + 100 + 4800, null, true), 'idle-look')
+  const blockedSeq = run(run(fresh(), ev('turn/start', {}), T0), ev('turn/end', { reason: { kind: 'blocked' } }), T0 + 100)
+  eq('M10-21 blocked：3200ms 后填写 → idle-look', D.displayWithLook(blockedSeq, T0 + 100 + 3200, null, true), 'idle-look')
+
+  // ── 未在转：aborted / forked / 未知 kind 仍落 idle（原有行为不回退）──
+  for (const kind of ['aborted', 'forked', 'whatever']) {
+    const a = run(run(fresh(), ev('turn/start', {}), T0), ev('turn/end', { reason: { kind } }), T0 + 100)
+    eq('M10-22 ' + kind + '：base 归 idle', a.base, 'idle')
+    eq('M10-23 ' + kind + '：无瞬时态', a.transient, null)
+    eq('M10-24 ' + kind + '：填写态直接抬头', D.displayWithLook(a, T0 + 100, null, true), 'idle-look')
+  }
+}
+
 // ── 汇总 ──────────────────────────────────────────────────────────────
 console.log('')
 console.log('passed: ' + passed)

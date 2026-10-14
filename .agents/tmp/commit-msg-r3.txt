@@ -1,0 +1,18 @@
+fix(M6): 档位改为始终反映当前活跃工具数（R3 修正）
+
+原实现两条规则互相矛盾：tool/call 按活跃 callId 数定档（2 个 → music），成功 tool/result 却固定收敛 typing/thinking——3 个工具并发显示 building，完成一个后掉回 typing（此刻仍有 2 个在跑）。
+
+改为抽出唯一映射 deepyToolState(count)（0→thinking / 1→typing / 2→music / ≥3→building），tool/call 与 tool/result 共用：
+- tool/call：加计数后定档
+- tool/result 成功：先删 callId，再按剩余数定档
+- tool/result 失败：删 callId 后把剩余档位写进 base，再走 error 瞬时态；4800ms 到期回落到当时的真实档位，不是固定值
+- turn/end：清空计数
+
+单测 96 → 109：改回两条照错契约写的断言，新增分组 3b 回归块（3 并发 → building → music → typing → thinking）。
+
+验证（编排方独立重跑）：
+- node plugins/dsh-theme/test/state-machine.test.mjs → 109 passed / 0 failed
+- toplevel-scan.mjs plugins/dsh-theme/lib/client.js → topLevelViolations: []
+- 变异负控制三条（可复跑 mutate-full.mjs m1|m2|m3）：callId 改错字段 → 18 条红；时间窗衰减失效 → 11 条红；R3 回退固定 typing → 3 条红；均还原复绿
+
+未验证（留端到端批次）：端到端六条、data.error 分支、origin==='subagent' 过滤、turn/end 非 completed 六种 reason、reparent 竞态修复。

@@ -1,0 +1,14 @@
+{
+ "stamp": "2026-10-10T12-54-06",
+ "profileFiles": [
+  "cordis.patch.yml",
+  "cordis.yml",
+  "node_modules",
+  "package.json",
+  "pnpm-lock.yaml",
+  "pnpm-workspace.yaml"
+ ],
+ "hasDshTheme": false,
+ "hasPnpmLockYaml": false,
+ "nodeModulesEntries": 10
+}

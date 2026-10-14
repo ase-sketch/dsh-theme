@@ -1,0 +1,25 @@
+fix(M6): 瞬时态在 hold 期内不再被持久态覆盖（契约层修正）
+
+独立验收方在四态补验中发现 error 态用户看不到（3 次尝试均 100-270ms 即被覆盖）。根因不是某条分支写错，而是抢占规则与 DSH 事件流不兼容：
+
+- 用户点「停止生成」→ dsh-agent-loop/lib/index.js:1009-1014 产生 turn/end(aborted) → 按映射是 persistent(idle)
+- 中止时正在跑的工具失败 → tool/result 失败 → error（transient，本该 hold 4800ms）
+- 旧规则「覆盖期间来持久事件 → base 换新 + 清瞬时态」使 error 在 10ms 内被清掉；且 step/start（tool/result 失败后紧跟的下一轮模型调用）同样会清
+
+作者 HTML 那套状态机是单机演示，事件流里终端态就是流程终点；DSH 是长会话事件流，「工具失败」与「回合结束」是因果相邻而非互斥终点。规范给的 4800/5200/3200ms 说明作者本来就期望这些态停留几秒被看见。
+
+新规则：
+- persistent(name)：只换 base，不动瞬时态
+- beginRound(name)：换 base + 清瞬时态，仅 turn/start 调用
+- 瞬时态可见时长恒为规范值；到期后按当时的真实档位回落（R3 已实现）
+
+验证（编排方独立重跑）：
+- state-machine.test.mjs → 130 passed / 0 failed（原 109 + 新增分组 3c 共 21 条）
+- render-layer.test.mjs → 36 passed / 0 failed（Route A 未回退）
+- toplevel-scan.mjs → topLevelViolations: []
+- 变异负控制 7 条全绿：m1/m2/m3/r1/r2/h1/h2；其中 h1（persistent 改回清瞬时态）红 8 条、h2（step/start 改走 beginRound）红 2 条，正是本次契约的核心断言
+
+另修工具链隐患：旧变异脚本的 pristine 备份陈旧，还原时会把 client.js 回退到本次契约变更之前；已新增 refresh-backups.mjs + run-all-controls.mjs（每条控制后校验文件完整性）。
+
+未验证：端到端复验（error 场景应从"看不到"变为"完整 4.8 秒可见"）由独立验收方跑。
+待复核：C-1 step/start 不清瞬时态（保终端态可见）；C-2 turn/start 清瞬时态（新一轮开始）。

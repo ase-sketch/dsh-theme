@@ -1,0 +1,22 @@
+feat(M6): client 半 Deepy 播放器与状态机（8 态）
+
+plugins/dsh-theme/lib/client.js +554/-1、package.json +4/-1（仅 dsh.client.inject）、test/state-machine.test.mjs 新增 286 行。
+
+实现：
+- exports.inject 加 sessions/uiSession（服务名，权威）；package.json 的 dsh.client.inject 加包名（仅信息性，与官方包同形）
+- 事件投影为纯函数 + 无 IO 状态机；终端态用时间窗衰减（记时刻、渲染时比较），不用 setTimeout
+- 8 态：idle / thinking / typing / happy / error / notification / music / building
+- 落点 slot conversation.input.left；切帧 col=i%8、row=⌊i/8⌋，元素宽度 = displayPx（防相邻帧泄入）
+- 素材按需加载：进入某状态才 fetch 那张，idle 预载，失败可重试，每态只 warn 一次；素材未就绪不渲染空白框
+- document.hidden 停帧；prefers-reduced-motion 停代表帧
+- 与样式注入同属一个 ctx.effect；OFF 时撤 rAF + 全部订阅 + eventSource 退订 + 容器 DOM + 内联 style
+- 自发现并修掉 boot 竞态：reparentIfNeeded 每帧检查，slot 出现即把容器搬回（未活体验证）
+
+单测覆盖 8 组：turn/end 七种 reason、tool/result 双判据、tool/call 计数与 callId 配对、live-chunk、窗口形状（含小数 seq 与 settle-assistant 无 entries）、跨会话三档与 subagent 过滤、时间窗衰减、抢占语义。
+
+验证（编排方独立重跑，不采纳自述）：
+- node plugins/dsh-theme/test/state-machine.test.mjs → 96 passed / 0 failed（真实加载 client.js，非复制品）
+- node .agents/tmp/m6-probe/toplevel-scan.mjs plugins/dsh-theme/lib/client.js → topLevelViolations: []（顶层零声明红线）
+- 变异负控制两轮：callId 配对改坏 → 7 条变红；时间窗衰减改坏 → 9 条变红；均还原后复绿
+
+未验证（留端到端验收批次）：slot 注入成功、连续帧 md5 不同、帧窗口=帧宽、OFF 时 Deepy 一并卸载、console 零错、像素可见、reparent 竞态修复；data.error 分支、origin==='subagent' 过滤、turn/end 非 completed 的六种 reason 目前仅单测覆盖。

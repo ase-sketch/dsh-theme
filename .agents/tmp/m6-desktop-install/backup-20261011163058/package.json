@@ -1,0 +1,44 @@
+{
+  "name": "dsh-profile-desktop",
+  "private": true,
+  "dependencies": {
+    "@alm-allen/dsh-chat-ux": "^0.2.6",
+    "@dsh-external/dsh-po06": "github:WestFox-AwA/dsh-prompt-optimizer#b66790a93f4a65d4fd3f1caaf874b9c480b0d8e1",
+    "@eddyskywalker/dsh-chatgpt-subscription": "^0.18.0",
+    "@linxin666/dsh-web-all": "^0.4.6",
+    "@local/dsh-ptc-orchestrator-preset": "file:E:/ds-cs/bundles/dsh-ptc-orchestrator-preset",
+    "@local/dsh-ptc-team-orchestrator-preset": "file:E:/ds-cs/bundles/dsh-ptc-team-orchestrator-preset",
+    "@local/dsh-std-orchestrator-preset": "file:E:/ds-cs/bundles/dsh-std-orchestrator-preset",
+    "@local/dsh-std-team-orchestrator-preset": "file:E:/ds-cs/bundles/dsh-std-team-orchestrator-preset",
+    "codex-ui": "github:rinDBeans/codex-ui",
+    "dsh-agent-swarm": "file:E:/kimi-code-swarm-analysis/dsh-agent-swarm/dsh-agent-swarm-0.4.1.tgz",
+    "dsh-claude-style": "^0.13.1",
+    "dsh-context": "^0.68.0",
+    "dsh-llm-verifier": "^0.9.4",
+    "dsh-meme": "github:yyh-001/dsh-meme",
+    "dsh-mnemon": "^0.5.27",
+    "dsh-theme": "file:E:/dsh-theme/plugins/dsh-theme"
+  },
+  "dsh": {
+    "profile": {
+      "bundles": [
+        "@deepseek-ai/dsh-base",
+        "@deepseek-ai/dsh-web-app",
+        "dsh-context",
+        "@local/dsh-ptc-orchestrator-preset",
+        "@local/dsh-ptc-team-orchestrator-preset",
+        "@local/dsh-std-orchestrator-preset",
+        "@local/dsh-std-team-orchestrator-preset",
+        "@linxin666/dsh-web-all",
+        "@eddyskywalker/dsh-chatgpt-subscription",
+        "dsh-llm-verifier",
+        "dsh-mnemon",
+        "dsh-meme",
+        "@dsh-external/dsh-po06",
+        "@alm-allen/dsh-chat-ux",
+        "dsh-theme",
+        "dsh-agent-swarm"
+      ]
+    }
+  }
+}

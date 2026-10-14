@@ -1,0 +1,151 @@
+{
+ "head": "ecc2b4e",
+ "results": [
+  {
+   "id": "B2-overlap",
+   "name": "B2 共存视觉重叠测量（pet 已召唤，用真实 class）",
+   "pass": null,
+   "raw": {
+    "petElements": [
+     {
+      "cls": "v78Lda_spriteWrap",
+      "x": 1238,
+      "y": 568,
+      "w": 148,
+      "h": 160
+     },
+     {
+      "cls": "v78Lda_sprite",
+      "x": 1238,
+      "y": 568,
+      "w": 148,
+      "h": 160
+     }
+    ],
+    "overlap": {
+     "deepy": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     },
+     "pets": [
+      {
+       "cls": "v78Lda_spriteWrap",
+       "rect": {
+        "x": 1238,
+        "y": 568,
+        "w": 148,
+        "h": 160
+       },
+       "overlapArea": 0
+      },
+      {
+       "cls": "v78Lda_sprite",
+       "rect": {
+        "x": 1238,
+        "y": 568,
+        "w": 148,
+        "h": 160
+       },
+       "overlapArea": 0
+      }
+     ],
+     "anyOverlap": false,
+     "minGapPx": 518
+    }
+   }
+  },
+  {
+   "id": "A3-visibility",
+   "name": "A3 页面隐藏时停帧、恢复后继续推进（第二页 bring_to_front）",
+   "pass": null,
+   "raw": {
+    "posBefore": "-192px -64px",
+    "hiddenFlagWhileOtherFront": false,
+    "posHidden_a": "-256px -256px",
+    "posHidden_b": "0px -64px",
+    "frozenWhileHidden": false,
+    "visibleFlagAfterReturn": false,
+    "posVisible_c": "-192px 0px",
+    "posVisible_d": "-128px -128px",
+    "resumed": true
+   }
+  },
+  {
+   "id": "A1-archive",
+   "name": "A1 归档/删除会话后：精灵仍存活、无残留、无报错",
+   "pass": true,
+   "raw": {
+    "steps": {
+     "rowsBefore": {
+      "count": 6,
+      "texts": [
+       "新会话",
+       "Run sleep command with pwsh tool1分钟",
+       "Run Start-Sleep for 20 seconds5分钟",
+       "Run Start-Sleep command with pwsh13分钟",
+       "Run sleep command once via pwsh13分钟",
+       "Run Start-Sleep 150 once14分钟"
+      ]
+     },
+     "menu": {
+      "clicked": false
+     },
+     "menuItems": [
+      "新会话Ctrl+Alt+N",
+      "插件",
+      "工作区",
+      "dsh-theme",
+      "新会话",
+      "展开其余 69 个会话",
+      "dsh-ui",
+      "codex-ui",
+      "inkwell",
+      "sol-pi-port",
+      "doc-reader-v2",
+      "ds-cs",
+      "设置",
+      "探索未至之境预览版",
+      "dsh-theme标准模式",
+      "标准模式",
+      "工作区内修改",
+      "空面板",
+      "新会话空闲",
+      "空闲"
+     ],
+     "archiveClick": {
+      "clicked": false
+     },
+     "confirm": {
+      "clicked": false
+     },
+     "rowsAfter": 6
+    },
+    "before": {
+     "state": "idle",
+     "alive": true,
+     "rect": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     }
+    },
+    "after": {
+     "state": "idle",
+     "alive": true,
+     "rect": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     }
+    },
+    "rowCountChanged": false
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

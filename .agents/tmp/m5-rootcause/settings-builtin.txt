@@ -1,0 +1,139 @@
+新会话
+Ctrl
++
+Alt
++
+N
+插件
+工作区
+dsh-theme
+新会话
+Celestea-Harness-Studio
+kimi-code-swarm-analysis
+dsh-ui
+codex-ui
+inkwell
+dsh-computer-use-linux
+sol-pi-port
+doc-reader-v2
+ds-cs
+设置
+插件
+安装、启用和配置插件
+添加插件
+官方
+8
+智能体团队
+实验性
+启用团队协作、团队工具、成员列表和共享任务看板。
+自动授权审查
+实验性
+提供自动审查权限模式，由模型在每次工具调用前判断是否授权。
+自动化任务
+实验性
+按设定的时间或周期，在会话中自动执行任务。
+语音输入
+实验性
+在本机使用 SenseVoice 转写录音，首次使用需安装依赖。
+终端
+限制每条命令最多能跑多久、最多输出多少内容。
+Agent 循环
+控制 Agent 派发工具调用的方式。
+子智能体
+设置子智能体的递归层级、数量和模型。
+网页搜索
+设置 DeepSeek 的搜索提供方。
+已安装
+1
+dsh-theme
+dsh-ui design-spec skin theme bundle for the DeepSeek Harness web GUI
+设置
+通用设置
+模型
+内置插件
+Agent 预设
+打开配置文件
+关闭
+内置插件
+
+查看内置部署的插件列表
+
+搜索插件
+会话插件
+标准模式（默认）
+
+由 Agent 预设按会话组成
+29 个
+
+persona
+Composition-authored deployment persona section for the DeepSeek Harness
+agent-instructions
+Workspace context loader for AGENTS.md/CLAUDE.md instruction files
+tool-bash
+已停用
+Model-facing bash tool with optional generic background-job and sandbox-escalation support
+tool-pwsh
+Model-facing pwsh tool over the bash executor seam
+tool-fs
+Model-facing filesystem tools (read, write, edit) over the DeepSeek Harness filesystem seam (ctx.fs)
+tool-fs-search
+Model-facing filesystem discovery tools (glob, grep) backed by the packaged ripgrep binary (@vscode/ripgrep)
+tool-jobs
+Model-facing background job control tools (job_output, job_list, job_kill) over the ctx.jobs registry
+skill-filesystem
+Local filesystem skill provider for the DeepSeek Harness
+tool-skill
+Model-facing skill loading tool for the DeepSeek Harness
+command-goal
+Human-facing slash command for persisted same-session goals
+tool-goal
+Model-facing same-session goal tools with execution-time authority checks
+tool-ask-user
+Model-facing ask_user_question tool over the ctx.userQuestions seam
+tool-todo
+Model-facing todo_write tool over the DeepSeek Harness event-sourced session log
+tool-web
+Model-facing web tools (web_search, web_fetch) over the DeepSeek Harness web capability seam (ctx.web)
+tool-present
+Explicit workspace file delivery declarations for the DeepSeek Harness
+present
+plugin-manager/tools
+已停用
+tool-plugin-manager
+plan-mode
+Logged per-agent plan mode with deployment guidance, a direct slash command, and a user-reviewed exit
+compaction-basic
+Token-meter-driven compaction policy and LLM summarization backend for the DeepSeek Harness
+command-compact
+Human-facing slash command for explicit session compaction
+compaction-tool-result-pruner
+Replay-safe model-free head/middle/tail pruning for tool-result surface nodes
+tool-result-pruner
+tool-subagent-control
+Globally named send_message, interrupt_agent, and list_agents tools over ctx.subagents continuations
+tool-subagent-control/list-agents
+tool-subagent-list-agents
+tool-subagent
+Model-facing subagent delegation tool over the ctx.subagents seam
+tool-subagent
+Model-facing subagent delegation tool over the ctx.subagents seam
+tool-subagent-fork
+tool-subagent
+已停用
+Model-facing subagent delegation tool over the ctx.subagents seam
+tool-subagent-codex
+tool-subagent
+已停用
+Model-facing subagent delegation tool over the ctx.subagents seam
+tool-subagent-claude-code
+workflow-ptc
+Workflow orchestration in the shared sandboxed Node PTC runtime
+tool-workflow
+Model-facing workflow tool: run a JavaScript orchestration script over ctx.workflowEngine
+tool-ralph
+已停用
+Model-facing fresh-agent Ralph loop over the workflow and subagent seams
+全局插件
+
+系统与所有会话共用
+187 个

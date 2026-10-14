@@ -1,0 +1,65 @@
+{
+  "light": {
+    "svgTotal": 67,
+    "replaced": 51,
+    "groups": 51,
+    "badViewBox": 0,
+    "stats": "applied=53;seen=16;missed=2",
+    "missed": "a8ce80f78ad5ab1b02cff3f99a8004e7,5f406b468a960a6280d391e84fbe2c36",
+    "heroSprite": {
+      "bg": "idle.png\")",
+      "pos": "0px -204px",
+      "size": "816px 612px",
+      "rect": {
+        "x": 693,
+        "y": 300,
+        "w": 102,
+        "h": 102
+      }
+    },
+    "mainSprite": {
+      "bg": "idle.png\")",
+      "pos": "0px -128px",
+      "size": "512px 384px",
+      "rect": {
+        "x": 656,
+        "y": 537,
+        "w": 64,
+        "h": 64
+      }
+    },
+    "bodyBg": "rgb(247, 250, 255)"
+  },
+  "dark": {
+    "svgTotal": 67,
+    "replaced": 51,
+    "groups": 51,
+    "badViewBox": 0,
+    "stats": "applied=53;seen=16;missed=2",
+    "missed": "a8ce80f78ad5ab1b02cff3f99a8004e7,5f406b468a960a6280d391e84fbe2c36",
+    "heroSprite": {
+      "bg": "idle.png\")",
+      "pos": "-510px -102px",
+      "size": "816px 612px",
+      "rect": {
+        "x": 693,
+        "y": 300,
+        "w": 102,
+        "h": 102
+      }
+    },
+    "mainSprite": {
+      "bg": "idle.png\")",
+      "pos": "-320px -64px",
+      "size": "512px 384px",
+      "rect": {
+        "x": 656,
+        "y": 537,
+        "w": 64,
+        "h": 64
+      }
+    },
+    "bodyBg": "rgb(19, 22, 29)"
+  },
+  "consoleErrors": []
+}

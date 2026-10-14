@@ -1,0 +1,49 @@
+{
+  "probe": {
+    "unreplacedCount": 3,
+    "rows": [
+      {
+        "viewBox": "0 0 23.16 17.04",
+        "w": "24",
+        "h": "17.6580310880829",
+        "kids": 1,
+        "tags": "path",
+        "html": "<svg width=\"24\" height=\"17.6580310880829\" viewBox=\"0 0 23.16 17.04\" fill=\"none\" aria-hidden=\"true\"><path d=\"M22.9168 1.43018C22.6713 1.31018 22.5658 1.53918 22.4223 1.65519C22.3733 1.69269 22.3318 1.74169 22.2903 1.78669C21.9317 2.1697 21.5127 2.42121 20.9657 ",
+        "chain": "div[sidebar.brand.mark] < span._2H3hWW_brandMark < span._2H3hWW_brandIdentity < button._2H3hWW_brand._2H3hWW_wide"
+      },
+      {
+        "viewBox": "26 0 156 24",
+        "w": "156",
+        "h": "24",
+        "kids": 13,
+        "tags": "path,path,path,path,path,path,path,path,path,g,rect,g,defs",
+        "html": "<svg width=\"156\" height=\"24\" viewBox=\"26 0 156 24\" fill=\"none\" aria-hidden=\"true\"><path d=\"M68.416 18.2447H67.0501V16.1272H68.416C69.2619 16.1272 70.1166 15.9163 70.6671 15.3304C71.2181 14.7444 71.426 13.8455 71.426 12.9471C71.426 12.0487 71.2268 11.1498 70.66",
+        "chain": "div[sidebar.brand.name] < span._2H3hWW_brandName < span._2H3hWW_brandIdentity < button._2H3hWW_brand._2H3hWW_wide"
+      },
+      {
+        "viewBox": "0 0 16 16",
+        "w": "16",
+        "h": "16",
+        "kids": 2,
+        "tags": "path,path",
+        "html": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" aria-hidden=\"true\"><path d=\"M13.5 1.5H2.5C1.94772 1.5 1.5 1.94772 1.5 2.5V13.5C1.5 14.0523 1.94772 14.5 2.5 14.5H13.5C14.0523 14.5 14.5 14.0523 14.5 13.5V2.5C14.5 1.94772 14.0523 1.5 13.5 1.5Z\" stroke",
+        "chain": "button._iconButton_6nhg2_511 < span < div._tabStrip_6nhg2_237 < section._pane_6nhg2_209"
+      }
+    ],
+    "stats": "applied=70;seen=23;missed=3"
+  },
+  "rects": {
+    "hero": {
+      "x": 692.984375,
+      "y": 300,
+      "w": 102,
+      "h": 102
+    },
+    "main": {
+      "x": 656.296875,
+      "y": 537,
+      "w": 64,
+      "h": 64
+    }
+  }
+}

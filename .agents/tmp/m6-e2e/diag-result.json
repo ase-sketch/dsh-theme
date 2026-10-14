@@ -1,0 +1,215 @@
+{
+ "before": {
+  "rootExists": true,
+  "spriteExists": true,
+  "rootConnected": true,
+  "rootParent": "DIV|conversation.input.left",
+  "bg": "url(\"http://127.0.0.1:19488/api/dsh-theme/deepy/idle.png\")",
+  "slotExists": true,
+  "editorExists": true,
+  "editorCount": 1,
+  "sessionAttr": "session-ffa11132-272b-410f-97df-6ee869ae87a1",
+  "contentPhase": "hero",
+  "url": "http://127.0.0.1:19488/",
+  "bodyLen": 452,
+  "htmlAttrs": [
+   "lang",
+   "data-ds-theme-source",
+   "style",
+   "data-dsh-theme",
+   "data-input-modality"
+  ]
+ },
+ "pagesBefore": 1,
+ "newSessionClicked": true,
+ "afterNewSession": {
+  "rootExists": true,
+  "spriteExists": true,
+  "rootConnected": true,
+  "rootParent": "DIV|conversation.input.left",
+  "bg": "url(\"http://127.0.0.1:19488/api/dsh-theme/deepy/idle.png\")",
+  "slotExists": true,
+  "editorExists": true,
+  "editorCount": 1,
+  "sessionAttr": "session-ffa11132-272b-410f-97df-6ee869ae87a1",
+  "contentPhase": "hero",
+  "url": "http://127.0.0.1:19488/",
+  "bodyLen": 453,
+  "htmlAttrs": [
+   "lang",
+   "data-ds-theme-source",
+   "style",
+   "data-dsh-theme",
+   "data-input-modality"
+  ]
+ },
+ "pagesAfterNewSession": 1,
+ "pageUrlsAfter": [
+  "http://127.0.0.1:19488/"
+ ],
+ "editorFoundByPlaywright": true,
+ "sent": true,
+ "samples": [
+  {
+   "t": 1,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "19488/api/dsh-theme/deepy/thinking.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 2,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 3,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 4,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 5,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 6,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 7,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 8,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 9,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 10,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 11,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 12,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 13,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 14,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 15,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 16,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 17,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 18,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 19,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  },
+  {
+   "t": 20,
+   "rootExists": true,
+   "spriteExists": true,
+   "bg": "1:19488/api/dsh-theme/deepy/typing.png\")",
+   "sessionAttr": "6ee869ae87a1",
+   "phase": "active"
+  }
+ ],
+ "pagesFinal": 1
+}

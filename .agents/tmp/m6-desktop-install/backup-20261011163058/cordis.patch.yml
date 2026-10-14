@@ -1,0 +1,336 @@
+- insert:
+    - id: mcp-git
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: git
+        transport: stdio
+        command: uvx
+        args:
+          - mcp-server-git
+
+- insert:
+    - id: mcp-github
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: github
+        transport: stdio
+        command: npx
+        args:
+          - '-y'
+          - '@fre4x/github'
+        env:
+          GITHUB_TOKEN: !!js process.env.GITHUB_TOKEN
+
+- insert:
+    - id: mcp-gitx
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: gitx
+        transport: stdio
+        command: npx
+        args:
+          - '-y'
+          - 'git-mcp'
+
+- id: session-persistence-jsonl
+  name: '@deepseek-ai/dsh-session-persistence-jsonl'
+  config:
+    root: E:\dsh-shared/sessions
+    compression: zstd
+- id: web-ui-ssh
+  name: "@linxin666/dsh-web-all/ssh"
+  disabled: true
+
+- id: web-ui-skill-explorer
+  name: "@linxin666/dsh-web-all/skill-explorer"
+  disabled: false
+- id: dsh-chatgpt-subscription
+  name: "@eddyskywalker/dsh-chatgpt-subscription"
+  disabled: false
+- id: web-ui-liangshen
+  name: "@linxin666/dsh-web-all/liangshen"
+  disabled: true
+- id: web-ui-community-plugins
+  name: "@linxin666/dsh-client-ui-community-plugins"
+  disabled: true
+- id: web-ui-market
+  name: "@linxin666/dsh-web-all/market"
+  disabled: false
+- id: web-ui-task-board
+  name: "@linxin666/dsh-web-all/task-board"
+  disabled: true
+- id: web-ui-git-graph
+  name: "@linxin666/dsh-web-all/git-graph"
+  disabled: false
+- id: web-ui-remote-web-ui
+  name: "@linxin666/dsh-web-all/remote-web-ui"
+  disabled: true
+- id: web-ui-pet
+  name: "@linxin666/dsh-pet"
+  disabled: true
+- id: web-ui-usage
+  name: "@linxin666/dsh-web-all/usage"
+  disabled: false
+- id: web-ui-session-archive
+  name: "@linxin666/dsh-web-all/session-archive"
+  disabled: true
+- id: web-ui-model-capabilities
+  name: "@linxin666/dsh-web-all/model-capabilities"
+  disabled: false
+- id: web-ui-preset-center
+  name: "@linxin666/dsh-client-ui-preset-center"
+  disabled: false
+- id: web-ui-skin-center
+  name: "@linxin666/dsh-client-ui-skin-center"
+  disabled: true
+- id: web-ui-i18n
+  name: "@linxin666/dsh-i18n"
+  disabled: true
+- id: web-ui-better-sidebar
+  name: dsh-better-sidebar
+  disabled: true
+- id: ui-settings-general
+  name: "@deepseek-ai/dsh-client-ui-settings-general"
+  config:
+    welcomeNoticeVersion: 2026-08-13.1
+- id: agent-default-model
+  name: "@deepseek-ai/dsh-agent-default-model"
+  config:
+    provider: kimi-code
+    model: k3
+    reasoningEffort: high
+- id: ui-theme
+  name: "@deepseek-ai/dsh-client-ui-theme"
+  config:
+    preference: light
+- id: mnemon
+  name: dsh-mnemon
+  config:
+    remoteAccess: read-only
+    storageScope: custom
+    dataDir: E:\dsh-shared/mnemon
+    timeoutMs: 10000
+    defaultRecallLimit: 10
+    embedding:
+      enabled: false
+      endpoint: http://localhost:11434
+      model: nomic-embed-text
+    memoryView:
+      strategyTypeId: default-three-tier
+      entries:
+        include:mnemon-strategy-light-context:
+          enabled: true
+          config: {}
+        include:mnemon-strategy-scoped:
+          enabled: true
+          config: {}
+        include:mnemon-strategy-general:
+          enabled: false
+          config: {}
+    legacySettingsImported: true
+    recallQuality:
+      policy: strict-v1
+      lowScoreThreshold: 0.25
+      highScoreThreshold: 0.6
+      candidateMultiplier: 3
+      maxMediumResults: 4
+      maxUnknownResults: 2
+    routingGuidance: true
+    displayMode: sidebar
+    tabEnabled: true
+    writeEnabled: true
+    lifecycleEnabled: true
+    recallMode: guided
+    writebackMode: guided
+    idleReviewMs: 30000
+- id: llm-pi-ai
+  name: "@deepseek-ai/dsh-llm-pi-ai"
+  config:
+    providers:
+      step-plan:
+        displayName: Step Plan
+        apiKeyEnv: STEP_PLAN_API_KEY
+        api: openai-completions
+        baseURL: https://api.stepfun.com/step_plan/v1
+        compat:
+          supportsDeveloperRole: false
+          thinkingFormat: openai
+        models:
+          - id: step-3.7-flash
+            name: Step 3.7 Flash (Plan)
+            contextWindow: 262144
+            maxTokens: 65536
+            input:
+              - text
+              - image
+            reasoningEfforts:
+              off: null
+              low: low
+              medium: medium
+              high: high
+          - id: step-5-preview
+            name: step-5-preview
+            contextWindow: 1024000
+      cline-pass:
+        displayName: ClinePass
+        apiKeyEnv: CLINE_API_KEY
+        api: openai-completions
+        baseURL: https://api.cline.bot/api/v1
+        compat:
+          supportsDeveloperRole: false
+          thinkingFormat: deepseek
+        models:
+          - id: cline-pass/deepseek-v4.1-flash
+            name: DeepSeek V4.1 Flash
+            contextWindow: 1000000
+            maxTokens: 393216
+            input:
+              - text
+              - image
+            reasoningEfforts:
+              off: null
+              low: low
+              medium: medium
+              high: high
+              max: max
+- id: llm-deepseek
+  name: "@deepseek-ai/dsh-llm-deepseek-api-key"
+  config:
+    models:
+      - id: deepseek-flash
+        name: DeepSeek-V41-Flash
+        contextWindow: 1000000
+        inputModalities:
+          - text
+          - image
+        imagePixelBudget: 640000
+        imageMaxBytes: 1048576
+        systemPromptUpdate: in-history
+      - id: deepseek-v4-flash
+        name: DeepSeek-V4-Flash
+        description: Fast, efficient, and economical; suited to focused, routine, or
+          parallel tasks.
+        contextWindow: 1000000
+        inputModalities:
+          - text
+          - image
+        imagePixelBudget: 640000
+        imageMaxBytes: 1048576
+      - id: deepseek-v4-pro
+        name: DeepSeek-V4-Pro
+        description: Stronger agentic coding, knowledge, and difficult reasoning; suited
+          to complex or quality-critical tasks at higher cost.
+        contextWindow: 1000000
+      - id: deepseek-v4-flash-vision-exp
+        name: DeepSeek-V4-Flash-Vision-Exp
+        contextWindow: 1000000
+        inputModalities:
+          - text
+          - image
+        imagePixelBudget: 640000
+        imageMaxBytes: 1048576
+- id: llm-verifier
+  name: dsh-llm-verifier
+  config:
+    autoMaxModelCallsPerTask: 120
+    autoMaxModelCallsPerSession: 320
+    provider: minimax-code
+    model: MiniMax-M3.1-Flash-Preview
+    reasoningEffort: max
+    extraJudges:
+      - provider: antigravity
+        model: gemini-3.8-flash
+        reasoningEffort: high
+- id: permission
+  name: "@deepseek-ai/dsh-permission-presets"
+  config:
+    presets:
+      read-only:
+        sandbox: read-only
+        approval: ask
+      workspace-write:
+        sandbox: workspace-write
+        approval: ask
+      danger-full-access:
+        sandbox: danger-full-access
+        approval: never
+    defaultPreset: danger-full-access
+- id: agent-preset-registry
+  name: "@deepseek-ai/dsh-agent-preset-registry"
+  config:
+    default: standard
+    selectedDefault: ptc-orchestrator
+- id: subagent-model-selection-settings
+  name: "@deepseek-ai/dsh-tool-subagent/model-selection-settings"
+  config:
+    enabled: true
+    allowedModels:
+      - provider: minimax-code
+        model: MiniMax-M3.1-Flash-Preview
+      - provider: workbuddy-subscription
+        model: deepseek-v4.1-flash
+      - provider: cline-pass
+        model: cline-pass/deepseek-v4.1-flash
+- id: ui-conversation
+  name: "@deepseek-ai/dsh-client-ui-conversation"
+  config:
+    busyEnter: steer
+- id: ui-chat
+  name: "@deepseek-ai/dsh-client-ui-chat"
+  config:
+    transcriptView: standard
+    performanceUsage: detailed
+- id: ui-settings
+  name: "@deepseek-ai/dsh-client-ui-settings"
+  config:
+    enabled: true
+- id: ui-settings-account
+  name: "@deepseek-ai/dsh-client-ui-settings-account"
+  config:
+    version: 1
+    step: done
+    usage: detailed
+    developerTools: true
+    purpose: null
+    process: standard
+    completion: api-key
+- id: web-ui-pet
+  name: "@linxin666/dsh-pet"
+  config:
+    visible: true
+    size: 160
+    right: 54
+    bottom: 172
+    petId: whale-girl
+    enabled: false
+  disabled: true
+- id: web-ui-skin-center
+  name: "@linxin666/dsh-client-ui-skin-center"
+  config:
+    skin-custom-theme:
+      applied: false
+  disabled: false
+- id: mnemon-strategy-auto-capture
+  disabled: false
+- id: dsh-chat-ux
+  name: "@alm-allen/dsh-chat-ux"
+  config:
+    sendFlight: true
+- id: mnemon-strategy-light-context
+  disabled: false
+- id: ui-skin-claude-style
+  name: dsh-claude-style
+  config:
+    brand: claude
+    mascot: brand
+- id: mnemon-strategy-general
+  disabled: false
+- id: codex-ui
+  name: codex-ui
+  config:
+    translucentSidebar: false
+- id: web-ui-task-board-github
+  disabled: true
+- id: ui-skin-dsh-theme
+  name: dsh-theme
+  disabled: false

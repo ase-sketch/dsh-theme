@@ -1,0 +1,210 @@
+{
+ "c3_on": {
+  "htmlHasAttr": true,
+  "styleElExists": true,
+  "styleLen": 24745,
+  "styleHasDerivation": true,
+  "bodyBg": "rgb(247, 250, 255)",
+  "tok": {
+   "radiusPanel": "20px",
+   "radiusMd": "10px",
+   "specificInputMajor": "#FFFFFF",
+   "specificSidebarFill": "#F3F7FE",
+   "aliasBgLayer1": "#F3F7FE",
+   "aliasBgBase": "#FFFFFF",
+   "brandPrimary": "#4D6BFE",
+   "dshSidebarBg": "#F3F7FE"
+  },
+  "sidebar": {
+   "bg": "rgb(243, 247, 254)",
+   "border": "1px rgb(226, 232, 242)"
+  },
+  "frameSel": null,
+  "frameBg": null
+ },
+ "c7_paint_on": {
+  "sidebar": {
+   "tag": "DIV",
+   "cls": "_2H3hWW_root",
+   "bg": "rgb(243, 247, 254)"
+  },
+  "composerArea": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  },
+  "canvas": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  }
+ },
+ "c2_panel": {
+  "sectionNavOpened": true,
+  "hasPanelTitle": true,
+  "toggleExists": true,
+  "toggleChecked": true
+ },
+ "c4_off": {
+  "htmlHasAttr": false,
+  "styleElExists": false,
+  "styleLen": 0,
+  "styleHasDerivation": false,
+  "bodyBg": "rgb(255, 255, 255)",
+  "tok": {
+   "radiusPanel": "28px",
+   "radiusMd": "12px",
+   "specificInputMajor": "#fff",
+   "specificSidebarFill": "#f9fafb",
+   "aliasBgLayer1": "#fff",
+   "aliasBgBase": "#fff",
+   "brandPrimary": "#0f1115",
+   "dshSidebarBg": ""
+  },
+  "sidebar": {
+   "bg": "rgb(249, 250, 251)",
+   "border": "1px rgba(0, 0, 0, 0.12)"
+  },
+  "frameSel": null,
+  "frameBg": null,
+  "toggleClicked": true,
+  "toggleChecked": false
+ },
+ "c7_paint_off": {
+  "sidebar": {
+   "tag": "DIV",
+   "cls": "_2H3hWW_root",
+   "bg": "rgb(249, 250, 251)"
+  },
+  "composerArea": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  },
+  "canvas": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  }
+ },
+ "c4_back_on": {
+  "htmlHasAttr": true,
+  "styleElExists": true,
+  "styleLen": 24745,
+  "styleHasDerivation": true,
+  "bodyBg": "rgb(247, 250, 255)",
+  "tok": {
+   "radiusPanel": "20px",
+   "radiusMd": "10px",
+   "specificInputMajor": "#FFFFFF",
+   "specificSidebarFill": "#F3F7FE",
+   "aliasBgLayer1": "#F3F7FE",
+   "aliasBgBase": "#FFFFFF",
+   "brandPrimary": "#4D6BFE",
+   "dshSidebarBg": "#F3F7FE"
+  },
+  "sidebar": {
+   "bg": "rgb(243, 247, 254)",
+   "border": "1px rgb(226, 232, 242)"
+  },
+  "frameSel": null,
+  "frameBg": null,
+  "toggleChecked": true
+ },
+ "c7_paint_restored": {
+  "sidebar": {
+   "tag": "DIV",
+   "cls": "_2H3hWW_root",
+   "bg": "rgb(243, 247, 254)"
+  },
+  "composerArea": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  },
+  "canvas": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  }
+ },
+ "c5_after_reload": {
+  "htmlHasAttr": true,
+  "styleElExists": true,
+  "styleLen": 24745,
+  "styleHasDerivation": true,
+  "bodyBg": "rgb(247, 250, 255)",
+  "tok": {
+   "radiusPanel": "20px",
+   "radiusMd": "10px",
+   "specificInputMajor": "#FFFFFF",
+   "specificSidebarFill": "#F3F7FE",
+   "aliasBgLayer1": "#F3F7FE",
+   "aliasBgBase": "#FFFFFF",
+   "brandPrimary": "#4D6BFE",
+   "dshSidebarBg": "#F3F7FE"
+  },
+  "sidebar": {
+   "bg": "rgb(243, 247, 254)",
+   "border": "1px rgb(226, 232, 242)"
+  },
+  "frameSel": null,
+  "frameBg": null
+ },
+ "c7_paint_reload": {
+  "sidebar": {
+   "tag": "DIV",
+   "cls": "_2H3hWW_root _2H3hWW_quietBars",
+   "bg": "rgb(243, 247, 254)"
+  },
+  "composerArea": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  },
+  "canvas": {
+   "tag": "DIV",
+   "cls": "Dc7zOa_root",
+   "bg": "rgb(255, 255, 255)"
+  }
+ },
+ "c5_off_after_reload": {
+  "htmlHasAttr": false,
+  "styleElExists": false,
+  "styleLen": 0,
+  "styleHasDerivation": false,
+  "bodyBg": "rgb(255, 255, 255)",
+  "tok": {
+   "radiusPanel": "28px",
+   "radiusMd": "12px",
+   "specificInputMajor": "#fff",
+   "specificSidebarFill": "#f9fafb",
+   "aliasBgLayer1": "#fff",
+   "aliasBgBase": "#fff",
+   "brandPrimary": "#0f1115",
+   "dshSidebarBg": ""
+  },
+  "sidebar": {
+   "bg": "rgb(249, 250, 251)",
+   "border": "1px rgba(0, 0, 0, 0.12)"
+  },
+  "frameSel": null,
+  "frameBg": null
+ },
+ "console": {
+  "errors": [],
+  "errorCount": 0,
+  "pageerrors": [],
+  "all": [],
+  "failedRequests": []
+ },
+ "md5": {
+  "on-full.png": "da4c787578f58a80dfd1565b773acc8a",
+  "off-full.png": "537d25412fecc36c6e2a0b4405ebee89",
+  "on-restored.png": "da4c787578f58a80dfd1565b773acc8a",
+  "on-after-reload.png": "da4c787578f58a80dfd1565b773acc8a",
+  "off-after-reload.png": "537d25412fecc36c6e2a0b4405ebee89",
+  "settings-panel.png": "416ce0db437c84446aea812d416d1c06",
+  "on_vs_off_differ": true
+ }
+}

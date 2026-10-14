@@ -1,0 +1,68 @@
+{
+ "bootEntriesPet": [
+  "@linxin666/dsh-pet"
+ ],
+ "canvasCount": 0,
+ "canvasInfo": [],
+ "bodyDirectChildren": [
+  {
+   "tag": "SCRIPT",
+   "id": "",
+   "cls": ""
+  },
+  {
+   "tag": "SCRIPT",
+   "id": "",
+   "cls": ""
+  },
+  {
+   "tag": "DIV",
+   "id": "root",
+   "cls": ""
+  },
+  {
+   "tag": "DIV",
+   "id": "",
+   "cls": ""
+  }
+ ],
+ "fixedElements": [
+  {
+   "tag": "DIV",
+   "id": "",
+   "cls": "Qg_5Eq_exits",
+   "rect": {
+    "x": 12,
+    "y": 206,
+    "w": 268,
+    "h": 638
+   }
+  },
+  {
+   "tag": "SPAN",
+   "id": "",
+   "cls": "bhn1Oq_fade",
+   "rect": {
+    "x": 12,
+    "y": 820,
+    "w": 256,
+    "h": 24
+   }
+  },
+  {
+   "tag": "BUTTON",
+   "id": "",
+   "cls": "v78Lda_summon",
+   "rect": {
+    "x": 1265,
+    "y": 707,
+    "w": 121,
+    "h": 21
+   }
+  }
+ ],
+ "consoleAll": [],
+ "pageerrors": [],
+ "cdpAvailable": true,
+ "dshPetScripts": 11
+}

@@ -1,0 +1,242 @@
+{
+ "head": "ecc2b4e",
+ "results": [
+  {
+   "id": "B-pet-present",
+   "name": "dsh-pet 与 dsh-theme 同时启用：两者都在 DOM 中",
+   "pass": false,
+   "raw": {
+    "petCandidates": 0,
+    "petSamples": [],
+    "deepy": {
+     "alive": true,
+     "state": "idle",
+     "rect": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     }
+    }
+   }
+  },
+  {
+   "id": "B-deepy-functional",
+   "name": "共存下 Deepy 仍能正常切状态",
+   "pass": true,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.27,
+      "state": "thinking"
+     },
+     {
+      "t": 1.86,
+      "state": "typing"
+     },
+     {
+      "t": 22.84,
+      "state": "thinking"
+     },
+     {
+      "t": 23.63,
+      "state": "typing"
+     },
+     {
+      "t": 24.42,
+      "state": "happy"
+     }
+    ],
+    "distinctStates": [
+     "happy",
+     "thinking",
+     "typing"
+    ],
+    "pngRequests": [
+     "happy.png",
+     "thinking.png",
+     "typing.png"
+    ]
+   }
+  },
+  {
+   "id": "B-pet-functional",
+   "name": "共存下 pet 元素仍在（未被 Deepy 破坏）",
+   "pass": false,
+   "raw": {
+    "petBefore": 0,
+    "petAfter": 0
+   }
+  },
+  {
+   "id": "B-visual-overlap",
+   "name": "共存视觉：两角色是否互相遮挡（信息性，非缺陷判定）",
+   "pass": null,
+   "raw": {
+    "deepy": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "pets": [],
+    "anyOverlap": false
+   }
+  },
+  {
+   "id": "A-session-delete",
+   "name": "会话删除后：精灵状态如何、有无残留/报错",
+   "pass": true,
+   "raw": {
+    "deleteAffordance": {
+     "found": true,
+     "rect": {
+      "x": 140,
+      "y": 258
+     },
+     "text": "Run Start-Sleep for 20 seconds刚刚"
+    },
+    "menuClick": false,
+    "beforeDelete": {
+     "state": "happy",
+     "alive": true,
+     "rootInDom": true,
+     "rect": {
+      "x": 656,
+      "y": 799,
+      "w": 64,
+      "h": 64
+     },
+     "viewport": {
+      "w": 1440,
+      "h": 900
+     }
+    },
+    "afterDelete": {
+     "state": "typing",
+     "alive": true,
+     "rootInDom": true,
+     "rect": {
+      "x": 656,
+      "y": 799,
+      "w": 64,
+      "h": 64
+     },
+     "viewport": {
+      "w": 1440,
+      "h": 900
+     }
+    },
+    "note": "判据：删除后精灵仍存活且状态非 null；若残留或报错按缺陷报"
+   }
+  },
+  {
+   "id": "A-narrow-viewport",
+   "name": "极窄视口(420/320)：精灵是否溢出/被裁/消失",
+   "pass": true,
+   "raw": {
+    "results": [
+     {
+      "width": 420,
+      "deepy": {
+       "state": "typing",
+       "alive": true,
+       "rootInDom": true,
+       "rect": {
+        "x": 169,
+        "y": 699,
+        "w": 64,
+        "h": 64
+       },
+       "viewport": {
+        "w": 420,
+        "h": 800
+       }
+      },
+      "slot": {
+       "x": 0,
+       "y": 0,
+       "w": 0,
+       "h": 0,
+       "overflowX": "visible"
+      },
+      "deepyFullyInViewport": true,
+      "deepyVisible": true
+     },
+     {
+      "width": 320,
+      "deepy": {
+       "state": "typing",
+       "alive": true,
+       "rootInDom": true,
+       "rect": {
+        "x": 169,
+        "y": 653,
+        "w": 64,
+        "h": 64
+       },
+       "viewport": {
+        "w": 320,
+        "h": 800
+       }
+      },
+      "slot": {
+       "x": 0,
+       "y": 0,
+       "w": 0,
+       "h": 0,
+       "overflowX": "visible"
+      },
+      "deepyFullyInViewport": true,
+      "deepyVisible": true
+     }
+    ],
+    "note": "若被挤出，需区分 shell 输入卡布局行为 vs Deepy 自身问题"
+   }
+  },
+  {
+   "id": "A-visibility",
+   "name": "页面隐藏/恢复：隐藏时停帧，恢复后继续推进",
+   "pass": null,
+   "raw": {
+    "cdpSupported": false,
+    "hiddenFlag": false,
+    "posWhileHidden_a": "0px 0px",
+    "posWhileHidden_b": "-448px -128px",
+    "frozenWhileHidden": false,
+    "posAfterVisible_c": "-192px 0px",
+    "posAfterVisible_d": "-384px -64px",
+    "resumed": true,
+    "note": "隐藏用 CDP Emulation.setPageVisibilityOverride 模拟"
+   }
+  },
+  {
+   "id": "A-workspace-switch",
+   "name": "切换工作区 / slot 重渲染后：精灵仍在且能渲染",
+   "pass": true,
+   "raw": {
+    "switchOpened": {
+     "found": false
+    },
+    "picked": true,
+    "afterSwitch": {
+     "state": "typing",
+     "alive": true,
+     "rootInDom": true,
+     "rect": {
+      "x": 656,
+      "y": 799,
+      "w": 64,
+      "h": 64
+     },
+     "viewport": {
+      "w": 1440,
+      "h": 900
+     }
+    }
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

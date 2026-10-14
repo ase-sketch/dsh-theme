@@ -1,0 +1,65 @@
+{
+ "aliasCount": 9,
+ "aliases": {
+  "--dsh-sidebar-bg": {
+   "plugin_dark": "var(--dsh-bg-subtle)",
+   "preview_root": "var(--dsh-bg-subtle)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-card-bg": {
+   "plugin_dark": "var(--dsh-bg-surface)",
+   "preview_root": "var(--dsh-bg-surface)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-input-bg": {
+   "plugin_dark": "var(--dsh-bg-surface)",
+   "preview_root": "var(--dsh-bg-surface)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-menu-bg": {
+   "plugin_dark": "var(--dsh-bg-surface)",
+   "preview_root": "var(--dsh-bg-surface)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-bubble-user-bg": {
+   "plugin_dark": "var(--dsh-accent-subtle)",
+   "preview_root": "var(--dsh-accent-subtle)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-badge-update-bg": {
+   "plugin_dark": "var(--dsh-warning)",
+   "preview_root": "var(--dsh-warning)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-badge-update-text": {
+   "plugin_dark": "var(--dsh-on-warning)",
+   "preview_root": "var(--dsh-on-warning)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-badge-tier-bg": {
+   "plugin_dark": "var(--dsh-accent-subtle)",
+   "preview_root": "var(--dsh-accent-subtle)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  },
+  "--dsh-badge-tier-text": {
+   "plugin_dark": "var(--dsh-accent)",
+   "preview_root": "var(--dsh-accent)",
+   "matches_preview": true,
+   "same_as_light_block": true
+  }
+ },
+ "allMatchPreview": true,
+ "identicalToLight": true,
+ "fileBytes": 26412,
+ "jsCharLen": 25259,
+ "nonAsciiChars": 581,
+ "bytesVsChars_delta": 1153
+}

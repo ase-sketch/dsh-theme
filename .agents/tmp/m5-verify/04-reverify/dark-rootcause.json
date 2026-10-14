@@ -1,0 +1,41 @@
+{
+ "html": {
+  "--dsh-bg-subtle": "#F3F7FE",
+  "--dsh-bg-surface": "#FFFFFF",
+  "--dsh-sidebar-bg": "#F3F7FE",
+  "--dsh-card-bg": "#FFFFFF",
+  "--dsh-input-bg": "#FFFFFF",
+  "--dsw-alias-bg-layer-1": "",
+  "--dsw-alias-bg-base": "",
+  "--dsw-specific-sidebar-fill": "",
+  "--dsw-specific-input-major": "",
+  "--dsw-specific-selector": "",
+  "--dsw-alias-specific-sidebar-fill": "",
+  "--dsw-alias-specific-input-major": ""
+ },
+ "body": {
+  "--dsh-bg-subtle": "#171B24",
+  "--dsh-bg-surface": "#1D222C",
+  "--dsh-sidebar-bg": "#171B24",
+  "--dsh-card-bg": "#1D222C",
+  "--dsh-input-bg": "#1D222C",
+  "--dsw-alias-bg-layer-1": "#171B24",
+  "--dsw-alias-bg-base": "#1D222C",
+  "--dsw-specific-sidebar-fill": "#171B24",
+  "--dsw-specific-input-major": "#1D222C",
+  "--dsw-specific-selector": "#1D222C",
+  "--dsw-alias-specific-sidebar-fill": "#171B24",
+  "--dsw-alias-specific-input-major": "#1D222C"
+ },
+ "paint": {
+  "sidebarBg": "rgb(23, 27, 36)",
+  "cardBg": "rgb(29, 34, 44)",
+  "bodyBg": "rgb(19, 22, 29)"
+ },
+ "rules": [
+  "html[data-dsh-theme] body { --dsw-specific-bubble: color-mix(in srgb, var(--dsw-alias-bg-layer-1) 60%, transparent); --dsw-specific-bubble-highlight: color-mix(in srgb, var(--dsw-alias-bg-layer-1) 60%, transparent); --dsw-specific-input-major: color-mix(in srg",
+  "html[data-dsh-theme], html[data-dsh-theme] body { --dsw-radius-panel: var(--dsh-radius-xl); --dsw-radius-lg: var(--dsh-radius-lg); --dsw-radius-md: var(--dsh-radius-md); --dsw-radius-sm: var(--dsh-radius-sm); --dsw-specific-input-major: var(--dsh-input-bg); --",
+  "html[data-dsh-theme] { --dsw-specific-input-major: initial; --dsw-specific-login-input: initial; --dsw-specific-menu: initial; --dsw-specific-selector: initial; --dsw-specific-sidebar-fill: initial; --dsw-specific-bubble: initial; --dsw-specific-bubble-highlig",
+  "html[data-dsh-theme] body { --dsw-specific-input-major: var(--dsh-input-bg); --dsw-specific-login-input: var(--dsh-input-bg); --dsw-specific-menu: var(--dsh-menu-bg); --dsw-specific-selector: var(--dsh-card-bg); --dsw-specific-sidebar-fill: var(--dsh-sidebar-b"
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "size": [
+  1440,
+  900
+ ],
+ "points": {
+  "sidebar_bg": {
+   "xy": [
+    90,
+    450
+   ],
+   "on": [
+    243,
+    247,
+    254
+   ],
+   "off": [
+    249,
+    250,
+    251
+   ],
+   "differ": true
+  },
+  "new_session_btn": {
+   "xy": [
+    140,
+    89
+   ],
+   "on": [
+    244,
+    255,
+    255
+   ],
+   "off": [
+    54,
+    17,
+    104
+   ],
+   "differ": true
+  },
+  "composer_card_border": {
+   "xy": [
+    720,
+    442
+   ],
+   "on": [
+    226,
+    232,
+    242
+   ],
+   "off": [
+    236,
+    236,
+    236
+   ],
+   "differ": true
+  },
+  "selected_row": {
+   "xy": [
+    120,
+    257
+   ],
+   "on": [
+    226,
+    234,
+    248
+   ],
+   "off": [
+    236,
+    238,
+    240
+   ],
+   "differ": true
+  }
+ },
+ "allDiffer": true,
+ "diffPctSampled": 22.92,
+ "brandBlue_4D6BFE": {
+  "on": 2316,
+  "off": 0
+ },
+ "sidebarTint_F3F7FE": {
+  "on": 56949,
+  "off": 57584
+ },
+ "verdict": "皮肤色确实画在 shell 绘制层上"
+}

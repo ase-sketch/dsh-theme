@@ -1,0 +1,77 @@
+[
+ {
+  "id": "E1",
+  "name": "空态：data-dsh-editor=empty",
+  "pass": true
+ },
+ {
+  "id": "E2",
+  "name": "hero 档编辑区 68px",
+  "pass": true
+ },
+ {
+  "id": "E3",
+  "name": "空态稿线在（repeating-linear-gradient）",
+  "pass": true
+ },
+ {
+  "id": "F1",
+  "name": "filled 翻转",
+  "pass": true
+ },
+ {
+  "id": "F2",
+  "name": "发送键变朱砂实心",
+  "pass": true
+ },
+ {
+  "id": "F3",
+  "name": "月台联动 data-dsh-editing",
+  "pass": false
+ },
+ {
+  "id": "G1",
+  "name": "hero 档长文锁 68px + 内滚",
+  "pass": true
+ },
+ {
+  "id": "G2",
+  "name": "整卡高度未变（132 → 132）",
+  "pass": true
+ },
+ {
+  "id": "P1",
+  "name": "po06 优化选项面板出现",
+  "pass": true
+ },
+ {
+  "id": "P2",
+  "name": "面板完整在视口内（断位修复验证）",
+  "pass": true
+ },
+ {
+  "id": "H1",
+  "name": "发送后回落 empty（MutationObserver 兜底路径）",
+  "pass": true
+ },
+ {
+  "id": "H2",
+  "name": "主卡 52px 档（两行）",
+  "pass": true
+ },
+ {
+  "id": "H3",
+  "name": "单鲸：hero 退/主位回",
+  "pass": true
+ },
+ {
+  "id": "M1",
+  "name": "模型名完整（无省略号截断机制）",
+  "pass": true
+ },
+ {
+  "id": "Z1",
+  "name": "console 零错",
+  "pass": true
+ }
+]

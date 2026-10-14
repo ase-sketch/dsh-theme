@@ -1,0 +1,4 @@
+# M6/T3 probe bundle patch. Throwaway: lives under .agents/tmp/, never shipped.
+- insert:
+    - id: ui-m6-probe
+      name: 'dsh-theme-probe'

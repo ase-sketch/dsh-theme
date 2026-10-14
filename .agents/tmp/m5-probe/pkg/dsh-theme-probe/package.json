@@ -1,0 +1,30 @@
+{
+  "name": "dsh-theme-probe",
+  "version": "0.1.0",
+  "description": "M5 D4 client-activation gate probe for the DeepSeek Harness web GUI",
+  "type": "module",
+  "license": "MIT",
+  "main": "host/index.js",
+  "exports": {
+    ".": "./host/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.1.7"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": []
+    }
+  },
+  "files": [
+    "host",
+    "lib",
+    "cordis.patch.yml"
+  ]
+}

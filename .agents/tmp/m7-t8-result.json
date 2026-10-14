@@ -1,0 +1,123 @@
+[
+ {
+  "id": "S1",
+  "name": "封面刊号行",
+  "pass": true,
+  "raw": "DEEP SPACE EDITING ROOM · VOL.01"
+ },
+ {
+  "id": "S2",
+  "name": "封面版记行",
+  "pass": true,
+  "raw": "深空编辑室 · DSH-THEME · MMXXVI"
+ },
+ {
+  "id": "S3",
+  "name": "hero 迎宾鲸在场",
+  "pass": true,
+  "raw": true
+ },
+ {
+  "id": "S4",
+  "name": "hero 大标题衬线化",
+  "pass": true,
+  "raw": "\"Palatino Linotype\", \"Book Antiqua\", Georgia, serif"
+ },
+ {
+  "id": "S5",
+  "name": "M7 回归：浅纸底+图标层",
+  "pass": true,
+  "raw": {
+   "bg": "rgb(245, 241, 232)",
+   "icons": "applied=53;seen=16;missed=2"
+  }
+ },
+ {
+  "id": "C1",
+  "name": "输入区固定 36px（长文输入后不变）",
+  "pass": false,
+  "raw": {
+   "before": 52,
+   "after": 268
+  }
+ },
+ {
+  "id": "C2",
+  "name": "长文在内部滚动（scrollHeight>clientHeight）",
+  "pass": false,
+  "raw": {
+   "scroll": 268,
+   "scrollTop": 0,
+   "canScroll": false
+  }
+ },
+ {
+  "id": "F1",
+  "name": "会话激活：hero 退 / 主位回（单鲸）",
+  "pass": true,
+  "raw": {
+   "heroGone": true,
+   "main": true
+  }
+ },
+ {
+  "id": "F2",
+  "name": "版心 720px",
+  "pass": true,
+  "raw": "720px"
+ },
+ {
+  "id": "F3",
+  "name": "流态钩子 data-dsh-streaming",
+  "pass": true,
+  "raw": ""
+ },
+ {
+  "id": "F4",
+  "name": "回合结束流态摘除",
+  "pass": false,
+  "raw": ""
+ },
+ {
+  "id": "W1",
+  "name": "熄灯中间帧 overlay 在场且方向=lights-out",
+  "pass": false,
+  "raw": {
+   "exists": false
+  }
+ },
+ {
+  "id": "W2",
+  "name": "擦除结束 overlay 移除 + 深空底",
+  "pass": false,
+  "raw": {
+   "dark": false,
+   "bg": "rgb(245, 241, 232)",
+   "wipeGone": true
+  }
+ },
+ {
+  "id": "W3",
+  "name": "开灯反向擦除 lights-on",
+  "pass": false,
+  "raw": {
+   "exists": false
+  }
+ },
+ {
+  "id": "W4",
+  "name": "回到浅纸底",
+  "pass": true,
+  "raw": {
+   "dark": false,
+   "bg": "rgb(245, 241, 232)",
+   "wipeGone": true
+  }
+ },
+ {
+  "id": "Z1",
+  "name": "console 零错",
+  "pass": true,
+  "raw": []
+ }
+]

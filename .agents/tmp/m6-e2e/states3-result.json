@@ -1,0 +1,152 @@
+{
+ "results": [
+  {
+   "id": "error",
+   "name": "error：工具失败 → 精灵切 error，error.png 按需拉取，4800ms 后按档位回落",
+   "pass": false,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.31,
+      "state": "thinking",
+      "spriteAlive": true
+     },
+     {
+      "t": 2.51,
+      "state": "typing",
+      "spriteAlive": true
+     },
+     {
+      "t": 3.13,
+      "state": "thinking",
+      "spriteAlive": true
+     },
+     {
+      "t": 4.07,
+      "state": "typing",
+      "spriteAlive": true
+     },
+     {
+      "t": 4.68,
+      "state": "happy",
+      "spriteAlive": true
+     },
+     {
+      "t": 9.93,
+      "state": "typing",
+      "spriteAlive": true
+     }
+    ],
+    "reachedError": false,
+    "errorPngRequested": false,
+    "pngRequests": [
+     "happy.png",
+     "thinking.png",
+     "typing.png"
+    ],
+    "fallback": null
+   }
+  },
+  {
+   "id": "building",
+   "name": "building：3 会话并发（刷新后观察）→ 精灵切 building，building.png 按需拉取",
+   "pass": true,
+   "raw": {
+    "concurrencySetup": {
+     "sessionsCreated": 3,
+     "afterReload": {
+      "state": "building",
+      "spriteAlive": true,
+      "rootInDom": true,
+      "childCount": 1,
+      "phase": "active"
+     }
+    },
+    "sequence": [
+     {
+      "t": 0.31,
+      "state": "building",
+      "spriteAlive": true
+     }
+    ],
+    "reached": "building",
+    "buildingPngRequested": true,
+    "pngRequests": [
+     "building.png",
+     "idle.png"
+    ]
+   }
+  },
+  {
+   "id": "music",
+   "name": "music：2 会话并发 → 精灵切 music，music.png 按需拉取（从 building 的爬升序列中捕获）",
+   "pass": false,
+   "raw": {
+    "musicSeenInSequence": false,
+    "sequence": [
+     {
+      "t": 0.31,
+      "state": "building",
+      "spriteAlive": true
+     }
+    ],
+    "musicPngRequested": false,
+    "pngRequests": [
+     "building.png",
+     "idle.png"
+    ],
+    "note": "并发数爬升途中必经 2，故 music 由同一序列捕获"
+   }
+  },
+  {
+   "id": "notification",
+   "name": "notification：本实例无法活体触发（尝试与原因见 raw）",
+   "pass": null,
+   "raw": {
+    "attempts": [
+     {
+      "probe": "DOM approval surface",
+      "result": {
+       "approvalNodes": 0,
+       "bodyHasApprovalText": false
+      }
+     },
+     {
+      "probe": "dangerous Remove-Item outside workspace",
+      "sequence": [],
+      "reached": null
+     }
+    ],
+    "notificationPngRequested": false
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": [],
+ "pngStatuses": [
+  [
+   "building.png",
+   200
+  ],
+  [
+   "happy.png",
+   200
+  ],
+  [
+   "idle.png",
+   200
+  ],
+  [
+   "music.png",
+   200
+  ],
+  [
+   "thinking.png",
+   200
+  ],
+  [
+   "typing.png",
+   200
+  ]
+ ]
+}

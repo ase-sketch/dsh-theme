@@ -1,0 +1,143 @@
+{
+ "after_gear_text": "新会话\nCtrl\n+\nAlt\n+\nN\n插件\n工作区\ndsh-theme\n新会话\nCelestea-Harness-Studio\nkimi-code-swarm-analysis\ndsh-ui\ncodex-ui\ninkwell\ndsh-computer-use-linux\nsol-pi-port\ndoc-reader-v2\nds-cs\n设置\n探索未至之境\n预览版\ndsh-theme\n标准模式\n描述你想要构建的内容, / 调用指令, @ 文件或对话\n工作区内修改\nDeepSeek-V41-Flash\nHigh\n设置\n通用设置\n模型\n内置插件\nAgent 预设\ndsh-theme 主题\n打开配置文件\n关闭\n权限\n选择新会话的默认权限模式\n工作区内修改\n语言\n中文\n外观\n浅色\n深色\n跟随系统\n字号大小\n仅影响会话内容的字号\n14\npx\n工作步骤展示\n选择希望看到多少工具调用细节\n详细\n显示代码工作视图\n开启后，显示轨迹、本轮代码差异，可选择完整的 Agent 预设切换\n快捷键\n\n查看和编辑当前可用的快捷键和输入操作\n\n编辑快捷键\n繁忙时的发送行为\n智能体运行时 Enter 键和发送按钮的行为；Cmd/Ctrl+Enter 使用另一行为\n排队发送\n性能与用量\n选择性能与用量信息展示的详细程度\n详细\n在使用官方模型 API 时上传 Session Log\n帮助改进 DeepSeek 模型与产品\n当前版本：0.2.0-rc.2",
+ "nav_candidates": [
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "新会话Ctrl+Alt+N",
+   "cls": "_2H3hWW_newSession"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "插件",
+   "cls": "_2H3hWW_panelRow"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "设置",
+   "cls": "wCInkW_trigger"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "dsh-theme",
+   "cls": "Hqq-bq_workspace"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "标准模式",
+   "cls": "_oGoKq_seat"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "工作区内修改",
+   "cls": "dlU_AG_trigger"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "DeepSeek-V41-FlashHigh",
+   "cls": "wq12jW_trigger"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "通用设置",
+   "cls": "wCInkW_navCell wCInkW_active"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "模型",
+   "cls": "wCInkW_navCell"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "内置插件",
+   "cls": "wCInkW_navCell"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "Agent 预设",
+   "cls": "wCInkW_navCell"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "dsh-theme 主题",
+   "cls": "wCInkW_navCell"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "打开配置文件",
+   "cls": "_button_1rv3m_2 _outline_1rv3m_54 _sm_1rv3m_28"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "关闭",
+   "cls": "wCInkW_close"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "工作区内修改",
+   "cls": "_3HsggG_selector"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "中文",
+   "cls": "Hefa_q_selector"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "浅色",
+   "cls": "v01cdW_themeCube"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "深色",
+   "cls": "v01cdW_themeCube"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "跟随系统",
+   "cls": "v01cdW_themeCube v01cdW_selected"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "详细",
+   "cls": "XZcbxG_selector"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "编辑快捷键",
+   "cls": "_3Y3Nma_button"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "排队发送",
+   "cls": "mP3ANa_selector"
+  },
+  {
+   "tag": "BUTTON",
+   "role": null,
+   "text": "详细",
+   "cls": "XZcbxG_selector"
+  }
+ ]
+}

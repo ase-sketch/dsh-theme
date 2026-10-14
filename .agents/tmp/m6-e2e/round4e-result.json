@@ -1,0 +1,209 @@
+[
+ {
+  "trial": 1,
+  "errorVisible": true,
+  "ui": [
+   {
+    "dt": 43,
+    "state": "idle"
+   },
+   {
+    "dt": 3480,
+    "state": "thinking"
+   },
+   {
+    "dt": 5001,
+    "state": "typing"
+   },
+   {
+    "dt": 5521,
+    "state": "error"
+   },
+   {
+    "dt": 10243,
+    "state": "idle"
+   }
+  ],
+  "interesting": [
+   {
+    "t": 1791735299287,
+    "id": "session-92e4bcd9-ff81-446c-b07f-8e60cba9886e",
+    "type": "tool/call",
+    "seq": 20,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data",
+    "callId": "call_00_g7Mn"
+   },
+   {
+    "t": 1791735299748,
+    "id": "session-92e4bcd9-ff81-446c-b07f-8e60cba9886e",
+    "type": "tool/result",
+    "seq": 21,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data,sourceEventSeqs,surfaceOp",
+    "isError": true,
+    "toolCallId": "call_00_g7Mn"
+   },
+   {
+    "t": 1791735299771,
+    "id": "session-92e4bcd9-ff81-446c-b07f-8e60cba9886e",
+    "type": "step/end",
+    "seq": 22,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data"
+   },
+   {
+    "t": 1791735299772,
+    "id": "session-92e4bcd9-ff81-446c-b07f-8e60cba9886e",
+    "kind": "settle-assistant"
+   },
+   {
+    "t": 1791735299782,
+    "id": "session-92e4bcd9-ff81-446c-b07f-8e60cba9886e",
+    "type": "turn/end",
+    "seq": 23,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data",
+    "reasonKind": "aborted"
+   }
+  ]
+ },
+ {
+  "trial": 2,
+  "errorVisible": false,
+  "ui": [
+   {
+    "dt": 44,
+    "state": "idle"
+   },
+   {
+    "dt": 3398,
+    "state": "thinking"
+   },
+   {
+    "dt": 4402,
+    "state": "typing"
+   },
+   {
+    "dt": 4596,
+    "state": "idle"
+   }
+  ],
+  "interesting": [
+   {
+    "t": 1791735315119,
+    "id": "session-c65cc822-44a7-4b5d-9dd8-b4c363d03701",
+    "kind": "settle-assistant"
+   },
+   {
+    "t": 1791735315126,
+    "id": "session-c65cc822-44a7-4b5d-9dd8-b4c363d03701",
+    "type": "step/end",
+    "seq": 20,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data"
+   },
+   {
+    "t": 1791735315134,
+    "id": "session-c65cc822-44a7-4b5d-9dd8-b4c363d03701",
+    "type": "turn/end",
+    "seq": 21,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data",
+    "reasonKind": "aborted"
+   }
+  ]
+ },
+ {
+  "trial": 3,
+  "errorVisible": false,
+  "ui": [
+   {
+    "dt": 41,
+    "state": "idle"
+   },
+   {
+    "dt": 3323,
+    "state": "thinking"
+   },
+   {
+    "dt": 4449,
+    "state": "typing"
+   },
+   {
+    "dt": 4616,
+    "state": "idle"
+   }
+  ],
+  "interesting": [
+   {
+    "t": 1791735330706,
+    "id": "session-acbeb2d9-2dbf-414c-b244-7b9d2ea4c279",
+    "kind": "settle-assistant"
+   },
+   {
+    "t": 1791735330717,
+    "id": "session-acbeb2d9-2dbf-414c-b244-7b9d2ea4c279",
+    "type": "step/end",
+    "seq": 20,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data"
+   },
+   {
+    "t": 1791735330726,
+    "id": "session-acbeb2d9-2dbf-414c-b244-7b9d2ea4c279",
+    "type": "turn/end",
+    "seq": 21,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data",
+    "reasonKind": "aborted"
+   }
+  ]
+ },
+ {
+  "trial": 4,
+  "errorVisible": false,
+  "ui": [
+   {
+    "dt": 42,
+    "state": "idle"
+   },
+   {
+    "dt": 3275,
+    "state": "thinking"
+   },
+   {
+    "dt": 4364,
+    "state": "typing"
+   },
+   {
+    "dt": 4567,
+    "state": "idle"
+   }
+  ],
+  "interesting": [
+   {
+    "t": 1791735346243,
+    "id": "session-a576bbbd-2019-41b6-b615-a90a82e0955a",
+    "kind": "settle-assistant"
+   },
+   {
+    "t": 1791735346252,
+    "id": "session-a576bbbd-2019-41b6-b615-a90a82e0955a",
+    "type": "step/end",
+    "seq": 20,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data"
+   },
+   {
+    "t": 1791735346259,
+    "id": "session-a576bbbd-2019-41b6-b615-a90a82e0955a",
+    "type": "turn/end",
+    "seq": 21,
+    "entryKeys": "type,event",
+    "evKeys": "type,seq,time,data",
+    "reasonKind": "aborted"
+   }
+  ]
+ }
+]

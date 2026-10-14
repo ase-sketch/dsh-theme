@@ -1,0 +1,2016 @@
+{
+ "result": {
+  "trace": [
+   {
+    "t": 28,
+    "kind": "load",
+    "id": "@deepseek-ai/dsh-client-modules"
+   },
+   {
+    "t": 73,
+    "kind": "facade.create"
+   },
+   {
+    "t": 294,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at new apply (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui-sett"
+   },
+   {
+    "t": 294,
+    "kind": "setAttribute.data-dsh-theme",
+    "stack": "    at stack (<anonymous>:7:38) |     at Element.setAttribute (<anonymous>:35:80) |     at new apply (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui-settin"
+   },
+   {
+    "t": 294,
+    "kind": "element.remove",
+    "id": "dsh-theme-style",
+    "dataPlugin": null,
+    "stack": "    at stack (<anonymous>:7:38) |     at Element.remove (<anonymous>:46:97) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui-setting"
+   },
+   {
+    "t": 294,
+    "kind": "removeAttribute.data-dsh-theme",
+    "stack": "    at stack (<anonymous>:7:38) |     at Element.removeAttribute (<anonymous>:40:83) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-u"
+   },
+   {
+    "t": 323,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 326,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 333,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 333,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 333,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 333,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 337,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 338,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 344,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 346,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 347,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 357,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 357,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 357,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 357,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 357,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 358,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 358,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 358,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at bc.<anonymous> (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 385,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 385,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 385,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 385,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 386,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 386,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 417,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 417,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 418,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 418,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 418,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 418,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 419,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 419,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 419,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 423,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 429,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 429,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 429,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 429,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 429,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 429,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 432,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 434,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 449,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 450,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 450,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 451,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 452,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 466,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 466,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 470,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 473,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 474,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 474,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 474,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 480,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 481,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 481,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 481,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 486,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 487,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 488,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 489,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 490,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 491,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 491,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 492,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 499,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 499,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 501,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 501,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 501,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 510,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 510,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 510,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 511,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 511,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 512,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 512,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 512,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 512,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 512,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 535,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 535,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 535,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 535,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 535,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 536,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 537,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 538,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 538,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 540,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 567,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 567,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 568,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 568,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 568,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 568,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 568,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 568,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 570,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 571,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 573,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 573,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 573,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 574,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 575,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 576,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 576,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 579,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-api-remotes/client.js,@deepseek-ai/dsh-client-ui-deliverables/client.js,@deepseek-ai/dsh-typert-registry/client.js,@deepseek-ai/dsh-client-connection/client.js,@deepseek-ai/dsh-api-workspace-controller/client.js,@deepseek-ai/dsh-api-session-"
+   },
+   {
+    "t": 579,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-api-remotes/client.js,@deepseek-ai/dsh-client-ui-deliverables/client.js,@deepseek-ai/dsh-typert-registry/client.js,@deepseek-ai/dsh-client-connection/client.js,@deepseek-ai/dsh-api-workspace-controller/client.js,@deepseek-ai/dsh-api-session-"
+   },
+   {
+    "t": 579,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-api-remotes/client.js,@deepseek-ai/dsh-client-ui-deliverables/client.js,@deepseek-ai/dsh-typert-registry/client.js,@deepseek-ai/dsh-client-connection/client.js,@deepseek-ai/dsh-api-workspace-controller/client.js,@deepseek-ai/dsh-api-session-"
+   },
+   {
+    "t": 581,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-api-remotes/client.js,@deepseek-ai/dsh-client-ui-deliverables/client.js,@deepseek-ai/dsh-typert-registry/client.js,@deepseek-ai/dsh-client-connection/client.js,@deepseek-ai/dsh-api-workspace-controller/client.js,@deepseek-ai/dsh-api-session-"
+   },
+   {
+    "t": 581,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-api-remotes/client.js,@deepseek-ai/dsh-client-ui-deliverables/client.js,@deepseek-ai/dsh-typert-registry/client.js,@deepseek-ai/dsh-client-connection/client.js,@deepseek-ai/dsh-api-workspace-controller/client.js,@deepseek-ai/dsh-api-session-"
+   },
+   {
+    "t": 583,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 583,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 586,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 586,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 586,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 586,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   },
+   {
+    "t": 586,
+    "kind": "createElement.style",
+    "id": "",
+    "stack": "    at stack (<anonymous>:7:38) |     at Document.createElement (<anonymous>:30:95) |     at Object.factory (http://127.0.0.1:19488/plugins/??@deepseek-ai/dsh-client-ui-open-in-app/client.js,@deepseek-ai/dsh-api-gateway/client.js,@deepseek-ai/dsh-api-job-controller/client.js,@deepseek-ai/dsh-api-terminal-controller/client.js,@deepseek-ai/dsh-api-workspace-files/client.js,@deepseek-ai/dsh-client-ui"
+   }
+  ],
+  "htmlAttrs": [
+   "lang",
+   "data-ds-theme-source",
+   "style"
+  ],
+  "stylesInHead": [
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-renderer",
+    "len": 182,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-locale",
+    "len": 696,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-plugins",
+    "len": 1465,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-models",
+    "len": 11389,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-models",
+    "len": 380,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-models",
+    "len": 185,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-models",
+    "len": 398,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 850,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 1552,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-layout",
+    "len": 4018,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-session-log",
+    "len": 302,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-shortcuts",
+    "len": 7847,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 860,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 141,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 19081,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 298,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 869,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 838,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 11719,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-theme",
+    "len": 705,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-workspace",
+    "len": 6410,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-workspace",
+    "len": 89,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-workspace",
+    "len": 240,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-workspace",
+    "len": 9776,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar",
+    "len": 371,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar",
+    "len": 9523,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 394,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 394,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 4360,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 795,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 6717,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 2915,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 2429,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 5833,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-conversation",
+    "len": 1937,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-plugin-manager",
+    "len": 20570,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-tool",
+    "len": 1163,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-tool",
+    "len": 4503,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-tool",
+    "len": 4179,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-tool",
+    "len": 202,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-tool",
+    "len": 582,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-tool",
+    "len": 3551,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-input-trigger",
+    "len": 4017,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 3201,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 1191,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 56,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 145,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 119,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 302,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-general",
+    "len": 230,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-approval",
+    "len": 1336,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-trajectory",
+    "len": 35903,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-trajectory",
+    "len": 3669,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-trajectory",
+    "len": 5818,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-trajectory",
+    "len": 437,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-jobs",
+    "len": 5611,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-right",
+    "len": 1469,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-right",
+    "len": 161,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-right",
+    "len": 2677,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-commands",
+    "len": 2064,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-subagent",
+    "len": 633,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-subagent",
+    "len": 1898,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-subagent",
+    "len": 152,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-agent-preset",
+    "len": 405,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-agent-preset",
+    "len": 1581,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-agent-preset",
+    "len": 2301,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-agent-preset",
+    "len": 5717,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+    "len": 7985,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-message-feedback",
+    "len": 1790,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-message-feedback",
+    "len": 765,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-model-selection",
+    "len": 4871,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-session-log-export",
+    "len": 137,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+    "len": 1325,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+    "len": 309,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-files",
+    "len": 1983,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-permission-presets",
+    "len": 1382,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-permission-presets",
+    "len": 859,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-cordis",
+    "len": 2308,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-cordis",
+    "len": 4492,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-cordis",
+    "len": 5207,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 465,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 4208,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 102,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 211,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 1258,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 495,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 704,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 963,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 73,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "len": 1217,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 6270,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1918,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1166,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 2271,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 33824,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 2187,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 3542,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 116,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1173,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1018,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 851,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1017,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1083,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1324,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 105,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 1250,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 959,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-chat",
+    "len": 795,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-skill",
+    "len": 3485,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-open-in-app",
+    "len": 1342,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 1605,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 5328,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 106,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 1058,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 1355,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 3532,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 777,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-settings-account",
+    "len": 11252,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-goal",
+    "len": 2275,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-goal",
+    "len": 532,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-user-questions",
+    "len": 1602,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-user-questions",
+    "len": 6273,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-user-questions",
+    "len": 2560,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-workflow-run",
+    "len": 5048,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-subagent",
+    "len": 5369,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-subagent",
+    "len": 393,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-subagent",
+    "len": 74,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-deliverables",
+    "len": 591,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-deliverables",
+    "len": 3132,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-deliverables",
+    "len": 4091,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-deliverables",
+    "len": 3463,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-deliverables",
+    "len": 1928,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-plan",
+    "len": 2488,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-plan",
+    "len": 1156,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-attachment",
+    "len": 1690,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-attachment",
+    "len": 725,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-attachment",
+    "len": 2580,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-attachment",
+    "len": 952,
+    "hasProbe": false
+   },
+   {
+    "id": "",
+    "dataPlugin": "@deepseek-ai/dsh-client-ui-attachment",
+    "len": 1784,
+    "hasProbe": false
+   }
+  ],
+  "probeStyleText": null,
+  "bodyBg": "rgb(255, 255, 255)",
+  "ms": {
+   "revisions": [
+    [
+     "@deepseek-ai/dsh-client-ui-open-in-app",
+     "a768b9a08fcd"
+    ],
+    [
+     "@deepseek-ai/dsh-api-gateway",
+     "8ce857fa0b7a"
+    ],
+    [
+     "@deepseek-ai/dsh-api-job-controller",
+     "8782a433b7fa"
+    ],
+    [
+     "@deepseek-ai/dsh-api-terminal-controller",
+     "cc79e785ec79"
+    ],
+    [
+     "@deepseek-ai/dsh-api-workspace-files",
+     "0e6c1b37bd20"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-account",
+     "a6faa3713680"
+    ],
+    [
+     "@deepseek-ai/dsh-client-hmr",
+     "93e8b29815df"
+    ],
+    [
+     "@deepseek-ai/dsh-client-modules",
+     "234edd3b7287"
+    ],
+    [
+     "@deepseek-ai/dsh-cordis-client-runner",
+     "ecb0a077c8ab"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-theme",
+     "01d0326588ea"
+    ],
+    [
+     "@deepseek-ai/dsh-client-locale",
+     "752ee760cee2"
+    ],
+    [
+     "@deepseek-ai/dsh-client-shortcuts",
+     "bc59c423c753"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-shortcuts",
+     "a80acaa2150a"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-layout",
+     "ae2accfa0976"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-renderer",
+     "b35b9747dd70"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-session",
+     "4223a049ac15"
+    ],
+    [
+     "@deepseek-ai/dsh-client-resources",
+     "fc1e500ff9f4"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-sidebar",
+     "383579273869"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-sidebar-right",
+     "03c134114604"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+     "ed8a032e91ab"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+     "b31ecbf19eb6"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-sidebar-files",
+     "e73841a9ea6e"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings",
+     "2e2a5fb573ce"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-general",
+     "bfa8b0e9d7e7"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-models",
+     "96c892f3154d"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-plugin-manager",
+     "e7166dfc998d"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+     "2f46322d23a5"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-conversation",
+     "909e9a4c5755"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-approval",
+     "22db652d27fd"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-chat",
+     "75ecc6ebad53"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-brand-official",
+     "856e5911f96e"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-attachment",
+     "d656023b167c"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-tool",
+     "519145599d45"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-cordis",
+     "5461dae9b767"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-workspace",
+     "42cb7cd1c5aa"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-workflow-run",
+     "0646dd103eb5"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-input-trigger",
+     "21806a5d9436"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-commands",
+     "9845ae9df819"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-skill",
+     "8632521ae763"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-subagent",
+     "d056f3e7175b"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-reference",
+     "dd7a464bc31d"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-jobs",
+     "ee9d8c46e4e5"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-goal",
+     "d7ddd873f7d2"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-message-feedback",
+     "6e0149ae51fb"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-model-selection",
+     "74f374bd1c38"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-permission-presets",
+     "e3b9bf3011d3"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-agent-preset",
+     "85e0031f715c"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-session-log",
+     "73b7b935e81c"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-plugins",
+     "3fab1e4673a8"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-shell",
+     "3a996a1af655"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+     "368de45c97d6"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-subagent",
+     "0153c933549d"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-settings-web-search",
+     "8dbdbac58825"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-plan",
+     "670f88095f8c"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-user-questions",
+     "edc010631ef9"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-trajectory",
+     "c8ddb7dbde6f"
+    ],
+    [
+     "dsh-theme",
+     "ab9eb41038f4"
+    ],
+    [
+     "@deepseek-ai/dsh-session-log-export",
+     "2f41265a3728"
+    ],
+    [
+     "@deepseek-ai/dsh-client-file-upload",
+     "f609fd796581"
+    ],
+    [
+     "@deepseek-ai/dsh-api-remotes",
+     "703eec2021e3"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-deliverables",
+     "4e4f69934047"
+    ],
+    [
+     "@deepseek-ai/dsh-typert-registry",
+     "1662752365f5"
+    ],
+    [
+     "@deepseek-ai/dsh-client-connection",
+     "0cb1ea389ddc"
+    ],
+    [
+     "@deepseek-ai/dsh-api-workspace-controller",
+     "ec132d44b2d5"
+    ],
+    [
+     "@deepseek-ai/dsh-api-session-controller",
+     "fa219957c811"
+    ],
+    [
+     "@deepseek-ai/dsh-client-ui-directory-picker-native",
+     "ff5d3bac4468"
+    ]
+   ],
+   "managedDshTheme": {
+    "entryId": "55f91b2b",
+    "options": {
+     "id": "55f91b2b",
+     "name": "dsh-theme"
+    },
+    "hasFiber": true,
+    "state": 2,
+    "fiberKeys": [
+     "parent",
+     "inject",
+     "runtime",
+     "uid",
+     "ctx",
+     "config",
+     "_config",
+     "state",
+     "dispose",
+     "store",
+     "inertia",
+     "_hooks",
+     "_disposables",
+     "context",
+     "_error",
+     "_runner",
+     "_store",
+     "entry"
+    ],
+    "runtime": "function apply(ctx) {\n      // The stylesheet is the plugin's whole effect, so it is built and handed\n      // over as one reversible unit. Re-running apply (hot reload, a second\n      // roster pass)"
+   },
+   "dshThemeRecord": {
+    "keys": [
+     "apply"
+    ],
+    "styles": []
+   },
+   "syncFailures": [],
+   "importErrors": []
+  }
+ },
+ "console": []
+}

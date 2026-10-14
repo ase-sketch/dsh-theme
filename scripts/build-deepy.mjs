@@ -20,7 +20,7 @@
  *  1 源图宽 = 2080、高 = rows x 260
  *  2 产出 PNG 宽 = 512、高 = rows x 64（回读落盘文件的 IHDR 复核，守后果不守意图）
  *  3 源图非空格数 = manifest 的 frames（格内 alpha 全 0 记为空格）
- *  4 8 态全部产出成功后才原子落盘 manifest（临时文件 + rename）
+ *  4 全部状态产出成功后才原子落盘 manifest（临时文件 + rename）
  */
 
 import { readFileSync, writeFileSync, mkdirSync, renameSync, rmSync } from 'node:fs';
@@ -38,6 +38,9 @@ const OUT_FRAME = 64;
 const FRAME_MS = 50;
 const STATES = [
   { key: 'idle', frames: 48 },
+  // M9「抬头联动」新增：编辑区 filled 时主位鲸鱼从 idle 抬到 idle-look（仰望/张望）。
+  // 源 2080x2340 = 9 行 x 8 列 = 72 格，**68 帧**（行尾 4 格是全透明 padding，守卫 3 会逐格核）。
+  { key: 'idle-look', frames: 68 },
   { key: 'thinking', frames: 48 },
   { key: 'typing', frames: 48 },
   { key: 'happy', frames: 52 },
@@ -345,7 +348,7 @@ function main() {
   const report = [];
   for (const state of STATES) report.push(buildState(state));
 
-  // 守卫 4：8 态全部产出成功后才落盘 manifest
+  // 守卫 4：全部状态产出成功后才落盘 manifest
   const manifest = {
     cols: COLS,
     frameMs: FRAME_MS,

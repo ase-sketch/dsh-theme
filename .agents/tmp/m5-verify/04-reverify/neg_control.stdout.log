@@ -1,0 +1,52 @@
+{
+ "on_dom": {
+  "htmlHasAttr": true,
+  "styleElExists": true,
+  "styleLen": 25259,
+  "sidebarBg": "rgb(243, 247, 254)",
+  "bodyBg": "rgb(247, 250, 255)"
+ },
+ "toggle_from": true,
+ "off_dom": {
+  "htmlHasAttr": false,
+  "styleElExists": false,
+  "styleLen": 0,
+  "sidebarBg": "rgb(249, 250, 251)",
+  "bodyBg": "rgb(255, 255, 255)"
+ },
+ "toggle_back_from": false,
+ "restored_dom": {
+  "htmlHasAttr": true,
+  "styleElExists": true,
+  "styleLen": 25259,
+  "sidebarBg": "rgb(243, 247, 254)",
+  "bodyBg": "rgb(247, 250, 255)"
+ },
+ "full_md5": {
+  "on": "da4c787578f58a80dfd1565b773acc8a",
+  "off": "537d25412fecc36c6e2a0b4405ebee89",
+  "differ": true
+ },
+ "crop_md5": {
+  "box": [
+   0,
+   60,
+   900,
+   700
+  ],
+  "size": [
+   900,
+   640
+  ],
+  "on": "95cf74179e1dc9ac8733169dbe0cd9c5",
+  "off": "a6dc15aa322f8b46cb815d032e5a34dc",
+  "differ": true
+ },
+ "dom_negative_control": {
+  "on_has_style_el": true,
+  "on_has_attr": true,
+  "off_has_style_el": false,
+  "off_has_attr": false,
+  "pass": true
+ }
+}

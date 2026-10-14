@@ -1,0 +1,88 @@
+新会话
+Ctrl
++
+Alt
++
+N
+插件
+工作区
+dsh-theme
+新会话
+Celestea-Harness-Studio
+kimi-code-swarm-analysis
+dsh-ui
+codex-ui
+inkwell
+dsh-computer-use-linux
+sol-pi-port
+doc-reader-v2
+ds-cs
+设置
+插件
+安装、启用和配置插件
+添加插件
+官方
+8
+智能体团队
+实验性
+启用团队协作、团队工具、成员列表和共享任务看板。
+自动授权审查
+实验性
+提供自动审查权限模式，由模型在每次工具调用前判断是否授权。
+自动化任务
+实验性
+按设定的时间或周期，在会话中自动执行任务。
+语音输入
+实验性
+在本机使用 SenseVoice 转写录音，首次使用需安装依赖。
+终端
+限制每条命令最多能跑多久、最多输出多少内容。
+Agent 循环
+控制 Agent 派发工具调用的方式。
+子智能体
+设置子智能体的递归层级、数量和模型。
+网页搜索
+设置 DeepSeek 的搜索提供方。
+已安装
+1
+dsh-theme
+dsh-ui design-spec skin theme bundle for the DeepSeek Harness web GUI
+设置
+通用设置
+模型
+内置插件
+Agent 预设
+打开配置文件
+关闭
+权限
+选择新会话的默认权限模式
+工作区内修改
+语言
+中文
+外观
+浅色
+深色
+跟随系统
+字号大小
+仅影响会话内容的字号
+14
+px
+工作步骤展示
+选择希望看到多少工具调用细节
+详细
+显示代码工作视图
+开启后，显示轨迹、本轮代码差异，可选择完整的 Agent 预设切换
+快捷键
+
+查看和编辑当前可用的快捷键和输入操作
+
+编辑快捷键
+繁忙时的发送行为
+智能体运行时 Enter 键和发送按钮的行为；Cmd/Ctrl+Enter 使用另一行为
+排队发送
+性能与用量
+选择性能与用量信息展示的详细程度
+详细
+在使用官方模型 API 时上传 Session Log
+帮助改进 DeepSeek 模型与产品
+当前版本：0.2.0-rc.2

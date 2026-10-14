@@ -1,0 +1,91 @@
+{
+ "head": "bda3c5a",
+ "results": [
+  {
+   "id": "error",
+   "name": "error：回合中断 → 50ms 采样捕获 error 瞬时态 + error.png 拉取 + 像素可见",
+   "pass": false,
+   "raw": {
+    "stopClick": {
+     "clicked": true,
+     "aria": "停止生成"
+    },
+    "transitions": [
+     {
+      "dt": -454,
+      "state": "thinking"
+     },
+     {
+      "dt": -40,
+      "state": "typing"
+     },
+     {
+      "dt": 72,
+      "state": "idle"
+     }
+    ],
+    "totalSamples": 276,
+    "errorPngRequested": false,
+    "stateAtEnd": "idle",
+    "pixelsAtEnd": null,
+    "pngRequests": [
+     "thinking.png",
+     "typing.png"
+    ],
+    "note": "50ms 采样（rAF 量级）；round-7 用 250ms 采样漏掉了该瞬时态"
+   }
+  },
+  {
+   "id": "notification",
+   "name": "notification：本实例无法活体触发（尝试与原因见 raw）",
+   "pass": null,
+   "raw": {
+    "modeBefore": {
+     "found": true
+    },
+    "picked": {
+     "clicked": true,
+     "text": "仅可查看"
+    },
+    "modeAfter": "访问模式，当前：工作区内修改",
+    "transitions": [
+     {
+      "dt": 53,
+      "state": "idle"
+     },
+     {
+      "dt": 3288,
+      "state": "thinking"
+     },
+     {
+      "dt": 5794,
+      "state": "typing"
+     },
+     {
+      "dt": 6869,
+      "state": "thinking"
+     },
+     {
+      "dt": 7406,
+      "state": "typing"
+     },
+     {
+      "dt": 8901,
+      "state": "happy"
+     },
+     {
+      "dt": 14101,
+      "state": "typing"
+     }
+    ],
+    "reachedNotification": false,
+    "notificationPngRequested": false,
+    "pngRequests": [
+     "happy.png"
+    ]
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

@@ -1,0 +1,18 @@
+fix(M6): Deepy 改用 slot 的 React 渲染注入，根治切会话后精灵消失
+
+缺陷（独立验收方在四态补验中发现，最小复现 .agents/tmp/m6-e2e/repro_sprite_loss.py）：活跃会话点「新建会话」后，精灵永久消失直到刷新页面。
+
+根因：插件把 host 手动 appendChild 进 React 拥有的 slot 容器 [data-slot="conversation.input.left"]。切会话时 React 重渲染清掉它不认识的子节点（精灵 span），但 host 元素留下；ensureContainer 的两道守卫（container.isConnected 为真即 return、sprite 变量仍指向已脱离 DOM 的旧节点故不重建）使播放器无法自愈，paint() 的 el.firstChild 恒为 null。
+
+修法（Route A）：把节点存在性交还给 React——新增 DeepyView（容器，未就绪返回 null）+ DeepySprite（ref 把真实节点交回 spriteEl），paint() 读 spriteEl 并校验 isConnected。删除全部手动 DOM 操作（ensureContainer / removeContainer / reparentIfNeeded / slotHost / appendChild 进 slot）。
+选 A 不选「自愈」路线（Route B）的理由：B 仍在跟 React 抢 DOM，下次 React 换协调策略还会再犯；A 让自愈成为结构性保证，不需要自愈代码。官方模板 cordis-plugin-development/templates/decoration/client.js 用的正是同一形态，且它注册的 conversation.composer.dock 与本插件的 conversation.input.left 同为 {kind:'list', scope:'session'}。
+
+验证（编排方独立重跑）：
+- node plugins/dsh-theme/test/state-machine.test.mjs → 109 passed / 0 failed
+- node plugins/dsh-theme/test/render-layer.test.mjs → 36 passed / 0 failed（新增，驱动真实 installDeepy，React 桩真的渲染函数组件、useState setter 真的触发重渲染）
+- toplevel-scan.mjs → topLevelViolations: []
+- git diff 对投影与档位映射函数名 grep → 零命中（状态机语义未动）
+- 变异负控制五条：m1(91/18) m2(98/11) m3(106/3) r1(35/1) r2(35/1)，全部还原复绿。r1/r2 正是本次缺陷的两个成因（paint 不校验 isConnected、ref 不接 null）
+
+未验证：端到端复验（含 repro 脚本回归）由独立验收方在隔离实例上跑。
+待复核：R-1 验收脚本的 rootChildCount 断言（Route A 下 React 可能插入注释节点，以实跑为准）；R-2 素材一直拉不到时容器永不挂载（符合「不留空白框」口径，表现为完全没有元素）。

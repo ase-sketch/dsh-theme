@@ -1,0 +1,93 @@
+{
+ "variants": [],
+ "v0_initial": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "idle",
+  "phase": "hero",
+  "session": "1d0e6e11"
+ },
+ "vA_blank_to_blank": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "idle",
+  "phase": "hero",
+  "session": "1d0e6e11"
+ },
+ "vB_active_before_switch": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "typing",
+  "phase": "active",
+  "session": "1d0e6e11"
+ },
+ "vB_after_new_session": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "typing",
+  "phase": "hero",
+  "session": "ee669e1e"
+ },
+ "vB_after_6s_wait": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "typing",
+  "phase": "hero",
+  "session": "ee669e1e"
+ },
+ "vC_after_switch_back": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "typing",
+  "phase": "active",
+  "session": "9269ccf8"
+ },
+ "vD_after_reload": {
+  "rootInDom": true,
+  "rootChildCount": 1,
+  "rootChildClasses": [
+   "dsh-theme-deepy-sprite"
+  ],
+  "spriteInDom": true,
+  "spriteIsChildOfRoot": true,
+  "state": "idle",
+  "phase": "active",
+  "session": "9269ccf8"
+ },
+ "pngRequests": [
+  "idle.png",
+  "thinking.png",
+  "typing.png",
+  "idle.png"
+ ]
+}

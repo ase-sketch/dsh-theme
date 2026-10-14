@@ -1,0 +1,96 @@
+{
+ "A_raf_leak": {
+  "toggled": {
+   "was": true,
+   "now": false
+  },
+  "rafCallbacksWhileOn": 199,
+  "rafAtOff": 853,
+  "rafAfter2_5sOff": 853,
+  "rafCallbacksInWindow": 0,
+  "rootExistsAfter2_5s": false,
+  "spriteExistsAfter2_5s": false,
+  "note": "requestAnimationFrame 回调计数在 OFF 后 2.5s 内应停止增长（rAF 循环已随 dispose 撤销）"
+ },
+ "B_timeline": {
+  "cadenceMs": 500,
+  "transitions": [
+   {
+    "t": 0.51,
+    "state": "thinking"
+   },
+   {
+    "t": 3.58,
+    "state": "typing"
+   },
+   {
+    "t": 4.6,
+    "state": "thinking"
+   },
+   {
+    "t": 5.11,
+    "state": "typing"
+   },
+   {
+    "t": 5.62,
+    "state": "happy"
+   }
+  ],
+  "distinctStates": [
+   "happy",
+   "thinking",
+   "typing"
+  ],
+  "observationPoint": "#dsh-theme-deepy .dsh-theme-deepy-sprite computed background-image (最终可观察量)"
+ },
+ "B_asset_fetch_order": {
+  "deepyRequests": [
+   {
+    "f": "thinking.png",
+    "t": 0.07
+   },
+   {
+    "f": "typing.png",
+    "t": 3.34
+   },
+   {
+    "f": "happy.png",
+    "t": 5.59
+   }
+  ],
+  "statuses": [
+   [
+    "happy.png",
+    200
+   ],
+   [
+    "thinking.png",
+    200
+   ],
+   [
+    "typing.png",
+    200
+   ]
+  ],
+  "statesReached": [
+   "happy",
+   "thinking",
+   "typing"
+  ],
+  "note": "按需加载 = 只有真正进入过的状态才发 PNG 请求；首屏只拉 idle"
+ },
+ "C_mutation_negative_control": {
+  "injected": "sprite width/height -> 96px",
+  "computedWidthAfterMutation": "96px",
+  "computedHeightAfterMutation": "96px",
+  "expectedByAssertion": "64px",
+  "assertionWouldGoRed": true,
+  "note": "不改仓库文件，仅在页面注入 CSS 造红；证明「帧窗口宽=displayPx」断言有区分力"
+ },
+ "C_restored": {
+  "widthPx": "64px",
+  "state": "idle",
+  "rootExists": true
+ },
+ "consoleErrors": []
+}

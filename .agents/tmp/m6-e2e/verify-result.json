@@ -1,0 +1,352 @@
+{
+ "url": "http://127.0.0.1:19488/?token=<REDACTED>",
+ "viewport": "1440x900",
+ "passCount": 12,
+ "failCount": 0,
+ "results": [
+  {
+   "id": 1,
+   "name": "slot 注入：元素存在 + 挂在 conversation.input.left + data-dsh-part=deepy",
+   "pass": true,
+   "raw": {
+    "rootExists": true,
+    "slotExists": true,
+    "rootParentIsSlot": true,
+    "rootParentTag": "DIV|conversation.input.left",
+    "rootDshPart": "deepy",
+    "spriteExists": true,
+    "rect": {
+     "x": 656,
+     "y": 502,
+     "w": 64,
+     "h": 64
+    },
+    "state": "idle"
+   }
+  },
+  {
+   "id": 3,
+   "name": "帧窗口宽 = displayPx(64)：计算宽高 === 64px",
+   "pass": true,
+   "raw": {
+    "computedWidth": "64px",
+    "computedHeight": "64px",
+    "rectW": 64,
+    "manifestDisplayPx": 64,
+    "bgSize": "512px 384px"
+   }
+  },
+  {
+   "id": 2,
+   "name": "帧在推进：500ms 窗口内 background-position 取值 >=2 且首尾不同",
+   "pass": true,
+   "raw": {
+    "windowMs": 865,
+    "sampleCount": 28,
+    "distinctPositionCount": 17,
+    "distinctPositionValues": [
+     "-128px -128px",
+     "-128px -64px",
+     "-192px -128px",
+     "-192px -64px",
+     "-256px -128px",
+     "-256px -64px",
+     "-256px 0px",
+     "-320px -64px",
+     "-320px 0px",
+     "-384px -64px",
+     "-384px 0px",
+     "-448px -64px"
+    ],
+    "distinctImageCount": 1,
+    "firstPos": "-256px 0px",
+    "lastPos": "-256px -128px",
+    "allPositions": [
+     "-256px 0px",
+     "-320px 0px",
+     "-320px 0px",
+     "-384px 0px",
+     "-384px 0px",
+     "-448px 0px",
+     "0px -64px",
+     "0px -64px",
+     "-64px -64px",
+     "-64px -64px",
+     "-128px -64px",
+     "-128px -64px",
+     "-192px -64px",
+     "-256px -64px",
+     "-256px -64px",
+     "-320px -64px",
+     "-320px -64px",
+     "-384px -64px",
+     "-448px -64px",
+     "-448px -64px",
+     "0px -128px",
+     "0px -128px",
+     "-64px -128px",
+     "-64px -128px",
+     "-128px -128px",
+     "-192px -128px",
+     "-192px -128px",
+     "-256px -128px"
+    ]
+   }
+  },
+  {
+   "id": 4,
+   "name": "素材按需加载：首屏只拉首态 PNG（非 8 张全拉）+ HTTP 200",
+   "pass": true,
+   "raw": {
+    "firstScreenPngs": [
+     "idle.png"
+    ],
+    "firstScreenStates": [
+     "idle"
+    ],
+    "pngCount": 1,
+    "totalStatesInManifest": 8,
+    "statusByFile": {
+     "deepy.json": 200,
+     "idle.png": 200
+    },
+    "all200": true,
+    "rawRequestUrls": [
+     "http://127.0.0.1:19488/api/dsh-theme/deepy/deepy.json",
+     "http://127.0.0.1:19488/api/dsh-theme/deepy/idle.png"
+    ]
+   }
+  },
+  {
+   "id": 9,
+   "name": "像素可见：精灵区域存在非背景像素 + 含素材饱和色（同源）→ 未被不透明白层盖住",
+   "pass": true,
+   "raw": {
+    "nonBgPixelCount": 767,
+    "totalPixels": 4096,
+    "nonBgRatio": 0.1873,
+    "clipSize": [
+     64,
+     64
+    ],
+    "dominantBg": [
+     255,
+     255,
+     255,
+     255
+    ],
+    "pixelsMatchingSaturatedAssetPalette": 560,
+    "saturatedPaletteSize": 301,
+    "elementStackAtCenter": {
+     "stack": [
+      "DIV.uV2eYG_tools",
+      "DIV.uV2eYG_row",
+      "DIV.uV2eYG_card",
+      "DIV.uV2eYG_root uV2eYG_hero",
+      "DIV.wSkVaW_composerStack wSkVaW_composerHero",
+      "DIV.wSkVaW_composerSeat"
+     ],
+     "spriteInStack": false,
+     "spritePointerEvents": "none",
+     "spriteOpacity": "1",
+     "spriteVisibility": "visible"
+    },
+    "note": "精灵 CSS 为 pointer-events:none（设计如此，装饰性元素），故 elementsFromPoint 命中的是下层 shell 元素；可见性由截图像素证明，不靠 elementFromPoint"
+   }
+  },
+  {
+   "id": 5,
+   "name": "事件→状态：状态序列随回合推进变化（原始序列见 raw）",
+   "pass": true,
+   "raw": {
+    "timeline": [
+     {
+      "t": 1.01,
+      "state": "thinking"
+     },
+     {
+      "t": 2.02,
+      "state": "typing"
+     },
+     {
+      "t": 3.02,
+      "state": "thinking"
+     },
+     {
+      "t": 4.03,
+      "state": "typing"
+     },
+     {
+      "t": 5.04,
+      "state": "happy"
+     }
+    ],
+    "distinctStates": [
+     "happy",
+     "thinking",
+     "typing"
+    ],
+    "note": "判定口径假设：milestones L46 把并发档位口径列为待复核；本行只断言『状态随回合推进发生变化』，不断言具体档位映射"
+   }
+  },
+  {
+   "id": 11,
+   "name": "负控制(abort 素材路由)：降级生效——精灵未绘制、无真实报错、warn 恰好 1 次",
+   "pass": true,
+   "raw": {
+    "abortedRequests": 1,
+    "spritePainted": false,
+    "bgImage": null,
+    "rootExists": false,
+    "rect": null,
+    "warnCount": 1,
+    "warnTexts": [
+     "[dsh-theme] deepy sprite unavailable: idle Failed to fetch"
+    ],
+    "consoleErrorsRaw": 1,
+    "consoleErrorsResourceLoad": 1,
+    "consoleErrorsReal": 0,
+    "rawErrTexts": [
+     "Failed to load resource: net::ERR_FAILED"
+    ]
+   }
+  },
+  {
+   "id": 11.1,
+   "name": "负控制恢复：unroute 后重载，精灵复绿且帧在动",
+   "pass": true,
+   "raw": {
+    "state": "idle",
+    "widthPx": "64px",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "distinctPositions": 12,
+    "positions": [
+     "-384px -64px",
+     "-448px -64px",
+     "0px -128px",
+     "-64px -128px",
+     "-128px -128px",
+     "-192px -128px",
+     "-256px -128px",
+     "-320px -128px"
+    ],
+    "assetRequestsAfterUnroute": [
+     "deepy.json",
+     "idle.png"
+    ]
+   }
+  },
+  {
+   "id": 6,
+   "name": "开关 OFF 全撤：元素/内联 style/html 属性全消失，+2s 未复活、无新素材请求",
+   "pass": true,
+   "raw": {
+    "toggle": {
+     "before": true,
+     "after": false
+    },
+    "rootExists": false,
+    "styleElExists": false,
+    "htmlAttr": false,
+    "themeStyleEl": false,
+    "after2s_rootExists": false,
+    "after2s_spriteExists": false,
+    "deepyRequestsBeforeWait": 2,
+    "deepyRequestsAfterWait": 2
+   }
+  },
+  {
+   "id": 7,
+   "name": "开关 ON 恢复：精灵重新出现且帧继续推进",
+   "pass": true,
+   "raw": {
+    "toggle": {
+     "before": false,
+     "after": true
+    },
+    "rootExists": true,
+    "state": "idle",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "widthPx": "64px",
+    "distinctPositions": 14,
+    "positions": [
+     "-448px -320px",
+     "0px 0px",
+     "-64px 0px",
+     "-128px 0px",
+     "-192px 0px",
+     "-256px 0px",
+     "-320px 0px",
+     "-384px 0px"
+    ]
+   }
+  },
+  {
+   "id": 10,
+   "name": "深色模式：精灵仍可见、尺寸正确、有非背景像素",
+   "pass": true,
+   "raw": {
+    "darkClicked": true,
+    "bodyBg": "rgb(19, 22, 29)",
+    "state": "idle",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "widthPx": "64px",
+    "nonBgPixelCount": 790,
+    "dominantBg": [
+     29,
+     34,
+     44,
+     255
+    ]
+   }
+  },
+  {
+   "id": 8,
+   "name": "console 零错（负控制期间被故意打断的资源加载错误单列，不计入）",
+   "pass": true,
+   "raw": {
+    "consoleErrorTotal": 1,
+    "resourceLoadErrorsFromNegativeControl": 1,
+    "realConsoleErrors": 0,
+    "realErrorTexts": [],
+    "pageerrorCount": 0,
+    "pageerrors": [],
+    "consoleTotal": 2
+   }
+  }
+ ],
+ "console": {
+  "all": [
+   {
+    "type": "error",
+    "text": "Failed to load resource: net::ERR_FAILED"
+   },
+   {
+    "type": "warning",
+    "text": "[dsh-theme] deepy sprite unavailable: idle Failed to fetch"
+   }
+  ],
+  "errors": [
+   {
+    "type": "error",
+    "text": "Failed to load resource: net::ERR_FAILED"
+   }
+  ],
+  "pageerrors": []
+ }
+}

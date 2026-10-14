@@ -1,0 +1,300 @@
+{
+ "head": "bda3c5a",
+ "results": [
+  {
+   "id": "A-session-switch",
+   "name": "Route A：切会话后精灵仍在 DOM 且能继续渲染（缺陷回归）",
+   "pass": true,
+   "raw": {
+    "beforeSend": {
+     "state": "idle",
+     "alive": true,
+     "rootInDom": true,
+     "childCount": 1,
+     "childClasses": [
+      "dsh-theme-deepy-sprite"
+     ],
+     "w": "64px",
+     "rect": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     }
+    },
+    "activeBeforeSwitch": {
+     "state": "typing",
+     "alive": true,
+     "rootInDom": true,
+     "childCount": 1,
+     "childClasses": [
+      "dsh-theme-deepy-sprite"
+     ],
+     "w": "64px",
+     "rect": {
+      "x": 656,
+      "y": 799,
+      "w": 64,
+      "h": 64
+     }
+    },
+    "afterNewSession": {
+     "state": "typing",
+     "alive": true,
+     "rootInDom": true,
+     "childCount": 1,
+     "childClasses": [
+      "dsh-theme-deepy-sprite"
+     ],
+     "w": "64px",
+     "rect": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     }
+    },
+    "afterSwitchSequence": [
+     {
+      "t": 0.27,
+      "state": "typing",
+      "alive": true
+     }
+    ],
+    "final": {
+     "state": "typing",
+     "alive": true,
+     "rootInDom": true,
+     "childCount": 1,
+     "childClasses": [
+      "dsh-theme-deepy-sprite"
+     ],
+     "w": "64px",
+     "rect": {
+      "x": 656,
+      "y": 502,
+      "w": 64,
+      "h": 64
+     }
+    },
+    "note": "修复前此步 spriteInDom=false / state=null（见 repro-result.json vB_after_new_session）"
+   }
+  },
+  {
+   "id": "building",
+   "name": "building：≥3 会话并发 → 状态切+PNG拉取+像素可见（三合一）",
+   "pass": true,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.27,
+      "state": "building",
+      "alive": true
+     }
+    ],
+    "reached": true,
+    "state": "building",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "buildingPngRequested": true,
+    "pixels": {
+     "w": 64,
+     "h": 64,
+     "total": 4096,
+     "dominant": [
+      255,
+      255,
+      255,
+      255
+     ],
+     "nonBgCount": 1098
+    },
+    "pngRequests": [
+     "building.png",
+     "music.png"
+    ],
+    "renderingDefectBypassed": false,
+    "note": "本态无需绕过渲染缺陷——切会话后精灵不再消失"
+   }
+  },
+  {
+   "id": "music",
+   "name": "music：3→2 并发回落 → 状态切+PNG拉取+像素可见（三合一）",
+   "pass": true,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.26,
+      "state": "building",
+      "alive": true
+     },
+     {
+      "t": 29.57,
+      "state": "happy",
+      "alive": true
+     },
+     {
+      "t": 34.59,
+      "state": "building",
+      "alive": true
+     },
+     {
+      "t": 57.02,
+      "state": "music",
+      "alive": true
+     }
+    ],
+    "reached": true,
+    "state": "music",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "musicPngRequested": true,
+    "pixels": {
+     "w": 64,
+     "h": 64,
+     "total": 4096,
+     "dominant": [
+      255,
+      255,
+      255,
+      255
+     ],
+     "nonBgCount": 963
+    },
+    "pngRequests": [
+     "building.png",
+     "happy.png",
+     "music.png"
+    ],
+    "renderingDefectBypassed": false
+   }
+  },
+  {
+   "id": "error",
+   "name": "error：工具失败 → 状态切+PNG拉取+像素可见（三合一）",
+   "pass": false,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.27,
+      "state": "music",
+      "alive": true
+     },
+     {
+      "t": 4.26,
+      "state": "happy",
+      "alive": true
+     },
+     {
+      "t": 9.53,
+      "state": "typing",
+      "alive": true
+     }
+    ],
+    "reached": false,
+    "state": "typing",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "errorPngRequested": false,
+    "pixels": null,
+    "pngRequests": [],
+    "note": "rounds 3-5 用 exit/Get-Item/未知工具 均落到 happy；本轮见 raw 判据"
+   }
+  },
+  {
+   "id": "notification",
+   "name": "notification：本实例无法活体触发（尝试与原因见 raw）",
+   "pass": null,
+   "raw": {
+    "attempts": [
+     {
+      "probe": "approval DOM nodes at rest",
+      "result": {
+       "approvalNodes": 0,
+       "bodyHasApprovalText": false
+      }
+     },
+     {
+      "probe": "boot entries with approval/permission",
+      "result": [
+       "@deepseek-ai/dsh-client-ui-approval",
+       "@deepseek-ai/dsh-client-ui-permission-presets"
+      ]
+     },
+     {
+      "probe": "access mode at rest",
+      "result": "访问模式，当前：工作区内修改"
+     },
+     {
+      "probe": "dangerous Remove-Item under System32",
+      "sequence": [
+       {
+        "t": 0.26,
+        "state": "thinking",
+        "alive": true
+       },
+       {
+        "t": 1.58,
+        "state": "typing",
+        "alive": true
+       },
+       {
+        "t": 2.39,
+        "state": "happy",
+        "alive": true
+       },
+       {
+        "t": 7.67,
+        "state": "typing",
+        "alive": true
+       }
+      ],
+      "reached": false,
+      "finalState": "typing"
+     }
+    ],
+    "notificationPngRequested": false
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": [],
+ "pngStatuses": [
+  [
+   "building.png",
+   200
+  ],
+  [
+   "happy.png",
+   200
+  ],
+  [
+   "idle.png",
+   200
+  ],
+  [
+   "music.png",
+   200
+  ],
+  [
+   "thinking.png",
+   200
+  ],
+  [
+   "typing.png",
+   200
+  ]
+ ]
+}

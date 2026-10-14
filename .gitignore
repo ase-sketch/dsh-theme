@@ -1,3 +1,10 @@
 .dsh-tmp/
 _agents-shots-tmp
 .agents/shots/_instance_url.txt
+
+# 临时实验产物里的第三方包/压缩包（实验脚本与结果仍入库，见 .agents/tmp/m7-icons/）
+.agents/tmp/m7-icons/package/
+.agents/tmp/m7-icons/lucide-static-*.tgz
+
+# IDE 配置
+.idea/

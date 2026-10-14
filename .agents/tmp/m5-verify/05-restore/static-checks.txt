@@ -1,0 +1,13 @@
+=== antiRegression: skin.css md5 ===
+  5453C2BF6718C4371D569E03FAE8896B  bytes=11850
+  expected 5453C2BF6718C4371D569E03FAE8896B / 11850
+=== theme.css bytes / scope ===
+  bytes = 25850
+  scope head count (html[data-dsh-theme]) = 20
+  color-mix derivation count = 11
+=== plugin file md5 (vs producer report) ===
+  22004600178771908D36E71FC0C80C92  cordis.patch.yml
+  AB6C4930C73CF78A26607F6DC1424E1B  package.json
+  4677C8FD06A5EB6917A95DAFA4579E90  theme.css
+  B4CE2A071EC1D4A2A0519CDDB2A4D011  index.js
+  1F342EDA3EF133C5E6118FBB7BF4575F  client.js

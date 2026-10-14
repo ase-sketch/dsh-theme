@@ -1,0 +1,30 @@
+{
+ "darkPrimitiveCount": 22,
+ "lightAliasCount": 9,
+ "needClone": [
+  "--dsh-badge-tier-bg",
+  "--dsh-badge-tier-text",
+  "--dsh-badge-update-bg",
+  "--dsh-badge-update-text",
+  "--dsh-bubble-user-bg",
+  "--dsh-card-bg",
+  "--dsh-input-bg",
+  "--dsh-menu-bg",
+  "--dsh-sidebar-bg"
+ ],
+ "cloned": [
+  "--dsh-badge-tier-bg",
+  "--dsh-badge-tier-text",
+  "--dsh-badge-update-bg",
+  "--dsh-badge-update-text",
+  "--dsh-bubble-user-bg",
+  "--dsh-card-bg",
+  "--dsh-input-bg",
+  "--dsh-menu-bg",
+  "--dsh-sidebar-bg"
+ ],
+ "missingClone": [],
+ "complete": true,
+ "extraCloned": [],
+ "note": "needClone 为空说明无别名引用被深色重定义的原语；missingClone 非空即修复不完备"
+}

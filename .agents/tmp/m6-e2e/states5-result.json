@@ -1,0 +1,67 @@
+{
+ "results": [
+  {
+   "id": "error",
+   "name": "error：构造工具失败 → 精灵切 error，error.png 按需拉取，4800ms 后按档位回落",
+   "pass": false,
+   "raw": {
+    "winningMode": null,
+    "attempts": [
+     {
+      "mode": "read tool on nonexistent absolute path",
+      "sequence": [
+       {
+        "t": 0.26,
+        "state": "thinking",
+        "alive": true
+       },
+       {
+        "t": 1.55,
+        "state": "typing",
+        "alive": true
+       },
+       {
+        "t": 1.8,
+        "state": "thinking",
+        "alive": true
+       },
+       {
+        "t": 2.33,
+        "state": "typing",
+        "alive": true
+       },
+       {
+        "t": 3.12,
+        "state": "happy",
+        "alive": true
+       },
+       {
+        "t": 8.13,
+        "state": "typing",
+        "alive": true
+       }
+      ],
+      "reachedError": false,
+      "errorPngRequested": false
+     },
+     {
+      "mode": "unknown tool name",
+      "sequence": [],
+      "reachedError": false,
+      "errorPngRequested": false
+     },
+     {
+      "mode": "pwsh with invalid syntax",
+      "sequence": [],
+      "reachedError": false,
+      "errorPngRequested": false
+     }
+    ],
+    "renderingDefectBypassed": true,
+    "note": "每轮新建会话后重新 settle，绕开渲染缺陷"
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

@@ -1,0 +1,175 @@
+{
+ "head": "ecc2b4e",
+ "n": 6,
+ "attempts": [
+  {
+   "attempt": 1,
+   "transitions": [
+    {
+     "dt": 40,
+     "state": "idle"
+    },
+    {
+     "dt": 3438,
+     "state": "thinking"
+    },
+    {
+     "dt": 6249,
+     "state": "typing"
+    },
+    {
+     "dt": 6362,
+     "state": "error"
+    },
+    {
+     "dt": 11124,
+     "state": "idle"
+    }
+   ],
+   "errorVisible": true,
+   "errorHoldMs": 4762,
+   "errorPngRequested": true
+  },
+  {
+   "attempt": 2,
+   "transitions": [
+    {
+     "dt": 45,
+     "state": "idle"
+    },
+    {
+     "dt": 3281,
+     "state": "thinking"
+    },
+    {
+     "dt": 5000,
+     "state": "typing"
+    },
+    {
+     "dt": 5284,
+     "state": "idle"
+    }
+   ],
+   "errorVisible": false,
+   "errorHoldMs": null,
+   "errorPngRequested": false
+  },
+  {
+   "attempt": 3,
+   "transitions": [
+    {
+     "dt": 40,
+     "state": "idle"
+    },
+    {
+     "dt": 3262,
+     "state": "thinking"
+    },
+    {
+     "dt": 4762,
+     "state": "typing"
+    },
+    {
+     "dt": 5071,
+     "state": "error"
+    },
+    {
+     "dt": 9841,
+     "state": "idle"
+    }
+   ],
+   "errorVisible": true,
+   "errorHoldMs": 4770,
+   "errorPngRequested": false
+  },
+  {
+   "attempt": 4,
+   "transitions": [
+    {
+     "dt": 41,
+     "state": "idle"
+    },
+    {
+     "dt": 3284,
+     "state": "thinking"
+    },
+    {
+     "dt": 5263,
+     "state": "typing"
+    },
+    {
+     "dt": 5455,
+     "state": "error"
+    },
+    {
+     "dt": 10241,
+     "state": "idle"
+    }
+   ],
+   "errorVisible": true,
+   "errorHoldMs": 4786,
+   "errorPngRequested": false
+  },
+  {
+   "attempt": 5,
+   "transitions": [
+    {
+     "dt": 42,
+     "state": "idle"
+    },
+    {
+     "dt": 3283,
+     "state": "thinking"
+    },
+    {
+     "dt": 5322,
+     "state": "typing"
+    },
+    {
+     "dt": 5426,
+     "state": "idle"
+    }
+   ],
+   "errorVisible": false,
+   "errorHoldMs": null,
+   "errorPngRequested": false
+  },
+  {
+   "attempt": 6,
+   "transitions": [
+    {
+     "dt": 41,
+     "state": "idle"
+    },
+    {
+     "dt": 3262,
+     "state": "thinking"
+    },
+    {
+     "dt": 5125,
+     "state": "typing"
+    },
+    {
+     "dt": 5292,
+     "state": "error"
+    },
+    {
+     "dt": 10082,
+     "state": "idle"
+    }
+   ],
+   "errorVisible": true,
+   "errorHoldMs": 4790,
+   "errorPngRequested": false
+  }
+ ],
+ "errorVisible": "4/6",
+ "errorHoldMsValues": [
+  4762,
+  4770,
+  4786,
+  4790
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

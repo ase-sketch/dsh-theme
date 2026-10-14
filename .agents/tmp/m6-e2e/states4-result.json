@@ -1,0 +1,192 @@
+{
+ "results": [
+  {
+   "id": "error",
+   "name": "error：工具非零退出 → 精灵切 error，error.png 按需拉取，4800ms 后按档位回落",
+   "pass": false,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.32,
+      "state": "thinking",
+      "alive": true
+     },
+     {
+      "t": 2.5,
+      "state": "typing",
+      "alive": true
+     },
+     {
+      "t": 3.12,
+      "state": "thinking",
+      "alive": true
+     },
+     {
+      "t": 3.74,
+      "state": "typing",
+      "alive": true
+     },
+     {
+      "t": 4.67,
+      "state": "happy",
+      "alive": true
+     },
+     {
+      "t": 9.93,
+      "state": "typing",
+      "alive": true
+     }
+    ],
+    "reachedError": false,
+    "errorPngRequested": false,
+    "pngRequests": [
+     "happy.png",
+     "thinking.png",
+     "typing.png"
+    ],
+    "fallback": null,
+    "renderingDefectBypassed": true,
+    "note": "单会话内完成，未切会话 → 绕过了渲染缺陷"
+   }
+  },
+  {
+   "id": "music",
+   "name": "music：恰好 2 会话并发（刷新后观察）→ 精灵切 music，music.png 按需拉取",
+   "pass": true,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.31,
+      "state": "music",
+      "alive": true
+     }
+    ],
+    "reachedMusic": true,
+    "musicPngRequested": true,
+    "pngRequests": [
+     "idle.png",
+     "music.png"
+    ],
+    "renderingDefectBypassed": true,
+    "note": "刷新让精灵复活；2 个会话在服务端持续 running"
+   }
+  },
+  {
+   "id": "music-stepdown",
+   "name": "music：3→2 并发回落路径 → 精灵经 building 回落到 music",
+   "pass": true,
+   "raw": {
+    "sequence": [
+     {
+      "t": 0.32,
+      "state": "building",
+      "alive": true
+     },
+     {
+      "t": 8.7,
+      "state": "music",
+      "alive": true
+     },
+     {
+      "t": 19.53,
+      "state": "typing",
+      "alive": true
+     },
+     {
+      "t": 21.71,
+      "state": "thinking",
+      "alive": true
+     },
+     {
+      "t": 22.02,
+      "state": "typing",
+      "alive": true
+     },
+     {
+      "t": 22.94,
+      "state": "happy",
+      "alive": true
+     },
+     {
+      "t": 28.21,
+      "state": "typing",
+      "alive": true
+     }
+    ],
+    "musicTransitions": [
+     {
+      "t": 8.7,
+      "state": "music",
+      "alive": true
+     }
+    ],
+    "pngRequests": [
+     "building.png",
+     "happy.png",
+     "idle.png",
+     "music.png",
+     "thinking.png",
+     "typing.png"
+    ],
+    "renderingDefectBypassed": true
+   }
+  },
+  {
+   "id": "notification",
+   "name": "notification：本实例无法活体触发（尝试与原因见 raw）",
+   "pass": null,
+   "raw": {
+    "attempts": [
+     {
+      "probe": "DOM approval surface at rest",
+      "result": {
+       "approvalNodes": 0,
+       "bodyHasApprovalText": false
+      }
+     },
+     {
+      "probe": "config: any approval/permission plugin in boot",
+      "result": [
+       "@deepseek-ai/dsh-client-ui-approval",
+       "@deepseek-ai/dsh-client-ui-permission-presets"
+      ]
+     },
+     {
+      "probe": "dangerous Remove-Item under C:\\Windows\\System32",
+      "sequence": [],
+      "reached": false
+     }
+    ],
+    "notificationPngRequested": false
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": [],
+ "pngStatuses": [
+  [
+   "building.png",
+   200
+  ],
+  [
+   "happy.png",
+   200
+  ],
+  [
+   "idle.png",
+   200
+  ],
+  [
+   "music.png",
+   200
+  ],
+  [
+   "thinking.png",
+   200
+  ],
+  [
+   "typing.png",
+   200
+  ]
+ ]
+}

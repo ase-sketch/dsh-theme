@@ -1,0 +1,20 @@
+== 亮色（插件期） ==
+  OK   --dsh-radius-xl 已发射 = '20px'
+  OK   --dsw-radius-panel = '20px'
+  OK   --dsw-radius-md = '10px'
+  OK   --dsw-specific-input-major = '#FFFFFF'
+  OK   --dsw-specific-sidebar-fill = '#F3F7FE'
+  OK   输入卡 圆角 = '20px'
+  OK   输入卡 底色 = 'rgb(255, 255, 255)'
+  OK   输入卡 描边 = '1px rgb(226, 232, 242)'
+  OK   输入卡 阴影 = 'none'
+  OK   侧栏 底色 = 'rgb(243, 247, 254)'
+  OK   侧栏 分隔线 = '1px rgb(226, 232, 242)'
+  OK   新建会话 底 = 'rgb(77, 107, 254)'
+  OK   新建会话 字 = 'rgb(255, 255, 255)'
+  OK   新建会话 圆角 = '10px'
+  OK   新建会话 无描边 = '0px'
+  OK   会话选中 底 = 'rgb(226, 234, 248)'
+  OK   会话选中 指示条 = 'rgb(77, 107, 254) 2px 0px 0px 0px inset'
+found: {'nsFound': True, 'rowFound': True, 'cardFound': True, 'sbFound': True}
+FAILS: []

@@ -1,0 +1,59 @@
+{
+ "darkClicked": true,
+ "on_dark": {
+  "bodyBg": {
+   "got": "rgb(19, 22, 29)",
+   "rgb": [
+    19,
+    22,
+    29
+   ],
+   "want": [
+    19,
+    22,
+    29
+   ],
+   "pass": true
+  },
+  "tokenChecked": 91,
+  "tokenFails": [],
+  "cardBg": "rgb(255, 255, 255)",
+  "cardBorder": "1px rgb(40, 46, 59)",
+  "sidebarBg": "rgb(243, 247, 254)",
+  "sidebarBorder": "1px rgb(40, 46, 59)",
+  "nsBg": "rgb(123, 144, 255)",
+  "darkAttr": true
+ },
+ "off_dark": {
+  "bodyBg": {
+   "got": "rgb(21, 21, 23)",
+   "rgb": [
+    21,
+    21,
+    23
+   ],
+   "want": [
+    19,
+    22,
+    29
+   ],
+   "pass": false
+  },
+  "cardBg": "rgb(44, 44, 46)",
+  "sidebarBg": "rgb(27, 27, 28)",
+  "darkAttr": true,
+  "dshThemeAttr": false
+ },
+ "toggle_off": {
+  "before": true,
+  "after": false
+ },
+ "toggle_back": {
+  "before": false,
+  "after": true
+ },
+ "lightRestored": true,
+ "final_bodyBg": "rgb(247, 250, 255)",
+ "consoleErrors": [],
+ "pageerrors": []
+}

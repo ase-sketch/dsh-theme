@@ -1,0 +1,25 @@
+✓ Lockfile passes supply-chain policies (verified 1d ago)
+Progress: resolved 1, reused 0, downloaded 0, added 0
+[WARN] Issues with peer dependencies found. Run "pnpm peers check" to list them.
+
+Packages: +1
++
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: C:\Users\pass\AppData\Local\pnpm\store\v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 1, reused 1, downloaded 0, added 1, done
+Done in 566ms using pnpm v11.21.0
+
+
+=== installed copy ===
+22004600178771908D36E71FC0C80C92  cordis.patch.yml  588
+AB6C4930C73CF78A26607F6DC1424E1B  package.json  688
+0978542C3DB55ED4C97E8E2CC0128EB5  theme.css  26412
+B4CE2A071EC1D4A2A0519CDDB2A4D011  index.js  6222
+1F342EDA3EF133C5E6118FBB7BF4575F  client.js  15302
+=== source ===
+22004600178771908D36E71FC0C80C92  cordis.patch.yml  588
+AB6C4930C73CF78A26607F6DC1424E1B  package.json  688
+0978542C3DB55ED4C97E8E2CC0128EB5  theme.css  26412
+B4CE2A071EC1D4A2A0519CDDB2A4D011  index.js  6222
+1F342EDA3EF133C5E6118FBB7BF4575F  client.js  15302

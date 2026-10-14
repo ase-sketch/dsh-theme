@@ -1,10 +1,15 @@
-// build-skin.mjs — 从 dsh-ui/preview/index.html :root 按 mapping.json 生成 skins/dsh-ui/skin.css
-// 红线：skin.css 是生成物，禁止手改；视觉数值只准来自 preview :root。
+// build-skin.mjs — 从 design/tokens.css（深空编辑室 token 机器可读源）按 mapping.json 生成 skins/dsh-ui/skin.css
+// 红线：skin.css / theme.css 是生成物，禁止手改；视觉数值只准来自 design/tokens.css。
+// design/tokens.css 本身也是生成物：node scripts/build-skin.mjs --regen-tokens 从
+// design/preview.html 的 #token-manifest 机械重生成（默认构建只读它、不重生成）。
 // M3 起额外发射 --dsh-* 变量全集，供 patches.css（L2/L3）以 var() 引用，避免手抄数值。
 // M5 起额外产出 plugins/dsh-theme/assets/theme.css —— 插件版自包含样式（见文件末 §M5 段）。
 import fs from 'node:fs'
 
-const PREVIEW = 'E:/dsh-ui/preview/index.html'
+// 唯一数值来源：design/tokens.css（机器可读设计源，由 --regen-tokens 从设计稿生成）
+const PREVIEW = new URL('../design/tokens.css', import.meta.url)
+// --regen-tokens 的重生成源：设计稿本体（默认构建不读它）
+const PREVIEW_HTML = new URL('../design/preview.html', import.meta.url)
 const MAPPING = new URL('../mapping.json', import.meta.url)
 const OUT = new URL('../skins/dsh-ui/skin.css', import.meta.url)
 const PATCHES = new URL('../skins/dsh-ui/patches.css', import.meta.url)
@@ -13,49 +18,291 @@ const PLUGIN_THEME = new URL('../plugins/dsh-theme/assets/theme.css', import.met
 // 插件版的作用域头：html[data-dsh-theme] body 的特异性是 (0,0,1,2)，稳定胜出官方 body{--dsw-*} 的 (0,0,0,1)
 const PLUGIN_SCOPE = 'html[data-dsh-theme]'
 
-// shell 自己声明并消费的 --dsh-* 变量：皮肤发射同名变量会打架，构建期直接拒绝
+// shell 自己声明并消费的 --dsh-* 变量：皮肤发射同名变量会打架，构建期直接拒绝。
+// 2026-10-12 补强：原名单只有 7 条且已过期。现按实测补齐——从 app.asar 里抽取
+// dsh-web-frontend/dist/assets/*.css 与各 @deepseek-ai/dsh-client-ui-* 包的 lib/client.js
+// 内联 CSS，收集其中所有「被声明」的 --dsh-* 名字（共 42 个），全部纳入。
+// 判据是「shell 自己会声明」，不是「碰巧同名」：皮肤往 :root 发射同名变量，
+// 会在 html 层盖掉 shell 在 body 上的声明语义（详见 --dsh-scrollbar-thumb 案例）。
 const SHELL_RESERVED = new Set([
-  '--dsh-content-font-size', '--dsh-composer-height', '--dsh-segment-count',
-  '--dsh-dockkit-float-top', '--dsh-skin-scrim', '--dsh-skin-bubble-alpha', '--dsh-skin-bubble-blur',
+  '--dsh-content-font-size', '--dsh-content-font-size-secondary', '--dsh-content-font-delta',
+  '--dsh-content-font-delta-secondary', '--dsh-composer-height', '--dsh-segment-count',
+  '--dsh-dockkit-float-top', '--dsh-dockkit-dock-layer', '--dsh-dockkit-float-layer',
+  '--dsh-dockkit-strip-inline-start',
+  '--dsh-skin-scrim', '--dsh-skin-bubble-alpha', '--dsh-skin-bubble-blur',
+  '--dsh-scrollbar-thumb', '--dsh-scrollbar-thumb-hover', '--dsh-scrollbar-thumb-border',
+  '--dsh-scrollbar-track-margin', '--dsh-scrollbar-width',
+  '--dsh-file-type-violet', '--dsh-file-type-default-color',
+  '--dsh-boot-label-primary', '--dsh-boot-label-secondary', '--dsh-boot-label-tertiary',
+  '--dsh-boot-border', '--dsh-boot-brand',
+  '--dsh-compaction-header-height', '--dsh-chat-flow-gap', '--dsh-chat-content-width',
+  '--dsh-composer-stack-gap', '--dsh-composer-text-max-height', '--dsh-composer-card-max-width',
+  '--dsh-composer-side-clearance', '--dsh-composer-dock-inset',
+  '--dsh-composer-model-text-display', '--dsh-composer-model-icon-display',
+  '--dsh-table-spare', '--dsh-table-lead',
+  '--dsh-windows-content-radius', '--dsh-windows-menu-start',
+  '--dsh-frame-top-clearance', '--dsh-frame-chrome-top', '--dsh-frame-overlay-top',
+  '--dsh-frame-leading-clearance',
+  '--dsh-sidebar-inline-padding', '--dsh-session-list-edge-inset', '--dsh-session-list-scrollbar-width',
 ])
 
-const html = fs.readFileSync(PREVIEW, 'utf8')
-function block(re, label) {
-  const m = html.match(re)
-  if (!m) throw new Error('preview 里找不到 ' + label)
-  return m[1]
+// ── 源读取 ────────────────────────────────────────────────────────────────
+// 源的格式契约（由本脚本 --regen-tokens 保证）：两条顶层规则 —— 浅色根块与
+// 深色主题块，各若干条自定义属性声明，无嵌套、无 @media。
+// 块提取走花括号配对（字符串/注释感知），**不依赖缩进**：旧版用
+// /:root\s*\{([\s\S]*?)\n    \}/ 把「4 空格缩进 + 行首 }」当成了格式契约，
+// 换源时格式一动就失配，且失配信息会误导成「找不到块」。
+
+/** 找一个规则头之后的第一个顶层 '{'（跳过括号/中括号/字符串）。 */
+function findOpenBrace(source, start) {
+  let parens = 0, brackets = 0, quote = null
+  for (let i = start; i < source.length; i += 1) {
+    const ch = source[i]
+    if (quote !== null) {
+      if (ch === '\\') i += 1
+      else if (ch === quote) quote = null
+      continue
+    }
+    if (ch === '"' || ch === "'") { quote = ch; continue }
+    if (ch === '(') parens += 1
+    else if (ch === ')') parens -= 1
+    else if (ch === '[') brackets += 1
+    else if (ch === ']') brackets -= 1
+    else if (ch === '{' && parens === 0 && brackets === 0) return i
+    else if (ch === ';' && parens === 0 && brackets === 0) return -1
+  }
+  return -1
 }
-function parseVars(css) {
-  const out = {}
-  for (const mm of css.matchAll(/(--dsh-[\w-]+)\s*:\s*([^;]+);/g)) out[mm[1]] = mm[2].trim()
+
+/** 找与 openBrace 配对的 '}'（计花括号，跳过字符串与注释）。 */
+function findCloseBrace(source, openBrace) {
+  let depth = 0, i = openBrace, inString = null, inComment = false
+  for (; i < source.length; i += 1) {
+    const ch = source[i], next = source[i + 1]
+    if (inComment) {
+      if (ch === '*' && next === '/') { inComment = false; i += 1 }
+      continue
+    }
+    if (inString !== null) {
+      if (ch === '\\') i += 1
+      else if (ch === inString) inString = null
+      continue
+    }
+    if (ch === '/' && next === '*') { inComment = true; i += 1; continue }
+    if (ch === '"' || ch === "'") { inString = ch; continue }
+    if (ch === '{') depth += 1
+    else if (ch === '}') { depth -= 1; if (depth === 0) return i }
+  }
+  return -1
+}
+
+/** 按顶层 ';' 切声明（字符串/括号感知）。
+ *  旧版 /(--dsh-[\w-]+)\s*:\s*([^;]+);/ 会在值里第一个 ';' 处静默截断——
+ *  url("data:image/svg+xml;base64,...") 这类值会被切坏且不报错。 */
+function splitDeclarations(css) {
+  const src = css.replace(/\/\*[\s\S]*?\*\//g, '')
+  const out = []
+  let buf = '', quote = null, depth = 0
+  for (let i = 0; i < src.length; i += 1) {
+    const ch = src[i]
+    if (quote !== null) {
+      buf += ch
+      if (ch === '\\') { buf += src[i + 1] ?? ''; i += 1 }
+      else if (ch === quote) quote = null
+      continue
+    }
+    if (ch === '"' || ch === "'") { quote = ch; buf += ch; continue }
+    if (ch === '(') depth += 1
+    else if (ch === ')') depth -= 1
+    if (ch === ';' && depth === 0) { out.push(buf); buf = ''; continue }
+    buf += ch
+  }
+  out.push(buf)
   return out
 }
-const light = parseVars(block(/:root\s*\{([\s\S]*?)\n    \}/, ':root 块'))
-const dark = parseVars(block(/\[data-theme="dark"\]\s*\{([\s\S]*?)\n    \}/, '[data-theme="dark"] 块'))
+
+/** 从 CSS 文本里按选择器取规则体（花括号配对）。 */
+function extractBlock(css, selectorRe, label) {
+  const re = new RegExp(selectorRe.source, selectorRe.flags.replace('g', '') + 'g')
+  const m = re.exec(css)
+  if (m === null) throw new Error('源里找不到 ' + label + '（选择器 ' + selectorRe + '）')
+  const open = findOpenBrace(css, m.index + m[0].length - 1)
+  if (open === -1) throw new Error('源里 ' + label + ' 的选择器后没有 {')
+  const close = findCloseBrace(css, open)
+  if (close === -1) throw new Error('源里 ' + label + ' 的花括号没有闭合')
+  return css.slice(open + 1, close)
+}
+
+function parseVars(css) {
+  const out = {}
+  for (const decl of splitDeclarations(css)) {
+    const m = decl.match(/^\s*(--dsh-[\w-]+)\s*:\s*([\s\S]+?)\s*$/)
+    if (m !== null) out[m[1]] = m[2]
+  }
+  return out
+}
+
+// ── --regen-tokens：从设计稿重生成 design/tokens.css ───────────────────────
+//
+// 值有两个来源，缺一不可：
+//   · #token-manifest.tokens[] —— token 清单与顺序的唯一来源（153 条）。
+//   · 设计稿自身的浅色根块 / 深色主题块 —— 值的实际声明。
+// 为什么不是只取 manifest（2026-10-12 实测）：manifest 的 --dsh-noise-uri 是占位串
+// "data:image/svg+xml;feTurbulence"（31 字符），不是合法 CSS 值；设计稿根块里才是真值
+// url("data:image/svg+xml,%3Csvg ... %3E")。占位串落盘会让氛围层静默失效。
+// 因此：manifest 定清单，值以设计稿 CSS 声明为准；不一致项必须落在白名单里，
+// 白名单外不一致直接报错（防止未来设计稿与 manifest 悄悄漂移）。
+// manifest 的 dark 写 "same" 或与 light 相等 = 明暗同值，两块都要显式写出来
+// （skin.css 的 resolve() 明暗两套都要能取到）。
+const MANIFEST_REPAIR = new Set(['--dsh-noise-uri'])
+
+// 与 shell 自有 --dsh-* 撞名的 token，落盘时改名（设计稿 design/preview.html 冻结不改）。
+// 当前唯一一条：--dsh-scrollbar-thumb —— 我们是宽度（4px），shell 的 scrollbar.css 在 body 上
+// 把同名变量声明成**颜色** var(--dsw-alias-scrollbar-bg-l1) 并用于 scrollbar-color。
+// 直接发射同名变量会污染 shell 的滚动条颜色，故改名 --dsh-scrollbar-thumb-w。
+// 这条 drift（设计稿名 ≠ tokens.css 名）已记录在回报里，设计稿侧改名需另开票。
+const TOKEN_RENAME = new Map([['--dsh-scrollbar-thumb', '--dsh-scrollbar-thumb-w']])
+
+function regenerateTokens() {
+  const html = fs.readFileSync(PREVIEW_HTML, 'utf8')
+  const manifestMatch = html.match(/<script type="application\/json" id="token-manifest">([\s\S]*?)<\/script>/)
+  if (manifestMatch === null) throw new Error('设计稿里找不到 #token-manifest')
+  const manifest = JSON.parse(manifestMatch[1])
+  const tokens = manifest.tokens
+  if (!Array.isArray(tokens) || tokens.length === 0) throw new Error('manifest.tokens 不是非空数组')
+  if (typeof manifest.tokenTotal === 'number' && manifest.tokenTotal !== tokens.length) {
+    throw new Error('manifest 自报 tokenTotal=' + manifest.tokenTotal + ' 与实际 ' + tokens.length + ' 不符')
+  }
+  const badName = tokens.filter((t) => !/^--dsh-[\w-]+$/.test(t.name ?? '')).map((t) => String(t.name))
+  if (badName.length) throw new Error('manifest 里有非 --dsh-* 名字：' + badName.join(', '))
+  const seen = new Set()
+  const dup = []
+  for (const t of tokens) { if (seen.has(t.name)) dup.push(t.name); seen.add(t.name) }
+  if (dup.length) throw new Error('manifest token 重名：' + dup.join(', '))
+
+  const cssLightVars = parseVars(extractBlock(html, /:root\s*\{/, '设计稿浅色根块'))
+  const cssDarkVars = parseVars(extractBlock(html, /\[data-theme="dark"\]\s*\{/, '设计稿深色主题块'))
+  const missing = tokens.filter((t) => !(t.name in cssLightVars)).map((t) => t.name)
+  if (missing.length) throw new Error('设计稿浅色根块缺这些 manifest token：' + missing.join(', '))
+  const extra = Object.keys(cssLightVars).filter((n) => !seen.has(n))
+  if (extra.length) throw new Error('设计稿浅色根块有 manifest 未收录的 --dsh-*：' + extra.join(', '))
+
+  const repaired = []
+  const lightLines = []
+  const darkLines = []
+  for (const t of tokens) {
+    const declaredLight = cssLightVars[t.name]
+    let lightValue = t.light
+    if (lightValue !== declaredLight) {
+      if (!MANIFEST_REPAIR.has(t.name)) {
+        throw new Error('manifest 与设计稿根块值不一致且不在白名单：' + t.name +
+          ' manifest=' + JSON.stringify(lightValue) + ' 设计稿=' + JSON.stringify(declaredLight))
+      }
+      repaired.push(t.name)
+      lightValue = declaredLight
+    }
+    let darkValue = (t.dark === 'same' || t.dark === t.light) ? lightValue : t.dark
+    const declaredDark = cssDarkVars[t.name]
+    if (declaredDark !== undefined) {
+      if (declaredDark !== darkValue) {
+        if (!MANIFEST_REPAIR.has(t.name)) {
+          throw new Error('manifest 与设计稿深色块值不一致且不在白名单：' + t.name +
+            ' manifest=' + JSON.stringify(darkValue) + ' 设计稿=' + JSON.stringify(declaredDark))
+        }
+        if (!repaired.includes(t.name)) repaired.push(t.name)
+        darkValue = declaredDark
+      }
+    } else if (darkValue !== lightValue) {
+      throw new Error('manifest 说 ' + t.name + ' 明暗不同，但设计稿深色块没有声明它')
+    }
+    if (typeof lightValue !== 'string' || lightValue.trim() === '') throw new Error('浅色值为空：' + t.name)
+    if (typeof darkValue !== 'string' || darkValue.trim() === '') throw new Error('深色值为空：' + t.name)
+    const outName = TOKEN_RENAME.get(t.name) ?? t.name
+    lightLines.push('  ' + outName + ': ' + lightValue + ';')
+    darkLines.push('  ' + outName + ': ' + darkValue + ';')
+  }
+
+  // 静态断言（父代理要求）：uri 类 token 必须是浏览器可解析的 url("data:...")，不能是占位串
+  const uriToken = tokens.find((t) => t.name === '--dsh-noise-uri')
+  if (uriToken !== undefined) {
+    const v = cssLightVars['--dsh-noise-uri']
+    if (!/^url\("data:/.test(v)) {
+      throw new Error('--dsh-noise-uri 不是合法的 url("data:...") 值：' + JSON.stringify(v))
+    }
+  }
+
+  const out = []
+  out.push('/* GENERATED by scripts/build-skin.mjs --regen-tokens —— 机器可读设计源，禁止手改。')
+  out.push('   来源: design/preview.html 的 #token-manifest（token 清单与顺序）')
+  out.push('         + 该文件自身的浅色根块 / 深色主题块（每条 token 的实际声明值）。')
+  out.push('   重生成: node scripts/build-skin.mjs --regen-tokens（改设计稿后重跑）。')
+  out.push('   格式契约: 两条顶层规则 —— 浅色根块 + 深色主题块，各 ' + tokens.length + ' 条；')
+  out.push('            明暗同值的 token 也显式写两份，保证 skin.css 的 resolve() 两套都取得到。')
+  out.push('   已知修正: ' + (repaired.length ? repaired.join(', ') + ' —— manifest 里是占位串，取设计稿 CSS 真值' : '无'))
+  out.push('   已改名: ' + (TOKEN_RENAME.size ? [...TOKEN_RENAME].map(([a, b]) => a + ' -> ' + b).join(', ') + '（与 shell 自有 --dsh-* 撞名）' : '无'))
+  out.push('*/')
+  out.push('')
+  out.push(':root {')
+  out.push(...lightLines)
+  out.push('}')
+  out.push('')
+  out.push('[data-theme="dark"] {')
+  out.push(...darkLines)
+  out.push('}')
+  out.push('')
+  fs.writeFileSync(PREVIEW, out.join('\n'))
+  console.log('tokens.css 重生成：' + tokens.length + ' 条 × 明暗双套' +
+    (repaired.length ? '，修正 ' + repaired.length + ' 条（' + repaired.join(', ') + '）' : '，无修正'))
+}
+
+if (process.argv.includes('--regen-tokens')) regenerateTokens()
+
+const cssSource = fs.readFileSync(PREVIEW, 'utf8')
+const light = parseVars(extractBlock(cssSource, /:root\s*\{/, 'tokens.css 浅色根块'))
+const dark = parseVars(extractBlock(cssSource, /\[data-theme="dark"\]\s*\{/, 'tokens.css 深色主题块'))
+
+// 源自检：manifest 声明的 153 条必须全在，且明暗两套都非空
+{
+  const emptyLight = Object.entries(light).filter(([, v]) => v.trim() === '').map(([k]) => k)
+  const emptyDark = Object.entries(dark).filter(([, v]) => v.trim() === '').map(([k]) => k)
+  if (emptyLight.length || emptyDark.length) {
+    throw new Error('design/tokens.css 有空值声明：浅色 ' + emptyLight.join(', ') + ' / 深色 ' + emptyDark.join(', '))
+  }
+  const onlyLight = Object.keys(light).filter((k) => !(k in dark))
+  if (onlyLight.length) throw new Error('design/tokens.css 深色主题块缺这些变量：' + onlyLight.join(', '))
+  const noise = light['--dsh-noise-uri']
+  if (noise !== undefined && !/^url\("data:/.test(noise)) {
+    throw new Error('design/tokens.css 的 --dsh-noise-uri 不是合法的 url("data:...")：' + JSON.stringify(noise))
+  }
+}
 
 const mapping = JSON.parse(fs.readFileSync(MAPPING, 'utf8'))
 const themes = { light, dark }
 function resolve(ref, theme) {
   const v = themes[theme][ref]
-  if (!v) throw new Error('preview :root 无 ' + ref + '（' + theme + '）——映射表指向了不存在的 token')
+  if (!v) throw new Error('design/tokens.css 无 ' + ref + '（' + theme + '）——mapping.json 指向了不存在的 token')
   return v
 }
 
-// patches.css 只准引用 preview :root 里存在的 --dsh-*：拼错或引用了不存在的变量，构建期就红
+// patches.css 只准引用 design/tokens.css 里存在的 --dsh-*：拼错或引用了不存在的变量，构建期就红
 let patchesGuard = ''
 if (fs.existsSync(PATCHES)) {
-  const src = fs.readFileSync(PATCHES, 'utf8')
+  // 只在**去注释后**的正文里找 var() 引用：注释里写 var(--dsh-xxx) 是文档说明，
+  // 不该让构建红。M8 实测踩到——解释「为什么不重绑 shell 的输入卡高度变量」时
+  // 在注释里写了那个名字，被守卫误判成「引用了不存在的变量」。
+  // 去注释只会让守卫更准：注释外的 var() 才是真会参与求值的。
+  const src = fs.readFileSync(PATCHES, 'utf8').replace(/\/\*[\s\S]*?\*\//g, '')
   const refs = new Set([...src.matchAll(/var\(\s*(--dsh-[\w-]+)/g)].map((m) => m[1]))
   const missing = [...refs].filter((r) => !(r in light))
-  if (missing.length) throw new Error('patches.css 引用了 preview :root 里不存在的变量：' + missing.join(', '))
+  if (missing.length) throw new Error('patches.css 引用了 design/tokens.css 里不存在的变量：' + missing.join(', '))
   patchesGuard = '（patches.css 引用校验通过：' + refs.size + ' 个 --dsh-* 变量）'
 }
 
 const collisions = Object.keys(light).filter((k) => SHELL_RESERVED.has(k))
-if (collisions.length) throw new Error('preview :root 与 shell 自有变量重名：' + collisions.join(', '))
+if (collisions.length) throw new Error('design/tokens.css 与 shell 自有变量重名：' + collisions.join(', '))
 
 let css = '/* GENERATED by scripts/build-skin.mjs — 禁止手改，改 mapping.json 重跑。\n'
-css += '   源: dsh-ui/preview/index.html :root（design-spec 机器可读镜像） */\n\n'
+css += '   源: design/tokens.css（深空编辑室 token 机器可读源，由 design/preview.html 机械生成） */\n\n'
 
 // 根底色/文字色（明暗）+ --dsh-* 变量全集（供 patches.css 的 L2/L3 规则引用）
 css += ':root {\n'
@@ -74,7 +321,7 @@ for (const [dsw, ref] of Object.entries(mapping.tokens)) css += '  ' + dsw + ': 
 css += '}\n'
 
 fs.writeFileSync(OUT, css)
-console.log('skin.css 生成：' + Object.keys(mapping.tokens).length + ' 个 token × 明暗双套 + 根底色 + ' + Object.keys(light).length + ' 个 --dsh-* 变量 ' + patchesGuard)
+console.log('skin.css 生成：源 design/tokens.css；' + Object.keys(mapping.tokens).length + ' 个 L1 token × 明暗双套 + 根底色 + ' + Object.keys(light).length + ' 个 --dsh-* 变量 ' + patchesGuard)
 
 
 // ── M5 §A：loader 变换的显式复刻（作用域化 + token 派生） ─────────────────────
@@ -202,49 +449,6 @@ function splitSelectors(selectorText) {
   }
   parts.push(current)
   return parts
-}
-
-/** 找一个规则头之后的第一个顶层 '{'（跳过括号/中括号/字符串）。 */
-function findOpenBrace(source, start) {
-  let parens = 0, brackets = 0, quote = null
-  for (let i = start; i < source.length; i += 1) {
-    const ch = source[i]
-    if (quote !== null) {
-      if (ch === '\\') i += 1
-      else if (ch === quote) quote = null
-      continue
-    }
-    if (ch === '"' || ch === "'") { quote = ch; continue }
-    if (ch === '(') parens += 1
-    else if (ch === ')') parens -= 1
-    else if (ch === '[') brackets += 1
-    else if (ch === ']') brackets -= 1
-    else if (ch === '{' && parens === 0 && brackets === 0) return i
-    else if (ch === ';' && parens === 0 && brackets === 0) return -1
-  }
-  return -1
-}
-
-/** 找与 openBrace 配对的 '}'（计花括号，跳过字符串与注释）。 */
-function findCloseBrace(source, openBrace) {
-  let depth = 0, i = openBrace, inString = null, inComment = false
-  for (; i < source.length; i += 1) {
-    const ch = source[i], next = source[i + 1]
-    if (inComment) {
-      if (ch === '*' && next === '/') { inComment = false; i += 1 }
-      continue
-    }
-    if (inString !== null) {
-      if (ch === '\\') i += 1
-      else if (ch === inString) inString = null
-      continue
-    }
-    if (ch === '/' && next === '*') { inComment = true; i += 1; continue }
-    if (ch === '"' || ch === "'") { inString = ch; continue }
-    if (ch === '{') depth += 1
-    else if (ch === '}') { depth -= 1; if (depth === 0) return i }
-  }
-  return -1
 }
 
 /** 从 pos 起跳过空白与块注释，返回真正的规则头起点。
@@ -422,7 +626,7 @@ function scopeSkinCss(cssText, options) {
 
 // ── M5 §B：插件版自包含样式（assets/theme.css） ────────────────────────────
 //
-// 为什么是构建产物而不是手写（AGENTS.md 红线）：数值唯一来源仍是 preview :root。
+// 为什么是构建产物而不是手写（AGENTS.md 红线）：数值唯一来源仍是 design/tokens.css。
 // 自包含的含义：把纯皮肤期由 skin-center loader 承担的那层变换（§A）显式复刻进来，
 // 使这份 CSS 单独注入时也能得到与纯皮肤期一致的视觉——即
 //   theme.css = scope(skin.css, 派生) + scope(patches.css)
@@ -458,9 +662,9 @@ if (patchSrc === '') throw new Error('patches.css 不存在——插件版自包
 //
 // 修法：把别名层原样克隆到深色作用域，让它在 body 上重新求值。
 // 只克隆别名（值含 var() 的那 9 个），不克隆字面量——字面量没有求值时机问题，
-// 且整块克隆会改变与 skin.css 的层叠关系。这里从 preview :root 现算，不手抄。
+// 且整块克隆会改变与 skin.css 的层叠关系。这里从 tokens.css 的浅色根块现算，不手抄。
 const aliasEntries = Object.entries(light).filter(([, value]) => value.includes('var('))
-if (aliasEntries.length === 0) throw new Error('深色别名克隆：preview :root 里没找到 var() 别名，规则前提不成立，拒绝产出')
+if (aliasEntries.length === 0) throw new Error('深色别名克隆：design/tokens.css 浅色根块里没找到 var() 别名，规则前提不成立，拒绝产出')
 
 let darkAliasBlock = '\n/* ── 深色别名层：让 var() 别名在 body 上重新求值（见 build-skin.mjs 注释） ── */\n'
 darkAliasBlock += PLUGIN_SCOPE + ' body[data-ds-dark-theme] {\n'

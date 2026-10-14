@@ -1,0 +1,249 @@
+{
+ "task": "M5 插件本体 — plugins/dsh-theme（样式注入 + 设置面板开关）",
+ "date": "2026-10-10",
+ "environment": {
+  "dsh": "0.2.0-rc.2",
+  "profile": "C:\\Users\\pass\\.dsh\\profiles\\web（隔离，端口 19488）",
+  "desktopGui": "19387 — 全程未触碰",
+  "browser": "msedge headless via Playwright (Python)",
+  "node": "v24.18.1"
+ },
+ "files": {
+  "plugins/dsh-theme/package.json": "ab6c4930c73cf78a26607f6dc1424e1b",
+  "plugins/dsh-theme/host/index.js": "b4ce2a071ec1d4a2a0519cddb2a4d011",
+  "plugins/dsh-theme/lib/client.js": "1f342eda3ef133c5e6118fbb7bf4575f",
+  "plugins/dsh-theme/cordis.patch.yml": "22004600178771908d36e71fc0c80c92",
+  "plugins/dsh-theme/assets/theme.css": "4677c8fd06a5eb6917a95dafa4579e90",
+  "scripts/build-skin.mjs": "2f165ca8664fefe9c6f3ac342c535e24",
+  "skins/dsh-ui/skin.css (未变)": "5453c2bf6718c4371d569e03fae8896b"
+ },
+ "antiRegression": {
+  "claim": "改造 build-skin.mjs 后，现有 skin.css 产出逐字节不变",
+  "baseline": {
+   "md5": "5453c2bf6718c4371d569e03fae8896b",
+   "bytes": 11850
+  },
+  "now": {
+   "md5": "5453c2bf6718c4371d569e03fae8896b",
+   "bytes": 11850
+  },
+  "pass": true
+ },
+ "themeCss": {
+  "bytes": 25850,
+  "scope": "html[data-dsh-theme]",
+  "derivationCount": 11,
+  "unscopedRules": 0
+ },
+ "criteria": {
+  "1_gui_loads_console_clean": {
+   "pass": true,
+   "consoleErrors": 0,
+   "pageerrors": 0,
+   "failedRequests": []
+  },
+  "2_settings_panel_present": {
+   "pass": true,
+   "detail": {
+    "sectionNavOpened": true,
+    "hasPanelTitle": true,
+    "toggleExists": true,
+    "toggleChecked": true
+   }
+  },
+  "3_on_injects_and_tokens_match": {
+   "pass": true,
+   "detail": {
+    "attr": true,
+    "styleEl": true,
+    "styleLen": 24745,
+    "derivation": true,
+    "tokens": {
+     "radiusPanel": "20px",
+     "radiusMd": "10px",
+     "specificInputMajor": "#FFFFFF",
+     "specificSidebarFill": "#F3F7FE",
+     "aliasBgLayer1": "#F3F7FE",
+     "aliasBgBase": "#FFFFFF",
+     "brandPrimary": "#4D6BFE",
+     "dshSidebarBg": "#F3F7FE"
+    },
+    "sidebar": {
+     "bg": "rgb(243, 247, 254)",
+     "border": "1px rgb(226, 232, 242)"
+    }
+   }
+  },
+  "4_off_unloads_cleanly": {
+   "pass": true,
+   "detail": {
+    "htmlHasAttr": false,
+    "styleElExists": false,
+    "styleLen": 0,
+    "styleHasDerivation": false,
+    "bodyBg": "rgb(255, 255, 255)",
+    "tok": {
+     "radiusPanel": "28px",
+     "radiusMd": "12px",
+     "specificInputMajor": "#fff",
+     "specificSidebarFill": "#f9fafb",
+     "aliasBgLayer1": "#fff",
+     "aliasBgBase": "#fff",
+     "brandPrimary": "#0f1115",
+     "dshSidebarBg": ""
+    },
+    "sidebar": {
+     "bg": "rgb(249, 250, 251)",
+     "border": "1px rgba(0, 0, 0, 0.12)"
+    },
+    "frameSel": null,
+    "frameBg": null,
+    "toggleClicked": true,
+    "toggleChecked": false
+   }
+  },
+  "5_persists_across_reload": {
+   "pass": true,
+   "onAfterReload": {
+    "attr": true,
+    "style": true
+   },
+   "offAfterReload": {
+    "attr": false,
+    "style": false
+   }
+  },
+  "6_loader_disable_reversible": {
+   "pass": true,
+   "disabledTrue": {
+    "bootIds": [],
+    "htmlHasAttr": false,
+    "styleElExists": false,
+    "sidebarBg": "rgb(249, 250, 251)",
+    "hostRouteStatus": 404,
+    "consoleErrors": 1,
+    "note": "唯一 404 来自被禁用的 host 路由探测本身，非插件残留"
+   },
+   "revertedFalse": {
+    "bootIds": [
+     "dsh-theme"
+    ],
+    "htmlHasAttr": true,
+    "styleElExists": true,
+    "sidebarBg": "rgb(243, 247, 254)",
+    "hostRouteStatus": 200,
+    "consoleErrors": 0
+   }
+  },
+  "7_pixel_sampling": {
+   "pass": true,
+   "detail": {
+    "size": [
+     1440,
+     900
+    ],
+    "points": {
+     "sidebar_bg": {
+      "xy": [
+       90,
+       450
+      ],
+      "on": [
+       243,
+       247,
+       254
+      ],
+      "off": [
+       249,
+       250,
+       251
+      ],
+      "differ": true
+     },
+     "new_session_btn": {
+      "xy": [
+       140,
+       89
+      ],
+      "on": [
+       244,
+       255,
+       255
+      ],
+      "off": [
+       54,
+       17,
+       104
+      ],
+      "differ": true
+     },
+     "composer_card_border": {
+      "xy": [
+       720,
+       442
+      ],
+      "on": [
+       226,
+       232,
+       242
+      ],
+      "off": [
+       236,
+       236,
+       236
+      ],
+      "differ": true
+     },
+     "selected_row": {
+      "xy": [
+       120,
+       257
+      ],
+      "on": [
+       226,
+       234,
+       248
+      ],
+      "off": [
+       236,
+       238,
+       240
+      ],
+      "differ": true
+     }
+    },
+    "allDiffer": true,
+    "diffPctSampled": 22.92,
+    "brandBlue_4D6BFE": {
+     "on": 2316,
+     "off": 0
+    },
+    "sidebarTint_F3F7FE": {
+     "on": 56949,
+     "off": 57584
+    },
+    "verdict": "皮肤色确实画在 shell 绘制层上"
+   }
+  }
+ },
+ "md5Screenshots": {
+  "on-full.png": "da4c787578f58a80dfd1565b773acc8a",
+  "off-full.png": "537d25412fecc36c6e2a0b4405ebee89",
+  "on-restored.png": "da4c787578f58a80dfd1565b773acc8a",
+  "on-after-reload.png": "da4c787578f58a80dfd1565b773acc8a",
+  "off-after-reload.png": "537d25412fecc36c6e2a0b4405ebee89",
+  "settings-panel.png": "416ce0db437c84446aea812d416d1c06",
+  "on_vs_off_differ": true
+ },
+ "m3Parity": {
+  "assertions": 17,
+  "fails": 0,
+  "note": "逐项对照 _m3_verify.py 口径，插件期全绿"
+ },
+ "profileRestore": {
+  "1_config_identical": "IDENTICAL package.json / cordis.patch.yml / pnpm-lock.yaml",
+  "2_residue": "dsh-theme dir absent; .pnpm/lock.yaml absent; .pnpm dsh-theme* = 0",
+  "3_dump_config": "0 matches (clean)",
+  "4_port": "19488 free (no LISTENING)"
+ }
+}

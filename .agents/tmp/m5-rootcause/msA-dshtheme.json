@@ -1,0 +1,762 @@
+{
+ "result": {
+  "hooked": true,
+  "manifestIds": [
+   "@deepseek-ai/dsh-client-ui-open-in-app",
+   "@deepseek-ai/dsh-api-gateway",
+   "@deepseek-ai/dsh-api-job-controller",
+   "@deepseek-ai/dsh-api-terminal-controller",
+   "@deepseek-ai/dsh-api-workspace-files",
+   "@deepseek-ai/dsh-client-ui-settings-account",
+   "@deepseek-ai/dsh-client-hmr",
+   "@deepseek-ai/dsh-client-modules",
+   "@deepseek-ai/dsh-cordis-client-runner",
+   "@deepseek-ai/dsh-client-ui-theme",
+   "@deepseek-ai/dsh-client-locale",
+   "@deepseek-ai/dsh-client-shortcuts",
+   "@deepseek-ai/dsh-client-ui-shortcuts",
+   "@deepseek-ai/dsh-client-ui-layout",
+   "@deepseek-ai/dsh-client-ui-renderer",
+   "@deepseek-ai/dsh-client-ui-session",
+   "@deepseek-ai/dsh-client-resources",
+   "@deepseek-ai/dsh-client-ui-sidebar",
+   "@deepseek-ai/dsh-client-ui-sidebar-right",
+   "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+   "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+   "@deepseek-ai/dsh-client-ui-sidebar-files",
+   "@deepseek-ai/dsh-client-ui-settings",
+   "@deepseek-ai/dsh-client-ui-settings-general",
+   "@deepseek-ai/dsh-client-ui-settings-models",
+   "@deepseek-ai/dsh-client-ui-plugin-manager",
+   "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+   "@deepseek-ai/dsh-client-ui-conversation",
+   "@deepseek-ai/dsh-client-ui-approval",
+   "@deepseek-ai/dsh-client-ui-chat",
+   "@deepseek-ai/dsh-client-ui-brand-official",
+   "@deepseek-ai/dsh-client-ui-attachment",
+   "@deepseek-ai/dsh-client-ui-tool",
+   "@deepseek-ai/dsh-client-ui-cordis",
+   "@deepseek-ai/dsh-client-ui-workspace",
+   "@deepseek-ai/dsh-client-ui-workflow-run",
+   "@deepseek-ai/dsh-client-ui-input-trigger",
+   "@deepseek-ai/dsh-client-ui-commands",
+   "@deepseek-ai/dsh-client-ui-skill",
+   "@deepseek-ai/dsh-client-ui-subagent",
+   "@deepseek-ai/dsh-client-ui-reference",
+   "@deepseek-ai/dsh-client-ui-jobs",
+   "@deepseek-ai/dsh-client-ui-goal",
+   "@deepseek-ai/dsh-client-ui-message-feedback",
+   "@deepseek-ai/dsh-client-ui-model-selection",
+   "@deepseek-ai/dsh-client-ui-permission-presets",
+   "@deepseek-ai/dsh-client-ui-agent-preset",
+   "@deepseek-ai/dsh-client-ui-settings-session-log",
+   "@deepseek-ai/dsh-client-ui-settings-plugins",
+   "@deepseek-ai/dsh-client-ui-settings-shell",
+   "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+   "@deepseek-ai/dsh-client-ui-settings-subagent",
+   "@deepseek-ai/dsh-client-ui-settings-web-search",
+   "@deepseek-ai/dsh-client-ui-plan",
+   "@deepseek-ai/dsh-client-ui-user-questions",
+   "@deepseek-ai/dsh-client-ui-trajectory",
+   "dsh-theme",
+   "@deepseek-ai/dsh-session-log-export",
+   "@deepseek-ai/dsh-client-file-upload",
+   "@deepseek-ai/dsh-api-remotes",
+   "@deepseek-ai/dsh-client-ui-deliverables",
+   "@deepseek-ai/dsh-typert-registry",
+   "@deepseek-ai/dsh-client-connection",
+   "@deepseek-ai/dsh-api-workspace-controller",
+   "@deepseek-ai/dsh-api-session-controller",
+   "@deepseek-ai/dsh-client-ui-directory-picker-native"
+  ],
+  "factoryIds": [
+   "@deepseek-ai/dsh-api-remotes",
+   "@deepseek-ai/dsh-client-ui-deliverables",
+   "@deepseek-ai/dsh-typert-registry",
+   "@deepseek-ai/dsh-client-connection",
+   "@deepseek-ai/dsh-api-workspace-controller",
+   "@deepseek-ai/dsh-api-session-controller",
+   "@deepseek-ai/dsh-client-ui-directory-picker-native",
+   "@deepseek-ai/dsh-client-ui-open-in-app",
+   "@deepseek-ai/dsh-api-gateway",
+   "@deepseek-ai/dsh-api-job-controller",
+   "@deepseek-ai/dsh-api-terminal-controller",
+   "@deepseek-ai/dsh-api-workspace-files",
+   "@deepseek-ai/dsh-client-ui-settings-account",
+   "@deepseek-ai/dsh-client-hmr",
+   "@deepseek-ai/dsh-cordis-client-runner",
+   "@deepseek-ai/dsh-client-ui-theme",
+   "@deepseek-ai/dsh-client-locale",
+   "@deepseek-ai/dsh-client-shortcuts",
+   "@deepseek-ai/dsh-client-ui-shortcuts",
+   "@deepseek-ai/dsh-client-ui-layout",
+   "@deepseek-ai/dsh-client-ui-renderer",
+   "@deepseek-ai/dsh-client-ui-session",
+   "@deepseek-ai/dsh-client-resources",
+   "@deepseek-ai/dsh-client-ui-sidebar",
+   "@deepseek-ai/dsh-client-ui-sidebar-right",
+   "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+   "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+   "@deepseek-ai/dsh-client-ui-sidebar-files",
+   "@deepseek-ai/dsh-client-ui-settings",
+   "@deepseek-ai/dsh-client-ui-settings-general",
+   "@deepseek-ai/dsh-client-ui-settings-models",
+   "@deepseek-ai/dsh-client-ui-plugin-manager",
+   "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+   "@deepseek-ai/dsh-client-ui-conversation",
+   "@deepseek-ai/dsh-client-ui-approval",
+   "@deepseek-ai/dsh-client-ui-chat",
+   "@deepseek-ai/dsh-client-ui-brand-official",
+   "@deepseek-ai/dsh-client-ui-attachment",
+   "@deepseek-ai/dsh-client-ui-tool",
+   "@deepseek-ai/dsh-client-ui-cordis",
+   "@deepseek-ai/dsh-client-ui-workspace",
+   "@deepseek-ai/dsh-client-ui-workflow-run",
+   "@deepseek-ai/dsh-client-ui-input-trigger",
+   "@deepseek-ai/dsh-client-ui-commands",
+   "@deepseek-ai/dsh-client-ui-skill",
+   "@deepseek-ai/dsh-client-ui-subagent",
+   "@deepseek-ai/dsh-client-ui-reference",
+   "@deepseek-ai/dsh-client-ui-jobs",
+   "@deepseek-ai/dsh-client-ui-goal",
+   "@deepseek-ai/dsh-client-ui-message-feedback",
+   "@deepseek-ai/dsh-client-ui-model-selection",
+   "@deepseek-ai/dsh-client-ui-permission-presets",
+   "@deepseek-ai/dsh-client-ui-agent-preset",
+   "@deepseek-ai/dsh-client-ui-settings-session-log",
+   "@deepseek-ai/dsh-client-ui-settings-plugins",
+   "@deepseek-ai/dsh-client-ui-settings-shell",
+   "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+   "@deepseek-ai/dsh-client-ui-settings-subagent",
+   "@deepseek-ai/dsh-client-ui-settings-web-search",
+   "@deepseek-ai/dsh-client-ui-plan",
+   "@deepseek-ai/dsh-client-ui-user-questions",
+   "@deepseek-ai/dsh-client-ui-trajectory",
+   "dsh-theme",
+   "@deepseek-ai/dsh-session-log-export",
+   "@deepseek-ai/dsh-client-file-upload"
+  ],
+  "loadCacheIds": [
+   "@deepseek-ai/dsh-client-modules",
+   "@deepseek-ai/dsh-client-ui-renderer",
+   "dsh-theme",
+   "@deepseek-ai/dsh-typert-registry",
+   "@deepseek-ai/dsh-client-connection",
+   "@deepseek-ai/dsh-client-hmr",
+   "@deepseek-ai/dsh-client-resources",
+   "@deepseek-ai/dsh-api-gateway",
+   "@deepseek-ai/dsh-api-remotes",
+   "@deepseek-ai/dsh-api-terminal-controller",
+   "@deepseek-ai/dsh-client-ui-settings",
+   "@deepseek-ai/dsh-client-file-upload",
+   "@deepseek-ai/dsh-api-job-controller",
+   "@deepseek-ai/dsh-api-workspace-controller",
+   "@deepseek-ai/dsh-api-workspace-files",
+   "@deepseek-ai/dsh-api-session-controller",
+   "@deepseek-ai/dsh-client-locale",
+   "@deepseek-ai/dsh-client-shortcuts",
+   "@deepseek-ai/dsh-client-ui-session",
+   "@deepseek-ai/dsh-client-ui-settings-plugins",
+   "@deepseek-ai/dsh-client-ui-settings-models",
+   "@deepseek-ai/dsh-client-ui-theme",
+   "@deepseek-ai/dsh-cordis-client-runner",
+   "@deepseek-ai/dsh-client-ui-layout",
+   "@deepseek-ai/dsh-client-ui-settings-session-log",
+   "@deepseek-ai/dsh-client-ui-shortcuts",
+   "@deepseek-ai/dsh-client-ui-workspace",
+   "@deepseek-ai/dsh-client-ui-sidebar",
+   "@deepseek-ai/dsh-client-ui-conversation",
+   "@deepseek-ai/dsh-client-ui-directory-picker-native",
+   "@deepseek-ai/dsh-client-ui-brand-official",
+   "@deepseek-ai/dsh-client-ui-plugin-manager",
+   "@deepseek-ai/dsh-client-ui-tool",
+   "@deepseek-ai/dsh-client-ui-input-trigger",
+   "@deepseek-ai/dsh-client-ui-settings-general",
+   "@deepseek-ai/dsh-client-ui-approval",
+   "@deepseek-ai/dsh-client-ui-trajectory",
+   "@deepseek-ai/dsh-client-ui-jobs",
+   "@deepseek-ai/dsh-client-ui-settings-shell",
+   "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+   "@deepseek-ai/dsh-client-ui-sidebar-right",
+   "@deepseek-ai/dsh-client-ui-commands",
+   "@deepseek-ai/dsh-client-ui-settings-subagent",
+   "@deepseek-ai/dsh-client-ui-settings-web-search",
+   "@deepseek-ai/dsh-client-ui-agent-preset",
+   "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+   "@deepseek-ai/dsh-client-ui-message-feedback",
+   "@deepseek-ai/dsh-client-ui-model-selection",
+   "@deepseek-ai/dsh-session-log-export",
+   "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+   "@deepseek-ai/dsh-client-ui-sidebar-files",
+   "@deepseek-ai/dsh-client-ui-permission-presets",
+   "@deepseek-ai/dsh-client-ui-cordis",
+   "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+   "@deepseek-ai/dsh-client-ui-reference",
+   "@deepseek-ai/dsh-client-ui-chat",
+   "@deepseek-ai/dsh-client-ui-skill",
+   "@deepseek-ai/dsh-client-ui-open-in-app",
+   "@deepseek-ai/dsh-client-ui-settings-account",
+   "@deepseek-ai/dsh-client-ui-goal",
+   "@deepseek-ai/dsh-client-ui-user-questions",
+   "@deepseek-ai/dsh-client-ui-workflow-run",
+   "@deepseek-ai/dsh-client-ui-subagent",
+   "@deepseek-ai/dsh-client-ui-deliverables",
+   "@deepseek-ai/dsh-client-ui-plan",
+   "@deepseek-ai/dsh-client-ui-attachment"
+  ],
+  "dshThemeRecord": {
+   "keys": [
+    "apply"
+   ],
+   "styles": [],
+   "edges": []
+  },
+  "importErrors": [],
+  "syncFailures": [],
+  "syncing": false,
+  "managed": [
+   {
+    "id": "@deepseek-ai/dsh-client-modules",
+    "entryId": "91393604",
+    "entryName": "@deepseek-ai/dsh-client-modules",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-renderer",
+    "entryId": "2ba21254",
+    "entryName": "@deepseek-ai/dsh-client-ui-renderer",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "dsh-theme",
+    "entryId": "d4f65fb6",
+    "entryName": "dsh-theme",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-typert-registry",
+    "entryId": "5e9fdd8a",
+    "entryName": "@deepseek-ai/dsh-typert-registry",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-connection",
+    "entryId": "33ba8430",
+    "entryName": "@deepseek-ai/dsh-client-connection",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-hmr",
+    "entryId": "74063350",
+    "entryName": "@deepseek-ai/dsh-client-hmr",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-resources",
+    "entryId": "ca8397fe",
+    "entryName": "@deepseek-ai/dsh-client-resources",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-gateway",
+    "entryId": "e953e7fd",
+    "entryName": "@deepseek-ai/dsh-api-gateway",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-remotes",
+    "entryId": "f8775ce0",
+    "entryName": "@deepseek-ai/dsh-api-remotes",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-terminal-controller",
+    "entryId": "5c3e0656",
+    "entryName": "@deepseek-ai/dsh-api-terminal-controller",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings",
+    "entryId": "d75a3a7a",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-file-upload",
+    "entryId": "b1edd71e",
+    "entryName": "@deepseek-ai/dsh-client-file-upload",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-job-controller",
+    "entryId": "44729337",
+    "entryName": "@deepseek-ai/dsh-api-job-controller",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-workspace-controller",
+    "entryId": "2743b3ab",
+    "entryName": "@deepseek-ai/dsh-api-workspace-controller",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-workspace-files",
+    "entryId": "d43dea65",
+    "entryName": "@deepseek-ai/dsh-api-workspace-files",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-api-session-controller",
+    "entryId": "0bb13088",
+    "entryName": "@deepseek-ai/dsh-api-session-controller",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-locale",
+    "entryId": "0b856d10",
+    "entryName": "@deepseek-ai/dsh-client-locale",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-shortcuts",
+    "entryId": "8b34312a",
+    "entryName": "@deepseek-ai/dsh-client-shortcuts",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-session",
+    "entryId": "0b904b6c",
+    "entryName": "@deepseek-ai/dsh-client-ui-session",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-plugins",
+    "entryId": "bde68a08",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-plugins",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-models",
+    "entryId": "c153d396",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-models",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-theme",
+    "entryId": "e1d116bf",
+    "entryName": "@deepseek-ai/dsh-client-ui-theme",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-cordis-client-runner",
+    "entryId": "74fd0cba",
+    "entryName": "@deepseek-ai/dsh-cordis-client-runner",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-layout",
+    "entryId": "019fadc2",
+    "entryName": "@deepseek-ai/dsh-client-ui-layout",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-session-log",
+    "entryId": "1b80d643",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-session-log",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-shortcuts",
+    "entryId": "e79831e3",
+    "entryName": "@deepseek-ai/dsh-client-ui-shortcuts",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-workspace",
+    "entryId": "e2ebb104",
+    "entryName": "@deepseek-ai/dsh-client-ui-workspace",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-sidebar",
+    "entryId": "a5999970",
+    "entryName": "@deepseek-ai/dsh-client-ui-sidebar",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-conversation",
+    "entryId": "d5f143c7",
+    "entryName": "@deepseek-ai/dsh-client-ui-conversation",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-directory-picker-native",
+    "entryId": "371d0a16",
+    "entryName": "@deepseek-ai/dsh-client-ui-directory-picker-native",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-brand-official",
+    "entryId": "437f28a3",
+    "entryName": "@deepseek-ai/dsh-client-ui-brand-official",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-plugin-manager",
+    "entryId": "a8a7ef7c",
+    "entryName": "@deepseek-ai/dsh-client-ui-plugin-manager",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-tool",
+    "entryId": "7c92492a",
+    "entryName": "@deepseek-ai/dsh-client-ui-tool",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-input-trigger",
+    "entryId": "86340295",
+    "entryName": "@deepseek-ai/dsh-client-ui-input-trigger",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-general",
+    "entryId": "59772e79",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-general",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-approval",
+    "entryId": "b34c54a4",
+    "entryName": "@deepseek-ai/dsh-client-ui-approval",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-trajectory",
+    "entryId": "f21dbc8e",
+    "entryName": "@deepseek-ai/dsh-client-ui-trajectory",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-jobs",
+    "entryId": "89529ef6",
+    "entryName": "@deepseek-ai/dsh-client-ui-jobs",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-shell",
+    "entryId": "f404a86a",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-shell",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+    "entryId": "39e44833",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-sidebar-right",
+    "entryId": "da7b3cd8",
+    "entryName": "@deepseek-ai/dsh-client-ui-sidebar-right",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-commands",
+    "entryId": "e4b7a1e7",
+    "entryName": "@deepseek-ai/dsh-client-ui-commands",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-subagent",
+    "entryId": "8cb5f5cc",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-subagent",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-web-search",
+    "entryId": "38d12a53",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-web-search",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-agent-preset",
+    "entryId": "d78b630a",
+    "entryName": "@deepseek-ai/dsh-client-ui-agent-preset",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+    "entryId": "baf985cf",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-message-feedback",
+    "entryId": "b28d4d94",
+    "entryName": "@deepseek-ai/dsh-client-ui-message-feedback",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-model-selection",
+    "entryId": "1f7835ca",
+    "entryName": "@deepseek-ai/dsh-client-ui-model-selection",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-session-log-export",
+    "entryId": "a98c0bdf",
+    "entryName": "@deepseek-ai/dsh-session-log-export",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+    "entryId": "bfb7e7f7",
+    "entryName": "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-sidebar-files",
+    "entryId": "93307c16",
+    "entryName": "@deepseek-ai/dsh-client-ui-sidebar-files",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-permission-presets",
+    "entryId": "a1cd1dd2",
+    "entryName": "@deepseek-ai/dsh-client-ui-permission-presets",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-cordis",
+    "entryId": "f46d140f",
+    "entryName": "@deepseek-ai/dsh-client-ui-cordis",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "entryId": "ed70e381",
+    "entryName": "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-reference",
+    "entryId": "7f993a61",
+    "entryName": "@deepseek-ai/dsh-client-ui-reference",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-chat",
+    "entryId": "b8f762fa",
+    "entryName": "@deepseek-ai/dsh-client-ui-chat",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-skill",
+    "entryId": "0ad3c93f",
+    "entryName": "@deepseek-ai/dsh-client-ui-skill",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-open-in-app",
+    "entryId": "11559508",
+    "entryName": "@deepseek-ai/dsh-client-ui-open-in-app",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-settings-account",
+    "entryId": "54fc5bdb",
+    "entryName": "@deepseek-ai/dsh-client-ui-settings-account",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-goal",
+    "entryId": "b96a1be3",
+    "entryName": "@deepseek-ai/dsh-client-ui-goal",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-user-questions",
+    "entryId": "373c7fc4",
+    "entryName": "@deepseek-ai/dsh-client-ui-user-questions",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-workflow-run",
+    "entryId": "e657b586",
+    "entryName": "@deepseek-ai/dsh-client-ui-workflow-run",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-subagent",
+    "entryId": "2a501d98",
+    "entryName": "@deepseek-ai/dsh-client-ui-subagent",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-deliverables",
+    "entryId": "c744ccc6",
+    "entryName": "@deepseek-ai/dsh-client-ui-deliverables",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-plan",
+    "entryId": "8624d882",
+    "entryName": "@deepseek-ai/dsh-client-ui-plan",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   },
+   {
+    "id": "@deepseek-ai/dsh-client-ui-attachment",
+    "entryId": "0e2bdd04",
+    "entryName": "@deepseek-ai/dsh-client-ui-attachment",
+    "hasFiber": true,
+    "fiberState": 2,
+    "fiberInertia": false
+   }
+  ],
+  "graphRowDshTheme": {
+   "id": "dsh-theme",
+   "url": "plugins/??dsh-theme/client.js&rev=ab9eb41038f4",
+   "rev": "ab9eb41038f4",
+   "inject": [],
+   "external": [],
+   "initialUrl": "plugins/??dsh-theme/client.js&rev=ab9eb41038f4"
+  },
+  "executedBundles": 2,
+  "failedBundles": [],
+  "htmlHasAttr": false,
+  "styleEl": false,
+  "bodyBg": "rgb(255, 255, 255)"
+ },
+ "console": []
+}

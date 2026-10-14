@@ -1,0 +1,52 @@
+=== node_modules/dsh-theme listing (with link type) ===
+
+Name             Mode  Length LinkType Target
+----             ----  ------ -------- ------
+assets           d----                 
+host             d----                 
+lib              d----                 
+cordis.patch.yml -a--- 588             
+package.json     -a--- 688             
+
+
+=== recursive file hashes ===
+22004600178771908D36E71FC0C80C92  cordis.patch.yml  588
+AB6C4930C73CF78A26607F6DC1424E1B  package.json  688
+4677C8FD06A5EB6917A95DAFA4579E90  theme.css  25850
+B4CE2A071EC1D4A2A0519CDDB2A4D011  index.js  6222
+1F342EDA3EF133C5E6118FBB7BF4575F  client.js  15302
+=== is it a junction/symlink? ===
+=== .pnpm entries ===
+
+Name
+----
+lock.yaml
+
+
+=== pnpm-lock.yaml ===
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: false
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      dsh-theme:
+        specifier: file:E:/dsh-theme/plugins/dsh-theme
+        version: file:E:/dsh-theme/plugins/dsh-theme
+
+packages:
+
+  dsh-theme@file:E:/dsh-theme/plugins/dsh-theme:
+    resolution: {directory: E:/dsh-theme/plugins/dsh-theme, type: directory}
+    peerDependencies:
+      react: ^18.2.0
+
+snapshots:
+
+  dsh-theme@file:E:/dsh-theme/plugins/dsh-theme: {}
+
+

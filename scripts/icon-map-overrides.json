@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "purpose": "dsh-theme 图标层的**人工策展表**：把 DSH shell 图标的推断名（inventory.guessName）对到 Lucide kebab 名。",
+    "why": "inventory.guessName 是规则推断（nameSource: region-filename/component-name/jsdoc/classname），与 lucide 的命名并不总是同名；另有若干 DSH 图标在 lucide 里没有同名条目。",
+    "maintainedBy": "人工维护（非构建产物）。新增条目前先确认 lucide 名真实存在——scripts/build-icon-map.mjs 会守卫校验，名字不存在即构建失败。",
+    "schema": {
+      "rename": "guessName -> lucide kebab 名。**按名字批量改**：同名 guessName 的全部条目一起改。仅在 guessName 与 lucide 名不同名（或 lucide 无同名条目）时填写。",
+      "byId": "inventory 的 ico-xxxxxxxx id -> lucide kebab 名。**按条目精确改**，优先级高于 rename。用于「同一个 guessName 底下混进了语义不同的图标」——猜名是按组件名/jsdoc 推断的，一个名字偶尔会盖住两种图形（实例：`users` 同时盖住 IconUsersOutlineArtwork 与 IconPaperPlaneOutlineArtwork）。id 见 icon-map.json 的 unmapped 清单或 inventory.json。",
+      "skip": "guessName -> 不替换的理由。用于「按语义不该换」或「找不到有把握的等价物」的条目，与「结构上映射不了」区分开。按名生效，会覆盖该 guessName 下的全部条目。"
+    },
+    "byIdNotes": "每一条都是「猜名把两个语义不同的图形盖在同一个名字底下」的修正。判据是 inventory 的 occurrenceSites[].enclosingFn（真实组件名）+ 形状 d 数据；判定依据写在条目旁的注释里（JSON 不支持注释，逐条对应见 .agents/notes 或 M7 回报）。"
+  },
+  "rename": {
+    "account": "user-round",
+    "agent": "bot",
+    "browser": "app-window",
+    "chat": "message-square-text",
+    "compare": "git-compare",
+    "cursor": "mouse-pointer-2",
+    "help": "circle-help",
+    "message": "message-square-plus",
+    "microphone": "mic",
+    "plugin": "puzzle",
+    "refresh": "refresh-cw",
+    "skill": "sparkles",
+    "stop": "square",
+    "triangle": "chevron-right",
+    "warning": "triangle-alert"
+  },
+  "byId": {
+    "ico-26b40205": "ellipsis",
+    "ico-1fae88e1": "folder",
+    "ico-35dcf823": "align-left",
+    "ico-6d81a8ed": "arrow-up-right",
+    "ico-0139d5e1": "maximize",
+    "ico-d19348ee": "minimize",
+    "ico-2db10614": "wrench",
+    "ico-df4d3071": "wrench",
+    "ico-70d665b0": "info",
+    "ico-40d1cf72": "braces",
+    "ico-3565d61d": "shrink",
+    "ico-74f7d7bf": "send",
+    "ico-dd057232": "shield-check",
+    "ico-5802076f": "shield-half",
+    "ico-051dff15": "shield-alert"
+  },
+  "skip": {
+    "brand": "DeepSeek 品牌字标（182x24 词标，25 个形状），换 Lucide 线性图标会丢品牌识别，按语义不替换",
+    "network": "measure 与 IconTreeCornerArtwork 两条都找不到有把握的 Lucide 等价物，按「换错比不换更糟」保持原图标",
+    "clipboard": "IconCompactOutlineArtwork 的猜名不可信（组件名与图形语义对不上），保持原图标"
+  }
+}

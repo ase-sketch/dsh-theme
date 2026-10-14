@@ -1,0 +1,62 @@
+{
+ "c2_panel": {
+  "sectionNavOpened": true,
+  "hasPanelTitle": true,
+  "toggleExists": true,
+  "toggleChecked": true
+ },
+ "c3_on": {
+  "attr": true,
+  "style": true,
+  "len": 25259,
+  "derivation": true,
+  "tok": {
+   "radiusPanel": "20px",
+   "radiusMd": "10px",
+   "specificInputMajor": "#FFFFFF",
+   "specificSidebarFill": "#F3F7FE",
+   "aliasBgLayer1": "#F3F7FE",
+   "aliasBgBase": "#FFFFFF",
+   "brandPrimary": "#4D6BFE",
+   "dshSidebarBg": "#F3F7FE"
+  },
+  "sidebar": {
+   "bg": "rgb(243, 247, 254)",
+   "border": "1px rgb(226, 232, 242)"
+  }
+ },
+ "c4_off": {
+  "attr": false,
+  "style": false,
+  "len": 0,
+  "checked": false,
+  "sidebar": {
+   "bg": "rgb(249, 250, 251)",
+   "border": "1px rgba(0, 0, 0, 0.12)"
+  }
+ },
+ "c4_back_on": {
+  "attr": true,
+  "checked": true
+ },
+ "c5_reload": {
+  "attr": true,
+  "style": true
+ },
+ "c5_off_reload": {
+  "attr": false,
+  "style": false
+ },
+ "md5": {
+  "on-full.png": "da4c787578f58a80dfd1565b773acc8a",
+  "off-full.png": "537d25412fecc36c6e2a0b4405ebee89",
+  "on-restored.png": "da4c787578f58a80dfd1565b773acc8a",
+  "on-after-reload.png": "da4c787578f58a80dfd1565b773acc8a",
+  "off-after-reload.png": "537d25412fecc36c6e2a0b4405ebee89",
+  "settings-panel.png": "416ce0db437c84446aea812d416d1c06",
+  "on_vs_off_differ": true
+ },
+ "consoleErrors": 0,
+ "failedRequests": [],
+ "pageerrors": 0
+}

@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-10-10T14:52:52.162Z",
+  "profile": "C:\\Users\\pass\\.dsh\\profiles\\web",
+  "hashes": {
+    "package.json": "31D0444BB5A99B3FBD1023528E8AB89C",
+    "cordis.patch.yml": "35D0E0B801444BB1F4C2115720F8E4F6",
+    "pnpm-lock.yaml": "AAE518EEA46B2F145F9EA86FD326E314"
+  },
+  "nodeModulesEntries": [
+    ".pnpm",
+    "@deepseek-ai",
+    "@standard-schema",
+    "detect-libc",
+    "jpeg-js",
+    "lightningcss",
+    "lightningcss-win32-x64-msvc",
+    ".modules.yaml",
+    ".package-map.json",
+    ".pnpm-workspace-state-v1.json"
+  ],
+  "port19488": "free"
+}

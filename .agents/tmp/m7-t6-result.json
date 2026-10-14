@@ -1,0 +1,106 @@
+[
+ {
+  "id": "A1",
+  "name": "插件激活(data-dsh-theme 属性在)",
+  "pass": true,
+  "raw": ""
+ },
+ {
+  "id": "A2",
+  "name": "浅色画布=新亮室纸感(非纯白非旧蓝白)",
+  "pass": true,
+  "raw": "rgb(245, 241, 232)"
+ },
+ {
+  "id": "A3",
+  "name": "主按钮=朱砂系(非旧蓝 #4D6BFE/官方蓝)",
+  "pass": true,
+  "raw": "rgb(210, 62, 12)"
+ },
+ {
+  "id": "A4",
+  "name": "图标层计数存在且 applied>0",
+  "pass": true,
+  "raw": "applied=53;seen=16;missed=2"
+ },
+ {
+  "id": "A5",
+  "name": "Deepy 主位月台存在",
+  "pass": true,
+  "raw": {
+   "main": true
+  }
+ },
+ {
+  "id": "A6",
+  "name": "hero 迎宾位渲染",
+  "pass": true,
+  "raw": {
+   "slot": true,
+   "hero": true
+  }
+ },
+ {
+  "id": "A7",
+  "name": "字体层接管(font-family 含 Segoe/Palatino)",
+  "pass": true,
+  "raw": "\"Segoe UI Variable Text\", \"Segoe UI\", system-ui, \"Microsoft YaHei UI\", sans-serif"
+ },
+ {
+  "id": "A8",
+  "name": "侧栏氛围层(background-image 非 none)",
+  "pass": true,
+  "raw": "rgb(239, 234, 224) | img:radial-gradient(110% 70% at 4% -10%, rgba(64, 84, 150, 0.16)"
+ },
+ {
+  "id": "B1",
+  "name": "深色 body=近黑深空(#0B0D14=rgb(11,13,20) 或 canvas #07080D)",
+  "pass": true,
+  "raw": "rgb(11, 13, 20)"
+ },
+ {
+  "id": "B2",
+  "name": "深色非旧值 #13161D / 非官方默认",
+  "pass": true,
+  "raw": "rgb(11, 13, 20)"
+ },
+ {
+  "id": "C1",
+  "name": "设置面板开关可拨(OFF)",
+  "pass": true,
+  "raw": "toggle-not-found"
+ },
+ {
+  "id": "C2",
+  "name": "OFF 后 data-dsh-theme 移除",
+  "pass": false,
+  "raw": ""
+ },
+ {
+  "id": "C3",
+  "name": "OFF 后 body 回官方白",
+  "pass": false,
+  "raw": "rgb(245, 241, 232)"
+ },
+ {
+  "id": "C4",
+  "name": "OFF 后 Deepy 移除",
+  "pass": false,
+  "raw": true
+ },
+ {
+  "id": "C5",
+  "name": "拨回 ON 恢复",
+  "pass": true,
+  "raw": {
+   "attr": "",
+   "deepy": true
+  }
+ },
+ {
+  "id": "D1",
+  "name": "console 零错",
+  "pass": true,
+  "raw": []
+ }
+]

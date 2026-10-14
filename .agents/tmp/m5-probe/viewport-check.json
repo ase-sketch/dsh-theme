@@ -1,0 +1,12 @@
+{
+ "tall_2000": {
+  "viewport": 0.0,
+  "fullpage": 0.0,
+  "scrollHeight": 2000,
+  "innerHeight": 2000
+ },
+ "positive_control": {
+  "orangePct": 100.0,
+  "bodyBg": "rgb(255, 138, 0)"
+ }
+}

@@ -1,0 +1,4 @@
+# M6 round-4 event probe (throwaway, lives under .agents/tmp).
+- insert:
+    - id: m6-evtprobe
+      name: 'dsh-theme-evtprobe'

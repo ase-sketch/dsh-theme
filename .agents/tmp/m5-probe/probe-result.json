@@ -1,0 +1,653 @@
+{
+ "task": "M5 D4 client-activation gate — minimal probe bundle on the isolated web profile",
+ "date": "2026-10-10",
+ "environment": {
+  "dsh": "0.2.0-rc.2",
+  "profile": "C:\\Users\\pass\\.dsh\\profiles\\web",
+  "port": 19488,
+  "desktopGui": "19387 — never touched (token auth)",
+  "browser": "msedge headless via Playwright",
+  "python": "3.14.1"
+ },
+ "probePackage": {
+  "path": ".agents/tmp/m5-probe/pkg/dsh-theme-probe",
+  "files": {
+   "package.json": "399ce5c1c49fde8dd454100c85bee987",
+   "host/index.js": "1aa58d7b9809089fd45a2d3812c6ba21",
+   "lib/client.js": "b138592d6fc11de19f57e824f09f85c4",
+   "cordis.patch.yml": "c0336e88e0253c8f31aa37ad5978b377"
+  },
+  "hashesAre": "md5"
+ },
+ "gate": {
+  "assertions": {
+   "1": {
+    "name": "documentElement.hasAttribute('data-dsh-theme-probe') === true",
+    "pass": true,
+    "actual": true
+   },
+   "2": {
+    "name": "document.getElementById('dsh-theme-probe-style') exists with correct textContent",
+    "pass": true,
+    "actual": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }"
+   },
+   "3": {
+    "name": "getComputedStyle(document.body).backgroundColor === 'rgb(255, 138, 0)'",
+    "pass": true,
+    "actual": "rgb(255, 138, 0)"
+   }
+  },
+  "allThreeGreen": true,
+  "negativeControl": {
+   "sameInstanceSameScriptUninstalled": true,
+   "assertions": {
+    "1": false,
+    "2": false,
+    "3": false
+   },
+   "actual": {
+    "htmlHasAttr": false,
+    "styleElExists": false,
+    "bodyBg": "rgb(255, 255, 255)"
+   },
+   "proves": "the three assertions have discriminating power"
+  },
+  "console": {
+   "errors": 0,
+   "pageerrors": 0,
+   "consoleClean": true,
+   "note": "zero console messages of any type in both runs"
+  }
+ },
+ "pixelLevel": {
+  "claimUnderTest": "REPORT §8.3 — computed style is orange, but is it actually PAINTED?",
+  "finding": "NOT PAINTED. Every screenshot is byte-identical to the negative control.",
+  "md5": {
+   "negctrl.png": "537d25412fecc36c6e2a0b4405ebee89",
+   "probe.png": "537d25412fecc36c6e2a0b4405ebee89",
+   "negctrl-fullpage.png": "537d25412fecc36c6e2a0b4405ebee89",
+   "probe-fullpage.png": "537d25412fecc36c6e2a0b4405ebee89",
+   "rootcause/falsify-fixedonly.png": "537d25412fecc36c6e2a0b4405ebee89",
+   "rootcause/negctrl.png": "537d25412fecc36c6e2a0b4405ebee89",
+   "rootcause/runA-dshtheme.png": "537d25412fecc36c6e2a0b4405ebee89"
+  },
+  "orangePixelPct": {
+   "negctrl": 0,
+   "probe": 0,
+   "tallViewport2000": 0
+  },
+  "positiveControl": {
+   "method": "hide #root in-page",
+   "orangePct": 100,
+   "proves": "body really does paint orange when not occluded"
+  },
+  "cause": "the shell's own opaque surface (#root / .BynINW_frame) covers body, so body's background is never visible",
+  "selectorTargetTest": {
+   "probeCssAsSpecified": 0,
+   "sameRuleScopedToRoot": 0,
+   "note": "scoping to #root did not help either — a deeper opaque layer inside #root still covers it; in-page only, probe package untouched"
+  },
+  "tallerViewport": {
+   "height": 2000,
+   "viewportPct": 0,
+   "fullPagePct": 0,
+   "scrollHeight": 2000
+  },
+  "retracts": "REPORT §8.3 is now answered: the M1 falsification experiment did NOT have visual confirmation. Its screenshot cannot distinguish a working skin from a broken one.",
+  "decisiveRun": {
+   "purpose": "kill the alternative explanation \"the screenshot was taken in a non-probe state\"",
+   "samePageProof": {
+    "probePresentBeforeShot": true,
+    "probePresentAfterShot": true,
+    "styleElText": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }",
+    "bodyBg": "rgb(255, 138, 0)"
+   },
+   "orangePct": 0,
+   "md5": "decisive.png = 537d25412fecc36c6e2a0b4405ebee89 (same as probe.png / negctrl.png)",
+   "occludingStack": [
+    "div.BynINW_frame  bg=rgb(255,255,255)  rect=[1440x900]  position:relative",
+    "div.Dc7zOa_root   bg=rgb(255,255,255)  rect=[1160x900]  position:relative"
+   ],
+   "conclusion": "body itself is not occluded by an ancestor (its parent chain is transparent), but the two shell layers above it paint opaque white over the full viewport. Probe state provably true before AND after the shot."
+  }
+ },
+ "rawEvidence": {
+  "negctrl": {
+   "label": "negctrl",
+   "url": "http://127.0.0.1:19488/",
+   "expectedCss": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }",
+   "expectedBodyBg": "rgb(255, 138, 0)",
+   "observed": {
+    "bootPresent": true,
+    "bootEntryIds": [
+     "@deepseek-ai/dsh-client-ui-open-in-app",
+     "@deepseek-ai/dsh-api-gateway",
+     "@deepseek-ai/dsh-api-job-controller",
+     "@deepseek-ai/dsh-api-terminal-controller",
+     "@deepseek-ai/dsh-api-workspace-files",
+     "@deepseek-ai/dsh-client-ui-settings-account",
+     "@deepseek-ai/dsh-client-hmr",
+     "@deepseek-ai/dsh-client-modules",
+     "@deepseek-ai/dsh-cordis-client-runner",
+     "@deepseek-ai/dsh-client-ui-theme",
+     "@deepseek-ai/dsh-client-locale",
+     "@deepseek-ai/dsh-client-shortcuts",
+     "@deepseek-ai/dsh-client-ui-shortcuts",
+     "@deepseek-ai/dsh-client-ui-layout",
+     "@deepseek-ai/dsh-client-ui-renderer",
+     "@deepseek-ai/dsh-client-ui-session",
+     "@deepseek-ai/dsh-client-resources",
+     "@deepseek-ai/dsh-client-ui-sidebar",
+     "@deepseek-ai/dsh-client-ui-sidebar-right",
+     "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+     "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+     "@deepseek-ai/dsh-client-ui-sidebar-files",
+     "@deepseek-ai/dsh-client-ui-settings",
+     "@deepseek-ai/dsh-client-ui-settings-general",
+     "@deepseek-ai/dsh-client-ui-settings-models",
+     "@deepseek-ai/dsh-client-ui-plugin-manager",
+     "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+     "@deepseek-ai/dsh-client-ui-conversation",
+     "@deepseek-ai/dsh-client-ui-approval",
+     "@deepseek-ai/dsh-client-ui-chat",
+     "@deepseek-ai/dsh-client-ui-brand-official",
+     "@deepseek-ai/dsh-client-ui-attachment",
+     "@deepseek-ai/dsh-client-ui-tool",
+     "@deepseek-ai/dsh-client-ui-cordis",
+     "@deepseek-ai/dsh-client-ui-workspace",
+     "@deepseek-ai/dsh-client-ui-workflow-run",
+     "@deepseek-ai/dsh-client-ui-input-trigger",
+     "@deepseek-ai/dsh-client-ui-commands",
+     "@deepseek-ai/dsh-client-ui-skill",
+     "@deepseek-ai/dsh-client-ui-subagent",
+     "@deepseek-ai/dsh-client-ui-reference",
+     "@deepseek-ai/dsh-client-ui-jobs",
+     "@deepseek-ai/dsh-client-ui-goal",
+     "@deepseek-ai/dsh-client-ui-message-feedback",
+     "@deepseek-ai/dsh-client-ui-model-selection",
+     "@deepseek-ai/dsh-client-ui-permission-presets",
+     "@deepseek-ai/dsh-client-ui-agent-preset",
+     "@deepseek-ai/dsh-client-ui-settings-session-log",
+     "@deepseek-ai/dsh-client-ui-settings-plugins",
+     "@deepseek-ai/dsh-client-ui-settings-shell",
+     "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+     "@deepseek-ai/dsh-client-ui-settings-subagent",
+     "@deepseek-ai/dsh-client-ui-settings-web-search",
+     "@deepseek-ai/dsh-client-ui-plan",
+     "@deepseek-ai/dsh-client-ui-user-questions",
+     "@deepseek-ai/dsh-client-ui-trajectory",
+     "@deepseek-ai/dsh-session-log-export",
+     "@deepseek-ai/dsh-client-file-upload",
+     "@deepseek-ai/dsh-api-remotes",
+     "@deepseek-ai/dsh-client-ui-deliverables",
+     "@deepseek-ai/dsh-typert-registry",
+     "@deepseek-ai/dsh-client-connection",
+     "@deepseek-ai/dsh-api-workspace-controller",
+     "@deepseek-ai/dsh-api-session-controller",
+     "@deepseek-ai/dsh-client-ui-directory-picker-native"
+    ],
+    "probeRow": null,
+    "htmlHasAttr": false,
+    "htmlAttrs": [
+     "lang",
+     "data-ds-theme-source",
+     "style",
+     "data-input-modality"
+    ],
+    "styleElExists": false,
+    "styleElText": null,
+    "bodyBg": "rgb(255, 255, 255)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "bodyRect": {
+     "w": 1440,
+     "h": 900
+    }
+   },
+   "assertions": {
+    "1_htmlHasProbeAttribute": {
+     "pass": false,
+     "expected": true,
+     "actual": false
+    },
+    "2_styleElementPresentAndCorrect": {
+     "pass": false,
+     "expected": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }",
+     "actual": null
+    },
+    "3_bodyBackgroundIsOrange": {
+     "pass": false,
+     "expected": "rgb(255, 138, 0)",
+     "actual": "rgb(255, 255, 255)"
+    }
+   },
+   "allThreeGreen": false,
+   "console": [],
+   "consoleErrors": [],
+   "pageerrors": [],
+   "consoleClean": true
+  },
+  "probe": {
+   "label": "probe",
+   "url": "http://127.0.0.1:19488/",
+   "expectedCss": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }",
+   "expectedBodyBg": "rgb(255, 138, 0)",
+   "observed": {
+    "bootPresent": true,
+    "bootEntryIds": [
+     "@deepseek-ai/dsh-client-ui-open-in-app",
+     "@deepseek-ai/dsh-api-gateway",
+     "@deepseek-ai/dsh-api-job-controller",
+     "@deepseek-ai/dsh-api-terminal-controller",
+     "@deepseek-ai/dsh-api-workspace-files",
+     "@deepseek-ai/dsh-client-ui-settings-account",
+     "@deepseek-ai/dsh-client-hmr",
+     "@deepseek-ai/dsh-client-modules",
+     "@deepseek-ai/dsh-cordis-client-runner",
+     "@deepseek-ai/dsh-client-ui-theme",
+     "@deepseek-ai/dsh-client-locale",
+     "@deepseek-ai/dsh-client-shortcuts",
+     "@deepseek-ai/dsh-client-ui-shortcuts",
+     "@deepseek-ai/dsh-client-ui-layout",
+     "@deepseek-ai/dsh-client-ui-renderer",
+     "@deepseek-ai/dsh-client-ui-session",
+     "@deepseek-ai/dsh-client-resources",
+     "@deepseek-ai/dsh-client-ui-sidebar",
+     "@deepseek-ai/dsh-client-ui-sidebar-right",
+     "@deepseek-ai/dsh-client-ui-sidebar-documentpreview",
+     "@deepseek-ai/dsh-client-ui-sidebar-terminal",
+     "@deepseek-ai/dsh-client-ui-sidebar-files",
+     "@deepseek-ai/dsh-client-ui-settings",
+     "@deepseek-ai/dsh-client-ui-settings-general",
+     "@deepseek-ai/dsh-client-ui-settings-models",
+     "@deepseek-ai/dsh-client-ui-plugin-manager",
+     "@deepseek-ai/dsh-client-ui-settings-plugin-inventory",
+     "@deepseek-ai/dsh-client-ui-conversation",
+     "@deepseek-ai/dsh-client-ui-approval",
+     "@deepseek-ai/dsh-client-ui-chat",
+     "@deepseek-ai/dsh-client-ui-brand-official",
+     "@deepseek-ai/dsh-client-ui-attachment",
+     "@deepseek-ai/dsh-client-ui-tool",
+     "@deepseek-ai/dsh-client-ui-cordis",
+     "@deepseek-ai/dsh-client-ui-workspace",
+     "@deepseek-ai/dsh-client-ui-workflow-run",
+     "@deepseek-ai/dsh-client-ui-input-trigger",
+     "@deepseek-ai/dsh-client-ui-commands",
+     "@deepseek-ai/dsh-client-ui-skill",
+     "@deepseek-ai/dsh-client-ui-subagent",
+     "@deepseek-ai/dsh-client-ui-reference",
+     "@deepseek-ai/dsh-client-ui-jobs",
+     "@deepseek-ai/dsh-client-ui-goal",
+     "@deepseek-ai/dsh-client-ui-message-feedback",
+     "@deepseek-ai/dsh-client-ui-model-selection",
+     "@deepseek-ai/dsh-client-ui-permission-presets",
+     "@deepseek-ai/dsh-client-ui-agent-preset",
+     "@deepseek-ai/dsh-client-ui-settings-session-log",
+     "@deepseek-ai/dsh-client-ui-settings-plugins",
+     "@deepseek-ai/dsh-client-ui-settings-shell",
+     "@deepseek-ai/dsh-client-ui-settings-agent-loop",
+     "@deepseek-ai/dsh-client-ui-settings-subagent",
+     "@deepseek-ai/dsh-client-ui-settings-web-search",
+     "@deepseek-ai/dsh-client-ui-plan",
+     "@deepseek-ai/dsh-client-ui-user-questions",
+     "@deepseek-ai/dsh-client-ui-trajectory",
+     "dsh-theme-probe",
+     "@deepseek-ai/dsh-session-log-export",
+     "@deepseek-ai/dsh-client-file-upload",
+     "@deepseek-ai/dsh-api-remotes",
+     "@deepseek-ai/dsh-client-ui-deliverables",
+     "@deepseek-ai/dsh-typert-registry",
+     "@deepseek-ai/dsh-client-connection",
+     "@deepseek-ai/dsh-api-workspace-controller",
+     "@deepseek-ai/dsh-api-session-controller",
+     "@deepseek-ai/dsh-client-ui-directory-picker-native"
+    ],
+    "probeRow": {
+     "id": "dsh-theme-probe",
+     "url": "plugins/??dsh-theme-probe/client.js&rev=8034f0139ee6",
+     "rev": "8034f0139ee6",
+     "inject": []
+    },
+    "htmlHasAttr": true,
+    "htmlAttrs": [
+     "lang",
+     "data-ds-theme-source",
+     "data-dsh-theme-probe",
+     "style",
+     "data-input-modality"
+    ],
+    "styleElExists": true,
+    "styleElText": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }",
+    "bodyBg": "rgb(255, 138, 0)",
+    "htmlBg": "rgba(0, 0, 0, 0)",
+    "bodyRect": {
+     "w": 1440,
+     "h": 900
+    }
+   },
+   "assertions": {
+    "1_htmlHasProbeAttribute": {
+     "pass": true,
+     "expected": true,
+     "actual": true
+    },
+    "2_styleElementPresentAndCorrect": {
+     "pass": true,
+     "expected": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }",
+     "actual": "html[data-dsh-theme-probe] body { background-color: rgb(255 138 0) !important; }"
+    },
+    "3_bodyBackgroundIsOrange": {
+     "pass": true,
+     "expected": "rgb(255, 138, 0)",
+     "actual": "rgb(255, 138, 0)"
+    }
+   },
+   "allThreeGreen": true,
+   "console": [],
+   "consoleErrors": [],
+   "pageerrors": [],
+   "consoleClean": true
+  },
+  "occlusionDepth": [
+   {
+    "round": 0,
+    "found": [],
+    "orangePct": 0
+   },
+   {
+    "round": 1,
+    "found": [
+     {
+      "tag": "div",
+      "cls": "BynINW_frame",
+      "bg": "rgb(255, 255, 255)"
+     }
+    ],
+    "orangePct": 0
+   }
+  ],
+  "occlusionDiagnostic": {
+   "occludersFound": [
+    {
+     "tag": "div",
+     "cls": "BynINW_frame",
+     "rect": [
+      0,
+      0,
+      1440,
+      900
+     ],
+     "bg": "rgb(255, 255, 255)"
+    }
+   ],
+   "bodyBgAfterNeutralising": "rgb(255, 138, 0)",
+   "orangePct_before": 0,
+   "orangePct_after": 0
+  },
+  "pixelCheck": {
+   "negctrl": {
+    "size": [
+     1440,
+     900
+    ],
+    "samples": [
+     {
+      "xy": [
+       86,
+       270
+      ],
+      "rgb": [
+       236,
+       238,
+       240
+      ]
+     },
+     {
+      "xy": [
+       720,
+       765
+      ],
+      "rgb": [
+       255,
+       255,
+       255
+      ]
+     },
+     {
+      "xy": [
+       1353,
+       270
+      ],
+      "rgb": [
+       255,
+       255,
+       255
+      ]
+     },
+     {
+      "xy": [
+       720,
+       495
+      ],
+      "rgb": [
+       255,
+       255,
+       255
+      ]
+     },
+     {
+      "xy": [
+       86,
+       828
+      ],
+      "rgb": [
+       249,
+       250,
+       251
+      ]
+     }
+    ],
+    "topColors": [
+     {
+      "rgb": [
+       255,
+       255,
+       255
+      ],
+      "count": 1011183
+     },
+     {
+      "rgb": [
+       249,
+       250,
+       251
+      ],
+      "count": 221535
+     },
+     {
+      "rgb": [
+       254,
+       254,
+       254
+      ],
+      "count": 8958
+     },
+     {
+      "rgb": [
+       236,
+       238,
+       240
+      ],
+      "count": 7798
+     },
+     {
+      "rgb": [
+       253,
+       253,
+       253
+      ],
+      "count": 5991
+     },
+     {
+      "rgb": [
+       251,
+       251,
+       251
+      ],
+      "count": 4161
+     }
+    ],
+    "orangePixels": 0,
+    "totalPixels": 1296000,
+    "orangePct": 0
+   },
+   "probe": {
+    "size": [
+     1440,
+     900
+    ],
+    "samples": [
+     {
+      "xy": [
+       86,
+       270
+      ],
+      "rgb": [
+       236,
+       238,
+       240
+      ]
+     },
+     {
+      "xy": [
+       720,
+       765
+      ],
+      "rgb": [
+       255,
+       255,
+       255
+      ]
+     },
+     {
+      "xy": [
+       1353,
+       270
+      ],
+      "rgb": [
+       255,
+       255,
+       255
+      ]
+     },
+     {
+      "xy": [
+       720,
+       495
+      ],
+      "rgb": [
+       255,
+       255,
+       255
+      ]
+     },
+     {
+      "xy": [
+       86,
+       828
+      ],
+      "rgb": [
+       249,
+       250,
+       251
+      ]
+     }
+    ],
+    "topColors": [
+     {
+      "rgb": [
+       255,
+       255,
+       255
+      ],
+      "count": 1011183
+     },
+     {
+      "rgb": [
+       249,
+       250,
+       251
+      ],
+      "count": 221535
+     },
+     {
+      "rgb": [
+       254,
+       254,
+       254
+      ],
+      "count": 8958
+     },
+     {
+      "rgb": [
+       236,
+       238,
+       240
+      ],
+      "count": 7798
+     },
+     {
+      "rgb": [
+       253,
+       253,
+       253
+      ],
+      "count": 5991
+     },
+     {
+      "rgb": [
+       251,
+       251,
+       251
+      ],
+      "count": 4161
+     }
+    ],
+    "orangePixels": 0,
+    "totalPixels": 1296000,
+    "orangePct": 0
+   }
+  },
+  "viewportCheck": {
+   "tall_2000": {
+    "viewport": 0,
+    "fullpage": 0,
+    "scrollHeight": 2000,
+    "innerHeight": 2000
+   },
+   "positive_control": {
+    "orangePct": 100,
+    "bodyBg": "rgb(255, 138, 0)"
+   }
+  },
+  "supplementSelectorTarget": {
+   "note": "in-page only; the probe package on disk is unchanged (verified by md5 in the report)",
+   "orangePct_probeCssAsSpecified": 0,
+   "orangePct_sameRuleScopedToRoot": 0
+  }
+ },
+ "restore": {
+  "backup": ".agents/tmp/m5-probe/backup/2026-10-10T21-30-00/",
+  "verification": {
+   "1_diff_vs_backup": "IDENTICAL package.json / cordis.patch.yml / pnpm-lock.yaml",
+   "2_node_modules_residual": "dsh-theme-probe absent; .pnpm/lock.yaml absent; .pnpm dsh-theme* = 0; entries = 10",
+   "3_config_check": "dump-config matches dsh-theme-probe = 0; package.json matches = 0",
+   "4_port_check": "19488 free (no LISTENING)"
+  },
+  "projectWrites": "all under .agents/tmp/m5-probe/; no project file touched"
+ },
+ "verdict": {
+  "gateAsSpecified": "THREE ASSERTIONS GREEN + NEGATIVE CONTROL RED + CONSOLE CLEAN",
+  "gateIncludingPixelCriterion": "NOT FULLY GREEN — pixel-level visibility fails (0% orange, screenshot byte-identical to negative control)",
+  "recommendation": "the activation gate should be accepted on its stated 3 assertions + negative control; the \"whole page visibly orange\" expectation should be re-scoped, because the shell paints its own opaque surface over body by design"
+ }
+}

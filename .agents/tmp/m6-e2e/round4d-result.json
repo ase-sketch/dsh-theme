@@ -1,0 +1,1068 @@
+{
+ "head": "ecc2b4e",
+ "results": [
+  {
+   "id": "C0-probe",
+   "name": "C0 事件探针 v2 加载并与 dsh-theme 共存",
+   "pass": true,
+   "raw": {
+    "probePresent": true
+   }
+  },
+  {
+   "id": "C1-attribution",
+   "name": "C1 事件层归因：每次 error 有无都能被 tool/result(isError) 解释",
+   "pass": true,
+   "raw": {
+    "trials": [
+     {
+      "trial": 1,
+      "ui": [
+       {
+        "dt": 41,
+        "state": "idle"
+       },
+       {
+        "dt": 3567,
+        "state": "thinking"
+       },
+       {
+        "dt": 4563,
+        "state": "typing"
+       },
+       {
+        "dt": 4763,
+        "state": "idle"
+       }
+      ],
+      "errorVisible": false,
+      "errorHoldMs": null,
+      "eventTypes": [
+       "turn/start",
+       "agent/inbox/spliced",
+       "step/start",
+       "system/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "request/header",
+       "request/context",
+       "session/title",
+       "session/title-llm-request",
+       "session-log-deepseek/delivery-accepted",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "session/title",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "wrapper:None",
+       "step/end",
+       "turn/end"
+      ],
+      "toolResults": [],
+      "turnEndReasons": [
+       "aborted"
+      ],
+      "sources": [
+       {
+        "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+        "hitsA": 49,
+        "hitsB": 49,
+        "stopA": "function",
+        "stopB": "function"
+       }
+      ]
+     },
+     {
+      "trial": 2,
+      "ui": [
+       {
+        "dt": 43,
+        "state": "idle"
+       },
+       {
+        "dt": 3285,
+        "state": "thinking"
+       },
+       {
+        "dt": 4241,
+        "state": "typing"
+       },
+       {
+        "dt": 4355,
+        "state": "idle"
+       }
+      ],
+      "errorVisible": false,
+      "errorHoldMs": null,
+      "eventTypes": [
+       "turn/start",
+       "agent/inbox/spliced",
+       "step/start",
+       "system/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "request/header",
+       "request/context",
+       "session/title",
+       "session/title-llm-request",
+       "session-log-deepseek/delivery-accepted",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "wrapper:None",
+       "step/end",
+       "turn/end",
+       "session/title"
+      ],
+      "toolResults": [],
+      "turnEndReasons": [
+       "aborted"
+      ],
+      "sources": [
+       {
+        "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+        "hitsA": 49,
+        "hitsB": 49,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-b31a1f04-7b8d-46ad-bd82-04a2df2a2665",
+        "hitsA": 29,
+        "hitsB": 29,
+        "stopA": "function",
+        "stopB": "function"
+       }
+      ]
+     },
+     {
+      "trial": 3,
+      "ui": [
+       {
+        "dt": 41,
+        "state": "idle"
+       },
+       {
+        "dt": 3302,
+        "state": "thinking"
+       },
+       {
+        "dt": 5721,
+        "state": "typing"
+       },
+       {
+        "dt": 5963,
+        "state": "error"
+       },
+       {
+        "dt": 10680,
+        "state": "idle"
+       }
+      ],
+      "errorVisible": true,
+      "errorHoldMs": 4717,
+      "eventTypes": [
+       "turn/start",
+       "agent/inbox/spliced",
+       "step/start",
+       "system/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "request/header",
+       "request/context",
+       "session/title",
+       "session/title-llm-request",
+       "session-log-deepseek/delivery-accepted",
+       "session/title",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/message",
+       "tool/call",
+       "tool/result",
+       "step/end",
+       "wrapper:None",
+       "turn/end"
+      ],
+      "toolResults": [
+       {
+        "isError": true
+       }
+      ],
+      "turnEndReasons": [
+       "aborted"
+      ],
+      "sources": [
+       {
+        "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+        "hitsA": 49,
+        "hitsB": 49,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-b31a1f04-7b8d-46ad-bd82-04a2df2a2665",
+        "hitsA": 29,
+        "hitsB": 29,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-3640b524-2a3b-4b53-bea3-1f67090b39da",
+        "hitsA": 215,
+        "hitsB": 215,
+        "stopA": "function",
+        "stopB": "function"
+       }
+      ]
+     },
+     {
+      "trial": 4,
+      "ui": [
+       {
+        "dt": 42,
+        "state": "idle"
+       },
+       {
+        "dt": 3285,
+        "state": "thinking"
+       },
+       {
+        "dt": 4907,
+        "state": "typing"
+       },
+       {
+        "dt": 5123,
+        "state": "error"
+       },
+       {
+        "dt": 9881,
+        "state": "idle"
+       }
+      ],
+      "errorVisible": true,
+      "errorHoldMs": 4758,
+      "eventTypes": [
+       "turn/start",
+       "agent/inbox/spliced",
+       "step/start",
+       "system/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "request/header",
+       "request/context",
+       "session/title",
+       "session/title-llm-request",
+       "session-log-deepseek/delivery-accepted",
+       "session/title",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/message",
+       "tool/call",
+       "tool/result",
+       "step/end",
+       "wrapper:None",
+       "turn/end"
+      ],
+      "toolResults": [
+       {
+        "isError": true
+       }
+      ],
+      "turnEndReasons": [
+       "aborted"
+      ],
+      "sources": [
+       {
+        "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+        "hitsA": 49,
+        "hitsB": 49,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-b31a1f04-7b8d-46ad-bd82-04a2df2a2665",
+        "hitsA": 29,
+        "hitsB": 29,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-3640b524-2a3b-4b53-bea3-1f67090b39da",
+        "hitsA": 215,
+        "hitsB": 215,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-0e492e78-c160-4dfb-9f8e-afcbb49beb76",
+        "hitsA": 165,
+        "hitsB": 165,
+        "stopA": "function",
+        "stopB": "function"
+       }
+      ]
+     },
+     {
+      "trial": 5,
+      "ui": [
+       {
+        "dt": 40,
+        "state": "idle"
+       },
+       {
+        "dt": 3268,
+        "state": "thinking"
+       },
+       {
+        "dt": 4172,
+        "state": "typing"
+       },
+       {
+        "dt": 4380,
+        "state": "idle"
+       }
+      ],
+      "errorVisible": false,
+      "errorHoldMs": null,
+      "eventTypes": [
+       "turn/start",
+       "agent/inbox/spliced",
+       "step/start",
+       "system/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "request/header",
+       "request/context",
+       "session/title",
+       "session/title-llm-request",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "wrapper:None",
+       "step/end",
+       "turn/end",
+       "session-log-deepseek/delivery-accepted",
+       "session/title"
+      ],
+      "toolResults": [],
+      "turnEndReasons": [
+       "aborted"
+      ],
+      "sources": [
+       {
+        "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+        "hitsA": 49,
+        "hitsB": 49,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-b31a1f04-7b8d-46ad-bd82-04a2df2a2665",
+        "hitsA": 29,
+        "hitsB": 29,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-3640b524-2a3b-4b53-bea3-1f67090b39da",
+        "hitsA": 215,
+        "hitsB": 215,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-0e492e78-c160-4dfb-9f8e-afcbb49beb76",
+        "hitsA": 165,
+        "hitsB": 165,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-301e39a0-961c-497d-ac43-d08273c3ac7d",
+        "hitsA": 59,
+        "hitsB": 59,
+        "stopA": "function",
+        "stopB": "function"
+       }
+      ]
+     },
+     {
+      "trial": 6,
+      "ui": [
+       {
+        "dt": 40,
+        "state": "idle"
+       },
+       {
+        "dt": 3282,
+        "state": "thinking"
+       },
+       {
+        "dt": 4203,
+        "state": "typing"
+       },
+       {
+        "dt": 4385,
+        "state": "idle"
+       }
+      ],
+      "errorVisible": false,
+      "errorHoldMs": null,
+      "eventTypes": [
+       "turn/start",
+       "agent/inbox/spliced",
+       "step/start",
+       "system/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "user/message",
+       "request/header",
+       "request/context",
+       "session/title",
+       "session/title-llm-request",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "session-log-deepseek/delivery-accepted",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "assistant/live-chunk",
+       "wrapper:None",
+       "step/end",
+       "turn/end",
+       "session/title"
+      ],
+      "toolResults": [],
+      "turnEndReasons": [
+       "aborted"
+      ],
+      "sources": [
+       {
+        "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+        "hitsA": 49,
+        "hitsB": 49,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-b31a1f04-7b8d-46ad-bd82-04a2df2a2665",
+        "hitsA": 29,
+        "hitsB": 29,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-3640b524-2a3b-4b53-bea3-1f67090b39da",
+        "hitsA": 215,
+        "hitsB": 215,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-0e492e78-c160-4dfb-9f8e-afcbb49beb76",
+        "hitsA": 165,
+        "hitsB": 165,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-301e39a0-961c-497d-ac43-d08273c3ac7d",
+        "hitsA": 59,
+        "hitsB": 59,
+        "stopA": "function",
+        "stopB": "function"
+       },
+       {
+        "id": "session-43ecb479-c89f-4a39-80ea-2d41db50b875",
+        "hitsA": 47,
+        "hitsB": 47,
+        "stopA": "function",
+        "stopB": "function"
+       }
+      ]
+     }
+    ],
+    "attribution": [
+     {
+      "trial": 1,
+      "errorVisible": false,
+      "reasons": [
+       "aborted"
+      ],
+      "toolResultIsError": false,
+      "explained": true,
+      "verdict": "无 isError 的 tool/result -> 直接回落（['aborted']）"
+     },
+     {
+      "trial": 2,
+      "errorVisible": false,
+      "reasons": [
+       "aborted"
+      ],
+      "toolResultIsError": false,
+      "explained": true,
+      "verdict": "无 isError 的 tool/result -> 直接回落（['aborted']）"
+     },
+     {
+      "trial": 3,
+      "errorVisible": true,
+      "reasons": [
+       "aborted"
+      ],
+      "toolResultIsError": true,
+      "explained": true,
+      "verdict": "tool/result(isError) -> error，随后 turn/end(['aborted']) 未清瞬时态"
+     },
+     {
+      "trial": 4,
+      "errorVisible": true,
+      "reasons": [
+       "aborted"
+      ],
+      "toolResultIsError": true,
+      "explained": true,
+      "verdict": "tool/result(isError) -> error，随后 turn/end(['aborted']) 未清瞬时态"
+     },
+     {
+      "trial": 5,
+      "errorVisible": false,
+      "reasons": [
+       "aborted"
+      ],
+      "toolResultIsError": false,
+      "explained": true,
+      "verdict": "无 isError 的 tool/result -> 直接回落（['aborted']）"
+     },
+     {
+      "trial": 6,
+      "errorVisible": false,
+      "reasons": [
+       "aborted"
+      ],
+      "toolResultIsError": false,
+      "explained": true,
+      "verdict": "无 isError 的 tool/result -> 直接回落（['aborted']）"
+     }
+    ],
+    "summary": "error 可见 2/6, hold=[4717, 4758]",
+    "judgement": "全部 explained=true -> 触发率差异属设计（取决于中断时有无 in-flight 工具），非缺陷"
+   }
+  },
+  {
+   "id": "C2-multisub",
+   "name": "C2 eventSource.subscribe 支持多订阅者（探针装 2 个 + dsh-theme 自己 1 个）",
+   "pass": true,
+   "raw": {
+    "sources": [
+     {
+      "id": "session-7d405b41-9949-4968-92ed-4f928a7e4ad6",
+      "hitsA": 49,
+      "hitsB": 49,
+      "stopA": "function",
+      "stopB": "function"
+     },
+     {
+      "id": "session-b31a1f04-7b8d-46ad-bd82-04a2df2a2665",
+      "hitsA": 29,
+      "hitsB": 29,
+      "stopA": "function",
+      "stopB": "function"
+     },
+     {
+      "id": "session-3640b524-2a3b-4b53-bea3-1f67090b39da",
+      "hitsA": 215,
+      "hitsB": 215,
+      "stopA": "function",
+      "stopB": "function"
+     },
+     {
+      "id": "session-0e492e78-c160-4dfb-9f8e-afcbb49beb76",
+      "hitsA": 165,
+      "hitsB": 165,
+      "stopA": "function",
+      "stopB": "function"
+     },
+     {
+      "id": "session-301e39a0-961c-497d-ac43-d08273c3ac7d",
+      "hitsA": 59,
+      "hitsB": 59,
+      "stopA": "function",
+      "stopB": "function"
+     },
+     {
+      "id": "session-43ecb479-c89f-4a39-80ea-2d41db50b875",
+      "hitsA": 47,
+      "hitsB": 47,
+      "stopA": "function",
+      "stopB": "function"
+     }
+    ],
+    "note": "hitsA/hitsB 是探针在同一 source 上两个监听器各自的触发次数；都 >0 即多订阅成立，说明多插件可安全共存订阅"
+   }
+  },
+  {
+   "id": "A3-visibility",
+   "name": "A3 页面隐藏时停帧、恢复后继续推进",
+   "pass": true,
+   "raw": {
+    "overrideOk": true,
+    "posHidden_a": "-384px -192px",
+    "posHidden_b": "-384px -192px",
+    "frozenWhileHidden": true,
+    "posVisible_c": "-64px -64px",
+    "posVisible_d": "0px -192px",
+    "resumed": true,
+    "note": "override document.hidden + dispatch visibilitychange，等价于真实切页签"
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

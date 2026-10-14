@@ -1,0 +1,11 @@
+{
+ "bootIds": [],
+ "htmlHasAttr": false,
+ "styleElExists": false,
+ "sidebarBg": "rgb(249, 250, 251)",
+ "hostRouteStatus": 404,
+ "consoleErrors": [
+  "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ],
+ "pageerrors": []
+}

@@ -1,0 +1,31 @@
+{
+ "result": {
+  "trace": [
+   {
+    "t": 297,
+    "kind": "setAttribute.data-dsh-theme",
+    "stack": "    at stack (<anonymous>:7:38)\n    at Element.setAttribute (<anonymous>:34:86)\n    at new apply (<COMBO>)\n    at bc.execute (<URL>)\n    at <URL>\n    at qi (<URL>)\n    at bc._execute (<URL>)\n    at bc._reload (<URL>)"
+   },
+   {
+    "t": 297,
+    "kind": "element.remove",
+    "id": "dsh-theme-style",
+    "dataPlugin": null,
+    "parent": "HEAD",
+    "stack": "    at stack (<anonymous>:7:38)\n    at Element.remove (<anonymous>:45:161)\n    at bc.<anonymous> (<COMBO>)\n    at <URL>\n    at qi (<URL>)\n    at bc._execute (<URL>)\n    at bc.effect (<URL>)\n    at new apply (<COMBO>)\n    at bc.execute (<URL>)\n    at <URL>"
+   },
+   {
+    "t": 297,
+    "kind": "removeAttribute.data-dsh-theme",
+    "stack": "    at stack (<anonymous>:7:38)\n    at Element.removeAttribute (<anonymous>:39:89)\n    at bc.<anonymous> (<COMBO>)\n    at <URL>\n    at qi (<URL>)\n    at bc._execute (<URL>)\n    at bc.effect (<URL>)\n    at new apply (<COMBO>)\n    at bc.execute (<URL>)\n    at <URL>"
+   }
+  ],
+  "htmlAttrs": [
+   "lang",
+   "data-ds-theme-source",
+   "style"
+  ],
+  "styleEl": false
+ },
+ "console": []
+}

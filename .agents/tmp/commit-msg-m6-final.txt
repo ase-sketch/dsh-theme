@@ -1,0 +1,11 @@
+docs(M6): 收口——里程碑标完成、Deepy 使用说明、归属笔记、红线与交接更新
+
+- docs/milestones.md：M6 段改为完成态（四轮 web 自动化 + 用户 desktop 真机验收通过），补产出、逐条验收证据、两个真缺陷与回归、复盘、仍未验证项
+- README.md：新增「Deepy 小鲸鱼」用户视角说明（在哪、认得哪 8 种情况、按需加载、刻意的 hold 行为、已知限制）
+- AGENTS.md：补三条 M6 红线——Deepy 渲染必须走 slot 的 React 渲染注入（勿手动 appendChild）、瞬时态契约（persistent 不动瞬时态、仅 turn/start 清）、素材是构建生成物禁手改
+- HANDOFF.md：§1 现状推进到 M1–M6 完成；§6 desktop 装配补实测教训（改源码后只跑 pnpm install 不够，pnpm 依据 .modules.yaml 判定「已是最新」而跳过复制，必须 remove + add）
+- 新增归属笔记 .agents/notes/implemented/feature/2026-10-11-m6-deepy-state-machine.md（五段式：三个前置问题、7 条决策、5 组被否备选、后果与权衡、四轮验收证据）
+
+验证：node scripts/build-deepy.mjs 守卫 1–4 全绿（产出与入库逐字节一致）；node scripts/build-skin.mjs 通过；单测 130 + 36 全绿；顶层零声明扫描 0 违规。
+
+刻意没做：未改 E:/dsh-ui（§7.2 事件表缺口按项目红线回提上游，不擅自改）；notification 活体与素材许可仍为未验证/待复核，已在文档中如实标注，未包装成完成。

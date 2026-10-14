@@ -1,0 +1,191 @@
+{
+ "points": {
+  "plugin_dark_on": {
+   "body_canvas": [
+    29,
+    34,
+    44
+   ],
+   "sidebar": [
+    243,
+    247,
+    254
+   ],
+   "composer_card": [
+    40,
+    46,
+    59
+   ],
+   "composer_card_center": [
+    29,
+    34,
+    44
+   ],
+   "new_session_btn": [
+    247,
+    255,
+    255
+   ]
+  },
+  "plugin_dark_off": {
+   "body_canvas": [
+    21,
+    21,
+    23
+   ],
+   "sidebar": [
+    27,
+    27,
+    28
+   ],
+   "composer_card": [
+    35,
+    35,
+    37
+   ],
+   "composer_card_center": [
+    21,
+    21,
+    23
+   ],
+   "new_session_btn": [
+    237,
+    250,
+    223
+   ]
+  },
+  "skin_m2_dark_home": {
+   "body_canvas": [
+    29,
+    34,
+    44
+   ],
+   "sidebar": [
+    244,
+    244,
+    232
+   ],
+   "composer_card": [
+    40,
+    46,
+    59
+   ],
+   "composer_card_center": [
+    29,
+    34,
+    44
+   ],
+   "new_session_btn": [
+    247,
+    255,
+    255
+   ]
+  },
+  "skin_m3_dark_home": {
+   "body_canvas": [
+    29,
+    34,
+    44
+   ],
+   "sidebar": [
+    244,
+    244,
+    232
+   ],
+   "composer_card": [
+    40,
+    46,
+    59
+   ],
+   "composer_card_center": [
+    29,
+    34,
+    44
+   ],
+   "new_session_btn": [
+    247,
+    255,
+    255
+   ]
+  },
+  "skin_m3_preview_dark": {
+   "body_canvas": [
+    29,
+    34,
+    44
+   ],
+   "sidebar": [
+    244,
+    244,
+    232
+   ],
+   "composer_card": [
+    40,
+    46,
+    59
+   ],
+   "composer_card_center": [
+    29,
+    34,
+    44
+   ],
+   "new_session_btn": [
+    247,
+    255,
+    255
+   ]
+  }
+ },
+ "stats": {
+  "plugin_dark_on": {
+   "file": "plugin_dark_on",
+   "size": [
+    1440,
+    900
+   ],
+   "darkPct": 74.19,
+   "midPct": 1.01,
+   "lightPct": 24.8
+  },
+  "plugin_dark_off": {
+   "file": "plugin_dark_off",
+   "size": [
+    1440,
+    900
+   ],
+   "darkPct": 97.93,
+   "midPct": 1.51,
+   "lightPct": 0.55
+  },
+  "skin_m2_dark_home": {
+   "file": "skin_m2_dark_home",
+   "size": [
+    1440,
+    900
+   ],
+   "darkPct": 98.15,
+   "midPct": 1.36,
+   "lightPct": 0.49
+  },
+  "skin_m3_dark_home": {
+   "file": "skin_m3_dark_home",
+   "size": [
+    1440,
+    900
+   ],
+   "darkPct": 98.15,
+   "midPct": 1.36,
+   "lightPct": 0.49
+  },
+  "skin_m3_preview_dark": {
+   "file": "skin_m3_preview_dark",
+   "size": [
+    1440,
+    900
+   ],
+   "darkPct": 98.15,
+   "midPct": 1.36,
+   "lightPct": 0.49
+  }
+ }
+}

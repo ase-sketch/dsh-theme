@@ -1,0 +1,137 @@
+{
+ "head": "ecc2b4e",
+ "attempts": [
+  {
+   "attempt": 1,
+   "reachedTyping": true,
+   "stopClicked": true,
+   "transitions": [
+    {
+     "dt": 44,
+     "state": "idle"
+    },
+    {
+     "dt": 3563,
+     "state": "thinking"
+    },
+    {
+     "dt": 5097,
+     "state": "typing"
+    },
+    {
+     "dt": 5273,
+     "state": "idle"
+    }
+   ],
+   "samples": 351,
+   "errorVisible": false,
+   "errorHoldMs": null,
+   "errorPngRequested": false,
+   "pngRequests": [
+    "thinking.png",
+    "typing.png"
+   ]
+  },
+  {
+   "attempt": 2,
+   "reachedTyping": true,
+   "stopClicked": true,
+   "transitions": [
+    {
+     "dt": 44,
+     "state": "idle"
+    },
+    {
+     "dt": 3281,
+     "state": "thinking"
+    },
+    {
+     "dt": 5289,
+     "state": "typing"
+    },
+    {
+     "dt": 5522,
+     "state": "error"
+    },
+    {
+     "dt": 10246,
+     "state": "idle"
+    }
+   ],
+   "samples": 353,
+   "errorVisible": true,
+   "errorHoldMs": 4724,
+   "errorPngRequested": true,
+   "pngRequests": [
+    "error.png"
+   ]
+  },
+  {
+   "attempt": 3,
+   "reachedTyping": true,
+   "stopClicked": true,
+   "transitions": [
+    {
+     "dt": 41,
+     "state": "idle"
+    },
+    {
+     "dt": 3310,
+     "state": "thinking"
+    },
+    {
+     "dt": 4721,
+     "state": "typing"
+    },
+    {
+     "dt": 4814,
+     "state": "error"
+    },
+    {
+     "dt": 9600,
+     "state": "idle"
+    }
+   ],
+   "samples": 336,
+   "errorVisible": true,
+   "errorHoldMs": 4786,
+   "errorPngRequested": false,
+   "pngRequests": []
+  },
+  {
+   "attempt": 4,
+   "reachedTyping": true,
+   "stopClicked": true,
+   "transitions": [
+    {
+     "dt": 42,
+     "state": "idle"
+    },
+    {
+     "dt": 3283,
+     "state": "thinking"
+    },
+    {
+     "dt": 4526,
+     "state": "typing"
+    },
+    {
+     "dt": 4586,
+     "state": "idle"
+    }
+   ],
+   "samples": 331,
+   "errorVisible": false,
+   "errorHoldMs": null,
+   "errorPngRequested": false,
+   "pngRequests": []
+  }
+ ],
+ "errorVisibleCount": "2/4",
+ "errorHoldMsValues": [
+  4724,
+  4786
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}

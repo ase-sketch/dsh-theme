@@ -1,0 +1,18 @@
+[
+ {
+  "round": 0,
+  "found": [],
+  "orangePct": 0.0
+ },
+ {
+  "round": 1,
+  "found": [
+   {
+    "tag": "div",
+    "cls": "BynINW_frame",
+    "bg": "rgb(255, 255, 255)"
+   }
+  ],
+  "orangePct": 0.0
+ }
+]

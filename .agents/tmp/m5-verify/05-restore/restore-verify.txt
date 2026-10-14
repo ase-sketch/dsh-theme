@@ -1,0 +1,17 @@
+Already up to date
+Done in 438ms using pnpm v11.21.0
+
+
+=== 1) diff vs pre-experiment backup ===
+  IDENTICAL  package.json  (31D0444BB5A99B3FBD1023528E8AB89C)
+  IDENTICAL  cordis.patch.yml  (35D0E0B801444BB1F4C2115720F8E4F6)
+  IDENTICAL  pnpm-lock.yaml  (AAE518EEA46B2F145F9EA86FD326E314)
+=== 2) node_modules residual check ===
+  dsh-theme dir        : absent
+  .pnpm/lock.yaml      : absent
+  .pnpm dsh-theme*     : 0
+  node_modules entries : 10
+=== 3) config check ===
+  dsh-theme matches    : 0
+=== 4) port check ===
+  19488 LISTENING      : 0

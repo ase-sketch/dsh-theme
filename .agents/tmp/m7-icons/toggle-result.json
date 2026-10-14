@@ -1,0 +1,141 @@
+{
+  "on": {
+    "svgTotal": 67,
+    "svgReplaced": 51,
+    "lucideGroups": 51,
+    "hiddenMarkers": 118,
+    "hiddenStillDisplayNone": 118,
+    "iconStyleTag": true,
+    "statsAttr": "applied=53;seen=16;missed=2",
+    "deepyHost": true,
+    "deepyHero": true,
+    "deepyStyleTag": true,
+    "rootAttr": true
+  },
+  "baselineReplaced": 51,
+  "toggleOff": {
+    "before": true,
+    "after": false
+  },
+  "offSnapshot": {
+    "svgTotal": 74,
+    "svgReplaced": 0,
+    "lucideGroups": 0,
+    "hiddenMarkers": 0,
+    "hiddenStillDisplayNone": 0,
+    "iconStyleTag": false,
+    "statsAttr": "applied=53;seen=16;missed=2",
+    "deepyHost": false,
+    "deepyHero": false,
+    "deepyStyleTag": false,
+    "rootAttr": false
+  },
+  "offRestore": {
+    "badCount": 7,
+    "badSample": [
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      },
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      },
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      },
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      },
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      },
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      },
+      {
+        "id": null,
+        "why": "probe-id 丢失（svg 被 React 重建）"
+      }
+    ],
+    "leftoverGroups": 0,
+    "leftoverMarkers": 0,
+    "leftoverAttr": 0,
+    "iconStyleTag": false
+  },
+  "viewBoxMismatch": [
+    {
+      "id": 2,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 3,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 4,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 5,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 6,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 7,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 8,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 9,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 10,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    },
+    {
+      "id": 11,
+      "before": "0 0 24 24",
+      "after": "0 0 16 16"
+    }
+  ],
+  "viewBoxMismatchCount": 51,
+  "toggleOn": {
+    "before": false,
+    "after": true
+  },
+  "on2Snapshot": {
+    "svgTotal": 73,
+    "svgReplaced": 70,
+    "lucideGroups": 70,
+    "hiddenMarkers": 163,
+    "hiddenStillDisplayNone": 163,
+    "iconStyleTag": true,
+    "statsAttr": "applied=123;seen=23;missed=3",
+    "deepyHost": true,
+    "deepyHero": true,
+    "deepyStyleTag": true,
+    "rootAttr": true
+  },
+  "consoleErrors": []
+}

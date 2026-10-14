@@ -1,0 +1,44 @@
+{
+  "A_off": {
+    "stats": null,
+    "missed": null,
+    "iconStyleTag": false,
+    "deepyHost": false,
+    "deepyHero": false,
+    "rootAttr": false
+  },
+  "A_rowCount": 68,
+  "A_replaced": 0,
+  "toOn": {
+    "before": false,
+    "after": true
+  },
+  "B_on": {
+    "stats": "applied=70;seen=23;missed=3",
+    "missed": "a8ce80f78ad5ab1b02cff3f99a8004e7,5f406b468a960a6280d391e84fbe2c36,1b1cfc5dc2939d0164a2bf73805ae5ed",
+    "iconStyleTag": true,
+    "deepyHost": true,
+    "deepyHero": true,
+    "rootAttr": true
+  },
+  "B_replaced": 70,
+  "toOff": {
+    "before": true,
+    "after": false
+  },
+  "C_off": {
+    "stats": "applied=70;seen=23;missed=3",
+    "missed": "a8ce80f78ad5ab1b02cff3f99a8004e7,5f406b468a960a6280d391e84fbe2c36,1b1cfc5dc2939d0164a2bf73805ae5ed",
+    "iconStyleTag": false,
+    "deepyHost": false,
+    "deepyHero": false,
+    "rootAttr": false
+  },
+  "C_replaced": 0,
+  "sharedProbes": 68,
+  "viewBoxDiffCount": 0,
+  "viewBoxDiffSample": [],
+  "hiddenDiffCount": 0,
+  "C_restoredFully": true,
+  "consoleErrors": []
+}

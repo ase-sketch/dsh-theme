@@ -1,0 +1,35 @@
+{
+  "name": "dsh-theme-evtprobe",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "host/index.js",
+  "exports": {
+    ".": "./host/index.js",
+    "./client": "./lib/client.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "engines": {
+      "dsh": ">=0.1.7"
+    },
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "inject": [
+        "dsh-client-ui-session",
+        "dsh-client-ui-conversation"
+      ]
+    }
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "files": [
+    "host",
+    "lib",
+    "cordis.patch.yml"
+  ]
+}

@@ -1,0 +1,20 @@
+feat(M6): Deepy 素材流水线 + host 素材路由
+
+T1 素材流水线（scripts/build-deepy.mjs，378 行，零 npm 依赖）：
+- 自解 PNG（IHDR/IDAT inflate/反滤波）→ 预乘 alpha 的面积加权降采样（260px→64px，4.0625 倍）→ 自编码（固定 filter 0 + deflate，无时间戳，逐字节可复现）
+- 产出 assets/deepy/：8 态 PNG + deepy.json（契约格式 cols/frameMs/displayPx/states）
+- 四条守卫：源图尺寸、产出尺寸、非空格数=帧数、manifest 原子落盘（失败即不留半成品）
+
+T2 host 素材路由（host/index.js +84/-4）：
+- GET /api/dsh-theme/deepy/<name>，kind:'prefix'——框架无参数化路由，exact 是 pathname 严格相等
+- resolveDeepyAsset 纯函数：只解码一次（双解码会被 %252e 绕过）+ 白名单正则 + path.resolve 两道防线
+- 非法/越界/不存在一律 404（响应逐字节不可区分），非 GET/HEAD → 405
+
+验证（编排方独立重跑，不采纳子代理自述）：
+- node scripts/build-deepy.mjs EXIT=0；重跑后 8 态 + manifest 与提交前逐字节一致
+- node .agents/tmp/m6-host/selftest.mjs → 99 PASS / 0 FAIL（含 state 与 theme.css 回归、真实 state.json 零改动）
+- 负控制：去掉校验后 ..%2f..%2fhost%2findex.js 能读到 host 源码（证明校验承重）；再叠双解码则 %252f 也 LEAK（证明"只解码一次"承重）
+- 预乘必要性实测：源图 235 万个全透明像素 RGB 全为纯黑，直接平均使 23% 可见像素偏暗（单调更暗 282 / 更亮 0），对比图肉眼可辨
+
+契约与文档：ARCHITECTURE.md 补 kind:'prefix' 与解码口径；AGENTS.md Quick Commands 补 build-deepy。
+刻意没做：未加 realpath 软链校验（利用它需先有本机写权限，同一信任边界）；非法名不写 console.error（正常 4xx 非本机故障）。

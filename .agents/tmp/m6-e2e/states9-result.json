@@ -1,0 +1,91 @@
+{
+ "head": "bda3c5a",
+ "attempts": [
+  {
+   "attempt": 1,
+   "reachedTyping": true,
+   "stopAria": "停止生成",
+   "transitions": [
+    {
+     "dt": 41,
+     "state": "idle"
+    },
+    {
+     "dt": 3486,
+     "state": "thinking"
+    },
+    {
+     "dt": 5444,
+     "state": "typing"
+    },
+    {
+     "dt": 5713,
+     "state": "idle"
+    }
+   ],
+   "samples": 339,
+   "errorPngRequested": true,
+   "pngRequests": [
+    "error.png",
+    "thinking.png",
+    "typing.png"
+   ]
+  },
+  {
+   "attempt": 2,
+   "reachedTyping": true,
+   "stopAria": "停止生成",
+   "transitions": [
+    {
+     "dt": 41,
+     "state": "idle"
+    },
+    {
+     "dt": 3303,
+     "state": "thinking"
+    },
+    {
+     "dt": 5006,
+     "state": "typing"
+    },
+    {
+     "dt": 5147,
+     "state": "idle"
+    }
+   ],
+   "samples": 325,
+   "errorPngRequested": false,
+   "pngRequests": []
+  },
+  {
+   "attempt": 3,
+   "reachedTyping": true,
+   "stopAria": "停止生成",
+   "transitions": [
+    {
+     "dt": 41,
+     "state": "idle"
+    },
+    {
+     "dt": 3286,
+     "state": "thinking"
+    },
+    {
+     "dt": 4486,
+     "state": "typing"
+    },
+    {
+     "dt": 4611,
+     "state": "idle"
+    }
+   ],
+   "samples": 313,
+   "errorPngRequested": false,
+   "pngRequests": []
+  }
+ ],
+ "errorPngRequestedAnyAttempt": true,
+ "errorVisibleInSamplerAnyAttempt": false,
+ "consoleErrors": [],
+ "pageerrors": []
+}

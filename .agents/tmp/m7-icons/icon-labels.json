@@ -1,0 +1,404 @@
+[
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 23.16 17.04",
+    "label": "sidebar.brand.mark"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "26 0 156 24",
+    "label": "sidebar.brand.name"
+  },
+  {
+    "name": "panel-left",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "收起侧边栏"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:新会话"
+  },
+  {
+    "name": "puzzle",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "sidebar.panellist"
+  },
+  {
+    "name": "search",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "搜索会话"
+  },
+  {
+    "name": "check",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "视图选项"
+  },
+  {
+    "name": "plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "添加工作区"
+  },
+  {
+    "name": "folder-open",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:dsh-theme"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:dsh-theme"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“dsh-theme”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“dsh-theme”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "会话"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "会话"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“Celestea-Harness-Studio”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“Celestea-Harness-Studio”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "会话"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "会话"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“kimi-code-swarm-analysis”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“kimi-code-swarm-analysis”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:dsh-ui"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:dsh-ui"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“dsh-ui”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“dsh-ui”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:codex-ui"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:codex-ui"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“codex-ui”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“codex-ui”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:inkwell"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:inkwell"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“inkwell”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“inkwell”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "会话"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "会话"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“dsh-computer-use-linux”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“dsh-computer-use-linux”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:sol-pi-port"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:sol-pi-port"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“sol-pi-port”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“sol-pi-port”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:doc-reader-v2"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:doc-reader-v2"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“doc-reader-v2”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“doc-reader-v2”中新建会话"
+  },
+  {
+    "name": "folder",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:ds-cs"
+  },
+  {
+    "name": "chevron-right",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "text:ds-cs"
+  },
+  {
+    "name": "ellipsis",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "工作区“ds-cs”的操作"
+  },
+  {
+    "name": "message-square-plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "在“ds-cs”中新建会话"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "text:未分组"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "text:未分组"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "在“未分组”中新建会话"
+  },
+  {
+    "name": "settings",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "settings.trigger"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "打开右侧边栏"
+  },
+  {
+    "name": "folder-open",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "选择工作区"
+  },
+  {
+    "name": "chevron-down",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "选择工作区"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "选择新任务使用的 Agent 预设"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "选择新任务使用的 Agent 预设"
+  },
+  {
+    "name": "plus",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "添加文件或调用指令"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "访问模式，当前：工作区内修改"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "访问模式，当前：工作区内修改"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "选择模型，当前 DeepSeek-V41-Flash，推理等级 High"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "选择模型，当前 DeepSeek-V41-Flash，推理等级 High"
+  },
+  {
+    "name": "mouse-pointer-2",
+    "replaced": true,
+    "vb": "0 0 24 24",
+    "label": "发送消息"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "新标签页"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "分栏"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "全屏"
+  },
+  {
+    "name": null,
+    "replaced": false,
+    "vb": "0 0 16 16",
+    "label": "收起右侧边栏"
+  }
+]

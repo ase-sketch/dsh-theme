@@ -1,0 +1,102 @@
+{
+ "petDock": {
+  "dockCount": 0,
+  "testidCount": 0,
+  "html": null
+ },
+ "summonBtn": [
+  {
+   "tag": "BUTTON",
+   "cls": "hHd-Xa_brand hHd-Xa_wide",
+   "rect": {
+    "x": 16,
+    "y": 24,
+    "w": 216,
+    "h": 24
+   },
+   "visible": true,
+   "text": ""
+  },
+  {
+   "tag": "BUTTON",
+   "cls": "hHd-Xa_iconButton hHd-Xa_toggle",
+   "rect": {
+    "x": 240,
+    "y": 22,
+    "w": 28,
+    "h": 28
+   },
+   "visible": true,
+   "text": ""
+  },
+  {
+   "tag": "BUTTON",
+   "cls": "hHd-Xa_newSession",
+   "rect": {
+    "x": 14,
+    "y": 70,
+    "w": 252,
+    "h": 38
+   },
+   "visible": true,
+   "text": "新会话Ctrl+Alt+N"
+  },
+  {
+   "tag": "BUTTON",
+   "cls": "hHd-Xa_panelRow",
+   "rect": {
+    "x": 14,
+    "y": 120,
+    "w": 252,
+    "h": 36
+   },
+   "visible": true,
+   "text": "插件"
+  },
+  {
+   "tag": "BUTTON",
+   "cls": "bhn1Oq_searchButton",
+   "rect": {
+    "x": 176,
+    "y": 170,
+    "w": 28,
+    "h": 28
+   },
+   "visible": true,
+   "text": ""
+  }
+ ],
+ "petApi": {
+  "status": 200,
+  "body": "{\"animation\":\"idle\",\"phase\":\"done\",\"sessionActive\":true,\"sessions\":[],\"decoration\":{\"apiVersion\":\"x-org.linxin666.pet-center/status-decoration-v1\",\"id\":\"whale\",\"assetBase\":\"/api/pet/decoration/whale\",\"entryUrl\":\"/api/pet/decoration/whale/whale-frames.png\",\"cell\":{\"width\":64,\"height\":48},\"columns\":4,\"durations\":[160,160,160,160],\"loop\":true,\"phases\":{\"idle\":\"hide\",\"waiting\":{\"from\":0,\"to\":1},\"think"
+ },
+ "petApiCandidates": [
+  {
+   "u": "/api/pet/state",
+   "status": 200
+  },
+  {
+   "u": "/api/pet/snapshot",
+   "status": 404
+  },
+  {
+   "u": "/api/pet/pets",
+   "status": 200
+  },
+  {
+   "u": "/api/pet/config",
+   "status": 404
+  }
+ ],
+ "consoleAll": [
+  {
+   "type": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  },
+  {
+   "type": "error",
+   "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+  }
+ ],
+ "pageerrors": []
+}

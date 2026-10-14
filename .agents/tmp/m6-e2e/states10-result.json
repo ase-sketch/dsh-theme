@@ -1,0 +1,69 @@
+{
+ "head": "ecc2b4e",
+ "results": [
+  {
+   "id": "error",
+   "name": "error：中断后瞬时态完整可见约 4800ms（40ms 采样）",
+   "pass": false,
+   "raw": {
+    "stopAria": "停止生成",
+    "transitions": [
+     {
+      "dt": 42,
+      "state": "idle"
+     },
+     {
+      "dt": 3485,
+      "state": "thinking"
+     },
+     {
+      "dt": 4724,
+      "state": "typing"
+     },
+     {
+      "dt": 4890,
+      "state": "idle"
+     }
+    ],
+    "samples": 341,
+    "errorVisible": false,
+    "errorHoldMs": null,
+    "expectedHoldMs": 4800,
+    "errorPngRequested": false,
+    "stateAtEnd": "idle",
+    "pngRequests": [
+     "thinking.png",
+     "typing.png"
+    ],
+    "note": "hold = error 起点到下一状态起点的时间差；>=4000ms 视为通过（采样粒度 40ms）"
+   }
+  },
+  {
+   "id": "error-pixels",
+   "name": "error：显示期间像素可见（精灵真的画在屏幕上）",
+   "pass": true,
+   "raw": {
+    "caughtDuringError": true,
+    "state": "error",
+    "rect": {
+     "x": 656,
+     "y": 799,
+     "w": 64,
+     "h": 64
+    },
+    "pixels": {
+     "total": 4096,
+     "dominant": [
+      255,
+      255,
+      255,
+      255
+     ],
+     "nonBgCount": 851
+    }
+   }
+  }
+ ],
+ "consoleErrors": [],
+ "pageerrors": []
+}
