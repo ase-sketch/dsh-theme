@@ -4,13 +4,15 @@
 
 ## 用途
 
-把 dsh-ui 设计规范做成 DSH Web GUI 的主题：M1–M4 是 skin-center 皮肤（纯资产目录），一键应用/切回；**M5 起是自研 bundle 插件**（自带设置面板开关，本地自用，**已落地验收**；**M6 在其上接 Deepy 状态机动画**）。两条路并存，视觉数值同源。
+把先锋视觉设计做成 DSH Web GUI 的主题。**M7「深空编辑室」是视觉基座**（视觉与 dsh-ui 规范脱钩，design/tokens.css 为唯一数值来源），其上是编辑室 / 输入卡的连续改版，**当前形态 = M10「书写纸」**（M8 质感层 → M8.5 编辑台 → M9 出格 → M10 三行书写纸版式）。
+
+当前生效的层共五条：**皮肤卡链**（M1–M4 纯资产目录，保留作回退通道）+ **插件链**（M5 起自研 bundle 插件：样式注入 + 设置面板开关）+ **Deepy 子系统**（M6 接状态机，M7 起主位 / hero 双位与单鲸规则）+ **图标层**（M7，Lucide 非破坏式替换）+ **编辑器 / 书写纸层**（M8–M10，patches.css 的编辑室与输入卡版式 + client 钩子层）。两条加载链并存，视觉数值同源。
 
 ## 结构
 
 ```mermaid
 flowchart LR
-    ROOT["dsh-ui/preview/index.html :root<br/>token 机器可读源"] --> MAP["mapping.json<br/>dsh-ui→官方--dsw-* 映射表（人工策展）"]
+    ROOT["design/tokens.css<br/>token 机器可读源（M7 起；由 design/preview.html #token-manifest 经 --regen-tokens 生成）"] --> MAP["mapping.json<br/>dsh-ui→官方--dsw-* 映射表（人工策展）"]
     MAP --> GEN["scripts/build-skin.mjs<br/>生成 skin.css：L1 token + --dsh-* 变量全集<br/>含两条守卫"]
     PATCH["skins/dsh-ui/patches.css<br/>L2/L3 层（人工维护）"] -.->|构建期校验 var(--dsh-*) 引用| GEN
     GEN --> SYNC["scripts/sync-skin.mjs<br/>→ $DSH_HOME/skins/dsh-ui/"]
@@ -37,7 +39,7 @@ flowchart LR
 - **`ctx.effect` 正确形态**：effect body 里做安装、`return` 卸载函数；卸载函数直接当 body 传会被立即执行，等于装上就撤，且平台不报错（M1 即栽在这里，见 HANDOFF.md §3.4）。
 - **层叠**：官方 token 挂 `body{--dsw-*}`，插件用 `html[attr] body` 稳定胜出；卸载 = 删 `<style>` + 摘根属性。
 
-### Deepy 子系统（M6，开工中）
+### Deepy 子系统（M6 起；V3 双位渲染）
 
 在插件期内新增一条「会话事件 → 状态 → 精灵」链，与样式链并列、互不消费。
 
@@ -63,7 +65,7 @@ flowchart LR
 | 切帧 | `col=i%8, row=⌊i/8⌋`；`background-size = 8×displayPx × rows×displayPx`；元素宽度 **必须 = displayPx**（防相邻帧泄入） |
 | 卸载 | 与样式注入同一可逆对：开关 OFF 时移除精灵元素与全部订阅 |
 | 状态机 | 纯函数投影 + 无 IO 状态机（可单测）；终端态用时间窗衰减，不用 `setTimeout` |
-| 样式 | Deepy 的精灵/容器 CSS 由 client 半**内联注入**（与状态机同层，**不进食 theme.css**）；尺寸取自 manifest 的 `displayPx`，不写裸 hex（角色颜色全部来自 PNG 素材） |
+| 样式 | Deepy 的精灵/容器 CSS 由 client 半**内联注入**（与状态机同层，**不进食 theme.css**）；源尺寸取自 manifest 的 `displayPx`（64px）；主位传入 1.5 倍几何 96px，hero 独立传入 1.6 倍几何 102px，不写裸 hex（角色颜色全部来自 PNG 素材） |
 
 ## 组件
 
@@ -73,11 +75,16 @@ flowchart LR
 - **scripts/build-skin.mjs**：preview :root + mapping.json → skin.css，并额外发射 --dsh-* 变量全集（明暗双套）供 patches.css 引用。两条守卫：patches.css 引用 preview :root 里不存在的变量 → 报错；preview :root 与 shell 自有变量重名 → 报错。
 - **scripts/sync-skin.mjs**：皮肤源 → $DSH_HOME/skins/dsh-ui/（含子目录，目录册收录点）。
 - **plugins/dsh-theme/**（M5 已落地）：自研 bundle 插件，host/client 双半。host 半 = 开关持久化；client 半 = 样式注入 + 设置面板，顶层零声明（须包在 factory/IIFE 内）。详见上文「插件期结构」。
+- **design/tokens.css**（M7 起）：视觉数值唯一来源，机器生成物（--regen-tokens 显式重生成），163 token 明暗双套。
+- **scripts/build-icons.mjs → plugins/dsh-theme/assets/icons/lucide.json**（M7）：Lucide 图标数据本地化（2141 个，ISC），构建生成物。
+- **scripts/build-icon-map.mjs → assets/icons/icon-map.json**（M7）：shell 图标指纹 → Lucide 名映射。指纹核心只有一份实现（client.js @dsh-theme-icon-core 标记段，构建脚本抽取执行）；策展走 scripts/icon-map-overrides.json（rename/byId/skip）。
+- **图标层**（client.js 内，M7）：MutationObserver（60ms 去抖）+ 非破坏式注入（原 svg 子节点留 DOM，OFF 还原）；双索引（完整指纹优先、几何指纹兜底，歧义不换）；未映射保持原样并计数（html[data-dsh-icons-missed]）。host 半新增 /api/dsh-theme/icons/<name> 路由（与 deepy 路由同一加固模式）。
+- **编辑器 / 书写纸层**（M8–M10）：patches.css 里的消息流版面 / 活字流态 / 熄灯仪式 / hero 封面 / 输入卡逐行锁定与书写纸三行版式；client 半在每张输入卡上维护 `data-dsh-editor="empty"|"filled"` 契约（作品层消费），钩子层负责流态、熄灯、聚焦线与封面装配。容器禁 transform/filter/perspective 等包含块属性（插件兼容红线，登记在 patches.css 头部）。
 - **docs/spec.md / docs/milestones.md**：范围与验收的唯一权威。
 
 ## 数据流
 
-视觉数值只在 dsh-ui 改 → 重跑 build + sync → 皮肤中心里重新应用。反向不允许：发现视觉缺口时，色板类改 mapping.json、组件类改 patches.css，绝不改生成物。
+视觉数值改动路径：改设计 → 更新 design/preview.html 的 #token-manifest → `build-skin.mjs --regen-tokens` 重生成 tokens.css → 重跑 build + sync。反向不允许：色板类改 mapping.json、组件类改 patches.css，绝不改生成物。Deepy 双位（M7 立位、M10 定稿落点）：主位 conversation.input.left 经 React slot 挂载，96px、绝对定位在输入卡右上缘、无底座；空会话 hero 迎宾位独立保留大号 idle 与迎宾底座；单鲸规则（hero 在场主位不渲染，纯函数 deepyMainVisible + 每帧 DOM 探测自愈）。
 
 **两条链并存**：纯皮肤走 build → sync → skin-center 注入；插件走 build（插件版自包含 CSS）→ client 半自注入。两者不互相消费，共用同一份 mapping.json / patches.css / 同一套验收基线。同一时刻只允许一条生效：插件启用时皮肤卡须退到官方默认，防双注入。
 
