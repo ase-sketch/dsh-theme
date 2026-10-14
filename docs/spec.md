@@ -1,7 +1,7 @@
 # DSH Theme — dsh-ui 皮肤（spec · 2026-10-03 重写 · 2026-10-10 修订）
 
-> 状态：待用户确认 · 轻量流程：spec → 简版里程碑 → 开发，每步确认
-> 视觉权威：E:\dsh-ui\docs\design-spec.md（已验收）；机器可读源 = dsh-ui/preview/index.html 的 :root 块
+> 状态：**已收口**（M1–M10 全部完成并验收，2026-10-14 用户确认）· 本 spec 为立项期文档，里程碑口径以 docs/milestones.md 为准
+> 视觉权威：**M7 起 = design/tokens.css（深空编辑室，用户 2026-10-12 定调）**，由 design/preview.html 的 #token-manifest 机械生成；dsh-ui 规范已脱钩（M1–M6 的历史来源，见归属笔记）
 > 本版取代 2026-10-03 初版；其中「自建 bundle 插件路线」的废弃**仅限 M1–M4 纯皮肤期**（当时的写法与失败证据见 .agents/retired/ 与 HANDOFF-M1.md）。bundle 形态本身未否定，已于 2026-10-10 复活为 M5 正式形态。
 > **路线定位（2026-10-03 用户明确，2026-10-10 补充）**：纯皮肤是**过渡路线**（M1–M4：低成本完成 token 映射策展与视觉验收），**终局 = 自研皮肤插件**（M5 落地样式注入 + 设置面板开关，Deepy 状态机等二期再上；形态 = 本地 bundle 插件，骨架照抄 skin-center，不 fork dsh-claude-style）。M1–M3 的产出物（映射表/构建链/验收方法论）路线无关，插件期直接复用。
 
@@ -11,7 +11,7 @@
 |---|---|---|
 | 加载器 | 硬约束 | **M1–M4 纯皮肤期**：皮肤是纯资产目录，由 skin-center（@linxin666/dsh-client-ui-skin-center，desktop profile 已装已启用）加载渲染，不写插件、不接 cordis 接线。**M5 起**改走自研 bundle 插件（形态 A，已落地验收）：client 半自注入样式 + 注册设置面板；皮肤卡保留作回退，插件激活时须把皮肤切回官方默认，防双注入 |
 | 皮肤格式 | 硬约束 | 遵循 skin-center contracts v2：skin.json（fail-closed 校验）+ skin.css（L1 token 重映射 + L2 语义选择器）+ 可选 patches.css（L3）；本地皮肤 hooks.mjs 不会被执行（信任模型），不依赖它 |
-| 视觉来源 | 硬约束 | 全部色值取自 dsh-ui preview :root，由构建脚本按映射表生成 skin.css，**禁止手抄 hex/尺寸**；映射表是唯一手工维护物 |
+| 视觉来源 | 硬约束 | M7 起：全部数值取自 design/tokens.css（机器生成物），由构建脚本生成 skin.css/theme.css，**禁止手抄 hex/尺寸**；手工维护物 = mapping.json + patches.css + scripts/icon-map-overrides.json（图标策展） |
 | 放置 | 硬约束 | 成品同步到 $DSH_HOME/skins/dsh-ui/（= C:\Users\pass\.dsh\skins\dsh-ui\）；源文件在 E:\dsh-theme\skins\dsh-ui\ |
 | 互斥 | 硬约束 | 使用时 dsh-claude-style 必须关闭；skin-center 必须启用（已是启用状态） |
 
