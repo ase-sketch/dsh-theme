@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>深空编辑室 · DSH Web GUI 皮肤设计稿</title>
+<meta name="dsh-design" content="deep-space-editing-room / dark-first / single-file / zero-external">
+<style>
+    /* ══ 00 · TOKEN 发射（唯一来源＝页面底部 #token-manifest；与对照表逐行同源） ══ */
+    :root {
+      --dsh-bg-canvas: #E6E0D4;
+      --dsh-bg-base: #F5F1E8;
+      --dsh-bg-subtle: #EFEAE0;
+      --dsh-bg-surface: #FFFDF8;
+      --dsh-bg-elevated: #FFFFFF;
+      --dsh-bg-hover: #EAE4D8;
+      --dsh-bg-active: #E0D8C9;
+      --dsh-bg-inset: #E9E3D7;
+      --dsh-border-subtle: #DED7C9;
+      --dsh-border-strong: #BEB5A2;
+      --dsh-rule-hairline: rgba(23,20,14,.10);
+      --dsh-rule-accent: rgba(210,62,12,.55);
+      --dsh-text-primary: #17140E;
+      --dsh-text-secondary: #5B5445;
+      --dsh-text-tertiary: #8B8474;
+      --dsh-text-inverse: #FFF8F1;
+      --dsh-accent: #D23E0C;
+      --dsh-accent-hover: #B0320A;
+      --dsh-accent-subtle: #FBE7DC;
+      --dsh-on-accent: #FFF6F0;
+      --dsh-accent-glow: rgba(210,62,12,.22);
+      --dsh-link: #B0320A;
+      --dsh-success: #157F4A;
+      --dsh-success-subtle: #E3F1E7;
+      --dsh-warning: #A65A00;
+      --dsh-warning-subtle: #F7EAD6;
+      --dsh-on-warning: #FFF8EC;
+      --dsh-danger: #B4232F;
+      --dsh-danger-subtle: #FBE3E4;
+      --dsh-code-bg: #EFE9DC;
+      --dsh-code-text: #2A2419;
+      --dsh-code-keyword: #B0320A;
+      --dsh-code-string: #157F4A;
+      --dsh-code-number: #8A5A00;
+      --dsh-code-fn: #2C5AA0;
+      --dsh-code-comment: #8B8474;
+      --dsh-noise-uri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+      --dsh-noise-opacity: .05;
+      --dsh-noise-blend: multiply;
+      --dsh-grid-line: rgba(23,20,14,.045);
+      --dsh-grid-size: 32px;
+      --dsh-aurora-cold: rgba(64,84,150,.16);
+      --dsh-aurora-violet: rgba(120,86,170,.10);
+      --dsh-aurora-ember: rgba(210,62,12,.10);
+      --dsh-font-display: "Palatino Linotype","Book Antiqua",Georgia,serif;
+      --dsh-font-sans: "Segoe UI Variable Text","Segoe UI",system-ui,"Microsoft YaHei UI",sans-serif;
+      --dsh-font-mono: "Cascadia Mono",Consolas,"Courier New",monospace;
+      --dsh-font-label: "Cascadia Mono",Consolas,"Courier New",monospace;
+      --dsh-text-3xs: 10px;
+      --dsh-text-2xs: 11px;
+      --dsh-text-xs: 12px;
+      --dsh-text-sm: 13px;
+      --dsh-text-md: 14px;
+      --dsh-text-lg: 16px;
+      --dsh-text-xl: 20px;
+      --dsh-text-2xl: 28px;
+      --dsh-text-display: 52px;
+      --dsh-text-mega: 88px;
+      --dsh-lh-3xs: 14px;
+      --dsh-lh-2xs: 16px;
+      --dsh-lh-xs: 18px;
+      --dsh-lh-sm: 20px;
+      --dsh-lh-md: 22px;
+      --dsh-lh-lg: 24px;
+      --dsh-lh-xl: 28px;
+      --dsh-lh-2xl: 34px;
+      --dsh-lh-display: 54px;
+      --dsh-lh-mega: 88px;
+      --dsh-track-mega: -0.05em;
+      --dsh-track-tight: -0.03em;
+      --dsh-track-normal: 0;
+      --dsh-track-wide: 0.16em;
+      --dsh-track-label: 0.28em;
+      --dsh-weight-display: 700;
+      --dsh-weight-label: 600;
+      --dsh-weight-body: 400;
+      --dsh-radius-xs: 2px;
+      --dsh-radius-sm: 4px;
+      --dsh-radius-md: 6px;
+      --dsh-radius-lg: 8px;
+      --dsh-radius-xl: 12px;
+      --dsh-radius-pill: 999px;
+      --dsh-border-w: 1px;
+      --dsh-focus-w: 1.5px;
+      --dsh-focus-halo: 3px;
+      --dsh-shadow-sm: 0 1px 0 rgba(23,20,14,.05);
+      --dsh-shadow-md: 0 1px 0 rgba(23,20,14,.06), 0 10px 26px -20px rgba(23,20,14,.55);
+      --dsh-shadow-lg: 0 2px 0 rgba(23,20,14,.05), 0 30px 64px -44px rgba(23,20,14,.65);
+      --dsh-shadow-offset: 5px 5px 0 -1px rgba(23,20,14,.07);
+      --dsh-shadow-glow: 0 0 0 1px rgba(210,62,12,.25), 0 12px 40px -20px rgba(210,62,12,.35);
+      --dsh-glass-blur: 10px;
+      --dsh-surface-alpha: .94;
+      --dsh-tilt-tongue: 0.5deg;
+      --dsh-tilt-stamp: 5deg;
+      --dsh-space-1: 4px;
+      --dsh-space-2: 8px;
+      --dsh-space-3: 12px;
+      --dsh-space-4: 16px;
+      --dsh-space-5: 24px;
+      --dsh-space-6: 32px;
+      --dsh-space-7: 40px;
+      --dsh-space-8: 48px;
+      --dsh-space-px: 1px;
+      --dsh-space-0-5: 2px;
+      --dsh-space-0-75: 3px;
+      --dsh-space-1-5: 6px;
+      --dsh-space-2-5: 10px;
+      --dsh-space-3-5: 14px;
+      --dsh-ease-out: cubic-bezier(.16,1,.3,1);
+      --dsh-ease-spring: cubic-bezier(.34,1.56,.64,1);
+      --dsh-ease-inout: cubic-bezier(.65,.05,.36,1);
+      --dsh-motion-fast: 140ms;
+      --dsh-motion-base: 280ms;
+      --dsh-motion-slow: 560ms;
+      --dsh-motion-breath: 4200ms;
+      --dsh-stagger: 55ms;
+      --dsh-motion-hover: 180ms;
+      --dsh-drift-period: 60s;
+      --dsh-sidebar-width: 264px;
+      --dsh-content-max: 720px;
+      --dsh-header-h: 48px;
+      --dsh-row-h: 32px;
+      --dsh-session-row-h: 44px;
+      --dsh-btn-block-h: 38px;
+      --dsh-btn-icon: 28px;
+      --dsh-user-card-h: 52px;
+      --dsh-input-min-h: 56px;
+      --dsh-composer-editor-h: calc(3 * 1lh + var(--dsh-space-1));
+      --dsh-composer-hero-h: calc(3 * 1lh + var(--dsh-space-1) + var(--dsh-space-4));
+      --dsh-card-press-scale: .995;
+      --dsh-attach-row-h: 64px;
+      --dsh-send-scale: 1.18;
+      --dsh-deepy-berth: 14px;
+      --dsh-composer-max: 820px;
+      --dsh-icon-md: 16px;
+      --dsh-icon-sm: 14px;
+      --dsh-avatar-sm: 28px;
+      --dsh-avatar-xs: 20px;
+      --dsh-indicator-w: 2px;
+      --dsh-status-dot: 6px;
+      --dsh-menu-w: 240px;
+      --dsh-dropdown-w: 250px;
+      --dsh-switch-w: 40px;
+      --dsh-switch-h: 22px;
+      --dsh-scrollbar-w: 10px;
+      --dsh-scrollbar-thumb: 4px;
+      --dsh-toast-w: 380px;
+      --dsh-disabled-opacity: .4;
+      --dsh-active-scale: .98;
+      --dsh-sidebar-bg: var(--dsh-bg-subtle);
+      --dsh-card-bg: var(--dsh-bg-surface);
+      --dsh-input-bg: var(--dsh-bg-surface);
+      --dsh-menu-bg: var(--dsh-bg-elevated);
+      --dsh-toast-bg: var(--dsh-bg-elevated);
+      --dsh-bubble-user-bg: var(--dsh-accent-subtle);
+      --dsh-tool-card-bg: var(--dsh-bg-surface);
+      --dsh-code-block-bg: var(--dsh-code-bg);
+      --dsh-badge-update-bg: var(--dsh-warning);
+      --dsh-badge-update-text: var(--dsh-on-warning);
+      --dsh-badge-tier-bg: var(--dsh-accent-subtle);
+      --dsh-badge-tier-text: var(--dsh-accent);
+      --dsh-selected-row-bg: var(--dsh-bg-active);
+      --dsh-selected-row-indicator: var(--dsh-accent);
+    }
+    /* 深色：只重声明与浅色不同的变量；未在此出现的变量表示两套同值（对照表显示「同左」） */
+    [data-theme="dark"] {
+      --dsh-bg-canvas: #07080D;
+      --dsh-bg-base: #0B0D14;
+      --dsh-bg-subtle: #0F121B;
+      --dsh-bg-surface: #141824;
+      --dsh-bg-elevated: #1B2130;
+      --dsh-bg-hover: #1A1F2E;
+      --dsh-bg-active: #212739;
+      --dsh-bg-inset: #0E1119;
+      --dsh-border-subtle: #212736;
+      --dsh-border-strong: #333B50;
+      --dsh-rule-hairline: rgba(237,238,243,.07);
+      --dsh-rule-accent: rgba(255,106,61,.55);
+      --dsh-text-primary: #EDEEF3;
+      --dsh-text-secondary: #9AA2B8;
+      --dsh-text-tertiary: #5E667E;
+      --dsh-text-inverse: #0B0D14;
+      --dsh-accent: #FF6A3D;
+      --dsh-accent-hover: #FF865F;
+      --dsh-accent-subtle: #2B1A14;
+      --dsh-on-accent: #140806;
+      --dsh-accent-glow: rgba(255,106,61,.34);
+      --dsh-link: #FF865F;
+      --dsh-success: #35D08A;
+      --dsh-success-subtle: #10281E;
+      --dsh-warning: #F2B33D;
+      --dsh-warning-subtle: #2A1F0E;
+      --dsh-on-warning: #1A1206;
+      --dsh-danger: #FF4D5E;
+      --dsh-danger-subtle: #2C1218;
+      --dsh-code-bg: #0E1119;
+      --dsh-code-text: #C8CEDA;
+      --dsh-code-keyword: #FF8A63;
+      --dsh-code-string: #7BD8A8;
+      --dsh-code-number: #F2B33D;
+      --dsh-code-fn: #8FB4FF;
+      --dsh-code-comment: #5E667E;
+      --dsh-noise-opacity: .045;
+      --dsh-noise-blend: overlay;
+      --dsh-grid-line: rgba(154,162,184,.055);
+      --dsh-aurora-cold: rgba(86,104,190,.22);
+      --dsh-aurora-violet: rgba(138,102,196,.18);
+      --dsh-aurora-ember: rgba(255,106,61,.16);
+      --dsh-motion-hover: 180ms;
+      --dsh-drift-period: 60s;
+      --dsh-radius-xs: 6px;
+      --dsh-radius-sm: 9px;
+      --dsh-radius-md: 12px;
+      --dsh-radius-lg: 16px;
+      --dsh-radius-xl: 22px;
+      --dsh-shadow-sm: 0 1px 2px rgba(0,0,0,.5);
+      --dsh-shadow-md: 0 8px 30px -12px rgba(0,0,0,.75);
+      --dsh-shadow-lg: 0 26px 72px -30px rgba(0,0,0,.85);
+      --dsh-shadow-offset: none;
+      --dsh-shadow-glow: 0 0 0 1px rgba(255,106,61,.45), 0 0 44px -12px rgba(255,106,61,.45);
+      --dsh-glass-blur: 18px;
+      --dsh-surface-alpha: .72;
+      --dsh-tilt-tongue: 0.5deg;
+      --dsh-tilt-stamp: 5deg;
+      --dsh-composer-editor-h: calc(3 * 1lh + var(--dsh-space-1));
+      --dsh-composer-hero-h: calc(3 * 1lh + var(--dsh-space-1) + var(--dsh-space-4));
+      --dsh-card-press-scale: .995;
+      --dsh-attach-row-h: 64px;
+      --dsh-send-scale: 1.18;
+      --dsh-deepy-berth: 14px;
+      --dsh-sidebar-bg: var(--dsh-bg-subtle);
+      --dsh-card-bg: var(--dsh-bg-surface);
+      --dsh-input-bg: var(--dsh-bg-surface);
+      --dsh-menu-bg: var(--dsh-bg-elevated);
+      --dsh-toast-bg: var(--dsh-bg-elevated);
+      --dsh-bubble-user-bg: var(--dsh-accent-subtle);
+      --dsh-tool-card-bg: var(--dsh-bg-surface);
+      --dsh-code-block-bg: var(--dsh-code-bg);
+      --dsh-badge-update-bg: var(--dsh-warning);
+      --dsh-badge-update-text: var(--dsh-on-warning);
+      --dsh-badge-tier-bg: var(--dsh-accent-subtle);
+      --dsh-badge-tier-text: var(--dsh-accent);
+      --dsh-selected-row-bg: var(--dsh-bg-active);
+      --dsh-selected-row-indicator: var(--dsh-accent);
+    }
+
+    /* ══ 01 · 重置与基础 ══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; background-color: var(--dsh-bg-canvas); color: var(--dsh-text-primary);
+      font-family: var(--dsh-font-sans); font-size: var(--dsh-text-md); line-height: var(--dsh-lh-md);
+      -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      transition: background-color var(--dsh-motion-base) var(--dsh-ease-out), color var(--dsh-motion-base) var(--dsh-ease-out); }
+    button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+    ::selection { background: var(--dsh-accent); color: var(--dsh-on-accent); }
+    :focus-visible { outline: var(--dsh-focus-w) solid var(--dsh-accent); outline-offset: var(--dsh-focus-halo); }
+    .sprite { display: none; }
+    .icon { width: var(--dsh-icon-md); height: var(--dsh-icon-md); flex: none; fill: none; stroke: currentColor;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-sm { width: var(--dsh-icon-sm); height: var(--dsh-icon-sm); }
+
+    /* ══ 02 · 氛围层：噪点 / 网格 / 光晕 ══════════════════════════ */
+    body::before { content: ""; position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      background-image: var(--dsh-noise-uri); background-size: 160px 160px;
+      opacity: var(--dsh-noise-opacity); mix-blend-mode: var(--dsh-noise-blend); }
+    .atmos { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(110% 70% at 4% -10%, var(--dsh-aurora-cold), transparent 62%),
+                  radial-gradient(78% 54% at 103% 0%, var(--dsh-aurora-violet), transparent 58%),
+                  radial-gradient(76% 62% at 88% 108%, var(--dsh-aurora-ember), transparent 64%); }
+    .atmos::after { content: ""; position: absolute; inset: 0; background-image:
+        repeating-linear-gradient(0deg, var(--dsh-grid-line) 0 1px, transparent 1px var(--dsh-grid-size)),
+        repeating-linear-gradient(90deg, var(--dsh-grid-line) 0 1px, transparent 1px var(--dsh-grid-size)); }
+    .page { position: relative; z-index: 1; }
+
+    /* ══ 03 · 编辑排版原子 ════════════════════════════════════════ */
+    .micro { font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs); line-height: var(--dsh-lh-3xs);
+      letter-spacing: var(--dsh-track-wide); text-transform: uppercase; color: var(--dsh-text-tertiary);
+      font-weight: var(--dsh-weight-label); white-space: nowrap; }
+    .micro-accent { color: var(--dsh-accent); }
+    .serif { font-family: var(--dsh-font-display); font-weight: var(--dsh-weight-display); letter-spacing: var(--dsh-track-tight); }
+    .num { font-family: var(--dsh-font-mono); font-variant-numeric: tabular-nums; }
+    .rule { height: 1px; border: 0; margin: 0; background: var(--dsh-rule-hairline); }
+
+    /* ══ 04 · 标头 ════════════════════════════════════════════════ */
+    .masthead { position: sticky; top: 0; z-index: 60; height: 60px; display: flex; align-items: center;
+      justify-content: space-between; gap: var(--dsh-space-5); padding: 0 var(--dsh-space-6);
+      border-bottom: 1px solid var(--dsh-rule-hairline);
+      background: color-mix(in srgb, var(--dsh-bg-canvas) 84%, transparent);
+      backdrop-filter: blur(var(--dsh-glass-blur)) saturate(1.2); }
+    .mh-left { display: flex; align-items: baseline; gap: var(--dsh-space-4); min-width: 0; }
+    .mh-title { font-family: var(--dsh-font-display); font-size: var(--dsh-text-lg); font-weight: 700; letter-spacing: var(--dsh-track-tight); }
+    .mh-sep { width: 1px; height: 14px; background: var(--dsh-rule-hairline); align-self: center; flex: none; }
+    .mh-right { display: flex; align-items: center; gap: var(--dsh-space-4); }
+    .themebar { display: inline-flex; align-items: center; gap: 2px; padding: 3px;
+      border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-pill);
+      background: color-mix(in srgb, var(--dsh-bg-surface) 70%, transparent); }
+    .themebar button { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px;
+      border-radius: var(--dsh-radius-pill); font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs);
+      letter-spacing: var(--dsh-track-wide); text-transform: uppercase; color: var(--dsh-text-tertiary);
+      transition: color var(--dsh-motion-fast) var(--dsh-ease-out), background var(--dsh-motion-fast) var(--dsh-ease-out); }
+    .themebar button[aria-pressed="true"] { background: var(--dsh-accent); color: var(--dsh-on-accent); }
+
+    /* ══ 05 · 应用外框（1440×840；与 60px 标头合计恰好 900） ══════ */
+    .frame { position: relative; width: 100%; max-width: 1440px; margin: 0 auto; height: 840px; display: grid;
+      grid-template-columns: var(--dsh-sidebar-width) minmax(0, 1fr);
+      background: var(--dsh-bg-base); border-bottom: 1px solid var(--dsh-border-subtle); overflow: hidden; }
+    /* 氛围层进入应用表面本身：深空不是背景图，是底色里的光与网格 */
+    .frame::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(58% 42% at 76% 4%, var(--dsh-aurora-cold), transparent 72%),
+                  radial-gradient(46% 38% at 101% 99%, var(--dsh-aurora-ember), transparent 74%),
+                  radial-gradient(40% 30% at 46% 118%, var(--dsh-aurora-violet), transparent 76%); }
+    .frame::after { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: .55;
+      background-image: repeating-linear-gradient(0deg, var(--dsh-grid-line) 0 1px, transparent 1px var(--dsh-grid-size)),
+                        repeating-linear-gradient(90deg, var(--dsh-grid-line) 0 1px, transparent 1px var(--dsh-grid-size)); }
+    .frame > * { position: relative; z-index: 1; }
+
+    /* ══ 06 · 组件 · 侧栏 ═════════════════════════════════════════ */
+    .sb { display: flex; flex-direction: column; min-height: 0; background: var(--dsh-sidebar-bg);
+      border-right: 1px solid var(--dsh-rule-hairline); }
+    .sb-brand { display: flex; align-items: center; gap: var(--dsh-space-3); padding: var(--dsh-space-4) var(--dsh-space-4) var(--dsh-space-3); }
+    .sb-mark { width: 30px; height: 30px; flex: none; display: grid; place-items: center; border-radius: var(--dsh-radius-sm);
+      background: var(--dsh-accent); color: var(--dsh-on-accent); }
+    .sb-word { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+    .sb-word b { font-family: var(--dsh-font-display); font-size: var(--dsh-text-md); letter-spacing: var(--dsh-track-tight); }
+    .sb-new { margin: 0 var(--dsh-space-3) var(--dsh-space-3); height: var(--dsh-btn-block-h);
+      display: flex; align-items: center; gap: var(--dsh-space-2); padding: 0 var(--dsh-space-3);
+      border-radius: var(--dsh-radius-md); background: var(--dsh-accent); color: var(--dsh-on-accent);
+      font-size: var(--dsh-text-sm); font-weight: var(--dsh-weight-label);
+      box-shadow: 0 0 0 1px var(--dsh-accent-glow), 0 10px 26px -18px var(--dsh-accent-glow);
+      transition: background var(--dsh-motion-fast) var(--dsh-ease-out), transform var(--dsh-motion-fast) var(--dsh-ease-spring); }
+    .sb-new:hover { background: var(--dsh-accent-hover); transform: translateY(-1px); }
+    .sb-new:active { transform: scale(var(--dsh-active-scale)); }
+    .sb-new kbd { margin-left: auto; font-family: var(--dsh-font-mono); font-size: var(--dsh-text-3xs);
+      letter-spacing: .08em; opacity: .72; }
+    .sb-list { flex: 1; min-height: 0; overflow-y: auto; padding: 0 var(--dsh-space-2) var(--dsh-space-2);
+      display: flex; flex-direction: column; gap: var(--dsh-space-0-5); }
+    .sb-sec { display: flex; align-items: center; gap: var(--dsh-space-2); padding: var(--dsh-space-3) var(--dsh-space-3) var(--dsh-space-2); }
+    .sb-sec::after { content: ""; flex: 1; height: 1px; background: var(--dsh-rule-hairline); }
+    .srow { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2px var(--dsh-space-2);
+      padding: var(--dsh-space-1-5) var(--dsh-space-3); border-radius: var(--dsh-radius-md); cursor: pointer;
+      transition: background var(--dsh-motion-fast) var(--dsh-ease-out), box-shadow var(--dsh-motion-base) var(--dsh-ease-out); }
+    .srow:hover { background: var(--dsh-bg-hover); }
+    .srow[aria-selected="true"] { background: var(--dsh-selected-row-bg);
+      box-shadow: inset var(--dsh-indicator-w) 0 0 0 var(--dsh-selected-row-indicator), 0 0 26px -16px var(--dsh-accent-glow); }
+    .srow-title { font-size: var(--dsh-text-sm); color: var(--dsh-text-secondary); overflow: hidden;
+      text-overflow: ellipsis; white-space: nowrap; }
+    .srow[aria-selected="true"] .srow-title { color: var(--dsh-text-primary); font-weight: var(--dsh-weight-label); }
+    .srow-idx { font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs); color: var(--dsh-text-tertiary); }
+    .srow-meta { grid-column: 1 / -1; font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs);
+      letter-spacing: .06em; text-transform: uppercase; color: var(--dsh-text-tertiary); }
+    .sb-user { display: flex; align-items: center; gap: var(--dsh-space-3); height: var(--dsh-user-card-h);
+      padding: 0 var(--dsh-space-3); margin: 0 var(--dsh-space-2); border-top: 1px solid var(--dsh-rule-hairline); }
+    .avatar { width: var(--dsh-avatar-sm); height: var(--dsh-avatar-sm); flex: none; display: grid; place-items: center;
+      border-radius: var(--dsh-radius-sm); background: var(--dsh-accent-subtle); color: var(--dsh-accent);
+      font-family: var(--dsh-font-mono); font-size: var(--dsh-text-2xs); font-weight: 700; }
+    .avatar-xs { width: var(--dsh-avatar-xs); height: var(--dsh-avatar-xs); font-size: var(--dsh-text-3xs); }
+    .sb-user-txt { display: flex; flex-direction: column; min-width: 0; }
+    .sb-user-txt b { font-size: var(--dsh-text-sm); font-weight: var(--dsh-weight-label); }
+    .iconbtn { width: var(--dsh-btn-icon); height: var(--dsh-btn-icon); display: grid; place-items: center;
+      border-radius: var(--dsh-radius-sm); color: var(--dsh-text-tertiary);
+      transition: background var(--dsh-motion-fast) var(--dsh-ease-out), color var(--dsh-motion-fast) var(--dsh-ease-out); }
+    .iconbtn:hover { background: var(--dsh-bg-hover); color: var(--dsh-text-primary); }
+    .iconbtn:active { transform: scale(var(--dsh-active-scale)); }
+    .push { margin-left: auto; }
+
+    /* ══ 07 · 组件 · 消息流 ═══════════════════════════════════════ */
+    .main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+    .mhead { height: var(--dsh-header-h); flex: none; display: flex; align-items: center; gap: var(--dsh-space-3);
+      padding: 0 var(--dsh-space-5); border-bottom: 1px solid var(--dsh-rule-hairline); }
+    .mhead-title { font-family: var(--dsh-font-display); font-size: var(--dsh-text-lg); letter-spacing: var(--dsh-track-tight); font-weight: 700; }
+    .mstream { flex: 1; min-height: 0; overflow-y: auto; padding: var(--dsh-space-5) var(--dsh-space-5) var(--dsh-space-4); }
+    .mwrap { max-width: var(--dsh-content-max); margin: 0 auto; display: flex; flex-direction: column; gap: var(--dsh-space-5); }
+    .mmeta { display: flex; align-items: center; gap: var(--dsh-space-2); }
+    .mmeta::after { content: ""; flex: 1; height: 1px; background: var(--dsh-rule-hairline); }
+    .msg-user { align-self: flex-end; max-width: 78%; padding: var(--dsh-space-3) var(--dsh-space-4);
+      border-radius: var(--dsh-radius-lg) var(--dsh-radius-lg) var(--dsh-radius-xs) var(--dsh-radius-lg);
+      background: var(--dsh-bubble-user-bg);
+      border: 1px solid color-mix(in srgb, var(--dsh-accent) 24%, transparent); }
+    .msg-ai { display: flex; flex-direction: column; gap: var(--dsh-space-3); }
+    .msg-ai-head { display: flex; align-items: center; gap: var(--dsh-space-2); }
+    .lead { font-family: var(--dsh-font-display); font-size: var(--dsh-text-xl); line-height: var(--dsh-lh-xl);
+      letter-spacing: var(--dsh-track-tight); font-weight: 700; margin: 0; }
+    .md { display: flex; flex-direction: column; gap: var(--dsh-space-3); }
+    .md p { margin: 0; color: var(--dsh-text-secondary); }
+    .md-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--dsh-space-2); }
+    .md-list li { position: relative; padding-left: var(--dsh-space-5); color: var(--dsh-text-secondary); }
+    .md-list li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 12px; height: 1px; background: var(--dsh-rule-accent); }
+    .icode { font-family: var(--dsh-font-mono); font-size: .9em; padding: 1px 5px; border-radius: var(--dsh-radius-xs);
+      background: var(--dsh-code-bg); color: var(--dsh-code-text); border: 1px solid var(--dsh-rule-hairline); }
+    .codeblock { border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-md); overflow: hidden;
+      background: var(--dsh-code-block-bg); box-shadow: var(--dsh-shadow-offset); }
+    .codebar { display: flex; align-items: center; gap: var(--dsh-space-2); padding: 6px var(--dsh-space-3);
+      border-bottom: 1px solid var(--dsh-rule-hairline);
+      background: color-mix(in srgb, var(--dsh-code-bg) 60%, var(--dsh-bg-surface)); }
+    .codepre { margin: 0; padding: var(--dsh-space-3) var(--dsh-space-4); overflow-x: auto;
+      font-family: var(--dsh-font-mono); font-size: var(--dsh-text-xs); line-height: 20px; color: var(--dsh-code-text); }
+    .k { color: var(--dsh-code-keyword); } .s { color: var(--dsh-code-string); }
+    .n { color: var(--dsh-code-number); } .f { color: var(--dsh-code-fn); } .c { color: var(--dsh-code-comment); }
+    .toolcard { border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-md); overflow: hidden;
+      background: var(--dsh-tool-card-bg); }
+    .toolhead { display: flex; align-items: center; gap: var(--dsh-space-2); padding: 8px var(--dsh-space-3); }
+    .toolname { font-family: var(--dsh-font-label); font-size: var(--dsh-text-2xs); letter-spacing: var(--dsh-track-wide);
+      text-transform: uppercase; color: var(--dsh-text-secondary); }
+    .status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--dsh-font-label);
+      font-size: var(--dsh-text-3xs); letter-spacing: .1em; text-transform: uppercase; }
+    .dot { width: var(--dsh-status-dot); height: var(--dsh-status-dot); border-radius: 50%; flex: none; background: currentColor; }
+    .st-ok { color: var(--dsh-success); } .st-run { color: var(--dsh-warning); } .st-err { color: var(--dsh-danger); }
+    .toolbody { padding: var(--dsh-space-2) var(--dsh-space-3) var(--dsh-space-3); border-top: 1px solid var(--dsh-rule-hairline); }
+    .toolpath { font-family: var(--dsh-font-mono); font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary); }
+    .stream-caret { display: inline-block; width: 8px; height: 15px; vertical-align: -2px; background: var(--dsh-accent); animation: dshCaret 1.05s steps(1) infinite; }
+
+    /* 编辑标尺：占住消息列右侧的留白，把「编辑室」的测量感做进版面 */
+    .main { position: relative; }
+    .vruler { position: absolute; top: calc(var(--dsh-header-h) + var(--dsh-space-4)); bottom: 152px;
+      right: var(--dsh-space-4); display: flex; flex-direction: column; align-items: center;
+      gap: var(--dsh-space-3); pointer-events: none; }
+    .vtext { writing-mode: vertical-rl; font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs);
+      letter-spacing: var(--dsh-track-label); text-transform: uppercase; color: var(--dsh-text-tertiary); }
+    .vline { width: 1px; flex: 1; background-image: repeating-linear-gradient(180deg,
+      var(--dsh-rule-hairline) 0 1px, transparent 1px 12px); }
+    .vnum { font-family: var(--dsh-font-mono); font-size: var(--dsh-text-lg); letter-spacing: var(--dsh-track-tight);
+      color: var(--dsh-accent); writing-mode: vertical-rl; }
+    @media (max-width: 1220px) { .vruler { display: none; } }
+
+    /* ══ 08 · 组件 · 底部输入卡 ═══════════════════════════════════ */
+    .composer-area { flex: none; padding: 0 var(--dsh-space-5) var(--dsh-space-4); }
+    .composer { max-width: var(--dsh-composer-max); margin: 0 auto; padding: var(--dsh-space-3) var(--dsh-space-4) var(--dsh-space-2);
+      border-radius: var(--dsh-radius-xl); background: var(--dsh-input-bg);
+      border: var(--dsh-border-w) solid var(--dsh-border-subtle); box-shadow: var(--dsh-shadow-sm);
+      transition: border-color var(--dsh-motion-base) var(--dsh-ease-out); }
+    .composer[data-state="focus"] { border-color: var(--dsh-accent); animation: dshBreath var(--dsh-motion-breath) var(--dsh-ease-inout) infinite; }
+    .composer-text { min-height: 26px; padding: 0 var(--dsh-space-1) var(--dsh-space-2); font-size: var(--dsh-text-md); }
+    .composer-text .ph { color: var(--dsh-text-tertiary); }
+    .caret { display: inline-block; width: 1.5px; height: 16px; vertical-align: -3px; background: var(--dsh-accent); animation: dshCaret 1.05s steps(1) infinite; }
+    .composer-bar { display: flex; align-items: center; gap: var(--dsh-space-1); padding-top: var(--dsh-space-2); border-top: 1px solid var(--dsh-rule-hairline); }
+    .pill { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 var(--dsh-space-2-5);
+      border-radius: var(--dsh-radius-pill); border: 1px solid var(--dsh-border-subtle); background: var(--dsh-bg-subtle);
+      font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs); letter-spacing: .1em; text-transform: uppercase;
+      color: var(--dsh-text-secondary); transition: border-color var(--dsh-motion-fast) var(--dsh-ease-out); }
+    .pill:hover { border-color: var(--dsh-border-strong); }
+    .pill-accent { background: var(--dsh-badge-tier-bg); color: var(--dsh-badge-tier-text); border-color: color-mix(in srgb, var(--dsh-accent) 28%, transparent); }
+    .sendbtn { width: 32px; height: 32px; display: grid; place-items: center; border-radius: var(--dsh-radius-pill);
+      background: var(--dsh-accent); color: var(--dsh-on-accent);
+      box-shadow: 0 0 0 1px var(--dsh-accent-glow), 0 10px 24px -16px var(--dsh-accent-glow);
+      transition: background var(--dsh-motion-fast) var(--dsh-ease-out), transform var(--dsh-motion-fast) var(--dsh-ease-spring); }
+    .sendbtn:hover { background: var(--dsh-accent-hover); }
+    .sendbtn:active { transform: scale(var(--dsh-active-scale)); }
+    .sendbtn[data-state="idle"] { background: var(--dsh-bg-active); color: var(--dsh-text-tertiary); box-shadow: none; }
+    .sendbtn[data-state="idle"]:hover { background: var(--dsh-bg-hover); }
+
+    /* ══ 09 · 画廊骨架 ════════════════════════════════════════════ */
+    .sec { max-width: 1440px; margin: 0 auto; padding: var(--dsh-space-8) var(--dsh-space-6);
+      border-top: 1px solid var(--dsh-rule-hairline); }
+    .sechead { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--dsh-space-5); margin-bottom: var(--dsh-space-6); }
+    .secnum { font-family: var(--dsh-font-mono); font-size: var(--dsh-text-2xl); letter-spacing: var(--dsh-track-tight); color: var(--dsh-accent); line-height: 1; }
+    .sectitle { font-family: var(--dsh-font-display); font-size: var(--dsh-text-2xl); letter-spacing: var(--dsh-track-tight);
+      font-weight: 700; line-height: 1.1; margin: 0 0 var(--dsh-space-2); }
+    .secdesc { margin: 0; max-width: 74ch; font-size: var(--dsh-text-sm); color: var(--dsh-text-secondary); }
+    .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--dsh-space-5); align-items: start; }
+    .stack { display: flex; flex-direction: column; gap: var(--dsh-space-4); }
+    .stage { padding: var(--dsh-space-4); border-radius: var(--dsh-radius-md); background: var(--dsh-bg-base);
+      border: 1px solid var(--dsh-border-subtle); }
+    .row-flex { display: flex; align-items: center; gap: var(--dsh-space-3); flex-wrap: wrap; }
+    .spec-label { display: flex; align-items: center; gap: var(--dsh-space-2); margin-bottom: var(--dsh-space-3); }
+    .spec-label::after { content: ""; flex: 1; height: 1px; background: var(--dsh-rule-hairline); }
+    .specimen { width: 264px; flex: none; border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-lg);
+      background: var(--dsh-sidebar-bg); overflow: hidden; }
+    .anno { display: flex; flex-direction: column; }
+    .anno-row { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--dsh-space-3);
+      padding: var(--dsh-space-2-5) 0; border-bottom: 1px solid var(--dsh-rule-hairline); align-items: baseline; }
+    .anno-row:last-child { border-bottom: 0; }
+    .anno-row span:last-child { font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary); }
+    .note { font-size: var(--dsh-text-xs); color: var(--dsh-text-tertiary); line-height: var(--dsh-lh-xs); }
+    .is-hover { background: var(--dsh-bg-hover) !important; }
+
+    /* ══ 10 · 组件 · 设置面板 / toast / 滚动条 ════════════════════ */
+    .setgroup { border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-lg); background: var(--dsh-card-bg);
+      box-shadow: var(--dsh-shadow-offset); overflow: hidden; }
+    .setrow { display: flex; align-items: center; gap: var(--dsh-space-4); padding: var(--dsh-space-3) var(--dsh-space-4);
+      border-bottom: 1px solid var(--dsh-rule-hairline); }
+    .setrow:last-child { border-bottom: 0; }
+    .setrow-txt { min-width: 0; }
+    .setrow-txt b { display: block; font-size: var(--dsh-text-sm); font-weight: var(--dsh-weight-label); }
+    .switch { width: var(--dsh-switch-w); height: var(--dsh-switch-h); flex: none; position: relative; border-radius: var(--dsh-radius-pill);
+      background: var(--dsh-bg-active); transition: background var(--dsh-motion-base) var(--dsh-ease-spring); }
+    .switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%;
+      background: var(--dsh-bg-surface); box-shadow: var(--dsh-shadow-sm);
+      transition: transform var(--dsh-motion-base) var(--dsh-ease-spring); }
+    .switch[data-on="true"] { background: var(--dsh-accent); }
+    .switch[data-on="true"]::after { transform: translateX(18px); }
+    .seg { display: inline-flex; gap: 2px; padding: 3px; border: 1px solid var(--dsh-border-subtle);
+      border-radius: var(--dsh-radius-pill); background: var(--dsh-bg-subtle); }
+    .seg button { height: 24px; padding: 0 var(--dsh-space-3); border-radius: var(--dsh-radius-pill);
+      font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary);
+      transition: background var(--dsh-motion-fast) var(--dsh-ease-out), color var(--dsh-motion-fast) var(--dsh-ease-out); }
+    .seg button[aria-pressed="true"] { background: var(--dsh-accent); color: var(--dsh-on-accent); }
+    .toast { width: var(--dsh-toast-w); position: relative; display: flex; align-items: center; gap: var(--dsh-space-3); padding: var(--dsh-space-3);
+      border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-md); background: var(--dsh-toast-bg);
+      box-shadow: var(--dsh-shadow-lg); overflow: hidden; }
+    .toast::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--dsh-accent); }
+    .toast::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px;
+      background: linear-gradient(90deg, var(--dsh-accent), transparent 70%); }
+    .toast-ico { width: 26px; height: 26px; flex: none; display: grid; place-items: center; border-radius: var(--dsh-radius-sm); }
+    .toast-txt b { display: block; font-size: var(--dsh-text-sm); }
+    .demo-scroll { height: 152px; overflow-y: auto; padding: var(--dsh-space-3); border: 1px solid var(--dsh-border-subtle);
+      border-radius: var(--dsh-radius-md); background: var(--dsh-bg-inset); }
+    .demo-scroll p { margin: 0 0 var(--dsh-space-3); font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary); }
+    .demo-scroll::-webkit-scrollbar, .sb-list::-webkit-scrollbar, .mstream::-webkit-scrollbar, .codepre::-webkit-scrollbar { width: var(--dsh-scrollbar-w); height: var(--dsh-scrollbar-w); }
+    .demo-scroll::-webkit-scrollbar-track, .sb-list::-webkit-scrollbar-track, .mstream::-webkit-scrollbar-track, .codepre::-webkit-scrollbar-track { background: transparent; }
+    .demo-scroll::-webkit-scrollbar-thumb, .sb-list::-webkit-scrollbar-thumb, .mstream::-webkit-scrollbar-thumb, .codepre::-webkit-scrollbar-thumb {
+      background: var(--dsh-border-strong); border-radius: var(--dsh-radius-pill); border: 3px solid transparent; background-clip: content-box; }
+    .demo-scroll::-webkit-scrollbar-thumb:hover, .sb-list::-webkit-scrollbar-thumb:hover, .mstream::-webkit-scrollbar-thumb:hover, .codepre::-webkit-scrollbar-thumb:hover {
+      background: var(--dsh-text-tertiary); background-clip: content-box; }
+    .sb-list, .mstream { scrollbar-width: thin; scrollbar-color: var(--dsh-border-strong) transparent; }
+
+    /* ══ 11 · 图标表 ══════════════════════════════════════════════ */
+    .icons { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--dsh-space-3); }
+    .icell { display: flex; flex-direction: column; align-items: center; gap: var(--dsh-space-2);
+      padding: var(--dsh-space-4) var(--dsh-space-2); border: 1px solid var(--dsh-border-subtle);
+      border-radius: var(--dsh-radius-md); background: var(--dsh-bg-surface); color: var(--dsh-text-primary); }
+    .icell .icon { width: 24px; height: 24px; }
+
+    /* ══ 12 · TOKEN 面板 ══════════════════════════════════════════ */
+    .tokwrap { border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-lg); overflow: hidden; background: var(--dsh-card-bg); }
+    table.tok { width: 100%; border-collapse: collapse; table-layout: fixed; }
+    table.tok col.c1 { width: 236px; } table.tok col.c2 { width: 244px; } table.tok col.c3 { width: 244px; }
+    table.tok thead th { position: sticky; top: 60px; z-index: 5; text-align: left; padding: 10px var(--dsh-space-3);
+      border-bottom: 1px solid var(--dsh-border-subtle); background: var(--dsh-bg-subtle);
+      font-family: var(--dsh-font-label); font-size: var(--dsh-text-3xs); letter-spacing: var(--dsh-track-wide);
+      text-transform: uppercase; color: var(--dsh-text-tertiary); font-weight: var(--dsh-weight-label); }
+    table.tok td { padding: 6px var(--dsh-space-3); border-bottom: 1px solid var(--dsh-rule-hairline); vertical-align: middle; }
+    table.tok tbody tr:hover td { background: var(--dsh-bg-hover); }
+    tr.grp td { background: var(--dsh-bg-subtle); padding: var(--dsh-space-2) var(--dsh-space-3);
+      border-top: 1px solid var(--dsh-border-subtle); border-bottom: 1px solid var(--dsh-border-subtle); }
+    tr.grp:hover td { background: var(--dsh-bg-subtle) !important; }
+    .tk { font-family: var(--dsh-font-mono); font-size: var(--dsh-text-2xs); color: var(--dsh-text-primary); }
+    .cell { display: flex; align-items: center; gap: var(--dsh-space-2); min-width: 0; }
+    .sw { width: 20px; height: 20px; flex: none; border-radius: var(--dsh-radius-xs); border: 1px solid var(--dsh-rule-hairline); }
+    .sw-sh { background: var(--dsh-bg-surface); }
+    .sw-mo { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--dsh-border-subtle);
+      background: var(--dsh-accent); animation: dshSweep 1.6s infinite alternate; }
+    .sw-sp { background: var(--dsh-accent); }
+    .sw-tx { display: grid; place-items: center; font-family: var(--dsh-font-mono); font-size: 9px; color: var(--dsh-text-tertiary); }
+    .tv { font-family: var(--dsh-font-mono); font-size: var(--dsh-text-3xs); color: var(--dsh-text-secondary);
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tn { font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary); }
+    .chips { display: flex; flex-wrap: wrap; gap: 4px; }
+    .chip { font-family: var(--dsh-font-mono); font-size: var(--dsh-text-3xs); padding: 1px 5px; border-radius: var(--dsh-radius-xs);
+      background: var(--dsh-bg-subtle); color: var(--dsh-text-secondary); border: 1px solid var(--dsh-rule-hairline); }
+    .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--dsh-space-4); margin-bottom: var(--dsh-space-5); }
+    .stat { border: 1px solid var(--dsh-border-subtle); border-radius: var(--dsh-radius-md); padding: var(--dsh-space-3) var(--dsh-space-4); background: var(--dsh-card-bg); }
+    .stat b { display: block; font-family: var(--dsh-font-display); font-size: var(--dsh-text-2xl); letter-spacing: var(--dsh-track-tight); line-height: 1.1; }
+    .stat span { font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary); }
+
+    /* ══ 13 · 版记 ════════════════════════════════════════════════ */
+    .colophon { max-width: 1440px; margin: 0 auto; padding: var(--dsh-space-8) var(--dsh-space-6); border-top: 1px solid var(--dsh-rule-hairline); }
+    .checklist { list-style: none; margin: var(--dsh-space-4) 0 0; padding: 0; display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--dsh-space-2) var(--dsh-space-5); }
+    .checklist li { display: flex; align-items: baseline; gap: var(--dsh-space-2); font-size: var(--dsh-text-xs); color: var(--dsh-text-secondary); }
+    .checklist .icon { width: 13px; height: 13px; color: var(--dsh-success); transform: translateY(1px); }
+
+    /* ══ 14 · 动效 ════════════════════════════════════════════════ */
+    @keyframes dshBreath { 0%, 100% { box-shadow: 0 0 0 1px var(--dsh-accent-glow), 0 0 22px -14px var(--dsh-accent-glow), var(--dsh-shadow-sm); }
+      50% { box-shadow: 0 0 0 1px var(--dsh-accent), 0 0 46px -10px var(--dsh-accent-glow), var(--dsh-shadow-md); } }
+    @keyframes dshCaret { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+    @keyframes dshSweep { from { opacity: 1; } to { opacity: .25; } }
+    @keyframes dshRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes dshToastIn { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+    .reveal > * { animation: dshRise var(--dsh-motion-slow) var(--dsh-ease-out) backwards;
+      animation-delay: calc(var(--i, 0) * var(--dsh-stagger)); }
+    .toast { animation: dshToastIn var(--dsh-motion-slow) var(--dsh-ease-spring) backwards; animation-delay: calc(var(--i, 0) * 120ms); }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important;
+        transition-duration: .001ms !important; }
+    }
+
+</style>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" focusable="false"><defs>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol>
+  <symbol id="i-paperclip" viewBox="0 0 24 24"><path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57A4 4 0 1 1 18 8.84l-8.59 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 19v3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><rect x="9" y="2" width="6" height="13" rx="3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-terminal" viewBox="0 0 24 24"><path d="m4 17 6-6-6-6"/><path d="M12 19h8"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-square" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></symbol>
+</defs></svg>
+<div class="atmos" aria-hidden="true"></div>
+<div class="page">
+<header class="masthead" data-part="masthead">
+  <div class="mh-left">
+    <span class="mh-title">深空编辑室</span>
+    <span class="mh-sep"></span>
+    <span class="micro">DEEP SPACE EDITING ROOM / DSH WEB GUI SKIN / v1</span>
+  </div>
+  <div class="mh-right">
+    <span class="micro" id="theme-current">DARK / 深空</span>
+    <div class="themebar" data-part="theme-toggle" role="group" aria-label="主题切换">
+      <button type="button" data-theme-set="light" aria-pressed="false"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-sun"/></svg>亮室</button>
+      <button type="button" data-theme-set="dark" aria-pressed="true"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-moon"/></svg>深空</button>
+    </div>
+  </div>
+</header>
+<section class="frame" data-part="app-frame" aria-label="DSH Web GUI 应用外框 1440×840">
+  <aside class="sb" data-part="sidebar" data-dsh-surface="sidebar">
+    <div class="sb-brand" data-part="brand">
+      <span class="sb-mark"><svg class="icon" aria-hidden="true"><use href="#i-square"/></svg></span>
+      <span class="sb-word"><b>DeepSeek Harness</b><span class="micro">Editing Room</span></span>
+    </div>
+    <button class="sb-new" data-part="new-session" data-dsh-part="new-session">
+      <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>新建会话<kbd>CTRL N</kbd>
+    </button>
+    <nav class="sb-list" data-part="session-list" aria-label="会话列表">
+      <div class="sb-sec"><span class="micro">最近 / RECENT</span></div>
+      <div class="srow" data-part="session-row" aria-selected="true">
+        <span class="srow-title">深空编辑室 · 视觉定调稿</span>
+        <span class="srow-idx">01</span>
+        <span class="srow-meta">4 条 · 刚刚</span>
+      </div>
+      <div class="srow" data-part="session-row" aria-selected="false">
+        <span class="srow-title">输入卡聚焦辉光方案</span>
+        <span class="srow-idx">02</span>
+        <span class="srow-meta">12 条 · 2 小时前</span>
+      </div>
+      <div class="srow" data-part="session-row" aria-selected="false">
+        <span class="srow-title">会话列表指示条重构</span>
+        <span class="srow-idx">03</span>
+        <span class="srow-meta">8 条 · 昨天</span>
+      </div>
+      <div class="srow" data-part="session-row" aria-selected="false">
+        <span class="srow-title">工具调用卡片信息密度</span>
+        <span class="srow-idx">04</span>
+        <span class="srow-meta">23 条 · 3 天前</span>
+      </div>
+      <div class="srow" data-part="session-row" aria-selected="false">
+        <span class="srow-title">设置面板分组与开关</span>
+        <span class="srow-idx">05</span>
+        <span class="srow-meta">5 条 · 上周</span>
+      </div>
+      <div class="srow" data-part="session-row" aria-selected="false">
+        <span class="srow-title">Token 契约覆盖核对</span>
+        <span class="srow-idx">06</span>
+        <span class="srow-meta">17 条 · 上周</span>
+      </div>
+    </nav>
+    <div class="sb-user" data-part="user-card">
+      <span class="avatar" aria-hidden="true">PS</span>
+      <span class="sb-user-txt"><b>Pass</b><span class="micro">Pro · 128K</span></span>
+      <button class="iconbtn push" data-part="settings-entry" aria-label="设置"><svg class="icon"><use href="#i-settings"/></svg></button>
+    </div>
+  </aside>
+  <div class="main" data-part="main">
+    <header class="mhead" data-part="session-header">
+      <span class="mhead-title">深空编辑室 · 视觉定调稿</span>
+      <span class="mh-sep"></span>
+      <span class="micro">DeepSeek-V4 / 上下文 1,204 tok</span>
+      <span class="push"></span>
+      <button class="iconbtn" data-part="session-search" aria-label="搜索"><svg class="icon"><use href="#i-search"/></svg></button>
+      <button class="iconbtn" aria-label="设置"><svg class="icon"><use href="#i-settings"/></svg></button>
+    </header>
+    <div class="mstream" data-part="message-stream">
+      <div class="mwrap">
+        <div class="mmeta"><span class="micro">Today · 14:02</span></div>
+        <div class="msg-user" data-part="message-user">帮我把侧栏的选中态改成左侧指示条，输入卡聚焦时给一点辉光 —— 不要紫色渐变那种。</div>
+        <article class="msg-ai" data-part="message-assistant">
+          <div class="msg-ai-head">
+            <span class="avatar avatar-xs" aria-hidden="true">AI</span>
+            <span class="micro micro-accent">Assistant · 02</span>
+            <span class="micro">1.2s</span>
+          </div>
+          <p class="lead">选中态改用左侧指示条，辉光只留给聚焦。</p>
+          <div class="md">
+            <p>会话行选中时用 <code class="icode">--dsh-selected-row-bg</code> 打底，左缘 2px 指示条走 <code class="icode">--dsh-selected-row-indicator</code>；辉光收敛到一处 —— 聚焦的输入卡，用 <code class="icode">--dsh-accent-glow</code> 做 4.2s 呼吸。</p>
+            <ul class="md-list">
+              <li>层次只靠明度差：深空底 <code class="icode">#07080D</code> → 侧栏 <code class="icode">#0F121B</code> → 卡片 <code class="icode">#141824</code>，全程不动色相。</li>
+              <li>品牌色只保留一处高饱和（朱砂 <code class="icode">#FF6A3D</code>），其余全部降噪。</li>
+              <li>物理感缓动 <code class="icode">cubic-bezier(.34,1.56,.64,1)</code>，按下缩放 0.98。</li>
+            </ul>
+            <div class="codeblock" data-part="code-block">
+              <div class="codebar">
+                <span class="micro">CSS · composer</span>
+                <span class="push"></span>
+                <span class="micro">12 行</span>
+                <button class="iconbtn" data-part="code-copy" aria-label="复制"><svg class="icon icon-sm"><use href="#i-copy"/></svg></button>
+              </div>
+              <pre class="codepre"><span class="c">/* 辉光只在这里出现：聚焦的输入卡 */</span>
+<span class="f">.composer</span>[data-state=<span class="s">"focus"</span>] {
+  border-color: <span class="k">var</span>(--dsh-accent);
+  animation: <span class="f">dshBreath</span> <span class="n">4200ms</span> <span class="k">var</span>(--dsh-ease-inout) infinite;
+}</pre>
+            </div>
+            <div class="toolcard" data-part="tool-card">
+              <div class="toolhead">
+                <svg class="icon icon-sm" aria-hidden="true"><use href="#i-wrench"/></svg>
+                <span class="toolname">tool · read_file</span>
+                <span class="push"></span>
+                <span class="status st-ok"><span class="dot"></span>done · 42ms</span>
+                <button class="iconbtn" aria-label="展开"><svg class="icon icon-sm"><use href="#i-chevron"/></svg></button>
+              </div>
+              <div class="toolbody">
+                <div class="toolpath">E:\dsh-theme\skins\dsh-ui\patches.css</div>
+                <div class="micro" style="margin-top:6px">读取 75 行 · 命中 3 条 L2 规则</div>
+              </div>
+            </div>
+          </div>
+        </article>
+        <div class="mmeta"><span class="micro">正在生成 · 第 3 段</span><span class="stream-caret"></span></div>
+      </div>
+    </div>
+    <div class="vruler" aria-hidden="true">
+      <span class="vtext">Deep Space Editing Room</span>
+      <span class="vline"></span>
+      <span class="vnum">01</span>
+    </div>
+    <div class="composer-area" data-part="composer-area">
+      <div class="composer" data-part="composer" data-dsh-surface="composer" data-state="focus">
+        <div class="composer-text" data-part="composer-input">把选中会话的指示条再压细一点，主按钮加一点回弹<span class="caret"></span></div>
+        <div class="composer-bar">
+          <button class="iconbtn" data-part="attach-button" aria-label="附件"><svg class="icon"><use href="#i-paperclip"/></svg></button>
+          <button class="iconbtn" data-part="mic-button" aria-label="语音"><svg class="icon"><use href="#i-mic"/></svg></button>
+          <span class="push"></span>
+          <span class="micro">1,842 / 128K</span>
+          <button class="pill pill-accent" data-part="model-pill" style="margin-left:6px">DeepSeek V4 · Flash<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <button class="sendbtn" data-part="send-button" data-state="active" aria-label="发送" style="margin-left:6px"><svg class="icon"><use href="#i-send"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="sec" data-part="gallery" id="g-sidebar">
+  <div class="sechead">
+    <div class="secnum">01</div>
+    <div>
+      <h2 class="sectitle">侧栏</h2>
+      <p class="secdesc">logo 区 / 新建会话主按钮（实心）/ 会话列表（默认 · hover · 选中）/ 底部用户区。选中态＝明度抬升一档 + 左缘 2px 指示条 + 极弱辉光；hover 只抬明度、不发辉光。</p>
+    </div>
+  </div>
+  <div class="row-flex" style="align-items:flex-start;gap:var(--dsh-space-6)">
+    <div class="specimen" data-part="sidebar" data-dsh-surface="sidebar">
+      <div class="sb-brand" data-part="brand">
+        <span class="sb-mark"><svg class="icon " aria-hidden="true"><use href="#i-square"/></svg></span>
+        <span class="sb-word"><b>DeepSeek Harness</b><span class="micro">Editing Room</span></span>
+      </div>
+      <button class="sb-new" data-part="new-session" data-dsh-part="new-session"><svg class="icon " aria-hidden="true"><use href="#i-plus"/></svg>新建会话<kbd>CTRL N</kbd></button>
+      <div class="sb-list" style="overflow:visible;padding-bottom:var(--dsh-space-2)">
+        <div class="sb-sec"><span class="micro">最近 / RECENT</span></div>
+        <div class="srow" data-part="session-row" aria-selected="false">
+          <span class="srow-title">会话行 · 默认态</span><span class="srow-idx">07</span><span class="srow-meta">默认 · 底透明</span>
+        </div>
+        <div class="srow is-hover" data-part="session-row" data-state="hover" aria-selected="false">
+          <span class="srow-title">会话行 · hover 态</span><span class="srow-idx">08</span><span class="srow-meta">hover · bg-hover</span>
+        </div>
+        <div class="srow" data-part="session-row" data-state="selected" aria-selected="true">
+          <span class="srow-title">会话行 · 选中态</span><span class="srow-idx">09</span><span class="srow-meta">selected · bg-active + 指示条</span>
+        </div>
+      </div>
+      <div class="sb-user" data-part="user-card">
+        <span class="avatar">PS</span>
+        <span class="sb-user-txt"><b>Pass</b><span class="micro">Pro · 128K</span></span>
+        <button class="iconbtn push" aria-label="设置"><svg class="icon " aria-hidden="true"><use href="#i-settings"/></svg></button>
+      </div>
+    </div>
+    <div class="anno" style="flex:1;min-width:280px">
+      <div class="anno-row"><span class="micro">brand</span><span>方形实心标记（30px，radius-sm）+ 衬线字标 + 等宽 micro-label；标记不发辉光。</span></div>
+      <div class="anno-row"><span class="micro">new-session</span><span>实心 primary：<code class="icode">--dsh-accent</code> 底 + <code class="icode">--dsh-on-accent</code> 字；右端等宽快捷键，hover 上浮 1px，按下 0.98。</span></div>
+      <div class="anno-row"><span class="micro">session-row</span><span>两行网格：标题（13px）+ 等宽序号 + 大写 meta；行高 44，圆角 md，4px 基网。</span></div>
+      <div class="anno-row"><span class="micro">selected</span><span><code class="icode">--dsh-selected-row-bg</code> 打底，<code class="icode">inset 2px 0 0 var(--dsh-selected-row-indicator)</code>，外加 <code class="icode">0 0 26px -16px</code> 品牌辉光。</span></div>
+      <div class="anno-row"><span class="micro">user-card</span><span>顶部一根细线收口；方形头像（radius-sm）+ 双行文字 + 右侧齿轮；高度 52。</span></div>
+      <div class="anno-row"><span class="micro">语义锚点</span><span><code class="icode">data-part="sidebar" / "new-session" / "session-row" / "user-card"</code>；并保留真实 GUI 的 <code class="icode">data-dsh-surface="sidebar"</code> 与 <code class="icode">data-dsh-part="new-session"</code>。</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" data-part="gallery" id="g-message">
+  <div class="sechead">
+    <div class="secnum">02</div>
+    <div>
+      <h2 class="sectitle">消息流</h2>
+      <p class="secdesc">用户气泡 / AI 消息（衬线导语 + 正文 + 行内 code + 列表 + 代码块）/ 工具调用卡片 / 生成中光标。AI 消息不用气泡 —— 它是编辑版心里的一栏。</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="stage" data-part="message-stream">
+      <div class="spec-label"><span class="micro">message-user · 用户气泡</span></div>
+      <div class="msg-user" data-part="message-user" style="max-width:100%">把侧栏选中态改成左侧指示条，输入卡聚焦时给一点辉光。</div>
+      <div class="spec-label" style="margin-top:var(--dsh-space-5)"><span class="micro">message-assistant · AI 消息</span></div>
+      <article class="msg-ai" data-part="message-assistant">
+        <div class="msg-ai-head"><span class="avatar avatar-xs">AI</span><span class="micro micro-accent">Assistant · 02</span><span class="micro">1.2s</span></div>
+        <p class="lead">选中态改用左侧指示条，辉光只留给聚焦。</p>
+        <div class="md">
+          <p>行内代码走 <code class="icode">--dsh-code-bg</code>，列表用品牌细线做破折号标记。</p>
+          <ul class="md-list"><li>层次只靠明度差，全程不动色相。</li><li>品牌色只保留一处高饱和。</li></ul>
+        </div>
+      </article>
+      <div class="spec-label" style="margin-top:var(--dsh-space-5)"><span class="micro">code-block · 代码块</span></div>
+      <div class="codeblock" data-part="code-block">
+        <div class="codebar"><span class="micro">CSS</span><span class="push"></span><span class="micro">3 行</span><button class="iconbtn" aria-label="复制"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-copy"/></svg></button></div>
+        <pre class="codepre"><span class="f">.srow</span>[aria-selected=<span class="s">"true"</span>] {
+  background: <span class="k">var</span>(--dsh-selected-row-bg);
+  box-shadow: inset <span class="n">2px</span> <span class="n">0</span> <span class="n">0</span> <span class="k">var</span>(--dsh-selected-row-indicator);
+}</pre>
+      </div>
+      <div class="spec-label" style="margin-top:var(--dsh-space-5)"><span class="micro">streaming · 生成中</span></div>
+      <div class="row-flex"><span class="micro">正在生成 · 第 3 段</span><span class="stream-caret"></span></div>
+    </div>
+    <div class="stack">
+      <div class="stage">
+        <div class="spec-label"><span class="micro">tool-card · 工具调用卡片</span></div>
+        <div class="toolcard" data-part="tool-card" style="margin-bottom:var(--dsh-space-4)">
+          <div class="toolhead">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-wrench"/></svg><span class="toolname">tool · read_file</span><span class="push"></span>
+            <span class="status st-ok"><span class="dot"></span>done · 42ms</span>
+            <button class="iconbtn" aria-label="展开"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          </div>
+          <div class="toolbody">
+            <div class="toolpath">E:\dsh-theme\skins\dsh-ui\patches.css</div>
+            <div class="micro" style="margin-top:6px">读取 75 行 · 命中 3 条 L2 规则</div>
+          </div>
+        </div>
+        <div class="toolcard" data-part="tool-card" data-state="running">
+          <div class="toolhead">
+            <svg class="icon icon-sm" aria-hidden="true"><use href="#i-terminal"/></svg><span class="toolname">tool · bash</span><span class="push"></span>
+            <span class="status st-run"><span class="dot"></span>running · 1.8s</span>
+            <button class="iconbtn" aria-label="展开"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          </div>
+          <div class="toolbody">
+            <div class="toolpath">node scripts/build-skin.mjs</div>
+            <div class="micro" style="margin-top:6px">等待输出 · 可中断</div>
+          </div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="spec-label"><span class="micro">状态色与语义</span></div>
+        <div class="anno">
+          <div class="anno-row"><span class="micro">done</span><span class="status st-ok"><span class="dot"></span>--dsh-success · 成功点</span></div>
+          <div class="anno-row"><span class="micro">running</span><span class="status st-run"><span class="dot"></span>--dsh-warning · 进行中</span></div>
+          <div class="anno-row"><span class="micro">error</span><span class="status st-err"><span class="dot"></span>--dsh-danger · 失败（与品牌朱砂拉开色相）</span></div>
+          <div class="anno-row"><span class="micro">bubble</span><span>用户气泡＝<code class="icode">--dsh-bubble-user-bg</code> 打底 + 24% 品牌色描边，右下角收一个 radius-xs 的「尖」。</span></div>
+          <div class="anno-row"><span class="micro">版心</span><span>消息列最大宽 <code class="icode">--dsh-content-max</code>（720px）居中 —— 编辑版面而不是通栏。</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" data-part="gallery" id="g-composer">
+  <div class="sechead">
+    <div class="secnum">03</div>
+    <div>
+      <h2 class="sectitle">底部输入卡</h2>
+      <p class="secdesc">非聚焦态用描边、聚焦态用品牌色描边 + 4.2s 呼吸辉光；附件 / 语音 / 模型档位 pill / 发送按钮（激活 · 空闲两态）。</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="stage" data-part="composer-area">
+      <div class="spec-label"><span class="micro">composer · 非聚焦（idle）</span></div>
+      <div class="composer" data-part="composer" data-dsh-surface="composer" data-state="idle" style="max-width:100%">
+        <div class="composer-text"><span class="ph">输入消息，或拖入文件…</span></div>
+        <div class="composer-bar">
+          <button class="iconbtn" data-part="attach-button" aria-label="附件"><svg class="icon " aria-hidden="true"><use href="#i-paperclip"/></svg></button>
+          <button class="iconbtn" data-part="mic-button" aria-label="语音"><svg class="icon " aria-hidden="true"><use href="#i-mic"/></svg></button>
+          <span class="push"></span>
+          <span class="micro">0 / 128K</span>
+          <button class="pill" data-part="model-pill" style="margin-left:6px">DeepSeek V4 · Flash<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <button class="sendbtn" data-part="send-button" data-state="idle" aria-label="发送" style="margin-left:6px"><svg class="icon " aria-hidden="true"><use href="#i-send"/></svg></button>
+        </div>
+      </div>
+      <div class="spec-label" style="margin-top:var(--dsh-space-5)"><span class="micro">composer · 聚焦（focus / 呼吸辉光）</span></div>
+      <div class="composer" data-part="composer" data-dsh-surface="composer" data-state="focus" style="max-width:100%">
+        <div class="composer-text">把选中会话的指示条再压细一点<span class="caret"></span></div>
+        <div class="composer-bar">
+          <button class="iconbtn" data-part="attach-button" aria-label="附件"><svg class="icon " aria-hidden="true"><use href="#i-paperclip"/></svg></button>
+          <button class="iconbtn" data-part="mic-button" aria-label="语音"><svg class="icon " aria-hidden="true"><use href="#i-mic"/></svg></button>
+          <span class="push"></span>
+          <span class="micro">1,842 / 128K</span>
+          <button class="pill pill-accent" data-part="model-pill" style="margin-left:6px">DeepSeek V4 · Flash<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <button class="sendbtn" data-part="send-button" data-state="active" aria-label="发送" style="margin-left:6px"><svg class="icon " aria-hidden="true"><use href="#i-send"/></svg></button>
+        </div>
+      </div>
+    </div>
+    <div class="stack">
+      <div class="stage">
+        <div class="spec-label"><span class="micro">按钮与 pill 元素</span></div>
+        <div class="row-flex">
+          <button class="iconbtn" aria-label="附件"><svg class="icon " aria-hidden="true"><use href="#i-paperclip"/></svg></button>
+          <button class="iconbtn" aria-label="语音"><svg class="icon " aria-hidden="true"><use href="#i-mic"/></svg></button>
+          <button class="iconbtn is-hover" aria-label="搜索"><svg class="icon " aria-hidden="true"><use href="#i-search"/></svg></button>
+          <span class="mh-sep"></span>
+          <button class="pill">DeepSeek V4 · Flash<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <button class="pill pill-accent">R1 · 深度思考<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+          <span class="mh-sep"></span>
+          <button class="sendbtn" data-state="active" aria-label="发送"><svg class="icon " aria-hidden="true"><use href="#i-send"/></svg></button>
+          <button class="sendbtn" data-state="idle" aria-label="发送（禁用）"><svg class="icon " aria-hidden="true"><use href="#i-send"/></svg></button>
+        </div>
+        <div class="anno" style="margin-top:var(--dsh-space-4)">
+          <div class="anno-row"><span class="micro">idle</span><span>描边 <code class="icode">--dsh-border-subtle</code> + <code class="icode">--dsh-shadow-sm</code>；静态不用辉光。</span></div>
+          <div class="anno-row"><span class="micro">focus</span><span>描边转 <code class="icode">--dsh-accent</code>，呼吸关键帧在 22px ↔ 46px 之间摆动辉光半径。</span></div>
+          <div class="anno-row"><span class="micro">send</span><span>激活＝实心品牌色 + 胶囊；空闲＝<code class="icode">--dsh-bg-active</code> 底、无阴影。</span></div>
+          <div class="anno-row"><span class="micro">model-pill</span><span>等宽大写 micro 字 + 胶囊描边；当前档位用 <code class="icode">--dsh-badge-tier-*</code>。真实 GUI 此控件暂无语义属性，<code class="icode">data-part="model-pill"</code> 属待上游补锚项。</span></div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="spec-label"><span class="micro">档位下拉（浮起表面）</span></div>
+        <div style="width:250px;border:1px solid var(--dsh-border-subtle);border-radius:var(--dsh-radius-md);background:var(--dsh-menu-bg);box-shadow:var(--dsh-shadow-md);overflow:hidden">
+          <div class="setrow" style="padding:10px 12px"><span class="setrow-txt"><b>DeepSeek V4 · Flash</b><span class="micro">快速 · 默认</span></span><span class="push"></span><svg class="icon icon-sm" aria-hidden="true"><use href="#i-check"/></svg></div>
+          <div class="setrow is-hover" style="padding:10px 12px"><span class="setrow-txt"><b>DeepSeek V4 · Pro</b><span class="micro">更慢 · 更强推理</span></span></div>
+          <div class="setrow" style="padding:10px 12px"><span class="setrow-txt"><b>R1 · 深度思考</b><span class="micro">长思考链</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" data-part="gallery" id="g-settings">
+  <div class="sechead">
+    <div class="secnum">04</div>
+    <div>
+      <h2 class="sectitle">设置面板</h2>
+      <p class="secdesc">分组标题 + 行（标签 / 说明 / 控件）；开关、分段选择、选中态与危险行。</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="setgroup" data-part="settings-panel">
+      <div class="setrow" style="background:color-mix(in srgb, var(--dsh-bg-subtle) 55%, transparent)"><span class="micro">外观 / APPEARANCE</span></div>
+      <div class="setrow">
+        <span class="setrow-txt"><b>主题</b><span class="note">深空优先；亮室为重新设计的纸感，不是反相</span></span>
+        <span class="push"></span>
+        <div class="seg" data-part="segmented" role="group">
+          <button aria-pressed="false">亮室</button><button aria-pressed="true">深空</button><button aria-pressed="false">跟随系统</button>
+        </div>
+      </div>
+      <div class="setrow">
+        <span class="setrow-txt"><b>噪点与网格</b><span class="note">极细 feTurbulence 颗粒 + 32px 网格</span></span>
+        <span class="push"></span>
+        <span class="switch" data-on="true" role="switch" aria-checked="true" tabindex="0"></span>
+      </div>
+      <div class="setrow">
+        <span class="setrow-txt"><b>交错入场</b><span class="note">列表以 55ms 步长依次浮现</span></span>
+        <span class="push"></span>
+        <span class="switch" data-on="false" role="switch" aria-checked="false" tabindex="0"></span>
+      </div>
+    </div>
+    <div class="setgroup" data-part="settings-panel">
+      <div class="setrow" style="background:color-mix(in srgb, var(--dsh-bg-subtle) 55%, transparent)"><span class="micro">模型与上下文 / MODEL</span></div>
+      <div class="setrow">
+        <span class="setrow-txt"><b>推理档位</b><span class="note">影响思考深度与耗时</span></span>
+        <span class="push"></span>
+        <button class="pill">HIGH<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      </div>
+      <div class="setrow is-hover">
+        <span class="setrow-txt"><b>上下文窗口</b><span class="note">hover 态示例 · 整行抬明度</span></span>
+        <span class="push"></span>
+        <button class="pill">128K<svg class="icon icon-sm" aria-hidden="true"><use href="#i-chevron"/></svg></button>
+      </div>
+      <div class="setrow">
+        <span class="setrow-txt"><b style="color:var(--dsh-danger)">清空全部会话</b><span class="note">不可撤销</span></span>
+        <span class="push"></span>
+        <button class="pill" style="color:var(--dsh-danger);border-color:color-mix(in srgb, var(--dsh-danger) 35%, transparent)">删除</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" data-part="gallery" id="g-notify">
+  <div class="sechead">
+    <div class="secnum">05</div>
+    <div>
+      <h2 class="sectitle">通知与滚动条</h2>
+      <p class="secdesc">toast 用二级浮起表面 + 左缘品牌条 + 底部品牌渐变细线；滚动条槽透明、thumb 用 <code class="icode">--dsh-border-strong</code>，hover 转三级文字色。</p>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="stage" style="display:flex;flex-direction:column;gap:var(--dsh-space-4)">
+      <div class="toast" data-part="toast" style="--i:0">
+        <span class="toast-ico" style="background:var(--dsh-success-subtle);color:var(--dsh-success)"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-check"/></svg></span>
+        <span class="toast-txt"><b>皮肤已应用</b><span class="note">深空编辑室 · 明暗双套 token 注入完成</span></span>
+        <span class="push"></span>
+        <button class="iconbtn" aria-label="关闭"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-x"/></svg></button>
+      </div>
+      <div class="toast" data-part="toast" style="--i:1">
+        <span class="toast-ico" style="background:var(--dsh-accent-subtle);color:var(--dsh-accent)"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-wrench"/></svg></span>
+        <span class="toast-txt"><b>工具调用完成 · read_file</b><span class="note">patches.css · 75 行 · 42ms</span></span>
+        <span class="push"></span>
+        <button class="pill">查看</button>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="spec-label"><span class="micro">scrollbar · 滚动条</span></div>
+      <div class="demo-scroll" data-part="scrollbar">
+        <p>槽宽 10px、thumb 宽 4px，thumb 用 <code class="icode">--dsh-border-strong</code>，hover 转 <code class="icode">--dsh-text-tertiary</code>。</p>
+        <p>滚动条是「编辑室」里最容易被忽略的一处 —— 它必须安静，但不能消失。</p>
+        <p>深色下 thumb 亮度低、几乎融进底色；浅色下它是一道铅笔灰。</p>
+        <p>会话列表与消息流共用同一套滚动条规则。</p>
+        <p>滚动到底部时不做回弹动画，保持物理直觉。</p>
+      </div>
+      <div class="anno" style="margin-top:var(--dsh-space-4)">
+        <div class="anno-row"><span class="micro">track</span><span>透明，不画槽底。</span></div>
+        <div class="anno-row"><span class="micro">thumb</span><span>4px 实心 + 3px 透明内边距，胶囊圆角。</span></div>
+        <div class="anno-row"><span class="micro">toast</span><span>宽 380，二级浮起表面，左缘 2px 品牌条；入场用 <code class="icode">--dsh-ease-spring</code> 回弹。</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" data-part="gallery" id="g-icons">
+  <div class="sechead">
+    <div class="secnum">06</div>
+    <div>
+      <h2 class="sectitle">图标集</h2>
+      <p class="secdesc">手绘 Lucide 风格：24×24 视框、stroke-width 2、圆角线帽、只描边不填充；全部内联 SVG symbol + use，零图标库依赖。全程零 emoji。</p>
+    </div>
+  </div>
+  <div class="icons">
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-plus"/></svg><span class="micro">plus</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-send"/></svg><span class="micro">send</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-paperclip"/></svg><span class="micro">paperclip</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-mic"/></svg><span class="micro">mic</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-search"/></svg><span class="micro">search</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-settings"/></svg><span class="micro">settings</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-sun"/></svg><span class="micro">sun</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-moon"/></svg><span class="micro">moon</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-check"/></svg><span class="micro">check</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-copy"/></svg><span class="micro">copy</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-chevron"/></svg><span class="micro">chevron</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-terminal"/></svg><span class="micro">terminal</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-wrench"/></svg><span class="micro">wrench</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-x"/></svg><span class="micro">x</span></div>
+    <div class="icell"><svg class="icon " aria-hidden="true"><use href="#i-square"/></svg><span class="micro">square</span></div>
+  </div>
+</section>
+
+<section class="sec" data-part="token-panel" id="tokens">
+  <div class="sechead">
+    <div class="secnum">07</div>
+    <div>
+      <h2 class="sectitle">Token 对照表</h2>
+      <p class="secdesc">本稿定义的全部 CSS 变量，明暗两列并排。变量名沿用 <code class="icode">--dsh-*</code> 前缀与分组习惯，新增概念自由扩展；「同左」表示两套主题同值。表格下方是与 <code class="icode">mapping.json</code> 官方 alias 槽位的覆盖对照，以及机器可读清单 <code class="icode">#token-manifest</code>。</p>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b class="num">153</b><span>本稿 token 总数</span></div>
+    <div class="stat"><b class="num">91</b><span>官方 alias 槽位（mapping.json）</span></div>
+    <div class="stat"><b class="num">34</b><span>新增可注入类（色/形/影）</span></div>
+    <div class="stat"><b class="num">101</b><span>排版·间距·动效·度量（暂不注入）</span></div>
+  </div>
+  <div class="tokwrap">
+    <table class="tok">
+      <colgroup><col class="c1"><col class="c2"><col class="c3"><col></colgroup>
+      <thead><tr><th>变量名</th><th>亮室 / LIGHT</th><th>深空 / DARK</th><th>用途</th></tr></thead>
+      <tbody>
+<tr class="grp"><td colspan="4"><span class="micro">01 / SURFACES · 表面与层次</span></td></tr>
+<tr data-token="--dsh-bg-canvas" data-kind="color"><td class="tk">--dsh-bg-canvas</td><td><span class="cell"><span class="sw" style="background:#E6E0D4"></span><code class="tv" title="#E6E0D4">#E6E0D4</code></span></td><td><span class="cell"><span class="sw" style="background:#07080D"></span><code class="tv" title="#07080D">#07080D</code></span></td><td class="tn">应用之外的画布：浅色=桌面纸，深色=深空底（禁止纯黑）</td></tr>
+<tr data-token="--dsh-bg-base" data-kind="color"><td class="tk">--dsh-bg-base</td><td><span class="cell"><span class="sw" style="background:#F5F1E8"></span><code class="tv" title="#F5F1E8">#F5F1E8</code></span></td><td><span class="cell"><span class="sw" style="background:#0B0D14"></span><code class="tv" title="#0B0D14">#0B0D14</code></span></td><td class="tn">应用主底：消息流区</td></tr>
+<tr data-token="--dsh-bg-subtle" data-kind="color"><td class="tk">--dsh-bg-subtle</td><td><span class="cell"><span class="sw" style="background:#EFEAE0"></span><code class="tv" title="#EFEAE0">#EFEAE0</code></span></td><td><span class="cell"><span class="sw" style="background:#0F121B"></span><code class="tv" title="#0F121B">#0F121B</code></span></td><td class="tn">侧栏衬底，比主底低一档明度（层次只靠明度差）</td></tr>
+<tr data-token="--dsh-bg-surface" data-kind="color"><td class="tk">--dsh-bg-surface</td><td><span class="cell"><span class="sw" style="background:#FFFDF8"></span><code class="tv" title="#FFFDF8">#FFFDF8</code></span></td><td><span class="cell"><span class="sw" style="background:#141824"></span><code class="tv" title="#141824">#141824</code></span></td><td class="tn">浮起表面：设置面板、工具卡、输入卡</td></tr>
+<tr data-token="--dsh-bg-elevated" data-kind="color"><td class="tk">--dsh-bg-elevated</td><td><span class="cell"><span class="sw" style="background:#FFFFFF"></span><code class="tv" title="#FFFFFF">#FFFFFF</code></span></td><td><span class="cell"><span class="sw" style="background:#1B2130"></span><code class="tv" title="#1B2130">#1B2130</code></span></td><td class="tn">二级浮起：菜单、弹层、toast</td></tr>
+<tr data-token="--dsh-bg-hover" data-kind="color"><td class="tk">--dsh-bg-hover</td><td><span class="cell"><span class="sw" style="background:#EAE4D8"></span><code class="tv" title="#EAE4D8">#EAE4D8</code></span></td><td><span class="cell"><span class="sw" style="background:#1A1F2E"></span><code class="tv" title="#1A1F2E">#1A1F2E</code></span></td><td class="tn">hover 底：会话行、图标按钮</td></tr>
+<tr data-token="--dsh-bg-active" data-kind="color"><td class="tk">--dsh-bg-active</td><td><span class="cell"><span class="sw" style="background:#E0D8C9"></span><code class="tv" title="#E0D8C9">#E0D8C9</code></span></td><td><span class="cell"><span class="sw" style="background:#212739"></span><code class="tv" title="#212739">#212739</code></span></td><td class="tn">选中/按下底：选中会话、开关轨道</td></tr>
+<tr data-token="--dsh-bg-inset" data-kind="color"><td class="tk">--dsh-bg-inset</td><td><span class="cell"><span class="sw" style="background:#E9E3D7"></span><code class="tv" title="#E9E3D7">#E9E3D7</code></span></td><td><span class="cell"><span class="sw" style="background:#0E1119"></span><code class="tv" title="#0E1119">#0E1119</code></span></td><td class="tn">内凹面：代码块、输入卡内区</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">02 / RULES · 描边与细线</span></td></tr>
+<tr data-token="--dsh-border-subtle" data-kind="color"><td class="tk">--dsh-border-subtle</td><td><span class="cell"><span class="sw" style="background:#DED7C9"></span><code class="tv" title="#DED7C9">#DED7C9</code></span></td><td><span class="cell"><span class="sw" style="background:#212736"></span><code class="tv" title="#212736">#212736</code></span></td><td class="tn">一级描边：卡片与输入卡默认描边</td></tr>
+<tr data-token="--dsh-border-strong" data-kind="color"><td class="tk">--dsh-border-strong</td><td><span class="cell"><span class="sw" style="background:#BEB5A2"></span><code class="tv" title="#BEB5A2">#BEB5A2</code></span></td><td><span class="cell"><span class="sw" style="background:#333B50"></span><code class="tv" title="#333B50">#333B50</code></span></td><td class="tn">二级描边：滚动条 thumb、强调分隔</td></tr>
+<tr data-token="--dsh-rule-hairline" data-kind="color"><td class="tk">--dsh-rule-hairline</td><td><span class="cell"><span class="sw" style="background:rgba(23,20,14,.10)"></span><code class="tv" title="rgba(23,20,14,.10)">rgba(23,20,14,.10)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(237,238,243,.07)"></span><code class="tv" title="rgba(237,238,243,.07)">rgba(237,238,243,.07)</code></span></td><td class="tn">编辑细线：区段分隔、标尺、表格行线</td></tr>
+<tr data-token="--dsh-rule-accent" data-kind="color"><td class="tk">--dsh-rule-accent</td><td><span class="cell"><span class="sw" style="background:rgba(210,62,12,.55)"></span><code class="tv" title="rgba(210,62,12,.55)">rgba(210,62,12,.55)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(255,106,61,.55)"></span><code class="tv" title="rgba(255,106,61,.55)">rgba(255,106,61,.55)</code></span></td><td class="tn">品牌细线：焦点下划线、选中指示条</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">03 / INK · 文字</span></td></tr>
+<tr data-token="--dsh-text-primary" data-kind="color"><td class="tk">--dsh-text-primary</td><td><span class="cell"><span class="sw" style="background:#17140E"></span><code class="tv" title="#17140E">#17140E</code></span></td><td><span class="cell"><span class="sw" style="background:#EDEEF3"></span><code class="tv" title="#EDEEF3">#EDEEF3</code></span></td><td class="tn">正文与标题（深色非纯白，保留冷调）</td></tr>
+<tr data-token="--dsh-text-secondary" data-kind="color"><td class="tk">--dsh-text-secondary</td><td><span class="cell"><span class="sw" style="background:#5B5445"></span><code class="tv" title="#5B5445">#5B5445</code></span></td><td><span class="cell"><span class="sw" style="background:#9AA2B8"></span><code class="tv" title="#9AA2B8">#9AA2B8</code></span></td><td class="tn">次要信息：描述、meta、未选中标签</td></tr>
+<tr data-token="--dsh-text-tertiary" data-kind="color"><td class="tk">--dsh-text-tertiary</td><td><span class="cell"><span class="sw" style="background:#8B8474"></span><code class="tv" title="#8B8474">#8B8474</code></span></td><td><span class="cell"><span class="sw" style="background:#5E667E"></span><code class="tv" title="#5E667E">#5E667E</code></span></td><td class="tn">三级：micro-label、占位符、禁用文字</td></tr>
+<tr data-token="--dsh-text-inverse" data-kind="color"><td class="tk">--dsh-text-inverse</td><td><span class="cell"><span class="sw" style="background:#FFF8F1"></span><code class="tv" title="#FFF8F1">#FFF8F1</code></span></td><td><span class="cell"><span class="sw" style="background:#0B0D14"></span><code class="tv" title="#0B0D14">#0B0D14</code></span></td><td class="tn">反相文字：实心强调块上</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">04 / BRAND · 品牌朱砂</span></td></tr>
+<tr data-token="--dsh-accent" data-kind="color"><td class="tk">--dsh-accent</td><td><span class="cell"><span class="sw" style="background:#D23E0C"></span><code class="tv" title="#D23E0C">#D23E0C</code></span></td><td><span class="cell"><span class="sw" style="background:#FF6A3D"></span><code class="tv" title="#FF6A3D">#FF6A3D</code></span></td><td class="tn">单点高饱和品牌色（朱砂／余烬）；深色下唯一允许发光的色</td></tr>
+<tr data-token="--dsh-accent-hover" data-kind="color"><td class="tk">--dsh-accent-hover</td><td><span class="cell"><span class="sw" style="background:#B0320A"></span><code class="tv" title="#B0320A">#B0320A</code></span></td><td><span class="cell"><span class="sw" style="background:#FF865F"></span><code class="tv" title="#FF865F">#FF865F</code></span></td><td class="tn">品牌 hover</td></tr>
+<tr data-token="--dsh-accent-subtle" data-kind="color"><td class="tk">--dsh-accent-subtle</td><td><span class="cell"><span class="sw" style="background:#FBE7DC"></span><code class="tv" title="#FBE7DC">#FBE7DC</code></span></td><td><span class="cell"><span class="sw" style="background:#2B1A14"></span><code class="tv" title="#2B1A14">#2B1A14</code></span></td><td class="tn">品牌淡衬：用户气泡、选中行、徽章底</td></tr>
+<tr data-token="--dsh-on-accent" data-kind="color"><td class="tk">--dsh-on-accent</td><td><span class="cell"><span class="sw" style="background:#FFF6F0"></span><code class="tv" title="#FFF6F0">#FFF6F0</code></span></td><td><span class="cell"><span class="sw" style="background:#140806"></span><code class="tv" title="#140806">#140806</code></span></td><td class="tn">品牌实心块上的文字；深色下用墨色（对比 6.8:1）</td></tr>
+<tr data-token="--dsh-accent-glow" data-kind="color"><td class="tk">--dsh-accent-glow</td><td><span class="cell"><span class="sw" style="background:rgba(210,62,12,.22)"></span><code class="tv" title="rgba(210,62,12,.22)">rgba(210,62,12,.22)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(255,106,61,.34)"></span><code class="tv" title="rgba(255,106,61,.34)">rgba(255,106,61,.34)</code></span></td><td class="tn">辉光色：只用于聚焦输入卡、主按钮、选中会话</td></tr>
+<tr data-token="--dsh-link" data-kind="color"><td class="tk">--dsh-link</td><td><span class="cell"><span class="sw" style="background:#B0320A"></span><code class="tv" title="#B0320A">#B0320A</code></span></td><td><span class="cell"><span class="sw" style="background:#FF865F"></span><code class="tv" title="#FF865F">#FF865F</code></span></td><td class="tn">链接文字</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">05 / STATE · 状态</span></td></tr>
+<tr data-token="--dsh-success" data-kind="color"><td class="tk">--dsh-success</td><td><span class="cell"><span class="sw" style="background:#157F4A"></span><code class="tv" title="#157F4A">#157F4A</code></span></td><td><span class="cell"><span class="sw" style="background:#35D08A"></span><code class="tv" title="#35D08A">#35D08A</code></span></td><td class="tn">成功：工具调用完成、保存成功</td></tr>
+<tr data-token="--dsh-success-subtle" data-kind="color"><td class="tk">--dsh-success-subtle</td><td><span class="cell"><span class="sw" style="background:#E3F1E7"></span><code class="tv" title="#E3F1E7">#E3F1E7</code></span></td><td><span class="cell"><span class="sw" style="background:#10281E"></span><code class="tv" title="#10281E">#10281E</code></span></td><td class="tn">成功淡衬</td></tr>
+<tr data-token="--dsh-warning" data-kind="color"><td class="tk">--dsh-warning</td><td><span class="cell"><span class="sw" style="background:#A65A00"></span><code class="tv" title="#A65A00">#A65A00</code></span></td><td><span class="cell"><span class="sw" style="background:#F2B33D"></span><code class="tv" title="#F2B33D">#F2B33D</code></span></td><td class="tn">警告：档位降级、额度提示</td></tr>
+<tr data-token="--dsh-warning-subtle" data-kind="color"><td class="tk">--dsh-warning-subtle</td><td><span class="cell"><span class="sw" style="background:#F7EAD6"></span><code class="tv" title="#F7EAD6">#F7EAD6</code></span></td><td><span class="cell"><span class="sw" style="background:#2A1F0E"></span><code class="tv" title="#2A1F0E">#2A1F0E</code></span></td><td class="tn">警告淡衬</td></tr>
+<tr data-token="--dsh-on-warning" data-kind="color"><td class="tk">--dsh-on-warning</td><td><span class="cell"><span class="sw" style="background:#FFF8EC"></span><code class="tv" title="#FFF8EC">#FFF8EC</code></span></td><td><span class="cell"><span class="sw" style="background:#1A1206"></span><code class="tv" title="#1A1206">#1A1206</code></span></td><td class="tn">警告实心块上的文字</td></tr>
+<tr data-token="--dsh-danger" data-kind="color"><td class="tk">--dsh-danger</td><td><span class="cell"><span class="sw" style="background:#B4232F"></span><code class="tv" title="#B4232F">#B4232F</code></span></td><td><span class="cell"><span class="sw" style="background:#FF4D5E"></span><code class="tv" title="#FF4D5E">#FF4D5E</code></span></td><td class="tn">危险：删除、错误（与品牌朱砂拉开色相）</td></tr>
+<tr data-token="--dsh-danger-subtle" data-kind="color"><td class="tk">--dsh-danger-subtle</td><td><span class="cell"><span class="sw" style="background:#FBE3E4"></span><code class="tv" title="#FBE3E4">#FBE3E4</code></span></td><td><span class="cell"><span class="sw" style="background:#2C1218"></span><code class="tv" title="#2C1218">#2C1218</code></span></td><td class="tn">危险淡衬</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">06 / CODE · 代码</span></td></tr>
+<tr data-token="--dsh-code-bg" data-kind="color"><td class="tk">--dsh-code-bg</td><td><span class="cell"><span class="sw" style="background:#EFE9DC"></span><code class="tv" title="#EFE9DC">#EFE9DC</code></span></td><td><span class="cell"><span class="sw" style="background:#0E1119"></span><code class="tv" title="#0E1119">#0E1119</code></span></td><td class="tn">代码块 / 行内 code 底</td></tr>
+<tr data-token="--dsh-code-text" data-kind="color"><td class="tk">--dsh-code-text</td><td><span class="cell"><span class="sw" style="background:#2A2419"></span><code class="tv" title="#2A2419">#2A2419</code></span></td><td><span class="cell"><span class="sw" style="background:#C8CEDA"></span><code class="tv" title="#C8CEDA">#C8CEDA</code></span></td><td class="tn">代码默认文字</td></tr>
+<tr data-token="--dsh-code-keyword" data-kind="color"><td class="tk">--dsh-code-keyword</td><td><span class="cell"><span class="sw" style="background:#B0320A"></span><code class="tv" title="#B0320A">#B0320A</code></span></td><td><span class="cell"><span class="sw" style="background:#FF8A63"></span><code class="tv" title="#FF8A63">#FF8A63</code></span></td><td class="tn">语法：关键字（沿用品牌朱砂）</td></tr>
+<tr data-token="--dsh-code-string" data-kind="color"><td class="tk">--dsh-code-string</td><td><span class="cell"><span class="sw" style="background:#157F4A"></span><code class="tv" title="#157F4A">#157F4A</code></span></td><td><span class="cell"><span class="sw" style="background:#7BD8A8"></span><code class="tv" title="#7BD8A8">#7BD8A8</code></span></td><td class="tn">语法：字符串</td></tr>
+<tr data-token="--dsh-code-number" data-kind="color"><td class="tk">--dsh-code-number</td><td><span class="cell"><span class="sw" style="background:#8A5A00"></span><code class="tv" title="#8A5A00">#8A5A00</code></span></td><td><span class="cell"><span class="sw" style="background:#F2B33D"></span><code class="tv" title="#F2B33D">#F2B33D</code></span></td><td class="tn">语法：数字</td></tr>
+<tr data-token="--dsh-code-fn" data-kind="color"><td class="tk">--dsh-code-fn</td><td><span class="cell"><span class="sw" style="background:#2C5AA0"></span><code class="tv" title="#2C5AA0">#2C5AA0</code></span></td><td><span class="cell"><span class="sw" style="background:#8FB4FF"></span><code class="tv" title="#8FB4FF">#8FB4FF</code></span></td><td class="tn">语法：函数 / 标识符</td></tr>
+<tr data-token="--dsh-code-comment" data-kind="color"><td class="tk">--dsh-code-comment</td><td><span class="cell"><span class="sw" style="background:#8B8474"></span><code class="tv" title="#8B8474">#8B8474</code></span></td><td><span class="cell"><span class="sw" style="background:#5E667E"></span><code class="tv" title="#5E667E">#5E667E</code></span></td><td class="tn">语法：注释</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">07 / ATMOSPHERE · 氛围层</span></td></tr>
+<tr data-token="--dsh-noise-uri" data-kind="uri"><td class="tk">--dsh-noise-uri</td><td><span class="cell"><span class="sw" style="background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");background-size:56px"></span><code class="tv" title="data:image/svg+xml,…">data:image/svg+xml,…</code></span></td><td><span class="cell"><span class="sw" style="background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");background-size:56px"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">极细噪点（SVG feTurbulence data-uri，零外链）</td></tr>
+<tr data-token="--dsh-noise-opacity" data-kind="text"><td class="tk">--dsh-noise-opacity</td><td><span class="cell"><span class="sw sw-tx">.05</span><code class="tv" title=".05">.05</code></span></td><td><span class="cell"><span class="sw sw-tx">.045</span><code class="tv" title=".045">.045</code></span></td><td class="tn">噪点不透明度</td></tr>
+<tr data-token="--dsh-noise-blend" data-kind="text"><td class="tk">--dsh-noise-blend</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="multiply">multiply</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="overlay">overlay</code></span></td><td class="tn">噪点混合模式：浅色做纸纹、深色做胶片颗粒</td></tr>
+<tr data-token="--dsh-grid-line" data-kind="color"><td class="tk">--dsh-grid-line</td><td><span class="cell"><span class="sw" style="background:rgba(23,20,14,.045)"></span><code class="tv" title="rgba(23,20,14,.045)">rgba(23,20,14,.045)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(154,162,184,.055)"></span><code class="tv" title="rgba(154,162,184,.055)">rgba(154,162,184,.055)</code></span></td><td class="tn">网格线颜色</td></tr>
+<tr data-token="--dsh-grid-size" data-kind="text"><td class="tk">--dsh-grid-size</td><td><span class="cell"><span class="sw sw-tx">32px</span><code class="tv" title="32px">32px</code></span></td><td><span class="cell"><span class="sw sw-tx">32px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">网格步长</td></tr>
+<tr data-token="--dsh-aurora-cold" data-kind="color"><td class="tk">--dsh-aurora-cold</td><td><span class="cell"><span class="sw" style="background:rgba(64,84,150,.16)"></span><code class="tv" title="rgba(64,84,150,.16)">rgba(64,84,150,.16)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(86,104,190,.22)"></span><code class="tv" title="rgba(86,104,190,.22)">rgba(86,104,190,.22)</code></span></td><td class="tn">冷调光晕（左上）</td></tr>
+<tr data-token="--dsh-aurora-violet" data-kind="color"><td class="tk">--dsh-aurora-violet</td><td><span class="cell"><span class="sw" style="background:rgba(120,86,170,.10)"></span><code class="tv" title="rgba(120,86,170,.10)">rgba(120,86,170,.10)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(138,102,196,.18)"></span><code class="tv" title="rgba(138,102,196,.18)">rgba(138,102,196,.18)</code></span></td><td class="tn">紫调光晕（中右）</td></tr>
+<tr data-token="--dsh-aurora-ember" data-kind="color"><td class="tk">--dsh-aurora-ember</td><td><span class="cell"><span class="sw" style="background:rgba(210,62,12,.10)"></span><code class="tv" title="rgba(210,62,12,.10)">rgba(210,62,12,.10)</code></span></td><td><span class="cell"><span class="sw" style="background:rgba(255,106,61,.16)"></span><code class="tv" title="rgba(255,106,61,.16)">rgba(255,106,61,.16)</code></span></td><td class="tn">余烬光晕（右下）</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">08 / TYPE · 排版（暂不参与注入）</span></td></tr>
+<tr data-token="--dsh-font-display" data-kind="text"><td class="tk">--dsh-font-display</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="&quot;Palatino Linotype&quot;,&quot;Book Antiqua&quot;,Georgia,serif">"Palatino Linotype","Book Antiqua",Georgia,serif</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">标题衬线（Windows 自带；衬线标题 + 等宽标注的非常规搭配）</td></tr>
+<tr data-token="--dsh-font-sans" data-kind="text"><td class="tk">--dsh-font-sans</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="&quot;Segoe UI Variable Text&quot;,&quot;Segoe UI&quot;,system-ui,&quot;Microsoft YaHei UI&quot;,sans-serif">"Segoe UI Variable Text","Segoe UI",system-ui,"Microsoft YaHei UI",sans-serif</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">正文无衬线（含中文回退）</td></tr>
+<tr data-token="--dsh-font-mono" data-kind="text"><td class="tk">--dsh-font-mono</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="&quot;Cascadia Mono&quot;,Consolas,&quot;Courier New&quot;,monospace">"Cascadia Mono",Consolas,"Courier New",monospace</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">代码与数字</td></tr>
+<tr data-token="--dsh-font-label" data-kind="text"><td class="tk">--dsh-font-label</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="&quot;Cascadia Mono&quot;,Consolas,&quot;Courier New&quot;,monospace">"Cascadia Mono",Consolas,"Courier New",monospace</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">micro-label 专用（大写 + 宽字距）</td></tr>
+<tr data-token="--dsh-text-3xs" data-kind="text"><td class="tk">--dsh-text-3xs</td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="10px">10px</code></span></td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">micro-label 字号</td></tr>
+<tr data-token="--dsh-text-2xs" data-kind="text"><td class="tk">--dsh-text-2xs</td><td><span class="cell"><span class="sw sw-tx">11px</span><code class="tv" title="11px">11px</code></span></td><td><span class="cell"><span class="sw sw-tx">11px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">徽章 / 角标</td></tr>
+<tr data-token="--dsh-text-xs" data-kind="text"><td class="tk">--dsh-text-xs</td><td><span class="cell"><span class="sw sw-tx">12px</span><code class="tv" title="12px">12px</code></span></td><td><span class="cell"><span class="sw sw-tx">12px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">meta、时间戳</td></tr>
+<tr data-token="--dsh-text-sm" data-kind="text"><td class="tk">--dsh-text-sm</td><td><span class="cell"><span class="sw sw-tx">13px</span><code class="tv" title="13px">13px</code></span></td><td><span class="cell"><span class="sw sw-tx">13px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">次要正文</td></tr>
+<tr data-token="--dsh-text-md" data-kind="text"><td class="tk">--dsh-text-md</td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="14px">14px</code></span></td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">正文基准</td></tr>
+<tr data-token="--dsh-text-lg" data-kind="text"><td class="tk">--dsh-text-lg</td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="16px">16px</code></span></td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">小节标题</td></tr>
+<tr data-token="--dsh-text-xl" data-kind="text"><td class="tk">--dsh-text-xl</td><td><span class="cell"><span class="sw sw-tx">20px</span><code class="tv" title="20px">20px</code></span></td><td><span class="cell"><span class="sw sw-tx">20px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">面板标题</td></tr>
+<tr data-token="--dsh-text-2xl" data-kind="text"><td class="tk">--dsh-text-2xl</td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="28px">28px</code></span></td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">区段标题</td></tr>
+<tr data-token="--dsh-text-display" data-kind="text"><td class="tk">--dsh-text-display</td><td><span class="cell"><span class="sw sw-tx">52px</span><code class="tv" title="52px">52px</code></span></td><td><span class="cell"><span class="sw sw-tx">52px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">编辑大标题</td></tr>
+<tr data-token="--dsh-text-mega" data-kind="text"><td class="tk">--dsh-text-mega</td><td><span class="cell"><span class="sw sw-tx">88px</span><code class="tv" title="88px">88px</code></span></td><td><span class="cell"><span class="sw sw-tx">88px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">封面巨型标题</td></tr>
+<tr data-token="--dsh-lh-3xs" data-kind="text"><td class="tk">--dsh-lh-3xs</td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="14px">14px</code></span></td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-2xs" data-kind="text"><td class="tk">--dsh-lh-2xs</td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="16px">16px</code></span></td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-xs" data-kind="text"><td class="tk">--dsh-lh-xs</td><td><span class="cell"><span class="sw sw-tx">18px</span><code class="tv" title="18px">18px</code></span></td><td><span class="cell"><span class="sw sw-tx">18px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-sm" data-kind="text"><td class="tk">--dsh-lh-sm</td><td><span class="cell"><span class="sw sw-tx">20px</span><code class="tv" title="20px">20px</code></span></td><td><span class="cell"><span class="sw sw-tx">20px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-md" data-kind="text"><td class="tk">--dsh-lh-md</td><td><span class="cell"><span class="sw sw-tx">22px</span><code class="tv" title="22px">22px</code></span></td><td><span class="cell"><span class="sw sw-tx">22px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">正文行高</td></tr>
+<tr data-token="--dsh-lh-lg" data-kind="text"><td class="tk">--dsh-lh-lg</td><td><span class="cell"><span class="sw sw-tx">24px</span><code class="tv" title="24px">24px</code></span></td><td><span class="cell"><span class="sw sw-tx">24px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-xl" data-kind="text"><td class="tk">--dsh-lh-xl</td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="28px">28px</code></span></td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-2xl" data-kind="text"><td class="tk">--dsh-lh-2xl</td><td><span class="cell"><span class="sw sw-tx">34px</span><code class="tv" title="34px">34px</code></span></td><td><span class="cell"><span class="sw sw-tx">34px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-lh-display" data-kind="text"><td class="tk">--dsh-lh-display</td><td><span class="cell"><span class="sw sw-tx">54px</span><code class="tv" title="54px">54px</code></span></td><td><span class="cell"><span class="sw sw-tx">54px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">大标题行高（负字距配套）</td></tr>
+<tr data-token="--dsh-lh-mega" data-kind="text"><td class="tk">--dsh-lh-mega</td><td><span class="cell"><span class="sw sw-tx">88px</span><code class="tv" title="88px">88px</code></span></td><td><span class="cell"><span class="sw sw-tx">88px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">巨型标题行高</td></tr>
+<tr data-token="--dsh-track-mega" data-kind="text"><td class="tk">--dsh-track-mega</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="-0.05em">-0.05em</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">巨型标题负字距（极端字重对比的一半）</td></tr>
+<tr data-token="--dsh-track-tight" data-kind="text"><td class="tk">--dsh-track-tight</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="-0.03em">-0.03em</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">标题负字距</td></tr>
+<tr data-token="--dsh-track-normal" data-kind="text"><td class="tk">--dsh-track-normal</td><td><span class="cell"><span class="sw sw-tx">0</span><code class="tv" title="0">0</code></span></td><td><span class="cell"><span class="sw sw-tx">0</span><code class="tv" title="同左">同左</code></span></td><td class="tn">正文</td></tr>
+<tr data-token="--dsh-track-wide" data-kind="text"><td class="tk">--dsh-track-wide</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="0.16em">0.16em</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">micro-label 宽字距</td></tr>
+<tr data-token="--dsh-track-label" data-kind="text"><td class="tk">--dsh-track-label</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="0.28em">0.28em</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">封面级标注字距</td></tr>
+<tr data-token="--dsh-weight-display" data-kind="text"><td class="tk">--dsh-weight-display</td><td><span class="cell"><span class="sw sw-tx">700</span><code class="tv" title="700">700</code></span></td><td><span class="cell"><span class="sw sw-tx">700</span><code class="tv" title="同左">同左</code></span></td><td class="tn">标题字重</td></tr>
+<tr data-token="--dsh-weight-label" data-kind="text"><td class="tk">--dsh-weight-label</td><td><span class="cell"><span class="sw sw-tx">600</span><code class="tv" title="600">600</code></span></td><td><span class="cell"><span class="sw sw-tx">600</span><code class="tv" title="同左">同左</code></span></td><td class="tn">标注字重</td></tr>
+<tr data-token="--dsh-weight-body" data-kind="text"><td class="tk">--dsh-weight-body</td><td><span class="cell"><span class="sw sw-tx">400</span><code class="tv" title="400">400</code></span></td><td><span class="cell"><span class="sw sw-tx">400</span><code class="tv" title="同左">同左</code></span></td><td class="tn">正文字重</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">09 / FORM · 形状与深度</span></td></tr>
+<tr data-token="--dsh-radius-xs" data-kind="shape"><td class="tk">--dsh-radius-xs</td><td><span class="cell"><span class="sw sw-sp" style="border-radius:2px"></span><code class="tv" title="2px">2px</code></span></td><td><span class="cell"><span class="sw sw-sp" style="border-radius:6px"></span><code class="tv" title="6px">6px</code></span></td><td class="tn">微角（徽章）</td></tr>
+<tr data-token="--dsh-radius-sm" data-kind="shape"><td class="tk">--dsh-radius-sm</td><td><span class="cell"><span class="sw sw-sp" style="border-radius:4px"></span><code class="tv" title="4px">4px</code></span></td><td><span class="cell"><span class="sw sw-sp" style="border-radius:9px"></span><code class="tv" title="9px">9px</code></span></td><td class="tn">小角（按钮）</td></tr>
+<tr data-token="--dsh-radius-md" data-kind="shape"><td class="tk">--dsh-radius-md</td><td><span class="cell"><span class="sw sw-sp" style="border-radius:6px"></span><code class="tv" title="6px">6px</code></span></td><td><span class="cell"><span class="sw sw-sp" style="border-radius:12px"></span><code class="tv" title="12px">12px</code></span></td><td class="tn">中角（会话行、主按钮）</td></tr>
+<tr data-token="--dsh-radius-lg" data-kind="shape"><td class="tk">--dsh-radius-lg</td><td><span class="cell"><span class="sw sw-sp" style="border-radius:8px"></span><code class="tv" title="8px">8px</code></span></td><td><span class="cell"><span class="sw sw-sp" style="border-radius:16px"></span><code class="tv" title="16px">16px</code></span></td><td class="tn">大角（卡片）</td></tr>
+<tr data-token="--dsh-radius-xl" data-kind="shape"><td class="tk">--dsh-radius-xl</td><td><span class="cell"><span class="sw sw-sp" style="border-radius:12px"></span><code class="tv" title="12px">12px</code></span></td><td><span class="cell"><span class="sw sw-sp" style="border-radius:22px"></span><code class="tv" title="22px">22px</code></span></td><td class="tn">面板角（输入卡、应用外框）</td></tr>
+<tr data-token="--dsh-radius-pill" data-kind="shape"><td class="tk">--dsh-radius-pill</td><td><span class="cell"><span class="sw sw-sp" style="border-radius:999px"></span><code class="tv" title="999px">999px</code></span></td><td><span class="cell"><span class="sw sw-sp" style="border-radius:999px"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">胶囊（档位 pill、开关）</td></tr>
+<tr data-token="--dsh-border-w" data-kind="text"><td class="tk">--dsh-border-w</td><td><span class="cell"><span class="sw sw-tx">1px</span><code class="tv" title="1px">1px</code></span></td><td><span class="cell"><span class="sw sw-tx">1px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">描边宽度</td></tr>
+<tr data-token="--dsh-focus-w" data-kind="text"><td class="tk">--dsh-focus-w</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="1.5px">1.5px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">焦点环宽度</td></tr>
+<tr data-token="--dsh-focus-halo" data-kind="text"><td class="tk">--dsh-focus-halo</td><td><span class="cell"><span class="sw sw-tx">3px</span><code class="tv" title="3px">3px</code></span></td><td><span class="cell"><span class="sw sw-tx">3px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">焦点环外晕偏移</td></tr>
+<tr data-token="--dsh-shadow-sm" data-kind="shadow"><td class="tk">--dsh-shadow-sm</td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 1px 0 rgba(23,20,14,.05)"></span><code class="tv" title="0 1px 0 rgba(23,20,14,.05)">0 1px 0 rgba(23,20,14,.05)</code></span></td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 1px 2px rgba(0,0,0,.5)"></span><code class="tv" title="0 1px 2px rgba(0,0,0,.5)">0 1px 2px rgba(0,0,0,.5)</code></span></td><td class="tn">静态卡片（浅色用墨线而非阴影）</td></tr>
+<tr data-token="--dsh-shadow-md" data-kind="shadow"><td class="tk">--dsh-shadow-md</td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 1px 0 rgba(23,20,14,.06), 0 10px 26px -20px rgba(23,20,14,.55)"></span><code class="tv" title="0 1px 0 rgba(23,20,14,.06), 0 10px 26px -20px rgba(23,20,14,.55)">0 1px 0 rgba(23,20,14,.06), 0 10px 26px -20px rgba(23,20,14,.55)</code></span></td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 8px 30px -12px rgba(0,0,0,.75)"></span><code class="tv" title="0 8px 30px -12px rgba(0,0,0,.75)">0 8px 30px -12px rgba(0,0,0,.75)</code></span></td><td class="tn">浮起（菜单、档位下拉）</td></tr>
+<tr data-token="--dsh-shadow-lg" data-kind="shadow"><td class="tk">--dsh-shadow-lg</td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 2px 0 rgba(23,20,14,.05), 0 30px 64px -44px rgba(23,20,14,.65)"></span><code class="tv" title="0 2px 0 rgba(23,20,14,.05), 0 30px 64px -44px rgba(23,20,14,.65)">0 2px 0 rgba(23,20,14,.05), 0 30px 64px -44px rgba(23,20,14,.65)</code></span></td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 26px 72px -30px rgba(0,0,0,.85)"></span><code class="tv" title="0 26px 72px -30px rgba(0,0,0,.85)">0 26px 72px -30px rgba(0,0,0,.85)</code></span></td><td class="tn">应用外框 / 大面板</td></tr>
+<tr data-token="--dsh-shadow-offset" data-kind="shadow"><td class="tk">--dsh-shadow-offset</td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:5px 5px 0 -1px rgba(23,20,14,.07)"></span><code class="tv" title="5px 5px 0 -1px rgba(23,20,14,.07)">5px 5px 0 -1px rgba(23,20,14,.07)</code></span></td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:none"></span><code class="tv" title="none">none</code></span></td><td class="tn">浅色专属：印刷式硬投影（非反相的重新设计）</td></tr>
+<tr data-token="--dsh-shadow-glow" data-kind="shadow"><td class="tk">--dsh-shadow-glow</td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 0 0 1px rgba(210,62,12,.25), 0 12px 40px -20px rgba(210,62,12,.35)"></span><code class="tv" title="0 0 0 1px rgba(210,62,12,.25), 0 12px 40px -20px rgba(210,62,12,.35)">0 0 0 1px rgba(210,62,12,.25), 0 12px 40px -20px rgba(210,62,12,.35)</code></span></td><td><span class="cell"><span class="sw sw-sh" style="box-shadow:0 0 0 1px rgba(255,106,61,.45), 0 0 44px -12px rgba(255,106,61,.45)"></span><code class="tv" title="0 0 0 1px rgba(255,106,61,.45), 0 0 44px -12px rgba(255,106,61,.45)">0 0 0 1px rgba(255,106,61,.45), 0 0 44px -12px rgba(255,106,61,.45)</code></span></td><td class="tn">辉光：仅聚焦态与主按钮</td></tr>
+<tr data-token="--dsh-glass-blur" data-kind="text"><td class="tk">--dsh-glass-blur</td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="10px">10px</code></span></td><td><span class="cell"><span class="sw sw-tx">18px</span><code class="tv" title="18px">18px</code></span></td><td class="tn">玻璃表面模糊半径</td></tr>
+<tr data-token="--dsh-surface-alpha" data-kind="text"><td class="tk">--dsh-surface-alpha</td><td><span class="cell"><span class="sw sw-tx">.94</span><code class="tv" title=".94">.94</code></span></td><td><span class="cell"><span class="sw sw-tx">.72</span><code class="tv" title=".72">.72</code></span></td><td class="tn">玻璃表面不透明度</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">10 / SPACE · 间距</span></td></tr>
+<tr data-token="--dsh-space-1" data-kind="text"><td class="tk">--dsh-space-1</td><td><span class="cell"><span class="sw sw-tx">4px</span><code class="tv" title="4px">4px</code></span></td><td><span class="cell"><span class="sw sw-tx">4px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">基网 4px</td></tr>
+<tr data-token="--dsh-space-2" data-kind="text"><td class="tk">--dsh-space-2</td><td><span class="cell"><span class="sw sw-tx">8px</span><code class="tv" title="8px">8px</code></span></td><td><span class="cell"><span class="sw sw-tx">8px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-3" data-kind="text"><td class="tk">--dsh-space-3</td><td><span class="cell"><span class="sw sw-tx">12px</span><code class="tv" title="12px">12px</code></span></td><td><span class="cell"><span class="sw sw-tx">12px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-4" data-kind="text"><td class="tk">--dsh-space-4</td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="16px">16px</code></span></td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-5" data-kind="text"><td class="tk">--dsh-space-5</td><td><span class="cell"><span class="sw sw-tx">24px</span><code class="tv" title="24px">24px</code></span></td><td><span class="cell"><span class="sw sw-tx">24px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-6" data-kind="text"><td class="tk">--dsh-space-6</td><td><span class="cell"><span class="sw sw-tx">32px</span><code class="tv" title="32px">32px</code></span></td><td><span class="cell"><span class="sw sw-tx">32px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-7" data-kind="text"><td class="tk">--dsh-space-7</td><td><span class="cell"><span class="sw sw-tx">40px</span><code class="tv" title="40px">40px</code></span></td><td><span class="cell"><span class="sw sw-tx">40px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-8" data-kind="text"><td class="tk">--dsh-space-8</td><td><span class="cell"><span class="sw sw-tx">48px</span><code class="tv" title="48px">48px</code></span></td><td><span class="cell"><span class="sw sw-tx">48px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">—</td></tr>
+<tr data-token="--dsh-space-px" data-kind="text"><td class="tk">--dsh-space-px</td><td><span class="cell"><span class="sw sw-tx">1px</span><code class="tv" title="1px">1px</code></span></td><td><span class="cell"><span class="sw sw-tx">1px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">微步</td></tr>
+<tr data-token="--dsh-space-0-5" data-kind="text"><td class="tk">--dsh-space-0-5</td><td><span class="cell"><span class="sw sw-tx">2px</span><code class="tv" title="2px">2px</code></span></td><td><span class="cell"><span class="sw sw-tx">2px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">微步</td></tr>
+<tr data-token="--dsh-space-0-75" data-kind="text"><td class="tk">--dsh-space-0-75</td><td><span class="cell"><span class="sw sw-tx">3px</span><code class="tv" title="3px">3px</code></span></td><td><span class="cell"><span class="sw sw-tx">3px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">微步</td></tr>
+<tr data-token="--dsh-space-1-5" data-kind="text"><td class="tk">--dsh-space-1-5</td><td><span class="cell"><span class="sw sw-tx">6px</span><code class="tv" title="6px">6px</code></span></td><td><span class="cell"><span class="sw sw-tx">6px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">微步</td></tr>
+<tr data-token="--dsh-space-2-5" data-kind="text"><td class="tk">--dsh-space-2-5</td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="10px">10px</code></span></td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">微步</td></tr>
+<tr data-token="--dsh-space-3-5" data-kind="text"><td class="tk">--dsh-space-3-5</td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="14px">14px</code></span></td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">微步</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">11 / MOTION · 动效</span></td></tr>
+<tr data-token="--dsh-ease-out" data-kind="motion"><td class="tk">--dsh-ease-out</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:cubic-bezier(.16,1,.3,1)"></span><code class="tv" title="cubic-bezier(.16,1,.3,1)">cubic-bezier(.16,1,.3,1)</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:cubic-bezier(.16,1,.3,1)"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">出场缓动（长尾减速）</td></tr>
+<tr data-token="--dsh-ease-spring" data-kind="motion"><td class="tk">--dsh-ease-spring</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:cubic-bezier(.34,1.56,.64,1)"></span><code class="tv" title="cubic-bezier(.34,1.56,.64,1)">cubic-bezier(.34,1.56,.64,1)</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:cubic-bezier(.34,1.56,.64,1)"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">物理回弹（主按钮、开关）</td></tr>
+<tr data-token="--dsh-ease-inout" data-kind="motion"><td class="tk">--dsh-ease-inout</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:cubic-bezier(.65,.05,.36,1)"></span><code class="tv" title="cubic-bezier(.65,.05,.36,1)">cubic-bezier(.65,.05,.36,1)</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:cubic-bezier(.65,.05,.36,1)"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">往复（面板展开）</td></tr>
+<tr data-token="--dsh-motion-fast" data-kind="motion"><td class="tk">--dsh-motion-fast</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:140ms"></span><code class="tv" title="140ms">140ms</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:140ms"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">hover / 按下</td></tr>
+<tr data-token="--dsh-motion-base" data-kind="motion"><td class="tk">--dsh-motion-base</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:280ms"></span><code class="tv" title="280ms">280ms</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:280ms"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">常规过渡</td></tr>
+<tr data-token="--dsh-motion-slow" data-kind="motion"><td class="tk">--dsh-motion-slow</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:560ms"></span><code class="tv" title="560ms">560ms</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:560ms"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">入场</td></tr>
+<tr data-token="--dsh-motion-breath" data-kind="motion"><td class="tk">--dsh-motion-breath</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:4200ms"></span><code class="tv" title="4200ms">4200ms</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:4200ms"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">辉光呼吸周期</td></tr>
+<tr data-token="--dsh-stagger" data-kind="motion"><td class="tk">--dsh-stagger</td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:55ms"></span><code class="tv" title="55ms">55ms</code></span></td><td><span class="cell"><span class="sw sw-mo" style="animation-timing-function:55ms"></span><code class="tv" title="同左">同左</code></span></td><td class="tn">交错入场步长</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">12 / METRICS · 组件度量</span></td></tr>
+<tr data-token="--dsh-sidebar-width" data-kind="text"><td class="tk">--dsh-sidebar-width</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="264px">264px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">侧栏宽度</td></tr>
+<tr data-token="--dsh-content-max" data-kind="text"><td class="tk">--dsh-content-max</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="720px">720px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">消息流最大行宽（编辑版心）</td></tr>
+<tr data-token="--dsh-header-h" data-kind="text"><td class="tk">--dsh-header-h</td><td><span class="cell"><span class="sw sw-tx">48px</span><code class="tv" title="48px">48px</code></span></td><td><span class="cell"><span class="sw sw-tx">48px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">会话头高度</td></tr>
+<tr data-token="--dsh-row-h" data-kind="text"><td class="tk">--dsh-row-h</td><td><span class="cell"><span class="sw sw-tx">32px</span><code class="tv" title="32px">32px</code></span></td><td><span class="cell"><span class="sw sw-tx">32px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">通用行高</td></tr>
+<tr data-token="--dsh-session-row-h" data-kind="text"><td class="tk">--dsh-session-row-h</td><td><span class="cell"><span class="sw sw-tx">44px</span><code class="tv" title="44px">44px</code></span></td><td><span class="cell"><span class="sw sw-tx">44px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">会话行高</td></tr>
+<tr data-token="--dsh-btn-block-h" data-kind="text"><td class="tk">--dsh-btn-block-h</td><td><span class="cell"><span class="sw sw-tx">38px</span><code class="tv" title="38px">38px</code></span></td><td><span class="cell"><span class="sw sw-tx">38px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">实心块按钮高（新建会话）</td></tr>
+<tr data-token="--dsh-btn-icon" data-kind="text"><td class="tk">--dsh-btn-icon</td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="28px">28px</code></span></td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">图标按钮边长</td></tr>
+<tr data-token="--dsh-user-card-h" data-kind="text"><td class="tk">--dsh-user-card-h</td><td><span class="cell"><span class="sw sw-tx">52px</span><code class="tv" title="52px">52px</code></span></td><td><span class="cell"><span class="sw sw-tx">52px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">底部用户区高</td></tr>
+<tr data-token="--dsh-input-min-h" data-kind="text"><td class="tk">--dsh-input-min-h</td><td><span class="cell"><span class="sw sw-tx">56px</span><code class="tv" title="56px">56px</code></span></td><td><span class="cell"><span class="sw sw-tx">56px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">输入卡最小高</td></tr>
+<tr data-token="--dsh-composer-max" data-kind="text"><td class="tk">--dsh-composer-max</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="820px">820px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">输入卡最大宽</td></tr>
+<tr data-token="--dsh-icon-md" data-kind="text"><td class="tk">--dsh-icon-md</td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="16px">16px</code></span></td><td><span class="cell"><span class="sw sw-tx">16px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">图标基准</td></tr>
+<tr data-token="--dsh-icon-sm" data-kind="text"><td class="tk">--dsh-icon-sm</td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="14px">14px</code></span></td><td><span class="cell"><span class="sw sw-tx">14px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">小图标</td></tr>
+<tr data-token="--dsh-avatar-sm" data-kind="text"><td class="tk">--dsh-avatar-sm</td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="28px">28px</code></span></td><td><span class="cell"><span class="sw sw-tx">28px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">头像（用户区）</td></tr>
+<tr data-token="--dsh-avatar-xs" data-kind="text"><td class="tk">--dsh-avatar-xs</td><td><span class="cell"><span class="sw sw-tx">20px</span><code class="tv" title="20px">20px</code></span></td><td><span class="cell"><span class="sw sw-tx">20px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">头像（消息流）</td></tr>
+<tr data-token="--dsh-indicator-w" data-kind="text"><td class="tk">--dsh-indicator-w</td><td><span class="cell"><span class="sw sw-tx">2px</span><code class="tv" title="2px">2px</code></span></td><td><span class="cell"><span class="sw sw-tx">2px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">选中指示条宽</td></tr>
+<tr data-token="--dsh-status-dot" data-kind="text"><td class="tk">--dsh-status-dot</td><td><span class="cell"><span class="sw sw-tx">6px</span><code class="tv" title="6px">6px</code></span></td><td><span class="cell"><span class="sw sw-tx">6px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">状态点</td></tr>
+<tr data-token="--dsh-menu-w" data-kind="text"><td class="tk">--dsh-menu-w</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="240px">240px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">菜单宽</td></tr>
+<tr data-token="--dsh-dropdown-w" data-kind="text"><td class="tk">--dsh-dropdown-w</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="250px">250px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">档位下拉宽</td></tr>
+<tr data-token="--dsh-switch-w" data-kind="text"><td class="tk">--dsh-switch-w</td><td><span class="cell"><span class="sw sw-tx">40px</span><code class="tv" title="40px">40px</code></span></td><td><span class="cell"><span class="sw sw-tx">40px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">开关宽</td></tr>
+<tr data-token="--dsh-switch-h" data-kind="text"><td class="tk">--dsh-switch-h</td><td><span class="cell"><span class="sw sw-tx">22px</span><code class="tv" title="22px">22px</code></span></td><td><span class="cell"><span class="sw sw-tx">22px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">开关高</td></tr>
+<tr data-token="--dsh-scrollbar-w" data-kind="text"><td class="tk">--dsh-scrollbar-w</td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="10px">10px</code></span></td><td><span class="cell"><span class="sw sw-tx">10px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">滚动条槽宽</td></tr>
+<tr data-token="--dsh-scrollbar-thumb" data-kind="text"><td class="tk">--dsh-scrollbar-thumb</td><td><span class="cell"><span class="sw sw-tx">4px</span><code class="tv" title="4px">4px</code></span></td><td><span class="cell"><span class="sw sw-tx">4px</span><code class="tv" title="同左">同左</code></span></td><td class="tn">滚动条 thumb 宽</td></tr>
+<tr data-token="--dsh-toast-w" data-kind="text"><td class="tk">--dsh-toast-w</td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="380px">380px</code></span></td><td><span class="cell"><span class="sw sw-tx">A</span><code class="tv" title="同左">同左</code></span></td><td class="tn">toast 宽</td></tr>
+<tr data-token="--dsh-disabled-opacity" data-kind="text"><td class="tk">--dsh-disabled-opacity</td><td><span class="cell"><span class="sw sw-tx">.4</span><code class="tv" title=".4">.4</code></span></td><td><span class="cell"><span class="sw sw-tx">.4</span><code class="tv" title="同左">同左</code></span></td><td class="tn">禁用不透明度</td></tr>
+<tr data-token="--dsh-active-scale" data-kind="text"><td class="tk">--dsh-active-scale</td><td><span class="cell"><span class="sw sw-tx">.98</span><code class="tv" title=".98">.98</code></span></td><td><span class="cell"><span class="sw sw-tx">.98</span><code class="tv" title="同左">同左</code></span></td><td class="tn">按下缩放</td></tr>
+<tr class="grp"><td colspan="4"><span class="micro">13 / SEMANTIC · 组件语义槽</span></td></tr>
+<tr data-token="--dsh-sidebar-bg" data-kind="alias"><td class="tk">--dsh-sidebar-bg</td><td><span class="cell"><span class="sw" style="background:#EFEAE0"></span><code class="tv" title="var(--dsh-bg-subtle)">var(--dsh-bg-subtle)</code></span></td><td><span class="cell"><span class="sw" style="background:#0F121B"></span><code class="tv" title="var(--dsh-bg-subtle)">var(--dsh-bg-subtle)</code></span></td><td class="tn">侧栏底</td></tr>
+<tr data-token="--dsh-card-bg" data-kind="alias"><td class="tk">--dsh-card-bg</td><td><span class="cell"><span class="sw" style="background:#FFFDF8"></span><code class="tv" title="var(--dsh-bg-surface)">var(--dsh-bg-surface)</code></span></td><td><span class="cell"><span class="sw" style="background:#141824"></span><code class="tv" title="var(--dsh-bg-surface)">var(--dsh-bg-surface)</code></span></td><td class="tn">卡片底</td></tr>
+<tr data-token="--dsh-input-bg" data-kind="alias"><td class="tk">--dsh-input-bg</td><td><span class="cell"><span class="sw" style="background:#FFFDF8"></span><code class="tv" title="var(--dsh-bg-surface)">var(--dsh-bg-surface)</code></span></td><td><span class="cell"><span class="sw" style="background:#141824"></span><code class="tv" title="var(--dsh-bg-surface)">var(--dsh-bg-surface)</code></span></td><td class="tn">输入卡底</td></tr>
+<tr data-token="--dsh-menu-bg" data-kind="alias"><td class="tk">--dsh-menu-bg</td><td><span class="cell"><span class="sw" style="background:#FFFFFF"></span><code class="tv" title="var(--dsh-bg-elevated)">var(--dsh-bg-elevated)</code></span></td><td><span class="cell"><span class="sw" style="background:#1B2130"></span><code class="tv" title="var(--dsh-bg-elevated)">var(--dsh-bg-elevated)</code></span></td><td class="tn">菜单底</td></tr>
+<tr data-token="--dsh-toast-bg" data-kind="alias"><td class="tk">--dsh-toast-bg</td><td><span class="cell"><span class="sw" style="background:#FFFFFF"></span><code class="tv" title="var(--dsh-bg-elevated)">var(--dsh-bg-elevated)</code></span></td><td><span class="cell"><span class="sw" style="background:#1B2130"></span><code class="tv" title="var(--dsh-bg-elevated)">var(--dsh-bg-elevated)</code></span></td><td class="tn">toast 底</td></tr>
+<tr data-token="--dsh-bubble-user-bg" data-kind="alias"><td class="tk">--dsh-bubble-user-bg</td><td><span class="cell"><span class="sw" style="background:#FBE7DC"></span><code class="tv" title="var(--dsh-accent-subtle)">var(--dsh-accent-subtle)</code></span></td><td><span class="cell"><span class="sw" style="background:#2B1A14"></span><code class="tv" title="var(--dsh-accent-subtle)">var(--dsh-accent-subtle)</code></span></td><td class="tn">用户气泡底</td></tr>
+<tr data-token="--dsh-tool-card-bg" data-kind="alias"><td class="tk">--dsh-tool-card-bg</td><td><span class="cell"><span class="sw" style="background:#FFFDF8"></span><code class="tv" title="var(--dsh-bg-surface)">var(--dsh-bg-surface)</code></span></td><td><span class="cell"><span class="sw" style="background:#141824"></span><code class="tv" title="var(--dsh-bg-surface)">var(--dsh-bg-surface)</code></span></td><td class="tn">工具卡底</td></tr>
+<tr data-token="--dsh-code-block-bg" data-kind="alias"><td class="tk">--dsh-code-block-bg</td><td><span class="cell"><span class="sw" style="background:#EFE9DC"></span><code class="tv" title="var(--dsh-code-bg)">var(--dsh-code-bg)</code></span></td><td><span class="cell"><span class="sw" style="background:#0E1119"></span><code class="tv" title="var(--dsh-code-bg)">var(--dsh-code-bg)</code></span></td><td class="tn">代码块底</td></tr>
+<tr data-token="--dsh-badge-update-bg" data-kind="alias"><td class="tk">--dsh-badge-update-bg</td><td><span class="cell"><span class="sw" style="background:#A65A00"></span><code class="tv" title="var(--dsh-warning)">var(--dsh-warning)</code></span></td><td><span class="cell"><span class="sw" style="background:#F2B33D"></span><code class="tv" title="var(--dsh-warning)">var(--dsh-warning)</code></span></td><td class="tn">更新徽章底</td></tr>
+<tr data-token="--dsh-badge-update-text" data-kind="alias"><td class="tk">--dsh-badge-update-text</td><td><span class="cell"><span class="sw" style="background:#FFF8EC"></span><code class="tv" title="var(--dsh-on-warning)">var(--dsh-on-warning)</code></span></td><td><span class="cell"><span class="sw" style="background:#1A1206"></span><code class="tv" title="var(--dsh-on-warning)">var(--dsh-on-warning)</code></span></td><td class="tn">更新徽章文字</td></tr>
+<tr data-token="--dsh-badge-tier-bg" data-kind="alias"><td class="tk">--dsh-badge-tier-bg</td><td><span class="cell"><span class="sw" style="background:#FBE7DC"></span><code class="tv" title="var(--dsh-accent-subtle)">var(--dsh-accent-subtle)</code></span></td><td><span class="cell"><span class="sw" style="background:#2B1A14"></span><code class="tv" title="var(--dsh-accent-subtle)">var(--dsh-accent-subtle)</code></span></td><td class="tn">档位徽章底</td></tr>
+<tr data-token="--dsh-badge-tier-text" data-kind="alias"><td class="tk">--dsh-badge-tier-text</td><td><span class="cell"><span class="sw" style="background:#D23E0C"></span><code class="tv" title="var(--dsh-accent)">var(--dsh-accent)</code></span></td><td><span class="cell"><span class="sw" style="background:#FF6A3D"></span><code class="tv" title="var(--dsh-accent)">var(--dsh-accent)</code></span></td><td class="tn">档位徽章文字</td></tr>
+<tr data-token="--dsh-selected-row-bg" data-kind="alias"><td class="tk">--dsh-selected-row-bg</td><td><span class="cell"><span class="sw" style="background:#E0D8C9"></span><code class="tv" title="var(--dsh-bg-active)">var(--dsh-bg-active)</code></span></td><td><span class="cell"><span class="sw" style="background:#212739"></span><code class="tv" title="var(--dsh-bg-active)">var(--dsh-bg-active)</code></span></td><td class="tn">选中会话底</td></tr>
+<tr data-token="--dsh-selected-row-indicator" data-kind="alias"><td class="tk">--dsh-selected-row-indicator</td><td><span class="cell"><span class="sw" style="background:#D23E0C"></span><code class="tv" title="var(--dsh-accent)">var(--dsh-accent)</code></span></td><td><span class="cell"><span class="sw" style="background:#FF6A3D"></span><code class="tv" title="var(--dsh-accent)">var(--dsh-accent)</code></span></td><td class="tn">选中会话指示条</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h3 class="sectitle" style="font-size:var(--dsh-text-xl);margin-top:var(--dsh-space-7)">契约覆盖 · 官方 alias 槽位</h3>
+  <p class="secdesc" style="margin-bottom:var(--dsh-space-4)">mapping.json 的 91 个官方 alias 全部由本稿 18 个色槽承接（复用现有语义槽）。其余 135 个变量是新增概念：34 个属可注入类（表面/氛围/代码语法/形状/阴影，需上游补 alias 槽或在组件层注入），101 个属排版·间距·动效·度量层，本稿只做视觉定调、暂不参与注入。</p>
+  <div class="tokwrap">
+    <table class="tok">
+      <colgroup><col class="c1"><col style="width:90px"><col></colgroup>
+      <thead><tr><th>本稿变量（承接）</th><th>alias 数</th><th>官方 alias（去 --dsw-alias- 前缀）</th></tr></thead>
+      <tbody>
+<tr data-cov-var="--dsh-accent" data-cov-count="11"><td class="tk">--dsh-accent</td><td class="num">11</td><td><span class="chips"><code class="chip">brand-primary</code><code class="chip">brand-primary-new-colorprimary-new-color</code><code class="chip">brand-text</code><code class="chip">button-contrast-fill</code><code class="chip">button-ghost-active-border</code><code class="chip">button-info-fill</code><code class="chip">button-primary-fill</code><code class="chip">label-primary-bluish</code><code class="chip">link</code><code class="chip">state-business-primary</code><code class="chip">specific-sidebar-nav-item-active-accent</code></span></td></tr><tr data-cov-var="--dsh-accent-hover" data-cov-count="2"><td class="tk">--dsh-accent-hover</td><td class="num">2</td><td><span class="chips"><code class="chip">button-info-hover</code><code class="chip">button-primary-hover</code></span></td></tr><tr data-cov-var="--dsh-accent-subtle" data-cov-count="12"><td class="tk">--dsh-accent-subtle</td><td class="num">12</td><td><span class="chips"><code class="chip">bg-multi-select</code><code class="chip">button-ghost-active-fill</code><code class="chip">button-ghost-active-hover</code><code class="chip">button-primary-dimmed</code><code class="chip">button-tool-bar-fill</code><code class="chip">button-tool-bar-fill-invisible</code><code class="chip">button-tool-bar-hover</code><code class="chip">interactive-bg-hover-accent</code><code class="chip">state-business-tertiary</code><code class="chip">specific-bubble</code><code class="chip">specific-bubble-highlight</code><code class="chip">specific-sidebar-nav-item-active</code></span></td></tr><tr data-cov-var="--dsh-bg-active" data-cov-count="4"><td class="tk">--dsh-bg-active</td><td class="num">4</td><td><span class="chips"><code class="chip">bg-layer-3</code><code class="chip">bg-layer-4</code><code class="chip">interactive-bg-active</code><code class="chip">toast-bg</code></span></td></tr><tr data-cov-var="--dsh-bg-base" data-cov-count="4"><td class="tk">--dsh-bg-base</td><td class="num">4</td><td><span class="chips"><code class="chip">border-inverted</code><code class="chip">border-inverted2</code><code class="chip">brand-primary-invert</code><code class="chip">label-primary-inverted</code></span></td></tr><tr data-cov-var="--dsh-bg-hover" data-cov-count="8"><td class="tk">--dsh-bg-hover</td><td class="num">8</td><td><span class="chips"><code class="chip">bg-layer-2</code><code class="chip">bg-module-platform</code><code class="chip">bg-skeleton</code><code class="chip">button-floating-hover</code><code class="chip">interactive-bg-hover</code><code class="chip">interactive-bg-hover-solid</code><code class="chip">specific-selector</code><code class="chip">specific-sidebar-nav-item-hover</code></span></td></tr><tr data-cov-var="--dsh-bg-subtle" data-cov-count="5"><td class="tk">--dsh-bg-subtle</td><td class="num">5</td><td><span class="chips"><code class="chip">bg-layer-1</code><code class="chip">markdown-citation</code><code class="chip">markdown-tag</code><code class="chip">specific-sidebar-fill</code><code class="chip">specific-tip</code></span></td></tr><tr data-cov-var="--dsh-bg-surface" data-cov-count="10"><td class="tk">--dsh-bg-surface</td><td class="num">10</td><td><span class="chips"><code class="chip">bg-base</code><code class="chip">bg-document-preview</code><code class="chip">bg-overlay</code><code class="chip">button-elevated-fill</code><code class="chip">button-floating-fill</code><code class="chip">markdown-code-segment-selected</code><code class="chip">specific-input-major</code><code class="chip">specific-login-input</code><code class="chip">specific-menu</code><code class="chip">--dsw-hovercard-bg</code></span></td></tr><tr data-cov-var="--dsh-border-strong" data-cov-count="4"><td class="tk">--dsh-border-strong</td><td class="num">4</td><td><span class="chips"><code class="chip">border-l3</code><code class="chip">border-l4</code><code class="chip">scrollbar-bg-l1</code><code class="chip">scrollbar-bg-l2</code></span></td></tr><tr data-cov-var="--dsh-border-subtle" data-cov-count="3"><td class="tk">--dsh-border-subtle</td><td class="num">3</td><td><span class="chips"><code class="chip">border-l1</code><code class="chip">border-l2</code><code class="chip">border-l2-darkmode-thin</code></span></td></tr><tr data-cov-var="--dsh-code-bg" data-cov-count="5"><td class="tk">--dsh-code-bg</td><td class="num">5</td><td><span class="chips"><code class="chip">markdown-code-block</code><code class="chip">markdown-code-block-banner</code><code class="chip">markdown-code-segment-unselected</code><code class="chip">markdown-inline-code</code><code class="chip">markdown-placeholder</code></span></td></tr><tr data-cov-var="--dsh-danger" data-cov-count="5"><td class="tk">--dsh-danger</td><td class="num">5</td><td><span class="chips"><code class="chip">code-diff-deleted</code><code class="chip">file-diff-deleted-marker</code><code class="chip">label-error</code><code class="chip">state-error-primary</code><code class="chip">state-error-secondary</code></span></td></tr><tr data-cov-var="--dsh-on-accent" data-cov-count="1"><td class="tk">--dsh-on-accent</td><td class="num">1</td><td><span class="chips"><code class="chip">label-primary-foreground</code></span></td></tr><tr data-cov-var="--dsh-success" data-cov-count="4"><td class="tk">--dsh-success</td><td class="num">4</td><td><span class="chips"><code class="chip">code-diff-added</code><code class="chip">file-diff-added-marker</code><code class="chip">state-success-primary</code><code class="chip">state-success-secondary</code></span></td></tr><tr data-cov-var="--dsh-text-primary" data-cov-count="1"><td class="tk">--dsh-text-primary</td><td class="num">1</td><td><span class="chips"><code class="chip">label-primary</code></span></td></tr><tr data-cov-var="--dsh-text-secondary" data-cov-count="4"><td class="tk">--dsh-text-secondary</td><td class="num">4</td><td><span class="chips"><code class="chip">label-caption</code><code class="chip">label-document-preview</code><code class="chip">label-primary-dimmed</code><code class="chip">label-secondary</code></span></td></tr><tr data-cov-var="--dsh-text-tertiary" data-cov-count="5"><td class="tk">--dsh-text-tertiary</td><td class="num">5</td><td><span class="chips"><code class="chip">label-dimmed</code><code class="chip">label-tertiary</code><code class="chip">scrollbar-hover-l1</code><code class="chip">scrollbar-hover-l2</code><code class="chip">state-idle-primary</code></span></td></tr><tr data-cov-var="--dsh-warning" data-cov-count="3"><td class="tk">--dsh-warning</td><td class="num">3</td><td><span class="chips"><code class="chip">state-warn-label</code><code class="chip">state-warn-primary</code><code class="chip">state-warn-secondary</code></span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<footer class="colophon" data-part="colophon">
+  <div class="micro">COLOPHON · 深空编辑室 / DEEP SPACE EDITING ROOM</div>
+  <h2 class="sectitle" style="margin-top:var(--dsh-space-3)">设计稿自检</h2>
+  <ul class="checklist">
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>零外链：无 CDN、无外部字体、无外部图片；唯一 URL 是 SVG 命名空间 http://www.w3.org/2000/svg</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>零 emoji：正文出现的 → ↔ 是 U+2192 / U+2194 排版箭头（文本呈现），非 emoji</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>零依赖单文件：无 &lt;link&gt; / @import / 外部 src；噪点为 SVG feTurbulence data-uri</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>变量闭环：CSS 中 123 个 var(--dsh-*) 引用全部有定义，无悬空引用</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>对照表与发射同源：153 行 data-token ＝ manifest 153 条 ＝ :root 153 条声明，顺序逐条一致</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>明暗双套可切换：:root 153 条 + [data-theme=&quot;dark&quot;] 68 条覆盖，两态实测渲染通过</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>契约覆盖：mapping.json 的 91 个官方 alias 全部由本稿 18 个色槽承接</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>7 类组件齐全：01 侧栏 / 02 消息流 / 03 输入卡 / 04 设置 / 05 通知与滚动条 / 06 图标 / 07 Token 面板</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>语义锚点：26 个 data-part，并保留真实 GUI 的 data-dsh-surface / data-dsh-part（patches.css 依赖）</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>1440×900 无横向溢出：scrollWidth 1440 ＝ clientWidth 1440（明暗两态实测）</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>首屏完整呈现应用外框：60px 标头 + 840px 外框 ＝ 900，无需滚动</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>动效运行中：computed animation-name ＝ dshBreath（呼吸辉光）；prefers-reduced-motion 有降级</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>焦点可见：:focus-visible 用 1.5px 品牌色 + 3px 外晕（--dsh-focus-w / --dsh-focus-halo）</li>
+    <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg>图标：15 个内联 symbol，24×24 视框、stroke-width 2、圆角线帽、只描边不填充</li>
+  </ul>
+  <p class="note" style="margin-top:var(--dsh-space-5)">单文件 · 零依赖 · 零外链（无 CDN / 无外部字体 / 无外部图片）；字体栈全部为 Windows 系统自带；噪点为 SVG feTurbulence data-uri；图标为手绘 Lucide 风格内联 SVG（24×24 视框 / stroke-width 2 / 圆角线帽）。</p>
+</footer>
+</div>
+<script type="application/json" id="token-manifest">{"$comment":"深空编辑室 · token 机器可读清单（本稿自身定义的变量全集 + 与 mapping.json 官方 alias 的覆盖对照）","theme":"dark-first","tokenTotal":163,"tokens":[{"name":"--dsh-bg-canvas","group":"01 / SURFACES · 表面与层次","light":"#E6E0D4","dark":"#07080D","kind":"color","purpose":"应用之外的画布：浅色=桌面纸，深色=深空底（禁止纯黑）","aliasOf":null,"injectable":true},{"name":"--dsh-bg-base","group":"01 / SURFACES · 表面与层次","light":"#F5F1E8","dark":"#0B0D14","kind":"color","purpose":"应用主底：消息流区","aliasOf":null,"injectable":true},{"name":"--dsh-bg-subtle","group":"01 / SURFACES · 表面与层次","light":"#EFEAE0","dark":"#0F121B","kind":"color","purpose":"侧栏衬底，比主底低一档明度（层次只靠明度差）","aliasOf":null,"injectable":true},{"name":"--dsh-bg-surface","group":"01 / SURFACES · 表面与层次","light":"#FFFDF8","dark":"#141824","kind":"color","purpose":"浮起表面：设置面板、工具卡、输入卡","aliasOf":null,"injectable":true},{"name":"--dsh-bg-elevated","group":"01 / SURFACES · 表面与层次","light":"#FFFFFF","dark":"#1B2130","kind":"color","purpose":"二级浮起：菜单、弹层、toast","aliasOf":null,"injectable":true},{"name":"--dsh-bg-hover","group":"01 / SURFACES · 表面与层次","light":"#EAE4D8","dark":"#1A1F2E","kind":"color","purpose":"hover 底：会话行、图标按钮","aliasOf":null,"injectable":true},{"name":"--dsh-bg-active","group":"01 / SURFACES · 表面与层次","light":"#E0D8C9","dark":"#212739","kind":"color","purpose":"选中/按下底：选中会话、开关轨道","aliasOf":null,"injectable":true},{"name":"--dsh-bg-inset","group":"01 / SURFACES · 表面与层次","light":"#E9E3D7","dark":"#0E1119","kind":"color","purpose":"内凹面：代码块、输入卡内区","aliasOf":null,"injectable":true},{"name":"--dsh-border-subtle","group":"02 / RULES · 描边与细线","light":"#DED7C9","dark":"#212736","kind":"color","purpose":"一级描边：卡片与输入卡默认描边","aliasOf":null,"injectable":true},{"name":"--dsh-border-strong","group":"02 / RULES · 描边与细线","light":"#BEB5A2","dark":"#333B50","kind":"color","purpose":"二级描边：滚动条 thumb、强调分隔","aliasOf":null,"injectable":true},{"name":"--dsh-rule-hairline","group":"02 / RULES · 描边与细线","light":"rgba(23,20,14,.10)","dark":"rgba(237,238,243,.07)","kind":"color","purpose":"编辑细线：区段分隔、标尺、表格行线","aliasOf":null,"injectable":true},{"name":"--dsh-rule-accent","group":"02 / RULES · 描边与细线","light":"rgba(210,62,12,.55)","dark":"rgba(255,106,61,.55)","kind":"color","purpose":"品牌细线：焦点下划线、选中指示条","aliasOf":null,"injectable":true},{"name":"--dsh-text-primary","group":"03 / INK · 文字","light":"#17140E","dark":"#EDEEF3","kind":"color","purpose":"正文与标题（深色非纯白，保留冷调）","aliasOf":null,"injectable":true},{"name":"--dsh-text-secondary","group":"03 / INK · 文字","light":"#5B5445","dark":"#9AA2B8","kind":"color","purpose":"次要信息：描述、meta、未选中标签","aliasOf":null,"injectable":true},{"name":"--dsh-text-tertiary","group":"03 / INK · 文字","light":"#8B8474","dark":"#5E667E","kind":"color","purpose":"三级：micro-label、占位符、禁用文字","aliasOf":null,"injectable":true},{"name":"--dsh-text-inverse","group":"03 / INK · 文字","light":"#FFF8F1","dark":"#0B0D14","kind":"color","purpose":"反相文字：实心强调块上","aliasOf":null,"injectable":true},{"name":"--dsh-accent","group":"04 / BRAND · 品牌朱砂","light":"#D23E0C","dark":"#FF6A3D","kind":"color","purpose":"单点高饱和品牌色（朱砂／余烬）；深色下唯一允许发光的色","aliasOf":null,"injectable":true},{"name":"--dsh-accent-hover","group":"04 / BRAND · 品牌朱砂","light":"#B0320A","dark":"#FF865F","kind":"color","purpose":"品牌 hover","aliasOf":null,"injectable":true},{"name":"--dsh-accent-subtle","group":"04 / BRAND · 品牌朱砂","light":"#FBE7DC","dark":"#2B1A14","kind":"color","purpose":"品牌淡衬：用户气泡、选中行、徽章底","aliasOf":null,"injectable":true},{"name":"--dsh-on-accent","group":"04 / BRAND · 品牌朱砂","light":"#FFF6F0","dark":"#140806","kind":"color","purpose":"品牌实心块上的文字；深色下用墨色（对比 6.8:1）","aliasOf":null,"injectable":true},{"name":"--dsh-accent-glow","group":"04 / BRAND · 品牌朱砂","light":"rgba(210,62,12,.22)","dark":"rgba(255,106,61,.34)","kind":"color","purpose":"辉光色：只用于聚焦输入卡、主按钮、选中会话","aliasOf":null,"injectable":true},{"name":"--dsh-link","group":"04 / BRAND · 品牌朱砂","light":"#B0320A","dark":"#FF865F","kind":"color","purpose":"链接文字","aliasOf":null,"injectable":true},{"name":"--dsh-success","group":"05 / STATE · 状态","light":"#157F4A","dark":"#35D08A","kind":"color","purpose":"成功：工具调用完成、保存成功","aliasOf":null,"injectable":true},{"name":"--dsh-success-subtle","group":"05 / STATE · 状态","light":"#E3F1E7","dark":"#10281E","kind":"color","purpose":"成功淡衬","aliasOf":null,"injectable":true},{"name":"--dsh-warning","group":"05 / STATE · 状态","light":"#A65A00","dark":"#F2B33D","kind":"color","purpose":"警告：档位降级、额度提示","aliasOf":null,"injectable":true},{"name":"--dsh-warning-subtle","group":"05 / STATE · 状态","light":"#F7EAD6","dark":"#2A1F0E","kind":"color","purpose":"警告淡衬","aliasOf":null,"injectable":true},{"name":"--dsh-on-warning","group":"05 / STATE · 状态","light":"#FFF8EC","dark":"#1A1206","kind":"color","purpose":"警告实心块上的文字","aliasOf":null,"injectable":true},{"name":"--dsh-danger","group":"05 / STATE · 状态","light":"#B4232F","dark":"#FF4D5E","kind":"color","purpose":"危险：删除、错误（与品牌朱砂拉开色相）","aliasOf":null,"injectable":true},{"name":"--dsh-danger-subtle","group":"05 / STATE · 状态","light":"#FBE3E4","dark":"#2C1218","kind":"color","purpose":"危险淡衬","aliasOf":null,"injectable":true},{"name":"--dsh-code-bg","group":"06 / CODE · 代码","light":"#EFE9DC","dark":"#0E1119","kind":"color","purpose":"代码块 / 行内 code 底","aliasOf":null,"injectable":true},{"name":"--dsh-code-text","group":"06 / CODE · 代码","light":"#2A2419","dark":"#C8CEDA","kind":"color","purpose":"代码默认文字","aliasOf":null,"injectable":true},{"name":"--dsh-code-keyword","group":"06 / CODE · 代码","light":"#B0320A","dark":"#FF8A63","kind":"color","purpose":"语法：关键字（沿用品牌朱砂）","aliasOf":null,"injectable":true},{"name":"--dsh-code-string","group":"06 / CODE · 代码","light":"#157F4A","dark":"#7BD8A8","kind":"color","purpose":"语法：字符串","aliasOf":null,"injectable":true},{"name":"--dsh-code-number","group":"06 / CODE · 代码","light":"#8A5A00","dark":"#F2B33D","kind":"color","purpose":"语法：数字","aliasOf":null,"injectable":true},{"name":"--dsh-code-fn","group":"06 / CODE · 代码","light":"#2C5AA0","dark":"#8FB4FF","kind":"color","purpose":"语法：函数 / 标识符","aliasOf":null,"injectable":true},{"name":"--dsh-code-comment","group":"06 / CODE · 代码","light":"#8B8474","dark":"#5E667E","kind":"color","purpose":"语法：注释","aliasOf":null,"injectable":true},{"name":"--dsh-noise-uri","group":"07 / ATMOSPHERE · 氛围层","light":"data:image/svg+xml;feTurbulence","dark":"same","kind":"uri","purpose":"极细噪点（SVG feTurbulence data-uri，零外链）","aliasOf":null,"injectable":true},{"name":"--dsh-noise-opacity","group":"07 / ATMOSPHERE · 氛围层","light":".05","dark":".045","kind":"text","purpose":"噪点不透明度","aliasOf":null,"injectable":true},{"name":"--dsh-noise-blend","group":"07 / ATMOSPHERE · 氛围层","light":"multiply","dark":"overlay","kind":"text","purpose":"噪点混合模式：浅色做纸纹、深色做胶片颗粒","aliasOf":null,"injectable":true},{"name":"--dsh-grid-line","group":"07 / ATMOSPHERE · 氛围层","light":"rgba(23,20,14,.045)","dark":"rgba(154,162,184,.055)","kind":"color","purpose":"网格线颜色","aliasOf":null,"injectable":true},{"name":"--dsh-grid-size","group":"07 / ATMOSPHERE · 氛围层","light":"32px","dark":"32px","kind":"text","purpose":"网格步长","aliasOf":null,"injectable":true},{"name":"--dsh-aurora-cold","group":"07 / ATMOSPHERE · 氛围层","light":"rgba(64,84,150,.16)","dark":"rgba(86,104,190,.22)","kind":"color","purpose":"冷调光晕（左上）","aliasOf":null,"injectable":true},{"name":"--dsh-aurora-violet","group":"07 / ATMOSPHERE · 氛围层","light":"rgba(120,86,170,.10)","dark":"rgba(138,102,196,.18)","kind":"color","purpose":"紫调光晕（中右）","aliasOf":null,"injectable":true},{"name":"--dsh-aurora-ember","group":"07 / ATMOSPHERE · 氛围层","light":"rgba(210,62,12,.10)","dark":"rgba(255,106,61,.16)","kind":"color","purpose":"余烬光晕（右下）","aliasOf":null,"injectable":true},{"name":"--dsh-font-display","group":"08 / TYPE · 排版（暂不参与注入）","light":"\"Palatino Linotype\",\"Book Antiqua\",Georgia,serif","dark":"\"Palatino Linotype\",\"Book Antiqua\",Georgia,serif","kind":"text","purpose":"标题衬线（Windows 自带；衬线标题 + 等宽标注的非常规搭配）","aliasOf":null,"injectable":false},{"name":"--dsh-font-sans","group":"08 / TYPE · 排版（暂不参与注入）","light":"\"Segoe UI Variable Text\",\"Segoe UI\",system-ui,\"Microsoft YaHei UI\",sans-serif","dark":"\"Segoe UI Variable Text\",\"Segoe UI\",system-ui,\"Microsoft YaHei UI\",sans-serif","kind":"text","purpose":"正文无衬线（含中文回退）","aliasOf":null,"injectable":false},{"name":"--dsh-font-mono","group":"08 / TYPE · 排版（暂不参与注入）","light":"\"Cascadia Mono\",Consolas,\"Courier New\",monospace","dark":"\"Cascadia Mono\",Consolas,\"Courier New\",monospace","kind":"text","purpose":"代码与数字","aliasOf":null,"injectable":false},{"name":"--dsh-font-label","group":"08 / TYPE · 排版（暂不参与注入）","light":"\"Cascadia Mono\",Consolas,\"Courier New\",monospace","dark":"\"Cascadia Mono\",Consolas,\"Courier New\",monospace","kind":"text","purpose":"micro-label 专用（大写 + 宽字距）","aliasOf":null,"injectable":false},{"name":"--dsh-text-3xs","group":"08 / TYPE · 排版（暂不参与注入）","light":"10px","dark":"10px","kind":"text","purpose":"micro-label 字号","aliasOf":null,"injectable":false},{"name":"--dsh-text-2xs","group":"08 / TYPE · 排版（暂不参与注入）","light":"11px","dark":"11px","kind":"text","purpose":"徽章 / 角标","aliasOf":null,"injectable":false},{"name":"--dsh-text-xs","group":"08 / TYPE · 排版（暂不参与注入）","light":"12px","dark":"12px","kind":"text","purpose":"meta、时间戳","aliasOf":null,"injectable":false},{"name":"--dsh-text-sm","group":"08 / TYPE · 排版（暂不参与注入）","light":"13px","dark":"13px","kind":"text","purpose":"次要正文","aliasOf":null,"injectable":false},{"name":"--dsh-text-md","group":"08 / TYPE · 排版（暂不参与注入）","light":"14px","dark":"14px","kind":"text","purpose":"正文基准","aliasOf":null,"injectable":false},{"name":"--dsh-text-lg","group":"08 / TYPE · 排版（暂不参与注入）","light":"16px","dark":"16px","kind":"text","purpose":"小节标题","aliasOf":null,"injectable":false},{"name":"--dsh-text-xl","group":"08 / TYPE · 排版（暂不参与注入）","light":"20px","dark":"20px","kind":"text","purpose":"面板标题","aliasOf":null,"injectable":false},{"name":"--dsh-text-2xl","group":"08 / TYPE · 排版（暂不参与注入）","light":"28px","dark":"28px","kind":"text","purpose":"区段标题","aliasOf":null,"injectable":false},{"name":"--dsh-text-display","group":"08 / TYPE · 排版（暂不参与注入）","light":"52px","dark":"52px","kind":"text","purpose":"编辑大标题","aliasOf":null,"injectable":false},{"name":"--dsh-text-mega","group":"08 / TYPE · 排版（暂不参与注入）","light":"88px","dark":"88px","kind":"text","purpose":"封面巨型标题","aliasOf":null,"injectable":false},{"name":"--dsh-lh-3xs","group":"08 / TYPE · 排版（暂不参与注入）","light":"14px","dark":"14px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-2xs","group":"08 / TYPE · 排版（暂不参与注入）","light":"16px","dark":"16px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-xs","group":"08 / TYPE · 排版（暂不参与注入）","light":"18px","dark":"18px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-sm","group":"08 / TYPE · 排版（暂不参与注入）","light":"20px","dark":"20px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-md","group":"08 / TYPE · 排版（暂不参与注入）","light":"22px","dark":"22px","kind":"text","purpose":"正文行高","aliasOf":null,"injectable":false},{"name":"--dsh-lh-lg","group":"08 / TYPE · 排版（暂不参与注入）","light":"24px","dark":"24px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-xl","group":"08 / TYPE · 排版（暂不参与注入）","light":"28px","dark":"28px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-2xl","group":"08 / TYPE · 排版（暂不参与注入）","light":"34px","dark":"34px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-lh-display","group":"08 / TYPE · 排版（暂不参与注入）","light":"54px","dark":"54px","kind":"text","purpose":"大标题行高（负字距配套）","aliasOf":null,"injectable":false},{"name":"--dsh-lh-mega","group":"08 / TYPE · 排版（暂不参与注入）","light":"88px","dark":"88px","kind":"text","purpose":"巨型标题行高","aliasOf":null,"injectable":false},{"name":"--dsh-track-mega","group":"08 / TYPE · 排版（暂不参与注入）","light":"-0.05em","dark":"-0.05em","kind":"text","purpose":"巨型标题负字距（极端字重对比的一半）","aliasOf":null,"injectable":false},{"name":"--dsh-track-tight","group":"08 / TYPE · 排版（暂不参与注入）","light":"-0.03em","dark":"-0.03em","kind":"text","purpose":"标题负字距","aliasOf":null,"injectable":false},{"name":"--dsh-track-normal","group":"08 / TYPE · 排版（暂不参与注入）","light":"0","dark":"0","kind":"text","purpose":"正文","aliasOf":null,"injectable":false},{"name":"--dsh-track-wide","group":"08 / TYPE · 排版（暂不参与注入）","light":"0.16em","dark":"0.16em","kind":"text","purpose":"micro-label 宽字距","aliasOf":null,"injectable":false},{"name":"--dsh-track-label","group":"08 / TYPE · 排版（暂不参与注入）","light":"0.28em","dark":"0.28em","kind":"text","purpose":"封面级标注字距","aliasOf":null,"injectable":false},{"name":"--dsh-weight-display","group":"08 / TYPE · 排版（暂不参与注入）","light":"700","dark":"700","kind":"text","purpose":"标题字重","aliasOf":null,"injectable":false},{"name":"--dsh-weight-label","group":"08 / TYPE · 排版（暂不参与注入）","light":"600","dark":"600","kind":"text","purpose":"标注字重","aliasOf":null,"injectable":false},{"name":"--dsh-weight-body","group":"08 / TYPE · 排版（暂不参与注入）","light":"400","dark":"400","kind":"text","purpose":"正文字重","aliasOf":null,"injectable":false},{"name":"--dsh-radius-xs","group":"09 / FORM · 形状与深度","light":"2px","dark":"6px","kind":"shape","purpose":"微角（徽章）","aliasOf":null,"injectable":true},{"name":"--dsh-radius-sm","group":"09 / FORM · 形状与深度","light":"4px","dark":"9px","kind":"shape","purpose":"小角（按钮）","aliasOf":null,"injectable":true},{"name":"--dsh-radius-md","group":"09 / FORM · 形状与深度","light":"6px","dark":"12px","kind":"shape","purpose":"中角（会话行、主按钮）","aliasOf":null,"injectable":true},{"name":"--dsh-radius-lg","group":"09 / FORM · 形状与深度","light":"8px","dark":"16px","kind":"shape","purpose":"大角（卡片）","aliasOf":null,"injectable":true},{"name":"--dsh-radius-xl","group":"09 / FORM · 形状与深度","light":"12px","dark":"22px","kind":"shape","purpose":"面板角（输入卡、应用外框）","aliasOf":null,"injectable":true},{"name":"--dsh-radius-pill","group":"09 / FORM · 形状与深度","light":"999px","dark":"999px","kind":"shape","purpose":"胶囊（档位 pill、开关）","aliasOf":null,"injectable":true},{"name":"--dsh-border-w","group":"09 / FORM · 形状与深度","light":"1px","dark":"1px","kind":"text","purpose":"描边宽度","aliasOf":null,"injectable":true},{"name":"--dsh-focus-w","group":"09 / FORM · 形状与深度","light":"1.5px","dark":"1.5px","kind":"text","purpose":"焦点环宽度","aliasOf":null,"injectable":true},{"name":"--dsh-focus-halo","group":"09 / FORM · 形状与深度","light":"3px","dark":"3px","kind":"text","purpose":"焦点环外晕偏移","aliasOf":null,"injectable":true},{"name":"--dsh-shadow-sm","group":"09 / FORM · 形状与深度","light":"0 1px 0 rgba(23,20,14,.05)","dark":"0 1px 2px rgba(0,0,0,.5)","kind":"shadow","purpose":"静态卡片（浅色用墨线而非阴影）","aliasOf":null,"injectable":true},{"name":"--dsh-shadow-md","group":"09 / FORM · 形状与深度","light":"0 1px 0 rgba(23,20,14,.06), 0 10px 26px -20px rgba(23,20,14,.55)","dark":"0 8px 30px -12px rgba(0,0,0,.75)","kind":"shadow","purpose":"浮起（菜单、档位下拉）","aliasOf":null,"injectable":true},{"name":"--dsh-shadow-lg","group":"09 / FORM · 形状与深度","light":"0 2px 0 rgba(23,20,14,.05), 0 30px 64px -44px rgba(23,20,14,.65)","dark":"0 26px 72px -30px rgba(0,0,0,.85)","kind":"shadow","purpose":"应用外框 / 大面板","aliasOf":null,"injectable":true},{"name":"--dsh-shadow-offset","group":"09 / FORM · 形状与深度","light":"5px 5px 0 -1px rgba(23,20,14,.07)","dark":"none","kind":"shadow","purpose":"浅色专属：印刷式硬投影（非反相的重新设计）","aliasOf":null,"injectable":true},{"name":"--dsh-shadow-glow","group":"09 / FORM · 形状与深度","light":"0 0 0 1px rgba(210,62,12,.25), 0 12px 40px -20px rgba(210,62,12,.35)","dark":"0 0 0 1px rgba(255,106,61,.45), 0 0 44px -12px rgba(255,106,61,.45)","kind":"shadow","purpose":"辉光：仅聚焦态与主按钮","aliasOf":null,"injectable":true},{"name":"--dsh-glass-blur","group":"09 / FORM · 形状与深度","light":"10px","dark":"18px","kind":"text","purpose":"玻璃表面模糊半径","aliasOf":null,"injectable":true},{"name":"--dsh-surface-alpha","group":"09 / FORM · 形状与深度","light":".94","dark":".72","kind":"text","purpose":"玻璃表面不透明度","aliasOf":null,"injectable":true},{"name":"--dsh-tilt-tongue","group":"09 / FORM · 形状与深度","light":"0.5deg","dark":"0.5deg","kind":"text","purpose":"选中行标签舌 hover 微倾","aliasOf":null,"injectable":true},{"name":"--dsh-tilt-stamp","group":"09 / FORM · 形状与深度","light":"5deg","dark":"5deg","kind":"text","purpose":"工具卡完成章微倾","aliasOf":null,"injectable":true},{"name":"--dsh-space-1","group":"10 / SPACE · 间距","light":"4px","dark":"4px","kind":"text","purpose":"基网 4px","aliasOf":null,"injectable":false},{"name":"--dsh-space-2","group":"10 / SPACE · 间距","light":"8px","dark":"8px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-3","group":"10 / SPACE · 间距","light":"12px","dark":"12px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-4","group":"10 / SPACE · 间距","light":"16px","dark":"16px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-5","group":"10 / SPACE · 间距","light":"24px","dark":"24px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-6","group":"10 / SPACE · 间距","light":"32px","dark":"32px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-7","group":"10 / SPACE · 间距","light":"40px","dark":"40px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-8","group":"10 / SPACE · 间距","light":"48px","dark":"48px","kind":"text","purpose":"—","aliasOf":null,"injectable":false},{"name":"--dsh-space-px","group":"10 / SPACE · 间距","light":"1px","dark":"1px","kind":"text","purpose":"微步","aliasOf":null,"injectable":false},{"name":"--dsh-space-0-5","group":"10 / SPACE · 间距","light":"2px","dark":"2px","kind":"text","purpose":"微步","aliasOf":null,"injectable":false},{"name":"--dsh-space-0-75","group":"10 / SPACE · 间距","light":"3px","dark":"3px","kind":"text","purpose":"微步","aliasOf":null,"injectable":false},{"name":"--dsh-space-1-5","group":"10 / SPACE · 间距","light":"6px","dark":"6px","kind":"text","purpose":"微步","aliasOf":null,"injectable":false},{"name":"--dsh-space-2-5","group":"10 / SPACE · 间距","light":"10px","dark":"10px","kind":"text","purpose":"微步","aliasOf":null,"injectable":false},{"name":"--dsh-space-3-5","group":"10 / SPACE · 间距","light":"14px","dark":"14px","kind":"text","purpose":"微步","aliasOf":null,"injectable":false},{"name":"--dsh-ease-out","group":"11 / MOTION · 动效","light":"cubic-bezier(.16,1,.3,1)","dark":"cubic-bezier(.16,1,.3,1)","kind":"motion","purpose":"出场缓动（长尾减速）","aliasOf":null,"injectable":false},{"name":"--dsh-ease-spring","group":"11 / MOTION · 动效","light":"cubic-bezier(.34,1.56,.64,1)","dark":"cubic-bezier(.34,1.56,.64,1)","kind":"motion","purpose":"物理回弹（主按钮、开关）","aliasOf":null,"injectable":false},{"name":"--dsh-ease-inout","group":"11 / MOTION · 动效","light":"cubic-bezier(.65,.05,.36,1)","dark":"cubic-bezier(.65,.05,.36,1)","kind":"motion","purpose":"往复（面板展开）","aliasOf":null,"injectable":false},{"name":"--dsh-motion-fast","group":"11 / MOTION · 动效","light":"140ms","dark":"140ms","kind":"motion","purpose":"hover / 按下","aliasOf":null,"injectable":false},{"name":"--dsh-motion-base","group":"11 / MOTION · 动效","light":"280ms","dark":"280ms","kind":"motion","purpose":"常规过渡","aliasOf":null,"injectable":false},{"name":"--dsh-motion-slow","group":"11 / MOTION · 动效","light":"560ms","dark":"560ms","kind":"motion","purpose":"入场","aliasOf":null,"injectable":false},{"name":"--dsh-motion-breath","group":"11 / MOTION · 动效","light":"4200ms","dark":"4200ms","kind":"motion","purpose":"辉光呼吸周期","aliasOf":null,"injectable":false},{"name":"--dsh-stagger","group":"11 / MOTION · 动效","light":"55ms","dark":"55ms","kind":"motion","purpose":"交错入场步长","aliasOf":null,"injectable":false},{"name":"--dsh-motion-hover","group":"11 / MOTION · 动效","light":"180ms","dark":"180ms","kind":"motion","purpose":"hover / 选中过渡（150–220ms 区间）","aliasOf":null,"injectable":false},{"name":"--dsh-drift-period","group":"11 / MOTION · 动效","light":"60s","dark":"60s","kind":"motion","purpose":"深空网格极缓漂移周期（仅深色）","aliasOf":null,"injectable":false},{"name":"--dsh-sidebar-width","group":"12 / METRICS · 组件度量","light":"264px","dark":"264px","kind":"text","purpose":"侧栏宽度","aliasOf":null,"injectable":false},{"name":"--dsh-content-max","group":"12 / METRICS · 组件度量","light":"720px","dark":"720px","kind":"text","purpose":"消息流最大行宽（编辑版心）","aliasOf":null,"injectable":false},{"name":"--dsh-header-h","group":"12 / METRICS · 组件度量","light":"48px","dark":"48px","kind":"text","purpose":"会话头高度","aliasOf":null,"injectable":false},{"name":"--dsh-row-h","group":"12 / METRICS · 组件度量","light":"32px","dark":"32px","kind":"text","purpose":"通用行高","aliasOf":null,"injectable":false},{"name":"--dsh-session-row-h","group":"12 / METRICS · 组件度量","light":"44px","dark":"44px","kind":"text","purpose":"会话行高","aliasOf":null,"injectable":false},{"name":"--dsh-btn-block-h","group":"12 / METRICS · 组件度量","light":"38px","dark":"38px","kind":"text","purpose":"实心块按钮高（新建会话）","aliasOf":null,"injectable":false},{"name":"--dsh-btn-icon","group":"12 / METRICS · 组件度量","light":"28px","dark":"28px","kind":"text","purpose":"图标按钮边长","aliasOf":null,"injectable":false},{"name":"--dsh-user-card-h","group":"12 / METRICS · 组件度量","light":"52px","dark":"52px","kind":"text","purpose":"底部用户区高","aliasOf":null,"injectable":false},{"name":"--dsh-input-min-h","group":"12 / METRICS · 组件度量","light":"56px","dark":"56px","kind":"text","purpose":"输入卡最小高","aliasOf":null,"injectable":false},{"name":"--dsh-composer-editor-h","group":"12 / METRICS · 组件度量","light":"calc(3 * 1lh + var(--dsh-space-1))","dark":"calc(3 * 1lh + var(--dsh-space-1))","kind":"text","purpose":"输入区高度＝三行完整（3×当前行高 lh ＋ .input 的 padding-top 4px），随用户字号自适应；超出在卡内滚动","aliasOf":null,"injectable":false},{"name":"--dsh-composer-hero-h","group":"12 / METRICS · 组件度量","light":"calc(3 * 1lh + var(--dsh-space-1) + var(--dsh-space-4))","dark":"calc(3 * 1lh + var(--dsh-space-1) + var(--dsh-space-4))","kind":"text","purpose":"hero 态输入区高度（主档 + 16px，同样随字号自适应）","aliasOf":null,"injectable":false},{"name":"--dsh-card-press-scale","group":"12 / METRICS · 组件度量","light":".995","dark":".995","kind":"text","purpose":"按钮按下时的瞬时缩放（回弹缓动）","aliasOf":null,"injectable":false},{"name":"--dsh-attach-row-h","group":"12 / METRICS · 组件度量","light":"64px","dark":"64px","kind":"text","purpose":"附件行固定高度（官方 .item 高 64px，横向滚动）","aliasOf":null,"injectable":false},{"name":"--dsh-send-scale","group":"12 / METRICS · 组件度量","light":"1.18","dark":"1.18","kind":"text","purpose":"发送键 filled 态放大倍率（官方 34px × 1.18 ≈ 40px 出界大圆）","aliasOf":null,"injectable":false},{"name":"--dsh-deepy-berth","group":"12 / METRICS · 组件度量","light":"14px","dark":"14px","kind":"text","purpose":"工具条底部给 Deepy 月台留的高度（不裁剪精灵）","aliasOf":null,"injectable":false},{"name":"--dsh-composer-max","group":"12 / METRICS · 组件度量","light":"820px","dark":"820px","kind":"text","purpose":"输入卡最大宽","aliasOf":null,"injectable":false},{"name":"--dsh-icon-md","group":"12 / METRICS · 组件度量","light":"16px","dark":"16px","kind":"text","purpose":"图标基准","aliasOf":null,"injectable":false},{"name":"--dsh-icon-sm","group":"12 / METRICS · 组件度量","light":"14px","dark":"14px","kind":"text","purpose":"小图标","aliasOf":null,"injectable":false},{"name":"--dsh-avatar-sm","group":"12 / METRICS · 组件度量","light":"28px","dark":"28px","kind":"text","purpose":"头像（用户区）","aliasOf":null,"injectable":false},{"name":"--dsh-avatar-xs","group":"12 / METRICS · 组件度量","light":"20px","dark":"20px","kind":"text","purpose":"头像（消息流）","aliasOf":null,"injectable":false},{"name":"--dsh-indicator-w","group":"12 / METRICS · 组件度量","light":"2px","dark":"2px","kind":"text","purpose":"选中指示条宽","aliasOf":null,"injectable":false},{"name":"--dsh-status-dot","group":"12 / METRICS · 组件度量","light":"6px","dark":"6px","kind":"text","purpose":"状态点","aliasOf":null,"injectable":false},{"name":"--dsh-menu-w","group":"12 / METRICS · 组件度量","light":"240px","dark":"240px","kind":"text","purpose":"菜单宽","aliasOf":null,"injectable":false},{"name":"--dsh-dropdown-w","group":"12 / METRICS · 组件度量","light":"250px","dark":"250px","kind":"text","purpose":"档位下拉宽","aliasOf":null,"injectable":false},{"name":"--dsh-switch-w","group":"12 / METRICS · 组件度量","light":"40px","dark":"40px","kind":"text","purpose":"开关宽","aliasOf":null,"injectable":false},{"name":"--dsh-switch-h","group":"12 / METRICS · 组件度量","light":"22px","dark":"22px","kind":"text","purpose":"开关高","aliasOf":null,"injectable":false},{"name":"--dsh-scrollbar-w","group":"12 / METRICS · 组件度量","light":"10px","dark":"10px","kind":"text","purpose":"滚动条槽宽","aliasOf":null,"injectable":false},{"name":"--dsh-scrollbar-thumb","group":"12 / METRICS · 组件度量","light":"4px","dark":"4px","kind":"text","purpose":"滚动条 thumb 宽","aliasOf":null,"injectable":false},{"name":"--dsh-toast-w","group":"12 / METRICS · 组件度量","light":"380px","dark":"380px","kind":"text","purpose":"toast 宽","aliasOf":null,"injectable":false},{"name":"--dsh-disabled-opacity","group":"12 / METRICS · 组件度量","light":".4","dark":".4","kind":"text","purpose":"禁用不透明度","aliasOf":null,"injectable":false},{"name":"--dsh-active-scale","group":"12 / METRICS · 组件度量","light":".98","dark":".98","kind":"text","purpose":"按下缩放","aliasOf":null,"injectable":false},{"name":"--dsh-sidebar-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-subtle)","dark":"var(--dsh-bg-subtle)","kind":"alias","purpose":"侧栏底","aliasOf":"--dsh-bg-subtle","injectable":true},{"name":"--dsh-card-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-surface)","dark":"var(--dsh-bg-surface)","kind":"alias","purpose":"卡片底","aliasOf":"--dsh-bg-surface","injectable":true},{"name":"--dsh-input-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-surface)","dark":"var(--dsh-bg-surface)","kind":"alias","purpose":"输入卡底","aliasOf":"--dsh-bg-surface","injectable":true},{"name":"--dsh-menu-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-elevated)","dark":"var(--dsh-bg-elevated)","kind":"alias","purpose":"菜单底","aliasOf":"--dsh-bg-elevated","injectable":true},{"name":"--dsh-toast-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-elevated)","dark":"var(--dsh-bg-elevated)","kind":"alias","purpose":"toast 底","aliasOf":"--dsh-bg-elevated","injectable":true},{"name":"--dsh-bubble-user-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-accent-subtle)","dark":"var(--dsh-accent-subtle)","kind":"alias","purpose":"用户气泡底","aliasOf":"--dsh-accent-subtle","injectable":true},{"name":"--dsh-tool-card-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-surface)","dark":"var(--dsh-bg-surface)","kind":"alias","purpose":"工具卡底","aliasOf":"--dsh-bg-surface","injectable":true},{"name":"--dsh-code-block-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-code-bg)","dark":"var(--dsh-code-bg)","kind":"alias","purpose":"代码块底","aliasOf":"--dsh-code-bg","injectable":true},{"name":"--dsh-badge-update-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-warning)","dark":"var(--dsh-warning)","kind":"alias","purpose":"更新徽章底","aliasOf":"--dsh-warning","injectable":true},{"name":"--dsh-badge-update-text","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-on-warning)","dark":"var(--dsh-on-warning)","kind":"alias","purpose":"更新徽章文字","aliasOf":"--dsh-on-warning","injectable":true},{"name":"--dsh-badge-tier-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-accent-subtle)","dark":"var(--dsh-accent-subtle)","kind":"alias","purpose":"档位徽章底","aliasOf":"--dsh-accent-subtle","injectable":true},{"name":"--dsh-badge-tier-text","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-accent)","dark":"var(--dsh-accent)","kind":"alias","purpose":"档位徽章文字","aliasOf":"--dsh-accent","injectable":true},{"name":"--dsh-selected-row-bg","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-bg-active)","dark":"var(--dsh-bg-active)","kind":"alias","purpose":"选中会话底","aliasOf":"--dsh-bg-active","injectable":true},{"name":"--dsh-selected-row-indicator","group":"13 / SEMANTIC · 组件语义槽","light":"var(--dsh-accent)","dark":"var(--dsh-accent)","kind":"alias","purpose":"选中会话指示条","aliasOf":"--dsh-accent","injectable":true}],"coverage":{"officialAliasTotal":91,"reusedByDraft":91,"draftTokenTotal":163,"newInjectableTokens":36,"nonInjectableTokens":109,"sourceVarToAliases":{"--dsh-accent":["--dsw-alias-brand-primary","--dsw-alias-brand-primary-new-colorprimary-new-color","--dsw-alias-brand-text","--dsw-alias-button-contrast-fill","--dsw-alias-button-ghost-active-border","--dsw-alias-button-info-fill","--dsw-alias-button-primary-fill","--dsw-alias-label-primary-bluish","--dsw-alias-link","--dsw-alias-state-business-primary","--dsw-alias-specific-sidebar-nav-item-active-accent"],"--dsh-accent-hover":["--dsw-alias-button-info-hover","--dsw-alias-button-primary-hover"],"--dsh-accent-subtle":["--dsw-alias-bg-multi-select","--dsw-alias-button-ghost-active-fill","--dsw-alias-button-ghost-active-hover","--dsw-alias-button-primary-dimmed","--dsw-alias-button-tool-bar-fill","--dsw-alias-button-tool-bar-fill-invisible","--dsw-alias-button-tool-bar-hover","--dsw-alias-interactive-bg-hover-accent","--dsw-alias-state-business-tertiary","--dsw-alias-specific-bubble","--dsw-alias-specific-bubble-highlight","--dsw-alias-specific-sidebar-nav-item-active"],"--dsh-bg-active":["--dsw-alias-bg-layer-3","--dsw-alias-bg-layer-4","--dsw-alias-interactive-bg-active","--dsw-alias-toast-bg"],"--dsh-bg-base":["--dsw-alias-border-inverted","--dsw-alias-border-inverted2","--dsw-alias-brand-primary-invert","--dsw-alias-label-primary-inverted"],"--dsh-bg-hover":["--dsw-alias-bg-layer-2","--dsw-alias-bg-module-platform","--dsw-alias-bg-skeleton","--dsw-alias-button-floating-hover","--dsw-alias-interactive-bg-hover","--dsw-alias-interactive-bg-hover-solid","--dsw-alias-specific-selector","--dsw-alias-specific-sidebar-nav-item-hover"],"--dsh-bg-subtle":["--dsw-alias-bg-layer-1","--dsw-alias-markdown-citation","--dsw-alias-markdown-tag","--dsw-alias-specific-sidebar-fill","--dsw-alias-specific-tip"],"--dsh-bg-surface":["--dsw-alias-bg-base","--dsw-alias-bg-document-preview","--dsw-alias-bg-overlay","--dsw-alias-button-elevated-fill","--dsw-alias-button-floating-fill","--dsw-alias-markdown-code-segment-selected","--dsw-alias-specific-input-major","--dsw-alias-specific-login-input","--dsw-alias-specific-menu","--dsw-hovercard-bg"],"--dsh-border-strong":["--dsw-alias-border-l3","--dsw-alias-border-l4","--dsw-alias-scrollbar-bg-l1","--dsw-alias-scrollbar-bg-l2"],"--dsh-border-subtle":["--dsw-alias-border-l1","--dsw-alias-border-l2","--dsw-alias-border-l2-darkmode-thin"],"--dsh-code-bg":["--dsw-alias-markdown-code-block","--dsw-alias-markdown-code-block-banner","--dsw-alias-markdown-code-segment-unselected","--dsw-alias-markdown-inline-code","--dsw-alias-markdown-placeholder"],"--dsh-danger":["--dsw-alias-code-diff-deleted","--dsw-alias-file-diff-deleted-marker","--dsw-alias-label-error","--dsw-alias-state-error-primary","--dsw-alias-state-error-secondary"],"--dsh-on-accent":["--dsw-alias-label-primary-foreground"],"--dsh-success":["--dsw-alias-code-diff-added","--dsw-alias-file-diff-added-marker","--dsw-alias-state-success-primary","--dsw-alias-state-success-secondary"],"--dsh-text-primary":["--dsw-alias-label-primary"],"--dsh-text-secondary":["--dsw-alias-label-caption","--dsw-alias-label-document-preview","--dsw-alias-label-primary-dimmed","--dsw-alias-label-secondary"],"--dsh-text-tertiary":["--dsw-alias-label-dimmed","--dsw-alias-label-tertiary","--dsw-alias-scrollbar-hover-l1","--dsw-alias-scrollbar-hover-l2","--dsw-alias-state-idle-primary"],"--dsh-warning":["--dsw-alias-state-warn-label","--dsw-alias-state-warn-primary","--dsw-alias-state-warn-secondary"]}}}</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var q = new URLSearchParams(location.search).get('theme');
+  if (q === 'light' || q === 'dark') root.setAttribute('data-theme', q);
+  var btns = document.querySelectorAll('[data-theme-set]');
+  function paint() {
+    var cur = root.getAttribute('data-theme') || 'dark';
+    for (var i = 0; i < btns.length; i++) btns[i].setAttribute('aria-pressed', String(btns[i].getAttribute('data-theme-set') === cur));
+    var lbl = document.getElementById('theme-current');
+    if (lbl) lbl.textContent = cur === 'dark' ? 'DARK / 深空' : 'LIGHT / 亮室';
+  }
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function () { root.setAttribute('data-theme', this.getAttribute('data-theme-set')); paint(); });
+  }
+  paint();
+})();
+</script>
+</body>
+</html>

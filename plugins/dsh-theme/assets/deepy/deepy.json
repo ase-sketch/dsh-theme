@@ -8,6 +8,11 @@
       "frames": 48,
       "rows": 6
     },
+    "idle-look": {
+      "file": "idle-look.png",
+      "frames": 68,
+      "rows": 9
+    },
     "thinking": {
       "file": "thinking.png",
       "frames": 48,

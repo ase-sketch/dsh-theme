@@ -1,75 +1,783 @@
-/* dsh-ui 皮肤 · L2/L3 层（手工维护，唯一数值来源仍是 dsh-ui/preview/index.html :root）
+/* 深空编辑室 · L2/L3 层（手工维护；数值唯一来源 design/tokens.css，本文件不手抄任何数值）
  *
- * 为什么需要这一层（M3 实测结论）：
- * 皮肤中心的 loader 会把 skin.css 里的 --dsw-alias-* 声明派生到 shell 真正消费的
- * 非 alias 命名空间（--dsw-specific-* = color-mix(bg-layer-1 60%, transparent)），
- * 且 --dsw-radius-* 这类 shell 内部 token 不在 299 官方契约里、从不被覆盖。
- * 结果：M2 的 L1 映射只换了色板，组件几何与浮起表面的实心色仍是官方值。
- * 本文件因此做两件事：
- *   ① 非 alias 命名空间的 token 重绑定（数值引用 skin.css 发射的 --dsh-*，不手抄）
- *   ② 契约能表达的组件几何（半径/描边/指示条）与语义属性规则
- * 规则一律引用 var(--dsh-*) / var(--dsw-*)；引用不存在的 --dsh-* 时构建期报错。
+ * 为什么需要这一层（M3 实测结论，M7 沿用）：
+ * 皮肤中心的 loader 会把 skin.css 里的 --dsw-alias-* 派生到 shell 真正消费的非 alias
+ * 命名空间（--dsw-specific-* = color-mix(bg-layer-1 60%, transparent)），而 --dsw-radius-* /
+ * --dsw-font-family / --ds-font-family-code 这类 shell 内部 token 不在 91 条 alias 契约里、
+ * 从不被 L1 映射覆盖。结果：L1 只换了色板，组件几何、浮起表面实心色、字体族仍是官方值。
+ *
+ * 本文件做六件事：
+ *   ① 非 alias 命名空间的 token 重绑定（数值一律 var(--dsh-*)，不手抄）
+ *   ② 组件层：主按钮 / 会话选中态 / 输入卡 / 聚焦环 / 侧栏分隔线 + 微交互统一
+ *   ③ 排版层：三层字体族 + 消息列版心 / 段落节奏 / 消息间 hairline / mono micro-label / hero
+ *   ④ 氛围层：噪点 + 网格 + 光晕 + 深空网格极缓漂移（§④ 有实测结论）
+ *   ⑤ 质感层：选中行标签舌 / 消息列右缘排版标尺 / toast 与 pill 的批注语言 / 工具卡票据化
+ *   ⑥ 滚动条接管
+ *
+ * 纪律：
+ *   · 规则只引用 var(--dsh-*) 与 var(--dsw-*)；引用不存在的 --dsh-* 时构建期报错。
+ *   · 全文无裸 hex、无裸 px。允许的非设计值：0 / 百分比 / transparent / none / infinite 等
+ *     CSS 关键字与单位恒等量；凡设计稿里有对应 token 的一律走 token
+ *     （例：网格线宽用 --dsh-space-px，不用 1px；阴影/圆角/动效同理）。
+ *   · 绝不写 font: 简写——简写会清掉官方 font-size/weight/line-height，且与官方 97 处
+ *     font: 简写互相覆盖；只用 font-family / letter-spacing / line-height 三个分项。
+ *   · 本文件不得出现 @media / @supports —— §M5 的 scopeSkinCss 复刻不处理嵌套 at-rule，
+ *     会直接报错拒绝产出。@keyframes 是例外（不嵌套选择器，可安全穿过）。
+ *   · 包含块红线（插件兼容）：不得对可能含插件注入内容的容器施加
+ *     transform / translate / rotate / scale / filter / perspective / will-change /
+ *     contain / container-type —— 它们会把后代 position:fixed 重新锚定到该容器
+ *     （M8 的聚焦上浮曾把 po06 面板顶出窗口）。允许：伪元素、叶子元素（svg / 按钮）、
+ *     :active 瞬时态。当前全文件扫描（2026-10-13，去注释后按声明名统计）：
+ *     59 条规则 / 4 条命中 / 容器违规 0 —— 4 条命中分别是
+ *     [data-dsh-part="new-session"]:active（叶子按钮）、发送键 :active（叶子按钮）、
+ *     sessionRow 标签舌 ::before、工具卡 DONE 章 ::after（两个都是伪元素）。
+ *     同次扫描：裸 px 0 条、裸 hex 0 条、!important 1 条（兼容例外 #1）。
+ *
+ * 兼容例外登记（!important 与覆盖内联样式的制度化留痕，逐条附理由、范围与副作用论证）：
+ *   #1 po06 控件栏的内联 flex-wrap —— 只钉 div[data-po06="bar"] 与 div[data-po06="bar-row-1"]
+ *      两个节点（V3 起不再扫射整个 slot 子树；旧写法的命中面含 po06 弹层内部，已收窄）。
+ *      单属性 / 单节点 / 单目的。详见该规则处的注释块（含 T10 证据链与残余风险）。
+ *      除本条外，本文件全文没有其它 !important。
  */
 
-/* ── ① 非 alias 命名空间：shell 实际消费的就是这些名字 ───────────────────── */
+/* ── ① 非 alias 命名空间重绑定 ───────────────────────────────────────────── */
 
 :root,
 body {
-  /* 圆角语言（规范 §3） */
-  --dsw-radius-panel: var(--dsh-radius-xl);
-  --dsw-radius-lg: var(--dsh-radius-lg);
-  --dsw-radius-md: var(--dsh-radius-md);
+  /* 圆角语言（官方 base.css 在 :root 上声明 --dsw-radius-*，此处按新设计重绑） */
+  --dsw-radius-xs: var(--dsh-radius-xs);
   --dsw-radius-sm: var(--dsh-radius-sm);
+  --dsw-radius-md: var(--dsh-radius-md);
+  --dsw-radius-lg: var(--dsh-radius-lg);
+  --dsw-radius-xl: var(--dsh-radius-xl);
+  --dsw-radius-panel: var(--dsh-radius-xl);
 
-  /* 浮起表面：规范 §6.2 输入卡 = 纯白卡片，§6.1 侧栏 = 淡蓝衬底 */
+  /* 排版（§③ 的全局两层）：官方把全部 font 简写写成「… var(--dsw-font-family)」这种引用
+     （见 ui-theme base.css 的 --dsw-font-family 与 design-platform 的 --dsw-font-* 定义），
+     所以重绑这一个变量就能穿透官方 97 处 font: 简写，不必逐条硬碰。
+     --ds-font-family-code 同理，管代码族（markdown 代码块 / 行内 code / 终端）。
+     注：这两个名字不在 91 条 alias 契约内（mapping.json 的键集合已冻结），
+     故走本文件的非 alias 重绑定，而不是 L1 映射。 */
+  --dsw-font-family: var(--dsh-font-sans);
+  --ds-font-family-code: var(--dsh-font-mono);
+
+  /* 浮起表面与组件语义槽（shell 实际消费的是这些非 alias 名字） */
   --dsw-specific-input-major: var(--dsh-input-bg);
   --dsw-specific-login-input: var(--dsh-input-bg);
   --dsw-specific-menu: var(--dsh-menu-bg);
   --dsw-specific-selector: var(--dsh-card-bg);
   --dsw-specific-sidebar-fill: var(--dsh-sidebar-bg);
+  --dsw-specific-sidebar-nav-item-hover: var(--dsh-bg-hover);
+  --dsw-specific-sidebar-nav-item-active: var(--dsh-selected-row-bg);
+  --dsw-specific-sidebar-nav-item-active-accent: var(--dsh-selected-row-indicator);
   --dsw-specific-bubble: var(--dsh-bubble-user-bg);
   --dsw-specific-bubble-highlight: var(--dsh-bubble-user-bg);
+  --dsw-specific-tip: var(--dsh-bg-elevated);
 }
 
-/* ── ② L2 语义属性规则 ─────────────────────────────────────────────────── */
+/* ── ② 组件层 ───────────────────────────────────────────────────────────── */
 
-/* §6.1 侧栏主按钮 = 实心 primary（shell 默认是描边 elevated 样式） */
+/* 新建会话：shell 默认是描边 elevated 样式，新设计要实心朱砂块 + 物理回弹。
+   锚点 data-dsh-part 由皮肤中心的语义锚点适配器打（纯皮肤期）/ 插件 client 半代打。 */
 [data-dsh-part="new-session"] {
   min-height: var(--dsh-btn-block-h);
   border: 0;
   border-radius: var(--dsh-radius-md);
   background: var(--dsw-alias-button-primary-fill);
   color: var(--dsw-alias-label-primary-foreground);
+  letter-spacing: var(--dsh-track-normal);
+  transition: background-color var(--dsh-motion-hover) var(--dsh-ease-out),
+    transform var(--dsh-motion-hover) var(--dsh-ease-spring);
 }
 [data-dsh-part="new-session"]:hover:not(:disabled) {
   background: var(--dsw-alias-button-primary-hover);
 }
+/* 按下回弹用独立的 scale 属性而不是 transform：
+   ① scale 与官方可能已有的 transform 组合而不是覆盖它；
+   ② 明确表达「瞬时态」——只在按下期间存在。
+   按钮是叶子元素（内含图标 + 文案，无插件注入的 fixed 后代），加 scale 安全。 */
+[data-dsh-part="new-session"]:active:not(:disabled) {
+  scale: var(--dsh-active-scale);
+}
 
-/* §6.1 会话选中态 = bg-active + 左缘指示条 */
+/* 会话选中态：底色 + 左缘 2px 朱砂指示条（官方只有底色，没有指示条）。
+   真实类名形如 hIlkoa_sessionRow / hIlkoa_selected，故用 [class*=] 子串锚。 */
 [data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"] {
-  background: var(--dsh-bg-active);
-  box-shadow: inset var(--dsh-indicator-w) 0 0 0 var(--dsh-accent);
+  background: var(--dsh-selected-row-bg);
+  box-shadow: inset var(--dsh-indicator-w) 0 0 0 var(--dsh-selected-row-indicator);
 }
 
-/* §6.2 输入卡：静态用描边不用阴影；聚焦给品牌色描边 + 中档阴影 */
-[data-dsh-surface="composer"] [class*="card"] {
-  border: var(--dsh-border-w) solid var(--dsw-alias-border-l1);
-  box-shadow: none;
-}
-[data-dsh-surface="composer"] [class*="card"]:focus-within {
-  border-color: var(--dsw-alias-brand-primary);
-  box-shadow: var(--dsh-shadow-md);
-}
+/* 输入卡（composer card）的框 / 聚焦 / 工具带规则：**唯一归属是文末「输入卡「书写纸 v3」」
+   那一段**（V3 重构后集中在一处，避免同一个对象两套规则互相打架）。
+   M9 起这里曾放「静态 box-shadow:none + 聚焦朱砂全框 + dsh-composer-breathe 呼吸」，
+   V3 已整条废弃（设计稿是细中性描边 + 短聚焦标记，没有橙色全框呼吸）——
+   规则与 @keyframes 都**删除**，不是被覆盖。 */
 
-/* ── ③ L3 全局规则（无语义属性可锚，按契约纪律最小化） ─────────────────── */
-
-/* §6.1 侧栏分隔线用 subtle 档（shell 用了更重的 l3） */
-[class*="sidebarCol"] {
-  border-right: var(--dsh-border-w) solid var(--dsw-alias-border-l1);
-}
-
-/* §3 聚焦态：品牌色 1.5px + 2px 外晕位 */
+/* 聚焦环：朱砂 1.5px + 3px 外晕位（官方是 2px 单色 outline、无 offset）。
+   官方 html[data-input-modality=pointer] body :focus-visible:not(:read-write) 会把
+   outline-color 置透明——那条特异性更高，鼠标模态下不显示焦点环是官方有意行为，保留。 */
 :focus-visible {
   outline: var(--dsh-focus-w) solid var(--dsw-alias-brand-primary);
   outline-offset: var(--dsh-focus-halo);
+}
+
+/* 侧栏分隔线：官方 .xxx_sidebarCol 用 border-l3（更重）。这里改用 inset 阴影而不是
+   border-right——因为官方 html[data-windows-titlebar] .xxx_sidebarCol{border-right:none}
+   特异性更高，会在 Windows 标题栏模式下把 border 抹掉（桌面端正是这个模式）；
+   inset 阴影不受 border 重置影响，两种模式下都能得到 subtle 档细线。 */
+[class*="sidebarCol"] {
+  box-shadow: inset calc(-1 * var(--dsh-border-w)) 0 0 0 var(--dsw-alias-border-l1);
+}
+
+/* 微交互统一：hover / 选中过渡 180ms（--dsh-motion-hover，落在设计要求的 150–220ms 区间），
+   缓动用 --dsh-ease-out；主按钮按下走物理回弹 --dsh-ease-spring。
+   为什么是「在基类补 transition」而不是改官方 hover 规则：官方 .xxx_sessionRow / .xxx_pill
+   只声明了 hover 时的 background，没有过渡；补 transition 是零冲突的增量，不动官方任何声明。 */
+[class*="sessionRow"],
+[class*="pill"],
+[class*="iconButton"] {
+  transition: background-color var(--dsh-motion-hover) var(--dsh-ease-out),
+    color var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+
+/* 选区：朱砂底 + 反相文字（官方用系统默认高亮，与设计语言冲突） */
+::selection {
+  background: var(--dsh-accent);
+  color: var(--dsh-on-accent);
+}
+
+/* ── ③ 排版层 ───────────────────────────────────────────────────────────── */
+/* 只用 font-family / letter-spacing / line-height 三个分项，绝不写 font: 简写。
+   sans 正文层与 mono 代码层已在 §① 通过变量重绑全局生效（能穿透 font: 简写），
+   这里只补需要**定向**接管的两个面：display 衬线标题层、mono micro-label 层。 */
+
+/* 消息区标题：官方 .xxx_markdown h1{font: var(--dsw-font-markdown-h1)} 是 font: 简写，
+   官方特异性 (0,0,1,1)；这里用 [data-conversation-region="chat"] [class*="markdown"] :is(h1,h2,h3)
+   = (0,0,2,1) 压过它，且只覆盖 font-family / letter-spacing——字号、字重、行高仍走官方简写。 */
+[data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3) {
+  font-family: var(--dsh-font-display);
+  letter-spacing: var(--dsh-track-tight);
+}
+
+/* 会话头标题（面包屑当前项）：官方 .xxx_crumbCurrent 只设 color / font-weight，
+   既无 font-family 也无 font: 简写 → 直接接管，零冲突。 */
+[class*="crumbCurrent"] {
+  font-family: var(--dsh-font-display);
+  letter-spacing: var(--dsh-track-tight);
+}
+
+/* 侧栏行 meta（工作区名 / 时间戳一类三级文字）：官方 .xxx_meta 只设 font-size:12px /
+   line-height:20px / color，既无 font-family 也无 font: 简写 → 直接接管，零冲突。
+   两个选择器并列是有意的兜底：.xxx_meta 与 .xxx_projectRow / .xxx_sessionRow /
+   .xxx_searchResultRow 同属一个 CSS module，但打包产物里找不到挂载点 JSX，
+   无法确认 meta 一定嵌在 sessionRow 内——所以同时给「Row 后代」与「侧栏语义锚」两条路径，
+   任一成立即生效，都成立也不重复（同一条声明）。 */
+[class*="Row"] [class*="meta"],
+[data-dsh-surface="sidebar"] [class*="meta"] {
+  font-family: var(--dsh-font-mono);
+  letter-spacing: var(--dsh-track-wide);
+  line-height: var(--dsh-lh-xs);
+}
+
+/* M8 · 消息列编辑版心：官方 .xxx_column 用 --dsh-chat-content-width（shell 自有变量，
+   由 --dsh-chat-user-width 的 clamp(680px, …, 920px) 算出），会随窗口在 680–920px 之间浮动。
+   设计要固定 720px 版心 → 直接覆盖 max-width（不走 shell 变量，避免发射保留名）。
+   特异性 (0,0,3,0) 压过官方 (0,0,1,0)。 */
+[data-conversation-region="chat"] [class*="column"][data-chat-flow] {
+  max-width: var(--dsh-content-max);
+}
+
+/* M8 · 段落节奏：正文行高走设计稿的 --dsh-lh-md（官方 .xxx_root 用的是
+   calc(24px + --dsh-content-font-delta)，比设计稿松）；块级元素上下留白走 4 步基网。
+   官方 .xxx_markdown 自身是 font: 简写（会带上 22px 行高），但我们只写 line-height 分项
+   且特异性更高（0,0,2,0 > 0,0,1,0），分项覆盖简写成立。
+   注：官方 .xxx_markdown > *:first-child / p:last-child 的 margin !important 仍然生效，
+   首末元素贴边是官方有意行为，保留。 */
+[data-conversation-region="chat"] [class*="markdown"] {
+  line-height: var(--dsh-lh-md);
+}
+[data-conversation-region="chat"] [class*="markdown"] :is(p, ul, ol, blockquote) {
+  margin: var(--dsh-space-4) 0;
+}
+
+/* M8 · 消息间编辑细线：每条用户消息（= 一个 turn 的开头）上方一条 hairline。
+   锚点用 shell 自己的 data-chat-flow-kind（取值 user / steering / turn-trigger / turn-process），
+   这三个值在官方 CSS 里只被用作 :not() 条件，没有自己的规则 → 加 border-top 零冲突。
+   turn-trigger 可能是零高标记行，故只挂 user / steering，避免出现孤立线。 */
+[data-conversation-region="chat"] [data-chat-flow-kind="user"],
+[data-conversation-region="chat"] [data-chat-flow-kind="steering"] {
+  border-top: var(--dsh-border-w) solid var(--dsh-rule-hairline);
+  padding-top: var(--dsh-space-3);
+}
+
+/* M8 · mono micro-label：时间戳与计时。
+   · 侧栏会话行时间：官方 .xxx_time 只设 color / font-size:10px / line-height:16px，
+     无 font-family、无 font: 简写 → 直接接管，零冲突。
+   · 回合起止计时：官方 .xxx_timeStart / .xxx_timeEnd 同样只有 font-size / line-height / color。
+   · 放弃：.xxx_time（MessageIconActions 里的那个，官方用 font: var(--dsw-font-xxs-12) 简写）
+     与分组标题（data-chat-group-key 挂在行元素本身，没有独立的标题元素可锚）。 */
+[class*="Row"] [class*="time"],
+[data-conversation-region="chat"] [class*="timeStart"],
+[data-conversation-region="chat"] [class*="timeEnd"] {
+  font-family: var(--dsh-font-mono);
+  letter-spacing: var(--dsh-track-wide);
+  line-height: var(--dsh-lh-3xs);
+}
+
+/* M8 · hero 排版：官方 .Hqq-bq_headline（HeroShell）只设 font-size:26px / font-weight:500 /
+   line-height:32px，无 font-family、无 font: 简写 → 直接接管。
+   注意：「headline」这个子串在官方 CSS 里命中**两个**类——Hqq-bq_headline（hero 大标题）
+   与 _2WTFBq_headline（上下文用量浮层的说明行，小字 tertiary 色）。
+   裸用 [class*="headline"] 会把浮层那行也放大成 28px 衬线，直接撑破浮层。
+   故用 :not([class*="panel"] *) 排除浮层内的同名类（浮层根是 ._2WTFBq_panel）。
+   字号提到 --dsh-text-2xl（28px）是刻意的「编辑大标题」档位，不是 2 倍跳变（避免撑破 hero 的 flex 布局）。 */
+[data-conversation-region="chat"] [class*="headline"]:not([class*="panel"] *) {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-2xl);
+  line-height: var(--dsh-lh-2xl);
+  letter-spacing: var(--dsh-track-tight);
+}
+
+/* M8 · hero 刊号行 / 版记：DOM 注入归 T5，约定类名 .dsh-hero-kicker / .dsh-hero-colophon。
+   这些类名目前不存在，规则是「元素出现即生效」的待命态，不产生任何副作用。 */
+.dsh-hero-kicker,
+.dsh-hero-colophon {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-label);
+  color: var(--dsh-text-tertiary);
+  text-transform: uppercase;
+}
+
+/* ── ④ 氛围层 ───────────────────────────────────────────────────────────── */
+/* 落点实测结论（2026-10-12，官方 shell CSS 抽取自 app.asar，静态层叠证据）：
+ *   · body 自身            background: var(--dsw-alias-bg-base)         ← 不透明
+ *   · .xxx_sidebarCol      background: var(--dsw-specific-sidebar-fill) ← 不透明，盖住 body
+ *   · .xxx_root（会话区）  background: var(--dsw-alias-bg-base)         ← 不透明，盖住 body
+ *   ⇒ 写在 body 上的噪点/网格会被上面两层**完全盖住**（HANDOFF「计算绿≠可见」的教训）。
+ * 因此氛围层落在真实可见的表面：侧栏、会话区。
+ * 技术选择：
+ *   · 光晕/网格走宿主的 background-image **长写**——不覆盖官方 background 简写里的颜色；
+ *   · 噪点走 ::after——需要独立的 opacity + mix-blend-mode，宿主背景层给不了这两个自由度。
+ * 未落点：输入卡（data-composer-card）。它是小面积不透明卡，噪点在其上只显脏、不显氛围，
+ * 且聚焦态已有朱砂辉光承担视觉重量——故有意跳过，不是遗漏。
+ */
+
+/* 侧栏：冷调（左上）+ 紫调（右上）光晕 */
+[class*="sidebarCol"] {
+  background-image: radial-gradient(110% 70% at 4% -10%, var(--dsh-aurora-cold), transparent 62%),
+    radial-gradient(78% 54% at 103% 0%, var(--dsh-aurora-violet), transparent 58%);
+}
+
+/* 会话区：极细网格（编辑室稿纸）+ 右下余烬光晕。
+   网格线宽用 --dsh-space-px（=1px）而不是裸 1px；步长用 --dsh-grid-size。
+   背景画在滚动容器自身的盒子上，所以不随消息滚动，形成固定的「底纹」。 */
+[data-conversation-region="chat"] {
+  background-image: repeating-linear-gradient(
+      0deg,
+      var(--dsh-grid-line) 0 var(--dsh-space-px),
+      transparent var(--dsh-space-px) var(--dsh-grid-size)
+    ),
+    repeating-linear-gradient(
+      90deg,
+      var(--dsh-grid-line) 0 var(--dsh-space-px),
+      transparent var(--dsh-space-px) var(--dsh-grid-size)
+    ),
+    radial-gradient(76% 62% at 88% 108%, var(--dsh-aurora-ember), transparent 64%);
+  /* 网格两层必须显式 background-size 才能漂移：repeating-linear-gradient 默认
+     铺满整个定位区（background-size:auto），整块平移会露出未覆盖的边缘；
+     压成一个格子（--dsh-grid-size）后平铺，平移一格即无缝循环。
+     第三层（余烬光晕）保持 auto = 铺满，不参与漂移。 */
+  background-size: var(--dsh-grid-size) var(--dsh-grid-size),
+    var(--dsh-grid-size) var(--dsh-grid-size), auto;
+}
+
+/* M8 · 深空网格极缓漂移（仅深色）：60s 走完一格，linear 无限循环，肉眼几乎察觉不到，
+   但长时间停留会有「星空在转」的错觉。浅色主题不加动画（设计稿要求纸面静止）。
+   选择器用 body[data-ds-dark-theme] 前缀：纯皮肤期由 loader 作用域化，
+   插件期由 §M5 的作用域重写处理，两条路径都能命中。 */
+body[data-ds-dark-theme] [data-conversation-region="chat"] {
+  animation: dsh-grid-drift var(--dsh-drift-period) linear infinite;
+}
+@keyframes dsh-grid-drift {
+  from {
+    background-position: 0 0, 0 0, 0 0;
+  }
+  to {
+    background-position: var(--dsh-grid-size) var(--dsh-grid-size),
+      var(--dsh-grid-size) var(--dsh-grid-size), 0 0;
+  }
+}
+
+/* 噪点（侧栏与会话区共用一套规则）：宿主 .xxx_sidebarCol 是 static，需要 position: relative
+   才能锚定绝对定位的 ::after；对 grid 子项加 position: relative 不改变布局。
+   .xxx_body（会话区）本身已是 position: relative，重复声明也无副作用。
+   噪点图按 SVG 内建尺寸（160×160）铺贴，故不写 background-size——避免引入裸 px。 */
+[class*="sidebarCol"],
+[data-conversation-region="chat"] {
+  position: relative;
+}
+[class*="sidebarCol"]::after,
+[data-conversation-region="chat"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: var(--dsh-noise-uri);
+  opacity: var(--dsh-noise-opacity);
+  mix-blend-mode: var(--dsh-noise-blend);
+}
+
+/* ── 输入卡「书写纸 v3」：三行无稿线 · 单条工具带 · 细中性边框 ────────────────
+ *
+ * 视觉来源：design/composer-v3.html（用户已批准的当前版本，本文件只读它、不改它）。
+ * 结构来源（2026-10-13 重新取证，**不引用旧摘要**）：
+ *   C:/Users/pass/AppData/Local/Programs/DeepSeek Harness/resources/app.asar
+ *     → dsh/node_modules/@deepseek-ai/dsh-client-ui-conversation/lib/client.js
+ *   （桌面 checkout 与 npm 装同为 0.2.0-rc.2；InputBar 模块 hash 前缀 = RlGAzG_）
+ * 另取两个第三方消费方：
+ *   · 额度胶囊 @eddyskywalker/dsh-chatgpt-subscription → span.dsh-codex-composer-quota
+ *   · po06 控件栏   @dsh-external/dsh-po06/po06/lib/client.js → div[data-po06="bar"] 系列
+ *
+ * 真实 DOM（盒子关系以「DOM 直接孩子」为准，下面 ★ 处决定选择器能不能写 > ）：
+ *
+ *   div.card[data-composer-card]            官方 display:flex/column/gap:12px/position:relative
+ *     ├─ div.overlayAnchor                  absolute + height:0（官方已足够，本文件不再重复声明）
+ *     ├─ div.accessory                      （条件渲染）
+ *     ├─ div[data-slot="conversation.input.attachments"]   inline display:contents
+ *     │     └─ div.srf2qa_rail（外层，block，margin-bottom:-6px，padding:2px 10px 0）
+ *     │          └─ div.Mrat-G_rail（内层，flex + overflow:auto hidden；子项 .Mrat-G_item{height:64px}）
+ *     ├─ div.scroll[data-input-scroll] → div.grow → div.input(contenteditable) + div.placeholder
+ *     └─ div.row  ★ 卡片的 DOM 直接孩子，且是卡内**唯一**类名含 row 的直接孩子
+ *          ├─ div.tools
+ *          │    ├─ button.add / input[type=file][hidden]
+ *          │    ├─ div.modes → slot conversation.input.permission / .plan
+ *          │    └─ div[data-slot="conversation.input.left"]  inline display:contents
+ *          │         └─ div[data-po06="bar"][data-po06-actions][data-po06-intercepts][data-po06-busy]
+ *          │              inline: display:flex; flex-direction:column; flex-wrap:wrap
+ *          │              └─ div[data-po06="bar-row-1"]  inline: display:flex; flex-wrap:wrap; gap:6px
+ *          │                   └─ button[data-po06="options-btn"] …
+ *          └─ div.trailing
+ *               ├─ div.standardControls
+ *               │    ├─ div[data-slot="conversation.input.right"] → span.dsh-codex-composer-quota
+ *               │    └─ div[data-slot="conversation.input.model"]
+ *               │         → div.<hash>_root > button.<hash>_trigger
+ *               │              > span.<hash>_triggerLabel / _triggerEffort / _triggerIcon / _chevron
+ *               ├─ div.activity（空时官方 display:none）
+ *               └─ button.primary（停止键）· button.primary（发送键，恒为 trailing 最后一个孩子）
+ *
+ * 为什么全链路都写直接子选择器：卡内住着两个第三方组件（po06 控件栏 + Codex 额度胶囊）和 shell
+ * 自己的附件 rail，它们**也在** [data-composer-card] 子树里。用后代选择器写
+ * [class*="row"] / [class*="primary"] / [class*="_trigger"] 会连它们的内部结构一起命中 ——
+ * 实测额度插件就带 dsha-account-quota-row / dsha-btn-primary 这类类名。
+ * 直接子选择器把命中面收敛到 shell 自己的三个节点上。
+ *
+ * V3 相对 M9 的**废弃清单**（旧机制整条删除，不是被新规则覆盖）：
+ *   ✗ 卡片 display:grid + grid-template-columns（回到官方 flex column）
+ *   ✗ .row 的 display:contents 拆行
+ *   ✗ .trailing 竖排（flex-direction: column）
+ *   ✗ .standardControls 竖排
+ *   ✗ 编辑区「台面线」背景 + dsh-benchline-wipe 点亮动画
+ *   ✗ :focus-within 朱砂全框 + dsh-composer-breathe 呼吸动画
+ *   ✗ 发送键 scale 放大 + 负 margin 出界
+ *   ✗ 占位符衬线斜体大字
+ *   ✗ .grow::after 内滚渐隐带
+ *   ✗「pill 小标注化」inset hairline 描边（它实际命中的是模型名那三个 span）
+ *   ✗ slot 子树整片 nowrap !important（收窄成两个 po06 节点）
+ * 保留的 M8.5/M9 机制：三行定高编辑区（V3 起改为随行高自适应）、附件 rail 定高、
+ * 模型名不被 compact 隐藏、左簇不折行 + 横滚。
+ *
+ * 包含块红线自查：本段只出现 box-shadow / border / 伪元素 / 叶子按钮的 scale，
+ * 没有任何 transform / filter / perspective / will-change / contain / container-type。
+ * （.row 上的 container-type 是**官方**声明，不是本文件加的。）
+ */
+
+/* ── 卡框：细中性描边 + 极浅纸张投影；聚焦只把描边加深一档 ──
+   官方 .card 是 border:0 + box-shadow:var(--dsw-elevation-soft)（该 token 官方表里没定义 ⇒ 本就是 none）。
+   这里换成设计稿的 --dsh-border-subtle 描边与 --dsh-shadow-md 投影。
+   官方 .card 已声明 box-sizing:border-box，加 1px 描边不会撑大盒子。
+   box-shadow 不建立包含块，po06 的 fixed 面板不受影响（这正是 M8 那条 translateY 上浮被否掉的原因）。 */
+[data-conversation-region="composer"] [data-composer-card] {
+  border: var(--dsh-border-w) solid var(--dsh-border-subtle);
+  border-radius: var(--dsh-radius-xl);
+  box-shadow: var(--dsh-shadow-md);
+  transition: border-color var(--dsh-motion-fast) var(--dsh-ease-out);
+}
+[data-conversation-region="composer"] [data-composer-card]:focus-within {
+  border-color: var(--dsh-border-strong);
+}
+
+/* ── 短聚焦标记：卡左缘一枚 2×20px 朱砂小竖条（设计稿 .composer::before） ──
+   卡本身已是 position:relative（官方声明），伪元素直接锚它。
+   伪元素不参与布局、不建立包含块 ⇒ 对 po06 的 fixed 面板零影响。
+   为什么用 ::before：卡上唯一的官方伪元素是 .cardWorkspaceTrigger:after（虚线工作区框），不冲突。 */
+[data-conversation-region="composer"] [data-composer-card]::before {
+  content: '';
+  position: absolute;
+  top: var(--dsh-space-5);
+  left: calc(-1 * var(--dsh-border-w));
+  width: var(--dsh-indicator-w);
+  height: var(--dsh-space-5);
+  background: var(--dsh-accent);
+  border-radius: var(--dsh-radius-pill);
+  opacity: 0;
+  transition: opacity var(--dsh-motion-fast) var(--dsh-ease-out);
+  pointer-events: none;
+}
+[data-conversation-region="composer"] [data-composer-card]:focus-within::before {
+  opacity: 1;
+}
+
+/* ── 编辑区：恒定「恰好三行」，正文**不画任何线** ──
+   高度不再写死 px：--dsh-composer-editor-h = calc(3 * 1lh + var(--dsh-space-1))。
+   依据（官方 InputBar.module.css + JSX，asar 实测）：
+     · .card{line-height: calc(24px + var(--dsh-content-font-delta,0px))}，delta 由用户字号设置算出；
+     · .input 是 border-box 且自带 padding: 4px 8px 0 14px（padding-top 即 --dsh-space-1）。
+   ⇒ 1lh 在消费处（[data-input-scroll]）解析为该元素自身继承的行高 = 24px + delta，
+     于是 height 恒等于「3 个完整行盒 + .input 的 padding-top」，任何字号下都不裁第三行。
+     delta=0 时 = 3×24 + 4 = 76px（与 V3 设计稿一致）；delta 实测范围 [-4, +8]（用户字号 10..22）。
+   hero 档：--dsh-composer-hero-h = 主档 + var(--dsh-space-4) ⇒ delta=0 时 92px
+     （官方 hero 单行 min-height 52px，同增量 +16px）。
+   为什么走 token 而不是在 patches.css 里再写一条 calc：
+     ① 视觉数值唯一来源是 design/tokens.css（项目红线），高度值属于它；
+     ② patches.css 里写第二条 height 也**不是**回退 —— 含 var() 的声明若替换后无效，属于
+        invalid-at-computed-value-time，height 会计算为 unset(=auto)，而不是退回上一条
+        （上一条在层叠里已经输了）。这条更正同样适用于「无 lh 引擎」的假设：那种引擎下
+        编辑区高度会变 auto，而不是回落到 76px。
+   为什么不用 shell 的 --dsh-content-font-delta 直接算：
+     build-skin.mjs 只允许 patches.css 引用 design/tokens.css 里存在的 --dsh-*，而该名在
+     SHELL_RESERVED 里禁止声明 ⇒ 引用必红。lh 完全绕开这个限制。
+   lh 引擎支持（双重实证）：目标引擎自己的 CSS 就在用 —— dsh-client-ui-plugin-manager 的
+     .X_2TxG_skeletonText{height:1lh}、dsh-experimental-client-ui-agent-team 的
+     .VoX2oq_memberDot{height:1lh}（均取自 app.asar 对应包 lib/client.js 的内联 CSS）。
+   ⚠ 这里**没有** background-image —— 正文区不许出现横线（V3 硬要求）。 */
+[data-input-scroll] {
+  height: var(--dsh-composer-editor-h);
+  max-height: var(--dsh-composer-editor-h);
+  overflow-y: auto;
+}
+[class*="composerHero"] [data-input-scroll] {
+  height: var(--dsh-composer-hero-h);
+  max-height: var(--dsh-composer-hero-h);
+}
+
+/* ── 取消编辑区叶子的原生聚焦 outline（V3「无稿线」硬要求） ──
+   根因（父代理 UI 实测 main-report.json）：editorOutline = "rgb(210, 62, 12) solid 1px"，
+   即本文件 §② 那条全局 :focus-visible（--dsh-focus-w 朱砂 + --dsh-focus-halo 外晕）命中了
+   contenteditable 叶子。叶子在 [data-input-scroll]（overflow-y:auto）里且盒高恰等于容器高，
+   外晕被滚动容器裁掉三面，只剩底缘一条长朱砂线 —— 与 V3 的「无稿线 + 卡左缘短标记」冲突。
+   真实 DOM（final-composer-dom.json 实测）：
+     div.RlGAzG_scroll[data-input-scroll] > div.RlGAzG_grow > div[contenteditable][data-composer-input].RlGAzG_input
+   叶子不是 scroll 的直接孩子，故用后代选择器；同时锚 [data-composer-card] 与 [data-input-scroll] 两层，
+   确保命中面只有这一枚叶子，不扫任何按钮与插件控件。
+   特异性 (0,0,3,0) 压过 :focus-visible 的 (0,0,1,0) ⇒ 聚焦态下也稳定生效。
+   焦点表达改由卡片承担：:focus-within 的 border-color: --dsh-border-strong + 左缘短朱砂标记（见上），
+   编辑区自身的插入符仍是官方 caret-color（朱砂），不丢焦点可见性。 */
+[data-composer-card] [data-input-scroll] [data-composer-input] {
+  outline: none;
+}
+
+/* ── 占位符：正常中文排版（V3 硬要求） ──
+   官方 .placeholder 已是绝对定位（inset:4px 8px auto 14px）+ 单行省略，本文件只把 M8.5 的
+   「衬线斜体大字」换回正常正文：sans 字体 / 不倾斜 / 14px / 正常字距。
+   为什么不做 filled 分支：placeholder 只在空态渲染
+   （showPlaceholder = draft === "" && attachments.length === 0 && !claimActive），有内容时元素根本不存在。
+   因此本规则**不依赖** client.js 打的 data-dsh-editor 属性 —— 属性缺失或主题 OFF/ON 都不影响正确性。 */
+/* 行高**刻意不写**：placeholder 必须与编辑区共用同一个行盒 —— 官方 .placeholder 没有声明
+   line-height，它继承 .card 的 calc(24px + delta)。V3 首版把它钉成 --dsh-lh-lg(24px)，
+   delta≠0 时占位文字与真实行盒不同高、基线会偏，故删除该声明。 */
+[data-composer-card] [data-input-scroll] [class*="placeholder"] {
+  font-family: var(--dsh-font-sans);
+  font-style: normal;
+  font-size: var(--dsh-text-md);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-tertiary);
+  opacity: 1;
+}
+
+/* ── 工具带：全卡唯一的一条淡分隔线 + 单行不折 ──
+   .row 是卡片的 DOM 直接孩子（★ 见段首），所以能写直接子选择器；这条直接子约束同时保证
+   附件 rail / po06 / 额度组件内部任何同名类都不会被这条规则扫到。
+   官方 .row 是 flex + flex-wrap:wrap；V3 要单条工具带 ⇒ 钉 nowrap，溢出全部交给左簇横滚吸收
+   （.trailing 的收缩与收口见下面「右簇」那条：发送键 flex:none 恒在框内，模型名最多省略号）。
+   分隔线画在 .row 的 border-top：它就是「编辑区」与「工具带」之间那条线，卡内再无第二条。 */
+[data-composer-card] > [class*="row"] {
+  flex-wrap: nowrap;
+  border-top: var(--dsh-border-w) solid var(--dsh-rule-hairline);
+}
+
+/* ── 左簇：可压缩 + 单行横滚 ──
+   flex:1 1 0 + min-width:0 让左簇吃掉「剩余宽度」并把横向溢出吸收进自己的滚动区；
+   flex-wrap:nowrap 是 M8.5 就有的「不折行」机制，V3 沿用。
+   字体回到设计稿的正文层（V3 的 .ghost 是 inherit + --dsh-text-xs），
+   不再套 M8 的 mono + 宽字距 —— 工具带不是 micro-label。 */
+[data-composer-card] > [class*="row"] > [class*="tools"] {
+  flex: 1 1 0;
+  flex-wrap: nowrap;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+[data-composer-card] > [class*="row"] > [class*="tools"]::-webkit-scrollbar {
+  display: none;
+}
+/* 工具簇里的「+」：官方是实心圆底（--dsw-specific-selector），在文字簇里像一颗独立按钮。
+   改成纯图标 + 次级墨色，靠 hover 才显形。 */
+[data-composer-card] > [class*="row"] > [class*="tools"] [class*="add"] {
+  background: transparent;
+  color: var(--dsh-text-secondary);
+}
+
+/* ── 兼容例外登记 #1（V3 收窄版）：po06 控件栏的内联 flex-wrap ──
+   ① 为什么只有 !important 一条路（T10 实测证据链，2026-10-12）：
+      po06 的控件栏是**内联样式**，内联样式压过任何作者样式表 ——
+        div[data-po06="bar"]        style="display:flex; flex-direction:column; flex-wrap:wrap; …"
+        div[data-po06="bar-row-1"]  style="display:flex; flex-wrap:wrap; gap:6px"
+      作者样式表要赢内联，规范里没有第二条机制。
+   ② 范围（单属性 / 单节点 / 单目的，不是扫射）：
+      · 单属性：只有 flex-wrap 一个声明；
+      · 单节点：只有上面那两个 data-po06 节点。V3 之前的写法是
+        [data-slot="conversation.input.left"] 的整片子树扫射，会连带钉住 po06 的
+        options-pop / help-pop 弹层内部的换行 —— 已按真实 DOM 收窄；
+      · 单目的：宽度不够时横向溢出（由左簇 overflow-x:auto 兜底）而不是折成第二行。
+   ③ 明确**不碰**的节点：div[data-po06="bar-row-2"]（弹层容器）、
+      div[data-po06="options-pop"]、div[data-po06="help-pop"]，以及任何弹层内部元素。
+   ④ 命中面与副作用（不再宣称「无副作用」，只列实际命中的节点）：
+      · div[data-po06="bar"]：inline 是 column 方向 + wrap。钉 nowrap 后仍是单列
+        （它的孩子只有 bar-row-1 与条件渲染的 bar-row-2，单列本来也不会折）。
+      · div[data-po06="bar-row-1"]：横排按钮行。钉 nowrap 后「优化选项」与 ? 保持同一行，
+        宽度不够时溢出进左簇的横滚里，而不是把工具带撑成两行。
+      · 额度胶囊 span.dsh-codex-composer-quota（inline-flex，无 wrap）与模型按钮
+        （button.<hash>_trigger）**不在**本规则范围内。
+   ⑤ 残余风险：若 po06 未来把控件栏拆成更多层内联 wrap 容器，本条覆盖不到 ——
+      届时按真实 DOM 追加节点，**不要**退回整片子树扫射。 */
+[data-composer-card] [data-slot="conversation.input.left"] [data-po06="bar"],
+[data-composer-card] [data-slot="conversation.input.left"] [data-po06="bar-row-1"] {
+  flex-wrap: nowrap !important;
+}
+
+/* ── 右簇：单行横排 + **可缩收口**（模型 · 额度 · 发送同行） ──
+   官方 .trailing{flex:none; gap:12px; margin-left:auto; align-items:center; display:flex}
+   本来就是单行横排 —— V3 相对 M9 的动作是**撤销** M9 的竖排，不是新增横排。这里做两件事：
+     ① flex-wrap:nowrap —— 右簇永不塌成两列；
+     ② min-width:0 + flex-shrink:1 —— 覆盖官方 flex:none，让右簇可以被压进 row 的宽度以内。
+   ② 为什么必需（不是可选美化）：shell 的 observeControlRow 判定「放不下」后会给 .row 打
+      data-model-compact，官方 CSS 随即把模型名整段 display:none。要让模型名可见，
+      就必须同时保证「模型名可见」与「发送键不出界」—— 唯一的办法是让右簇可缩：
+        · .tools 是 flex:1 1 0 + min-width:0 ⇒ 先把左簇压到 0（内容进它自己的横滚）；
+        · 右簇可缩 ⇒ 右簇总宽永不超过 row，卡右缘不会被顶出去；
+        · 发送键官方 .primary{flex:none} ⇒ 它自己绝不参与收缩，恒在框内；
+        · 模型名按官方规则 overflow:hidden/ellipsis 优雅降级（先缩 triggerEffort，再缩 triggerLabel）。
+   ③ 副作用（明写，不宣称无副作用）：右簇可缩后，observeControlRow 量到的 needed 恒等于 available
+      ⇒ data-model-compact 事实上不再置位。observer 没有被移除、shell 源码零改动，
+      只是它判定的「放不下」被「压缩 + 省略号」替代了。900/1100/1440 档下右簇自然宽 ≈393px，
+      远小于行内容宽（588/696/769px）⇒ 根本不会进入收缩，模型名完整可见。 */
+[data-composer-card] > [class*="row"] > [class*="trailing"],
+[data-composer-card] > [class*="row"] > [class*="trailing"] > [class*="standardControls"] {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+[data-composer-card] > [class*="row"] > [class*="trailing"] {
+  flex-shrink: 1;
+}
+
+/* ── 模型名完整显示（M8.5 缺陷 3 的 V3 版） ──
+   ⚠ 更正（2026-10-13）：前一轮我在这里写过一条**错误的负结论**，现撤回 ——
+     我曾断言「本版没有 observeControlRow / data-model-compact，M8.5 的修复已无对应目标、退役」。
+     那是假的。根因：grep 输出被我截断后没复核，而且我 grep observeControlRow 时只搜了我们自己的
+     plugins/dsh-theme/lib/client.js，没搜 shell。asar 实测（conversation/lib/client.js）：
+       17141  function observeControlRow(row)
+       17148  row.toggleAttribute("data-model-compact", needed > available)
+       17172  .RlGAzG_row[data-model-compact]{--dsh-composer-model-text-display:none;--dsh-composer-model-icon-display:block}
+     即 shell 判定放不下时，会把模型名与档位文字整段 display:none、只剩图标。
+   真正的截断机制共三条，0.2.0-rc.2 全部活着：
+     ① .row[data-model-compact] 把上面两个变量置成 none / block；
+     ② button.<hash>_trigger{max-width: min(360px, 45cqw)} —— cqw 取 .row 的容器宽度
+        （官方 .row 带 container-type:inline-size），行一窄就把上限压到几十 px；
+     ③ span.<hash>_triggerLabel{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}。
+   拆法：① 反制（下面第一条）② 放开 max-width ③ **保留**官方省略号做优雅降级（见右簇那条注释）。
+   为什么 ③ 不改成 overflow:visible：右簇现在可缩，label 若 visible 会视觉溢出发送键；
+     省略号只在真的放不下时出现（900/1100/1440 下不会触发）。
+   为什么用变量反制而不是 display 压制：官方是 display:var(--dsh-composer-model-text-display,block)，
+     变量的作用点在 .row，改变量即可让 label 与 effort 两处同时恢复；display 压制只能逐条追选择器。
+   作用域：只到 row / trailing，不碰 .modes 里的权限控件，也不碰 po06 与额度组件。
+   构建守卫已核实不拦：build-skin.mjs:301 的 SHELL_RESERVED 只校验 design/tokens.css 的**键名**，
+   不拦 patches.css 里的声明；295-297 只校验 patches.css 的 var() **引用**。 */
+[data-composer-card] > [class*="row"][data-model-compact] {
+  --dsh-composer-model-text-display: block;
+  --dsh-composer-model-icon-display: none;
+}
+[data-composer-card] > [class*="row"] > [class*="trailing"] [class*="_trigger"] {
+  max-width: none;
+}
+
+/* ── 发送键 / 停止键：朱砂实心圆，恒在框内 ──
+   官方 .primary{width:34px;height:34px;border-radius:999px;display:grid;
+                background:var(--dsw-alias-button-info-fill); transform:translateY(-2px)}。
+   两个 .primary 都是 .trailing 的 DOM 直接孩子（停止键在前、发送键恒为最后一个），
+   所以直接子选择器精确命中这两枚按钮，不会误伤插件里带 primary 的类名。
+   这里只换颜色与两态：**不再** scale 放大、**不再**负 margin 出界（V3 硬要求）。
+   :active 的 scale 是瞬时态，按钮是叶子元素（只含一个 svg）—— 符合包含块红线例外。 */
+[data-composer-card] > [class*="row"] > [class*="trailing"] > [class*="primary"] {
+  background: var(--dsh-accent);
+  color: var(--dsh-on-accent);
+  transition: background-color var(--dsh-motion-fast) var(--dsh-ease-out),
+    scale var(--dsh-motion-fast) var(--dsh-ease-out);
+}
+[data-composer-card] > [class*="row"] > [class*="trailing"] > [class*="primary"]:hover:not(:disabled) {
+  background: var(--dsh-accent-hover);
+}
+/* 禁用态（无草稿且无附件时的发送键、不可停止时的停止键）：
+   设计稿 .send:disabled 是 --dsh-bg-subtle 底 + tertiary 字，不是官方的 opacity:.4 半透明朱砂。 */
+[data-composer-card] > [class*="row"] > [class*="trailing"] > [class*="primary"]:disabled {
+  background: var(--dsh-bg-subtle);
+  color: var(--dsh-text-tertiary);
+  opacity: 1;
+}
+[data-composer-card] > [class*="row"] > [class*="trailing"] > [class*="primary"]:active:not(:disabled) {
+  scale: var(--dsh-active-scale);
+}
+
+/* ── 附件 rail：定高横滚 ──
+   取证：外层 div.srf2qa_rail{min-width:0; margin-bottom:-6px; padding:2px 10px 0}（block），
+        内层 div.Mrat-G_rail{align-items:stretch; gap:10px; display:flex; overflow:auto hidden}，
+        子项 .Mrat-G_item{flex:none; height:64px}。
+   内层官方已是「横滚 + 不折行 + 子项不缩」，所以多少个附件都只占 64px；外层只钉 flex-wrap
+   （不设 height：它有 padding-top:2px，设了会把 64px 子项裁掉 2px），内层钉 max-height 兜底。
+   ⚠ 空态**没有**预留行：附件行是条件渲染（railItems.length > 0 才挂），
+     设计稿的 .shelf 在真实 shell 里没有对应物 —— V3 不新增占位行，也不用它去凑卡片高度。
+   作用域限定在附件 slot 之下，不碰 po06 / 额度组件。 */
+[data-slot="conversation.input.attachments"] [class*="rail"] {
+  flex-wrap: nowrap;
+}
+[data-slot="conversation.input.attachments"] [class*="rail"] [class*="rail"] {
+  max-height: var(--dsh-attach-row-h);
+  overflow: auto hidden;
+}
+
+/* ── V3 已删除的旧机制（保留说明，避免后人以为漏写） ──
+   ✗ [data-input-scroll] 的「台面线」背景 + dsh-benchline-wipe 点亮：
+     正文不许出现横线；全卡唯一分隔线是 .row 的 border-top（见上）。
+   ✗ [data-composer-card] [class*="grow"]::after 内滚渐隐带：
+     设计稿没有这条渐隐；它用 position:sticky + 负 margin 兜高度，属于 hack，一并退役。
+   ✗ [data-composer-card] [class*="pill"] / [class*="_trigger"] 的 inset hairline 描边：
+     实测它命中的是模型名那三个 span（wq12jW_triggerLabel / _triggerEffort / _triggerIcon），
+     等于给每个文字 span 套一圈 hairline 环 —— 是缺陷不是设计，删除。
+   ✗ M8.5 的稿线规则：M9 已删，V3 继续不恢复。
+   ✗ 卡片 display:grid / .row display:contents / trailing 与 standardControls 竖排：
+     已回到官方 flex 结构，规则整条删除。 */
+
+
+/* ── ⑤ 质感层 ───────────────────────────────────────────────────────────── */
+
+/* 选中会话的「标签舌」：在 M7 的 2px 朱砂左缘（inset box-shadow）之上，再加一枚
+   竖向小舌，hover 时按 --dsh-tilt-tongue 微倾 0.5deg。
+   为什么不用整行 rotate：整行倾斜会让文字基线跟着歪，在长列表里像渲染 bug；
+   微倾只给标签舌本身，语义是「书签在轻轻晃」。
+   宿主 .xxx_sessionRow 是 static（官方只声明了 display:flex），补 position: relative
+   锚定绝对定位的伪元素——对 flex 子项是零布局影响。 */
+[class*="sessionRow"] {
+  position: relative;
+}
+[data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: var(--dsh-indicator-w);
+  height: var(--dsh-status-dot);
+  margin-top: calc(-1 * var(--dsh-status-dot) / 2);
+  background: var(--dsh-selected-row-indicator);
+  border-radius: var(--dsh-radius-pill);
+  transition: transform var(--dsh-motion-hover) var(--dsh-ease-spring);
+  pointer-events: none;
+}
+[data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"]:hover::before {
+  transform: rotate(var(--dsh-tilt-tongue));
+}
+
+/* 消息列右缘的垂直排版标尺：hairline 竖线 + 等距刻度（用 repeating-linear-gradient 做刻度，
+   不引入任何裸尺寸）。定位在版心右外侧一个 3 步基网处，跟着版心一起居中。
+   用 ::before——该宿主的 ::after 已被 §④ 的噪点占用。 */
+[data-conversation-region="chat"]::before {
+  content: '';
+  position: absolute;
+  top: var(--dsh-space-6);
+  bottom: var(--dsh-space-6);
+  left: calc(50% + var(--dsh-content-max) / 2 + var(--dsh-space-3));
+  width: var(--dsh-space-px);
+  background-image: repeating-linear-gradient(
+    180deg,
+    var(--dsh-rule-hairline) 0 var(--dsh-space-2),
+    transparent var(--dsh-space-2) var(--dsh-space-3)
+  );
+  pointer-events: none;
+}
+
+/* toast 与统计 pill 进 mono 批注语言。
+   锚点核对：全量官方 CSS 里 [class*="toast"] 只命中 ._toast_xxx（Toast 组件根），
+   [class*="pill"] 只命中 .xxx_pill（StatsPills，label-tertiary / 12px / tabular-nums 的
+   小注记行）——两者都没有 font-family 声明，也无 font: 简写 → 直接接管，零冲突。 */
+[class*="toast"],
+[class*="pill"] {
+  font-family: var(--dsh-font-mono);
+  letter-spacing: var(--dsh-track-wide);
+}
+
+/* 工具调用卡「票据化」。
+   锚点核对（官方 CSS + JSX 双证据）：工具行的根元素带 data-tool（工具名）与
+   data-state（取值 preparing / running / error / stopped / ok，见 ui-tool 的 ToolRow），
+   两者都是 shell 自己的语义属性，比 hash 类名稳定。
+   做法：mono 字体 + 底缘齿孔虚线（hairline，票据撕线）+ 完成态朱砂描边章。
+   box-sizing 必须显式给 border-box——官方 .xxx_root 没有声明，加边框会撑高行。 */
+[data-tool] {
+  box-sizing: border-box;
+  position: relative;
+  border-bottom: var(--dsh-border-w) dashed var(--dsh-rule-hairline);
+  padding-bottom: var(--dsh-space-1);
+  font-family: var(--dsh-font-mono);
+}
+/* 完成态章：data-state="ok" 是工具行真正跑完的取值（error / stopped / running / preparing 都不是）。
+   章的描边用 --dsh-rule-accent（半透明朱砂）而不是实心 --dsh-accent；
+   字色仍用 --dsh-accent 保可读。微倾 --dsh-tilt-stamp（5deg）做出手盖章的感觉。
+   M8 收口时用户拍板：密集回合一列重复章太吵 → 改为 hover 才显现（票面平素养净，
+   鼠标停上去才看到验收章），透明度过渡走 --dsh-motion-hover 统一缓动。 */
+[data-tool][data-state="ok"]::after {
+  content: 'DONE';
+  position: absolute;
+  top: var(--dsh-space-1);
+  right: var(--dsh-space-2);
+  transform: rotate(var(--dsh-tilt-stamp));
+  padding: 0 var(--dsh-space-1);
+  border: var(--dsh-border-w) solid var(--dsh-rule-accent);
+  border-radius: var(--dsh-radius-xs);
+  color: var(--dsh-accent);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+[data-tool]:hover[data-state="ok"]::after {
+  opacity: 1;
+}
+
+/* ── ⑥ 滚动条接管 ───────────────────────────────────────────────────────── */
+/* 颜色与 hover 加深**不需要**在这一层做：官方 scrollbar.css 的 thumb 取
+   --dsw-alias-scrollbar-bg-l1、hover 取 --dsw-alias-scrollbar-hover-l1，
+   而 mapping.json 已把这两个 alias 映射到 --dsh-border-strong（铅笔灰）与
+   --dsh-text-tertiary（深一档）——L1 层已经完成「铅笔灰 / hover 加深」。
+   这里只补宽度：官方 --dsh-scrollbar-width 是 shell 自有变量（SHELL_RESERVED，
+   皮肤不得发射同名），所以不去改那个变量，而是直接在伪元素上覆盖 width/height。
+   官方 ::-webkit-scrollbar 特异性 (0,0,0,1)+伪元素，我们作用域化后更高 → 稳定胜出。 */
+::-webkit-scrollbar {
+  width: var(--dsh-scrollbar-thumb-w);
+  height: var(--dsh-scrollbar-thumb-w);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: var(--dsh-radius-pill);
 }

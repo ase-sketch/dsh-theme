@@ -9,6 +9,13 @@
  *   POST /api/dsh-theme/state         写开关状态（body: {"enabled": true|false}）
  *   GET  /api/dsh-theme/theme.css     送出构建产物 assets/theme.css（插件版自包含样式）
  *   GET  /api/dsh-theme/deepy/<name>  送出 Deepy 素材 assets/deepy/<name>（M6，只读）
+ *   GET  /api/dsh-theme/icons/<name>  送出图标数据 assets/icons/<name>（M7，只读）
+ *
+ * 图标数据为什么**整文件**服务、而不是逐图标路由（M7 选型备案）：
+ *   icon-map.json（约 29 KB）+ lucide.json（约 930 KB）各拉一次即可，client 半在内存里缓存、
+ *   OFF→ON 不重拉。本地回环 + 同源，930 KB 一次传输的代价远低于「逐图标路由」带来的复杂度：
+ *   后者要为每个指纹维护一个 URL、把 2141 个图标切成 2141 个响应、还要在 client 侧做并发
+ *   与失败重试管理，而收益只是首屏少传几十 KB。真实实例实测首屏替换在百毫秒量级完成。
  *
  * 持久化通道：host 半自建 HTTP 路由，状态文件写 $DSH_HOME/dsh-theme/state.json。
  * 选型理由备案（父代理 2026-10-10 裁决 Q5）：官方 settings 服务链路实测复杂（client 侧
@@ -69,6 +76,34 @@ export function resolveDeepyAsset(rawSegment, baseDir = DEEPY_ASSET_DIR) {
   const rel = path.relative(base, file)
   if (rel === '' || rel.startsWith('..') || path.isAbsolute(rel)) return { ok: false, reason: 'outside-asset-dir' }
   return { ok: true, name, file, contentType: DEEPY_CONTENT_TYPES[path.extname(name)] }
+}
+
+/** M7 图标数据目录（icon-map.json 是构建生成物、lucide.json 是 lucide-static 构建产物）。 */
+const ICON_ASSET_DIR = fileURLToPath(new URL('../assets/icons', import.meta.url))
+/** 图标数据路由前缀。同样必须 kind:'prefix'（框架没有参数化路由）。 */
+const ICON_ROUTE_PREFIX = ROUTE_PREFIX + '/icons'
+/** 白名单：小写字母开头、只允许 .json。正则本身不含分隔符与点号。 */
+const ICON_NAME_RE = /^[a-z][a-z0-9-]*\.json$/
+
+/**
+ * 把 URL 残段解析成「绝对且仍在图标目录内」的文件路径。**纯函数，不做 IO。**
+ * 与 resolveDeepyAsset 同一套加固：只解码一次（解两次会让 %252e%252f 还原成 ../）、
+ * 正则白名单、path.resolve 后仍在目录内。
+ *
+ * @param {string} rawSegment - 前缀之后、**解码前**的 pathname 残段。
+ * @param {string} [baseDir] - 资产目录，仅供测试注入。
+ * @returns {{ok:true,name:string,file:string,contentType:string}|{ok:false,reason:string}}
+ */
+export function resolveIconAsset(rawSegment, baseDir = ICON_ASSET_DIR) {
+  if (typeof rawSegment !== 'string' || rawSegment === '') return { ok: false, reason: 'empty-name' }
+  let name
+  try { name = decodeURIComponent(rawSegment) } catch { return { ok: false, reason: 'malformed-encoding' } }
+  if (!ICON_NAME_RE.test(name)) return { ok: false, reason: 'name-not-whitelisted' }
+  const base = path.resolve(baseDir)
+  const file = path.resolve(base, name)
+  const rel = path.relative(base, file)
+  if (rel === '' || rel.startsWith('..') || path.isAbsolute(rel)) return { ok: false, reason: 'outside-asset-dir' }
+  return { ok: true, name, file, contentType: 'application/json; charset=utf-8' }
 }
 
 /** $DSH_HOME，缺省 ~/.dsh。与 dsh-claude-style 的 harness-home 同口径。 */
@@ -217,6 +252,31 @@ export function apply(ctx) {
             }
           },
         }))
+        // M7 图标数据。只读、无副作用，与 deepy 同口径：不做 sameOrigin 校验
+        //（同源校验只防跨站写，防不了路径穿越——穿越防护全在 resolveIconAsset 里）。
+        disposers.push(ctx.webServer.register({
+          kind: 'prefix',
+          path: ICON_ROUTE_PREFIX,
+          handler: (req, res) => {
+            if (req.method !== 'GET' && req.method !== 'HEAD') {
+              writeJson(res, 405, { ok: false, error: 'method-not-allowed' })
+              return
+            }
+            const pathname = new URL(req.url ?? '/', 'http://x').pathname
+            const asset = resolveIconAsset(pathname.slice(ICON_ROUTE_PREFIX.length + 1))
+            if (!asset.ok) { writeNotFound(res); return }
+            try {
+              const body = fs.readFileSync(asset.file)
+              res.writeHead(200, { 'content-type': asset.contentType, 'cache-control': 'no-store' })
+              res.end(body)
+            } catch (error) {
+              if (error?.code === 'ENOENT') { writeNotFound(res); return }
+              console.error('[dsh-theme] icon data unreadable:', error)
+              res.writeHead(500, { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' })
+              res.end('icon data unreadable')
+            }
+          },
+        }))
       } catch (error) {
         for (const dispose of disposers) dispose()
         throw error
@@ -224,7 +284,7 @@ export function apply(ctx) {
       return () => {
         for (const dispose of disposers) dispose()
       }
-    }, 'dsh-theme: state + theme.css + deepy asset routes')
+    }, 'dsh-theme: state + theme.css + deepy asset + icon data routes')
   } catch (error) {
     // 路由挂不上不该把整个 GUI 的 boot 带下去（skin-center 同口径）。
     console.error('[dsh-theme] failed to mount state routes:', error)
