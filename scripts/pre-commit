@@ -1,0 +1,19 @@
+#!/bin/bash
+# 机械兜底：把「别把本地实例访问凭据提交进去」落成 pre-commit 钩子。
+# 背景：M4 曾误跟踪含 token 的 _instance_url.txt；M7–M10 的验收脚本又硬编码过一批 token。
+# 启用方式（克隆后执行一次）：sh scripts/install-hooks.sh
+set -u
+PATTERN='token=[A-Za-z0-9_-]{20,}|(sk|ghp|gho|github_pat)_[A-Za-z0-9_-]{20,}|Bearer [A-Za-z0-9_.-]{30,}'
+staged=$(git diff --cached --name-only --diff-filter=ACM)
+[ -z "$staged" ] && exit 0
+hits=$(echo "$staged" | while IFS= read -r f; do
+  [ -f "$f" ] || continue
+  grep -HnIE "$PATTERN" "$f" 2>/dev/null
+done)
+if [ -n "$hits" ]; then
+  echo "✗ pre-commit 拦下：暂存内容里出现疑似凭据——" >&2
+  echo "$hits" | head -20 >&2
+  echo "  本地实例 token 请写成 token=<REDACTED>，运行前从实例启动日志取。" >&2
+  exit 1
+fi
+exit 0
