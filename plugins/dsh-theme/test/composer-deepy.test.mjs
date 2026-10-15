@@ -47,10 +47,23 @@ function markConnected(node, value) {
   node.isConnected = value
   for (const c of node.children) markConnected(c, value)
 }
+/**
+ * 内联样式桩：**可枚举的**属性照旧直接挂在对象上（宽度/偏移等断言读它们）；
+ * `setProperty` / `getPropertyValue` 挂成**不可枚举**方法，值存进隐藏的 _props ——
+ * 自定义属性（--deepy-perch-lift）走的就是这条通道，不能污染现有快照断言。
+ */
+function makeStyle() {
+  const bag = {}
+  const props = {}
+  Object.defineProperty(bag, 'setProperty', { value: (k, v) => { props[k] = String(v) }, enumerable: false })
+  Object.defineProperty(bag, 'getPropertyValue', { value: (k) => (props[k] === undefined ? '' : props[k]), enumerable: false })
+  Object.defineProperty(bag, '_props', { value: props, enumerable: false })
+  return bag
+}
 function makeNode(tag) {
   return {
     tagName: String(tag).toUpperCase(),
-    className: '', id: '', style: {}, attributes: {}, children: [], parentNode: null, isConnected: false,
+    className: '', id: '', style: makeStyle(), attributes: {}, children: [], parentNode: null, isConnected: false,
     setAttribute(k, v) { this.attributes[k] = v; if (k === 'id') this.id = v },
     getAttribute(k) { return this.attributes[k] === undefined ? null : this.attributes[k] },
     hasAttribute(k) { return this.attributes[k] !== undefined },
@@ -484,13 +497,63 @@ eq('元素宽度 = 帧距 96px（相邻帧不可能泄入）', pitchOf(sprite), 
   // 播放器只往**精灵**写内联样式，从不往宿主写任何尺寸/定位属性 ——
   // 宿主不产生自己的盒子，也就不可能把 tools 行撑高。
   //（真实行高不变仍需实机/浏览器量高，属父代理串行全量层，本层不谎称已验。）
-  eq('播放器从不往宿主写内联样式（宿主不产生占位盒 → 不可能撑高 tools 行）', Object.keys(mainHost.style).length, 0, JSON.stringify(mainHost.style))
+  // M10.1 起宿主上多了一个**自定义属性**（--deepy-perch-lift，栖木跟随用），
+  // 它不产生盒子、不参与布局，故上面那条后果型断言的判据不变：尺寸/定位属性一个都没有。
+  eq('播放器不往宿主写任何尺寸/定位**属性**（宿主不产生占位盒 → 不可能撑高 tools 行）', Object.keys(mainHost.style).length, 0, JSON.stringify(mainHost.style))
+  eq('宿主内联样式里只有栖木跟随这一个自定义属性', Object.keys(mainHost.style._props).join(','), '--deepy-perch-lift')
   check('宿主身上没有播放器写入的任何尺寸/定位属性', Object.keys(mainHost.attributes).filter((k) => k !== 'data-dsh-editing').length === 0, Object.keys(mainHost.attributes).join(','))
   eq('精灵的内联样式只含帧几何 5 项（尺寸/偏移全部落在脱流的那一个盒子上）',
     Object.keys(sprite.style).sort().join(','),
     'backgroundImage,backgroundPosition,backgroundSize,height,width')
 }
 
+// ── 6.5 栖木跟随（M10.1）：排队停靠面板把整块顶边抬高时，主位跟着抬 ──────────
+// 背景：QueueDock（[data-queue-dock]）出现时贴在卡片上缘并与之融合，整块的可视顶边
+// 因此上移；鲸鱼若仍按卡片锚定就会压在面板上（实测盖住行右侧的删除 / 插话按钮）。
+{
+  eq('M10.1-1 面板在卡片上方 → 抬升 = 卡片顶 − 面板顶', player.debug.deepyPerchLift(140, 100), 40)
+  eq('M10.1-2 面板比卡片低（异常几何）→ 不抬', player.debug.deepyPerchLift(100, 140), 0)
+  eq('M10.1-3 量不到（NaN）→ 不抬', player.debug.deepyPerchLift(NaN, 100), 0)
+  eq('M10.1-4 面板缺席（undefined）→ 不抬', player.debug.deepyPerchLift(140, undefined), 0)
+
+  // 真 DOM 路径：照 shell 的真实形状接线 ——
+  //   composerStack > [ SlotOutlet(display:contents) > dock , inputBar > card ]
+  const dock = makeNode('div')
+  dock.getBoundingClientRect = () => ({ top: 100 })
+  const slot = makeNode('div')
+  slot.appendChild(dock)
+  const bar = makeNode('div')
+  const card = makeNode('div')
+  card.getBoundingClientRect = () => ({ top: 140 })
+  bar.appendChild(card)
+  const stack = makeNode('div')
+  stack.appendChild(slot)
+  stack.appendChild(bar)
+  stack.querySelector = (sel) => (sel === ':scope > * > [data-queue-dock]' ? dock : null)
+  bar.parentElement = stack
+  slot.parentElement = stack
+  card.parentElement = bar
+  mainHost.closest = (sel) => (sel === '[data-composer-card]' ? card : null)
+
+  // 第二条口径：面板**直接**挂在栈上（没有槽位包裹层）时同样找得到
+  const dock2 = makeNode('div')
+  const stack2 = makeNode('div')
+  stack2.querySelector = (sel) => (sel === ':scope > [data-queue-dock]' ? dock2 : null)
+  const card2 = makeNode('div')
+  card2.parentElement = stack2
+  eq('M10.1-5b 面板直接挂在栈上（无槽位包裹层）时用第一条口径命中', player.debug.deepyDockFor(card2), dock2)
+
+  eq('M10.1-5 从卡片向上能找到停靠面板（data-queue-dock 是稳定锚点）', player.debug.deepyDockFor(card), dock)
+  pumpRaf(250)   // 越过 200ms 的粗测节流（不能用 sleep：本测试用的是可控时钟）
+  eq('M10.1-6 抬升量写进宿主内联变量 --deepy-perch-lift', mainHost.style.getPropertyValue('--deepy-perch-lift'), '40px')
+  eq('M10.1-7 debug 读到同一个值（验收不必猜）', player.debug.getPerchLift(), '40px')
+  eq('M10.1-8 抬升量是整数像素（不做 0.5px 的假精度）', Number(mainHost.style.getPropertyValue('--deepy-perch-lift').replace('px', '')), 40)
+
+  // 队列排空 → 面板消失 → 抬升归零，回到 M9 的原始栖木
+  card.parentElement = makeNode('div')
+  pumpRaf(250)
+  eq('M10.1-9 停靠面板消失 → 抬升归零（几何退回 M9）', mainHost.style.getPropertyValue('--deepy-perch-lift'), '0px')
+}
 // ── 7. hero 迎宾位：保留月台底座，且不被主位倍率连带放大 ────────────────
 {
   const heroSprite = makeNode('span')
