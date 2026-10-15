@@ -1414,6 +1414,15 @@ window.__ModuleLoader__.load({
     var DEEPY_HERO_SLOT = 'conversation.hero.brand.mark'
     var DEEPY_HERO_ID = 'dsh-theme-deepy-hero'
     /**
+     * 排队停靠面板的查找口径（M10.1）：`[data-queue-dock]` 是 QueueDock 组件写死的属性
+     *（不是 CSS module 的 hash 类名）。两条按顺序试——第二条吃下 SlotOutlet 的
+     * `display:contents` 包裹层（读 shell 源码：槽位渲的是带 data-slot 的 div）。
+     */
+    var DEEPY_DOCK_SELECTORS = [
+      ':scope > [data-queue-dock]',
+      ':scope > * > [data-queue-dock]',
+    ]
+    /**
      * 主位（输入卡右上缘）显示倍率：素材帧 64px → 显示 96px（1.5×）。
      * 放大只发生在**渲染端**：manifest.displayPx 与源 PNG 仍是 64px（生成物不动），
      * 帧几何（width/height/background-size/background-position）由 deepyFrameGeometry
@@ -1494,6 +1503,50 @@ window.__ModuleLoader__.load({
      */
     function deepyHeroPx(manifest) {
       return Math.round(manifest.displayPx * DEEPY_HERO_SCALE)
+    }
+
+    /**
+     * 主位栖木的「整块顶缘」修正（M10.1）：输入块的**可视顶边并不永远是卡片自己的上缘**。
+     *
+     * 排队消息停靠（shell 的 QueueDock，`[data-queue-dock]`）出现时，它的面板贴在卡片
+     * 上缘并与之融合——圆角只留上半、无下边框、负 margin 咬合，读起来就是同一块。
+     * 鲸鱼仍按卡片锚定，就会**趴在这块停靠面板上**：2026-10-15 用户截图实证，它盖住了
+     * 行右侧的删除 / 插话按钮（只剩编辑按钮露在外面）。
+     *
+     * 返回抬升量 = 卡片顶 − 停靠面板顶（面板不存在 / 量不到 → 0，退回原行为）。
+     * 纯函数：只吃两个矩形顶边，便于单测。
+     */
+    function deepyPerchLift(cardTop, dockTop) {
+      if (typeof cardTop !== 'number' || typeof dockTop !== 'number') return 0
+      if (!isFinite(cardTop) || !isFinite(dockTop)) return 0
+      var lift = cardTop - dockTop
+      return lift > 0 ? lift : 0
+    }
+
+    /**
+     * 找主位所在输入块里的排队停靠面板：`[data-queue-dock]` 是 shell 的**稳定锚点**
+     *（QueueDock 组件写死的属性，不是 CSS module 的 hash 类名，不会随版本漂移）。
+     *
+     * 位置（读 shell 源码确认）：`composerStack` 的 children = [hero…, renderSlot(
+     * "conversation.input.dock"), inputBar]，即面板与卡片同属一个栈、且在卡片**之前**。
+     * 但槽位是 SlotOutlet 渲的 `display:contents` 包裹层，面板不一定是栈的直接子节点，
+     * 所以逐级向上找 1–3 层、每层按 DEEPY_DOCK_SELECTORS 试两级——停在**最近的**一层，
+     * 不会误取另一个会话 root 的停靠面板。
+     * 环境缺 API（单测的 DOM 桩）或链路上没有带 querySelector 的父节点 → null。
+     */
+    function deepyDockFor(card) {
+      var node = card
+      for (var i = 0; i < 3 && node; i += 1) {
+        var parent = node.parentElement
+        if (!parent || typeof parent.querySelector !== 'function') return null
+        for (var s = 0; s < DEEPY_DOCK_SELECTORS.length; s += 1) {
+          var dock = null
+          try { dock = parent.querySelector(DEEPY_DOCK_SELECTORS[s]) } catch (error) { dock = null }
+          if (dock) return dock
+        }
+        node = parent
+      }
+      return null
     }
 
     /**
@@ -1889,15 +1942,18 @@ window.__ModuleLoader__.load({
           // absolute 不会把本元素变成 fixed 后代的包含块，AGENTS.md「包含块红线」不破
           //（这也是继续不用 transform 的原因，测试里有断言守着）。
           //
-          // 两个局部变量供实机调留位：--deepy-perch（向上探出多少）、--deepy-perch-right（离右缘多少）。
+          // 三个局部变量供实机调留位：--deepy-perch（向上探出多少）、--deepy-perch-right（离右缘多少）、
+          // --deepy-perch-lift（**由播放器写**：让栖木跟住整块的顶缘，默认 0px = 不抬）。
           // 默认起点 = design/composer-v3.html 那组再上移一个 space-1：
           //   top   calc(var(--dsh-space-7,40px) * -2 - var(--dsh-space-1,4px)) = -84px
           //         （原型是 -80px；实机量到像素 alpha union 的鲸鱼底缘比正文上缘侵入 1px，
           //           整体上移 4px 留出呼吸。96px 几何与 right 都不动。）
           //   right var(--dsh-space-4,16px)                                     =  16px
-          // 两个都是**起点值不是冻结值**：实机看着调，覆盖这两个变量即可，不用改这里。
+          // 前两个是**起点值不是冻结值**：实机看着调，覆盖这两个变量即可，不用改这里。
+          // 第三个是行为口子：排队停靠面板（QueueDock）把整块的可视顶边抬高时，播放器按
+          // 「卡片顶 − 面板顶」把整只鲸鱼一起抬上去——见 deepyPerchLift 的注释。
           // **卡片 overflow:visible 由 T4 的 grid 重构保证**——这是我俩的共同契约。
-          '#' + DEEPY_ROOT_ID + '{position:absolute;top:var(--deepy-perch,calc(var(--dsh-space-7,40px) * -2 - var(--dsh-space-1,4px)));right:var(--deepy-perch-right,var(--dsh-space-4,16px));z-index:4;display:inline-flex;align-items:flex-end;justify-content:center;pointer-events:none;user-select:none;}',
+          '#' + DEEPY_ROOT_ID + '{position:absolute;top:calc(var(--deepy-perch,calc(var(--dsh-space-7,40px) * -2 - var(--dsh-space-1,4px))) - var(--deepy-perch-lift,0px));right:var(--deepy-perch-right,var(--dsh-space-4,16px));z-index:4;display:inline-flex;align-items:flex-end;justify-content:center;pointer-events:none;user-select:none;}',
           // ── hero 迎宾位：**垂直堆叠的独立块级容器**（刊号 / 鲸+月台 / 版记 三层）──
           // 为什么必须是纵向块级，而不是绝对定位的浮层：
           // 宿主在 span.HeroShell.fishHitbox 里，而 fishHitbox 与 shell 大标题同处
@@ -2060,6 +2116,34 @@ window.__ModuleLoader__.load({
         return paintInto(spriteEl, name, frame, manifest, deepyMainPx(manifest))
       }
 
+      // ── 栖木跟随（M10.1）：停靠面板的出现 / 高度变化都是低频事件，粗测（200ms）足够。
+      // 每帧量两个矩形会强制同步布局，为一条低频几何白付每帧的代价，不值得。
+      // 量到之后写进宿主的内联样式变量 --deepy-perch-lift（值不变就不写，避免无谓的样式失效）。
+      var PERCH_MEASURE_MS = 200
+      var perchLiftHost = null      // 上次写入的宿主节点（React 重建后是**新节点**，靠这条重写）
+      var perchLiftValue = null     // 上次写入的值（px 字符串；null = 还没写过）
+      var perchMeasuredAt = 0
+
+      function applyPerchLift(now) {
+        var host = document.getElementById(DEEPY_ROOT_ID)
+        if (!host) { perchLiftHost = null; perchLiftValue = null; return }
+        if (host === perchLiftHost && now - perchMeasuredAt < PERCH_MEASURE_MS) return
+        perchMeasuredAt = now
+        perchLiftHost = host
+        var lift = 0
+        try {
+          var card = typeof host.closest === 'function' ? host.closest('[data-composer-card]') : null
+          var dock = card ? deepyDockFor(card) : null
+          if (card && dock && typeof card.getBoundingClientRect === 'function' && typeof dock.getBoundingClientRect === 'function') {
+            lift = deepyPerchLift(card.getBoundingClientRect().top, dock.getBoundingClientRect().top)
+          }
+        } catch (error) { lift = 0 }   // 量不到就退回原栖木，绝不因为几何测量失败而停画
+        var value = Math.round(lift) + 'px'
+        if (value === perchLiftValue) return
+        perchLiftValue = value
+        if (host.style && typeof host.style.setProperty === 'function') host.style.setProperty('--deepy-perch-lift', value)
+      }
+
       // ── 渲染循环（rAF；document.hidden 时停帧） ────────────────────────
       function tick(timestamp) {
         rafId = window.requestAnimationFrame(tick)
@@ -2067,6 +2151,8 @@ window.__ModuleLoader__.load({
         var manifest = deepyManifest
         if (!manifest) return
         var now = Date.now()
+        // 栖木跟随先于素材就绪判断：停靠面板一出现就要抬，别等某一态素材解码完
+        applyPerchLift(now)
         var decayed = deepyDecay(machine, now)
         if (decayed !== machine) machine = decayed
         var display = deepyDisplayWithLook(machine, now, concurrency, deepyEditingNow())
@@ -2246,6 +2332,16 @@ window.__ModuleLoader__.load({
         isHeroPresent: function () { return heroPresent },
         isMainVisible: function () { return deepyMainVisible(viewReady, heroPresent) },
         isViewReady: function () { return viewReady },
+        /** 栖木跟随：停靠面板在不在 / 抬了多少（验收与单测读它，不猜） */
+        getDock: function () {
+          var host = document.getElementById(DEEPY_ROOT_ID)
+          if (!host || typeof host.closest !== 'function') return null
+          var card = host.closest('[data-composer-card]')
+          return card ? deepyDockFor(card) : null
+        },
+        getPerchLift: function () { return perchLiftValue },
+        deepyPerchLift: deepyPerchLift,
+        deepyDockFor: deepyDockFor,
       }
 
       return {
@@ -2269,6 +2365,10 @@ window.__ModuleLoader__.load({
           heroLastFrameAt = 0
           heroPresent = false
           viewReady = false
+          // 栖木跟随的两个缓存跟着走：重新装上时要重新量、重新写
+          perchLiftHost = null
+          perchLiftValue = null
+          perchMeasuredAt = 0
           baseState = 'idle'
           viewListeners.clear()
           removeStyle()

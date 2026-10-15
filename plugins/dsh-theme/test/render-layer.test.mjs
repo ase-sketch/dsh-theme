@@ -486,17 +486,41 @@ if (typeof ref1 === 'function') {
         return typeof v === 'number' && isFinite(v) ? v : null
       } catch (err) { return null }
     }
+    /**
+     * 取某个属性里 `var(--名字, 回退值)` 的**回退值**（括号配平，不靠字符串切分）。
+     * M10.1 起 top 是 `calc(var(--deepy-perch, …) - var(--deepy-perch-lift, 0px))`，
+     * 回退表达式里还嵌着 var()，旧的「按 ; 切段再砍掉首尾」写法会切坏。
+     */
     function varFallback(body, prop, varName) {
-      const prefix = prop + ':var(' + varName + ','
-      const seg = String(body).split(';').find((s) => s.indexOf(prefix) === 0)
-      return seg ? seg.slice(prefix.length, -1) : null
+      const s = String(body)
+      const at = s.indexOf(prop + ":")
+      if (at === -1) return null
+      const token = "var(" + varName + ","
+      const start = s.indexOf(token, at)
+      if (start === -1) return null
+      let depth = 0
+      for (let i = start + 3; i < s.length; i += 1) {
+        if (s[i] === "(") depth += 1
+        else if (s[i] === ")") {
+          depth -= 1
+          if (depth === 0) return s.slice(start + token.length, i)
+        }
+      }
+      return null
     }
     const perchTop = resolveLength(varFallback(host && host.body, 'top', '--deepy-perch'))
     const perchRight = resolveLength(varFallback(host && host.body, 'right', '--deepy-perch-right'))
+    const perchLift = resolveLength(varFallback(host && host.body, 'top', '--deepy-perch-lift'))
     eq('M9-4 上缘探出量默认解析为 -84px（原型 -80 再上移一个 space-1 = 4px）', perchTop, -84)
     check('M9-4a 仍是负向位移（上半身探出卡缘、下半身压在卡内）', perchTop !== null && perchTop < 0, 'top=' + perchTop)
     eq('M9-4b 上移量正好是 space-1（-84 = -80 - 4）', perchTop === null ? null : (-80 - perchTop), 4)
     eq('M9-4c 离右缘默认解析为 16px', perchRight, 16)
+    // ── M10.1：栖木跟住**整块**的顶缘（排队停靠面板把顶边抬高时一起抬）──
+    // 默认 0px ⇒ 没有停靠面板时几何与 M9 完全一致（上面三条已经守住这一点）。
+    eq('M10.1-1 抬升变量 --deepy-perch-lift 默认解析为 0px（无停靠面板时不抬）', perchLift, 0)
+    check('M10.1-2 top 是 calc(栖木 − 抬升) 的形状（不是漏掉抬升项的旧写法）',
+      Boolean(host) && /top:calc\(var\(--deepy-perch,/.test(host.body) && host.body.indexOf('- var(--deepy-perch-lift,0px)') !== -1,
+      host && host.body)
     check('M9-4b 不再用 bottom 定位（底缘会压到桌面端状态栏统计条）', Boolean(host) && host.body.indexOf('bottom:') === -1, host && host.body)
     check('M9-5 位移量是局部变量 --deepy-perch（T4 调留位时可直接覆盖）', Boolean(host) && host.body.indexOf('--deepy-perch') !== -1)
     check('M9-5b 水平位置是局部变量 --deepy-perch-right（离右缘多少，实机调）', Boolean(host) && host.body.indexOf('--deepy-perch-right') !== -1)
