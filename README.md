@@ -1,99 +1,91 @@
-# DeepSpace Editorial Theme (dsh-theme)
+# dsh-theme · 压印（IMPRINT）
 
-> 为 **DeepSeek Harness Web GUI** 打造的先锋级质感主题与交互插件。  
-> 融合 **深空暗色** 与 **暖纸印刷** 双重视觉哲学，内置全界面 Lucide 图标体系与会话事件驱动的动态小鲸鱼 **Deepy**。
+> 把 **DeepSeek Harness** 的界面排成一本每天出的刊物：纸、灯、墨。
+>
+> 所有版面只用发丝线、页码与留白组织，不用圆角卡片与柔和阴影。
 
-| 亮室（暖纸墨印） | 深空（近黑朱砂） |
+| 浅色 · 纸 | 深色 · 炭纸 |
 |---|---|
 | ![浅色预览](skins/dsh-ui/preview/light.jpg) | ![深色预览](skins/dsh-ui/preview/dark.jpg) |
 
 ---
 
-## 核心设计与特性
+## 它是什么
 
-### 1. 先锋编辑室视觉基座
-- **深空（Dark）**：近黑四层明度阶梯叠加微噪点质感，搭配高饱和**单点朱砂红（#FF6A3D）**重点聚焦，告别死黑与单调。
-- **亮室（Light）**：以温暖的纸张本色（#F5F1E8）为底，墨色排版搭配经典印刷硬投影，兼具现代感与阅读舒适度。
-- **排版系统**：精选衬线标题搭配现代系统无衬线正文，结合等宽字距小标注，全系统自带字体零外链依赖。
+不是"给聊天框换个配色"，而是一套**排版语法**：
 
-### 2. 「书写纸」三行恒高输入卡
-- **拒绝界面抖动**：输入区域固定三行正文高度，粘贴超长文稿平滑内滚，整卡高度恒定，打字时不会上下跳动。
-- **单行工具带**：工具栏、模式选择、模型徽章与操作按钮统一单行锁定并支持平滑横滚，无论窗口多窄、模型名字多长，均不折行、不遮挡。
-- **第三方插件与弹窗兼容**：优化选项（如 po06）、Token 用量等原生定位弹层均在视口内规范呈现。
+- **纸**：程序化生成的纸纹（纸齿 + 云斑）与光照（左上高光、右下暗角）。纹理画在各表面自身的背景层，**文字之上没有任何叠加层**——纸感来自材质，不来自盖在字上的噪点。
+- **灯**：浅色 `multiply` 压暗、深色 `screen` 提亮，同一套纸在两套主题下都成立。
+- **墨**：中文走思源宋体（可变字重 300 / 350 / 400 三档撑层级），拉丁与数字走 Georgia（拉开字距），等宽只留给代码与工具日志。
+- **形**：圆角归零、阴影归零，层次只由**发丝线与留白**表达；朱砂只出现在四处（当前目录项、日历今日、发送键、引用竖线）。
 
-### 3. 动态小鲸鱼 Deepy
-- **常驻状态伴侣**：96px 高精度像素精灵，常驻在输入卡右上角；在新建空会话时化身为居中迎宾徽章。
-- **8 种会话状态感知**：实时监听底层会话事件，无需轮询——待机呼吸、思考中、调用工具、任务达成撒彩纸、异常报错、等待授权审批等自动切换动作。
-- **轻量按需加载**：首屏仅加载首帧素材（约 19KB），高阶动作切片随用随拉。
+## 界面特性
 
-### 4. 全界面 Lucide 图标化
-- 全面替换 GUI 原生粗粝手绘风格图标，通过几何指纹算法智能映射为 100+ 精致统一的 **Lucide** 线性图标，保持专业、洗练的工业美感。
+### 新会话 · 报头版
+刊名小标 + 96px 时刻 + 72px 衬线主标题；输入卡是"双墨线 + 横格稿纸"（格线节距 = 行高，每条线垫在字下面）；右栏是页边注式的气象读数与月历。
 
----
+### 会话区 · 报刊正文
+消息带页边注（`Nº 03 / 你`、`— / 助手`），正文 15.5 / 31 两端对齐；工具调用降为等宽日志行；消息流末尾留白，滚到底时不会压在输入卡的墨线上。
 
-## 安装与使用
+### 侧栏 · 目录页
+01–04 序号 + 发丝线分隔的目录式导航；会话行用衬线标题，选中靠左侧朱砂方点而不是色块。
 
-本主题提供 **自研 Bundle 插件**（推荐，全功能）与 **纯皮肤卡**（纯 CSS 零代码）两种安装途径。
+### 账户抽屉
+侧栏底部原本散落的插件条目（远端入口、今日消费卡等）收进账号菜单：点账号行弹出，排在原生菜单上方，条目照旧可点。
 
-### 方式 A：作为插件安装（推荐）
+### 输入卡
+三行恒高、单行工具带、粘贴长文内滚不抖；卡顶双墨线是版面里最重的一根线。
 
-插件形态支持在设置页面中一键开关，并自动驱动 Deepy 状态机与图标动态注入。
+### Deepy
+96px 像素精灵，随会话事件切换 8 种状态（待机 / 思考 / 工具 / 达成 / 异常 …），首屏只加载首帧，其余随用随拉。
 
-1. **安装**：
-   在当前 DSH 桌面或对应 profile 的配置文件中加载 `dsh-theme` 插件包。
-2. **启用与控制**：
-   - 打开 DSH，进入 **设置 → Plugins**，确认启用 **dsh-theme**。
-   - 在设置导航中点击 **「dsh-theme 主题」** 专属面板，拨动开关即可当场应用或还原。
-   - 支持跨重启记住状态。
-3. **互斥保护**：
-   插件激活时会自动将皮肤中心切回官方默认底色，避免样式叠加冲突。
+### 图标层
+把宿主原生图标按几何指纹映射为 Lucide 线性图标，非破坏式替换，开关关闭即原样还原。
 
-> ⚠️ **重要提示**：本主题与 `dsh-claude-style` 存在全屏视觉冲突，使用本主题前请务必先禁用或关闭 `dsh-claude-style`。
+## 安装
 
----
+两种形态：**插件**（推荐，含 Deepy / 图标层 / 设置面板）与**纯皮肤卡**（只有 CSS，无代码执行）。
 
-### 方式 B：作为传统皮肤卡加载（轻量回退通道）
+### 方式 A · 作为 Bundle 插件
 
-若只想使用纯样式而无需小鲸鱼动画和动态图标：
+1. 在目标 profile 里装入本仓库的 `plugins/dsh-theme`（`file:` 依赖即可）；
+2. 该包自带 `cordis.patch.yml`，会把 client 半插进 web roster；把 `dsh-theme` 加进 profile 的 `bundles`；
+3. 打开 DSH → **设置 → dsh-theme 主题**，开关即时生效，状态跨重启保留。
 
-1. 确保 DSH 官方 **皮肤中心（skin-center）** 插件已启用。
-2. 将本项目的 `skins/dsh-ui/` 文件夹复制至用户皮肤目录：
-   ```bash
-   # Windows 默认路径
-   %USERPROFILE%\.dsh\skins\dsh-ui
-   ```
-3. 刷新 DSH 界面，进入 **设置 → 皮肤** 列表，找到 **dsh-ui Design Spec** 卡片，点击 **应用** 或 **试穿**。
+> 插件激活时会把皮肤中心切回官方默认，避免双重注入。与 `dsh-claude-style` 存在全屏视觉冲突，二者只开其一。
 
----
+### 方式 B · 作为皮肤卡
 
-## 本地开发与重新构建
+1. 启用官方 **skin-center**；
+2. 把 `skins/dsh-ui/` 复制到用户皮肤目录（Windows 默认 `%USERPROFILE%\.dsh\skins\dsh-ui`）；
+3. 设置 → 皮肤 → **dsh-ui Design Spec** → 应用。
 
-视觉数值严格采用单一数据源体系，**禁止手工在 CSS 中硬编码 HEX 颜色或绝对尺寸**：
+## 本地开发
 
-- **设计源**：`design/preview.html`（定调稿）→ 导出机器可读源 `design/tokens.css`
-- **映射契约**：`mapping.json`（官方 `--dsw-*` 变量与自定义 token 绑定）
-- **图标策展**：`scripts/icon-map-overrides.json`
-
-### 常用命令
+> 视觉数值单一来源：`design/tokens.css`（由 `design/preview.html` 的 token 清单机械生成）。
+> 手工维护物只有两件：`mapping.json`（官方 alias 映射）与 `skins/dsh-ui/patches.css`（版式与组件层）。
 
 ```bash
-# 1. 编译主题样式（自动生成 skin.css 与插件版 theme.css，执行守卫检查）
+# 样式构建（生成 skin.css 与插件版 theme.css，并跑守卫：var 引用 / 保留变量 / noise 合法性）
 node scripts/build-skin.mjs
 
-# 2. 构建图标数据集与指纹映射
-node scripts/build-icons.mjs
-node scripts/build-icon-map.mjs
+# 只改了设计稿的 token 时，先重生成 tokens.css
+node scripts/build-skin.mjs --regen-tokens
 
-# 3. 构建 Deepy 精灵图素材
+# 纸纹贴图（程序化 SVG 纸齿 / 云斑写回设计稿，再重生成 token）
+node scripts/build-paper.mjs --write
+
+# 图标数据集与指纹映射
+node scripts/build-icons.mjs && node scripts/build-icon-map.mjs
+
+# Deepy 精灵图降采样
 node scripts/build-deepy.mjs
 
-# 4. 同步皮肤卡到本地 DSH 运行时目录
+# 同步皮肤卡到本地运行时目录
 node scripts/sync-skin.mjs
 ```
 
-### 单元测试与回归
-
-本项目拥有完善的单元测试套件（覆盖状态机、渲染层、图标层、钩子层与布局计算）：
+### 测试
 
 ```bash
 node plugins/dsh-theme/test/state-machine.test.mjs
@@ -101,25 +93,26 @@ node plugins/dsh-theme/test/render-layer.test.mjs
 node plugins/dsh-theme/test/hooks-layer.test.mjs
 node plugins/dsh-theme/test/icon-layer.test.mjs
 node plugins/dsh-theme/test/composer-deepy.test.mjs
+node plugins/dsh-theme/test/host.test.mjs
+node plugins/dsh-theme/test/today.test.mjs
 ```
 
----
+真机验收：隔离 web profile + Playwright（`.agents/shots/_imprint_verify.py`，15 项：纸色 / 报头字号 / 页边注 / 气泡清除 / 正文行高 / console 零错误等）。
 
-## 目录结构索引
+## 目录
 
-| 路径 | 职能说明 |
+| 路径 | 说明 |
 |---|---|
-| `design/` | 视觉规范定调稿与 `tokens.css` 机器生成源 |
-| `plugins/dsh-theme/` | 自研 Bundle 插件源码（Host 进程持久化 / Client 样式与动效） |
-| `skins/dsh-ui/` | 纯皮肤卡资源（供 skin-center 加载的 CSS 与预览图） |
-| `scripts/` | 构建、图标抓取、素材降采样与校验脚本 |
-| [ARCHITECTURE.md](ARCHITECTURE.md) | 整体技术架构图与模块契约地图 |
-| [docs/milestones.md](docs/milestones.md) | 里程碑交付记录与已验证边界 |
-| [HANDOFF.md](HANDOFF.md) | 开发维护交接与隔离实例验收方法论 |
+| `design/` | 设计源 `preview.html` 与机器可读 token `tokens.css` |
+| `plugins/dsh-theme/` | Bundle 插件：host 半（持久化 / 天气路由）+ client 半（样式注入 / Deepy / 图标 / 账户抽屉） |
+| `skins/dsh-ui/` | 纯皮肤卡资源（`skin.css` + `patches.css`） |
+| `scripts/` | 构建、守卫与素材生成 |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | 技术与分层契约 |
+| [docs/milestones.md](docs/milestones.md) | 里程碑与已验证边界 |
+| [HANDOFF.md](HANDOFF.md) | 交接与隔离实例验收方法 |
 
----
+## 许可与致谢
 
-## 许可证与致谢
-
-- 图标资源基于 [Lucide Icons](https://lucide.dev/) (ISC License)。
-- 吉祥物 **Deepy** 像素素材版权归设计原作者所有。
+- 图标资源：[Lucide Icons](https://lucide.dev/)（ISC）。
+- 吉祥物 **Deepy** 像素素材版权归原作者所有。
+- 纸面材质的分层思路受 [rinDBeans/dsh-nocturne](https://github.com/rinDBeans/dsh-nocturne) 的「albedo × irradiance」启发；本项目用程序化 SVG 滤镜在纯 CSS 层实现，无 WebGL 依赖。

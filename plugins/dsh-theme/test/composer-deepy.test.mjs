@@ -578,13 +578,11 @@ eq('元素宽度 = 帧距 96px（相邻帧不可能泄入）', pitchOf(sprite), 
   }
   eq('hero 在场 → 主位静默（单鲸规则不变）', player.debug.isMainVisible(), false)
 
-  const heroVNode = T.react.createElement(registered['conversation.hero.brand.mark'], {})
-  eq('hero 根节点 id 是迎宾位宿主', heroVNode && heroVNode.props.id, 'dsh-theme-deepy-hero')
-  eq('hero 根节点仍挂光晕档位属性', heroVNode && heroVNode.props['data-dsh-glow'], 'idle')
-  const cover = heroVNode && heroVNode.children && heroVNode.children[0]
-  const stage = cover && cover.children && cover.children[1]
-  eq('hero 舞台仍是两件：月台底座 + 精灵', stage && stage.children.length, 2)
-  check('hero 月台底座仍在（主位去底座不影响 hero）', String(stage && stage.children[0] && stage.children[0].props.className).indexOf('dsh-theme-deepy-base') !== -1, String(stage && stage.children[0] && stage.children[0].props.className))
+  const todayVNode = T.react.createElement(registered['conversation.hero.brand.mark'], {})
+  eq('今日工作台语义锚点', todayVNode && todayVNode.props['data-dsh-part'], 'today-workbench')
+  eq('今日工作台左栏是任务入口', todayVNode && todayVNode.children[0].props.className, 'dsh-today-intro')
+  eq('今日工作台右栏是天气与月历', todayVNode && todayVNode.children[1].props.className, 'dsh-today-rail')
+  eq('月历使用固定 42 格', todayVNode && todayVNode.children[1].children[1].children[2].children[0].length, 42)
 
   T.doc.body.removeChild(heroHost)
   T.doc._byId.delete('dsh-theme-deepy-hero')

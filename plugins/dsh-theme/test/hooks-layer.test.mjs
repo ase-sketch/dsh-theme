@@ -321,7 +321,11 @@ function setStatus(map) {
   scroll.setAttribute('data-conversation-scroll', '')
   container.appendChild(scroll)
   container._query['[data-conversation-scroll]'] = scroll
-  doc.body.appendChild(container)
+  const sceneRegion = makeNode('div')
+  sceneRegion.setAttribute('data-conversation-region', 'chat')
+  sceneRegion.appendChild(container)
+  container.closest = (selector) => selector === '[data-conversation-region="chat"]' ? sceneRegion : null
+  doc.body.appendChild(sceneRegion)
   doc._docQuery['[data-conversation-content]'] = container
 
   const flowA = makeNode('div'); flowA.setAttribute('data-chat-flow-key', 'a')
@@ -340,11 +344,13 @@ function setStatus(map) {
   eq('D2 会话进入 running → 冷启动播种为流态', hooks.debug.isStreaming(), true)
   eq('D2b 属性值（存在即可，CSS 只认存在）', container.getAttribute(H.STREAM_ATTR), '')
   eq('D2c 状态翻转时建立了事件订阅', eventListeners.length > 0, true)
+  eq('D2d 流态开启时场景大字标签同步存在', sceneRegion.getAttribute('data-dsh-scene-label'), '生成中')
 
   // —— 流态关 ——
   emit([{ type: 'event', event: { type: 'turn/end', data: { reason: { kind: 'completed' } } } }])
   eq('D3 turn/end → 属性摘除', hooks.debug.isStreaming(), false)
   eq('D3b 属性真的没了（不是空串）', container.getAttribute(H.STREAM_ATTR), null)
+  eq('D3c 回合结束后场景大字标签同步移除', sceneRegion.getAttribute('data-dsh-scene-label'), null)
 
   // —— 事件驱动的再次开 ——
   emit([{ type: 'event', event: { type: 'turn/start' } }])

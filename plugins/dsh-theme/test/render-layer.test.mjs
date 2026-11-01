@@ -52,6 +52,8 @@ function makeNode(tag) {
     className: '', id: '', style: {}, attributes: {}, children: [], parentNode: null, isConnected: false,
     setAttribute(k, v) { this.attributes[k] = v; if (k === 'id') this.id = v },
     getAttribute(k) { return this.attributes[k] === undefined ? null : this.attributes[k] },
+    hasAttribute(k) { return this.attributes[k] !== undefined },
+    removeAttribute(k) { delete this.attributes[k] },
     appendChild(child) {
       child.parentNode = this
       this.children.push(child)
@@ -329,6 +331,18 @@ if (typeof ref1 === 'function') {
   check('已把帧画到节点上（backgroundImage 有值）', typeof painted1 === 'string' && painted1.indexOf('deepy/') !== -1, 'bg=' + painted1)
   eq('元素宽度 = 主位显示尺寸（96px，防相邻帧泄入）', node1.style.width, MAIN_PX + 'px')
 
+  // 同一个动画帧被重复推进时，帧号与几何都没变，不应再写一遍内联样式。
+  // Proxy 记录所有赋值（包括同值赋值），旧实现在这里会写 5 次。
+  let sameFrameWrites = 0
+  const rawStyle = node1.style
+  node1.style = new Proxy(rawStyle, {
+    set(target, key, value) { sameFrameWrites += 1; target[key] = value; return true },
+  })
+  const sameFrameJobs = T.rafQueue.splice(0, T.rafQueue.length)
+  for (const fn of sameFrameJobs) fn(rafClock)
+  eq('同一帧重复 rAF 不再重复写精灵样式', sameFrameWrites, 0)
+  node1.style = rawStyle
+
   // ── 直接验证 isConnected 守卫 ──
   // 真实风险：React 协调过程中节点可能已从 DOM 摘掉、但 ref 清理尚未跑到，
   // 此时若仍往旧节点写 style，就是「写成功但看不见」——正是 M5 的「计算绿 ≠ 可见」。
@@ -388,54 +402,26 @@ if (typeof ref1 === 'function') {
   ne('hero 也没有退化成主位尺寸', heroSprite.style.width, MAIN_PX + 'px')
   ne('hero 的取帧偏移按放大后的尺寸算（不是 displayPx）', heroSprite.style.backgroundPosition, '0px 0px')
 
-  // ── M8 交付 4：hero 封面装配（DOM 结构 + 类名，排版归 T4） ──
-  // 走的是**槽位 React 渲染注入**这条路：conversation.hero.brand.mark 是唯一的
-  // 「空会话渲染、且 kind:single 不抢占 shell 自有内容」的 hero 槽位（brand.mark 的 fallback
-  // 就是那条鱼，被我们替换是本来的设计）。workspace / agentPreset 槽位都有 shell 自己的内容，
-  // 注册进去会把工作区选择器 / 模式选择器顶掉，所以不能走。
+  // ── 今日工作台：同一个 hero 插槽改挂时间 / 天气 / 月历 ──
   if (typeof registeredComponent === 'function') {
-    const heroVNode = T.react.createElement(registeredComponent, {})
-    const isEl = (n, tag) => n && n.type === tag && n.props
-    check('M8-1 hero 组件渲染出根节点', isEl(heroVNode, 'span'))
-    eq('M8-2 根节点 id 是迎宾位宿主', heroVNode && heroVNode.props.id, 'dsh-theme-deepy-hero')
-    eq('M8-3 根节点带光晕档位属性', heroVNode && heroVNode.props['data-dsh-glow'], 'idle')
-    const cover = heroVNode && heroVNode.children && heroVNode.children[0]
-    eq('M8-4 第一子节点是封面容器', cover && cover.props && cover.props.className, 'dsh-hero-cover')
-    const coverKids = (cover && cover.children) || []
-    eq('M8-5 封面三层：刊号 / 鲸+月台 / 版记', coverKids.length, 3)
-    eq('M8-6 第一层是刊号行', coverKids[0] && coverKids[0].props.className, 'dsh-hero-kicker')
-    eq('M8-7 第二层是舞台（鲸 + 月台）', coverKids[1] && coverKids[1].props.className, 'dsh-hero-stage')
-    eq('M8-8 第三层是版记行', coverKids[2] && coverKids[2].props.className, 'dsh-hero-colophon')
-    check('M8-9 刊号行有文案', typeof coverKids[0].children[0] === 'string' && coverKids[0].children[0].length > 0, String(coverKids[0].children[0]))
-    check('M8-10 版记行有文案', typeof coverKids[2].children[0] === 'string' && coverKids[2].children[0].length > 0, String(coverKids[2].children[0]))
-    // 月台必须在 stage 内：底座是 position:absolute，定位上下文只能是「只包住精灵」的那一层，
-    // 否则会锚到整列容器底部、跑到版记下面去。
-    const stageKids = (coverKids[1] && coverKids[1].children) || []
-    eq('M8-11 舞台里两件：月台底座 + 精灵', stageKids.length, 2)
-    check('M8-12 月台底座在 stage 内', String(stageKids[0] && stageKids[0].props.className).indexOf('dsh-theme-deepy-base') !== -1, String(stageKids[0] && stageKids[0].props.className))
-    eq('M8-13 精灵在 stage 内', stageKids[1] && stageKids[1].props.className, 'dsh-theme-deepy-sprite')
-
-    // ── 布局断言（M8 实测缺陷回归）：封面**绝不能是浮层** ──
-    // 缺陷形态：kicker/colophon 用 position:absolute 浮在迎宾位上，而宿主与 shell 大标题
-    // 同处一个 flex 行 → 两行字压在大标题上（截图 .agents/shots/m8-cover-light.png）。
-    // 这里直接对**真实注入的样式表文本**做结构断言：宿主必须是纵向 flex 块级容器，
-    // 且封面相关的每一条规则里都不许出现 position:absolute。
-    const deepyStyle = T.doc.getElementById('dsh-theme-deepy-style')
-    const cssText = deepyStyle ? deepyStyle.textContent : ''
-    check('M8-14 读到了 Deepy 样式表文本', cssText.length > 200, 'len=' + cssText.length)
-    const heroRules = [...cssText.matchAll(/([^{}]*(?:dsh-hero-|deepy-hero)[^{}]*)\{([^{}]*)\}/g)].map((m) => ({ sel: m[1], body: m[2] }))
-    check('M8-15 封面相关规则都被找到', heroRules.length >= 4, 'found=' + heroRules.length + ' :: ' + heroRules.map((r) => r.sel.trim()).join(' | '))
-    const absRules = heroRules.filter((r) => r.body.indexOf('position:absolute') !== -1)
-    eq('M8-16 封面规则里没有任何绝对定位（否则与 shell 标题同线盒叠印）', absRules.length, 0, absRules.map((r) => r.sel.trim()).join(' | '))
-    const hostRule = heroRules.find((r) => r.sel.indexOf('#dsh-theme-deepy-hero') !== -1)
-    check('M8-17 宿主规则存在', Boolean(hostRule), heroRules.map((r) => r.sel.trim()).join(' | '))
-    check('M8-18 宿主是纵向 flex 块级容器（占据自己的垂直空间）', Boolean(hostRule) && /display:flex/.test(hostRule.body) && /flex-direction:column/.test(hostRule.body), hostRule && hostRule.body)
-    const coverRule = heroRules.find((r) => r.sel.indexOf('.dsh-hero-cover') !== -1)
-    check('M8-19 封面容器也是纵向列（不是行内盒）', Boolean(coverRule) && /flex-direction:column/.test(coverRule.body), coverRule && coverRule.body)
-    const stageRule = heroRules.find((r) => r.sel.indexOf('.dsh-hero-stage') !== -1)
-    check('M8-20 stage 是月台的定位上下文', Boolean(stageRule) && /position:relative/.test(stageRule.body), stageRule && stageRule.body)
-    // 零特异度策略：T4 的排版能无条件覆盖
-    check('M8-21 刊号/版记的结构规则用 :where() 包住（零特异度，T4 可覆盖）', cssText.indexOf(':where(.dsh-hero-kicker)') !== -1 && cssText.indexOf(':where(.dsh-hero-colophon)') !== -1)
+    const todayVNode = T.react.createElement(registeredComponent, {})
+    check('TODAY-1 工作台根节点存在', todayVNode && todayVNode.type === 'div')
+    eq('TODAY-2 根节点语义锚点', todayVNode && todayVNode.props['data-dsh-part'], 'today-workbench')
+    const intro = todayVNode && todayVNode.children && todayVNode.children[0]
+    const rail = todayVNode && todayVNode.children && todayVNode.children[1]
+    eq('TODAY-3 左侧是时间与任务入口', intro && intro.props.className, 'dsh-today-intro')
+    eq('TODAY-4 右侧是今日信息栏', rail && rail.props.className, 'dsh-today-rail')
+    eq('TODAY-5 新标题替代旧口号', intro && intro.children[2].children[0], '今天，从哪件事开始？')
+    const weather = rail && rail.children && rail.children[0]
+    const calendar = rail && rail.children && rail.children[1]
+    eq('TODAY-6 右栏首块是天气', weather && weather.props.className, 'dsh-today-weather')
+    eq('TODAY-7 右栏第二块是月历', calendar && calendar.props.className, 'dsh-today-calendar')
+    eq('TODAY-8 星期表头 7 天', calendar && calendar.children[1].children[0].length, 7)
+    eq('TODAY-9 月历固定 42 格', calendar && calendar.children[2].children[0].length, 42)
+    const cssText = (T.doc.getElementById('dsh-theme-deepy-style') || {}).textContent || ''
+    check('TODAY-10 hero 栈切换为两栏 grid', cssText.indexOf('stack') !== -1 && cssText.indexOf('grid-template-columns') !== -1)
+    check('TODAY-11 原生标题组被隐藏', cssText.indexOf('titleGroup') !== -1 && cssText.indexOf('display:none') !== -1)
+    check('TODAY-12 窄窗口折叠规则存在', cssText.indexOf('@media (max-width:1000px)') !== -1)
   }
 
   // ── M9：趴在桌沿的定位断言 + 抬头态素材契约 ──────────────────────────
@@ -573,6 +559,52 @@ check('dispose 后内联 style 已移除', T.doc.getElementById('dsh-theme-deepy
 const player2 = D.install(ctx)
 check('可重新 install（可逆）', typeof player2.dispose === 'function')
 player2.dispose()
+
+// ── 测试 4：异步请求途中卸载整个 effect ─────────────────────────────
+// 主题开关仍为 ON，但插件 effect 已销毁；旧回调只查开关，会把样式/图标层重新装回。
+{
+  const previousFetch = globalThis.fetch
+  const previousMutationObserver = globalThis.MutationObserver
+  const previousDocumentElement = T.doc.documentElement
+  T.doc.documentElement = makeNode('html')
+  globalThis.MutationObserver = class { observe() {} disconnect() {} }
+
+  let resolveCss
+  let resolveIconMap
+  let resolveIconSet
+  let cssRequested = false
+  let iconsRequested = false
+  const cssPending = new Promise((resolve) => { resolveCss = resolve })
+  const iconMapPending = new Promise((resolve) => { resolveIconMap = resolve })
+  const iconSetPending = new Promise((resolve) => { resolveIconSet = resolve })
+  globalThis.fetch = (url) => {
+    if (url === '/api/dsh-theme/state') return Promise.resolve({ ok: true, json: () => Promise.resolve({ enabled: true }) })
+    if (url === '/api/dsh-theme/theme.css') { cssRequested = true; return cssPending }
+    if (url === '/api/dsh-theme/icons/icon-map.json') { iconsRequested = true; return iconMapPending }
+    if (url === '/api/dsh-theme/icons/lucide.json') return iconSetPending
+    return Promise.resolve({ ok: true, json: () => Promise.resolve(MANIFEST), text: () => Promise.resolve('') })
+  }
+
+  let disposeEffect = null
+  const effectCtx = Object.assign({}, ctx, { effect(body) { disposeEffect = body() } })
+  client.apply(effectCtx)
+  await settle()
+  check('effect ON 后样式请求已开始', cssRequested)
+  check('effect ON 后图标请求已开始', iconsRequested)
+  eq('effect body 返回卸载函数', typeof disposeEffect, 'function')
+
+  disposeEffect()
+  resolveCss({ ok: true, text: () => Promise.resolve('body { color: red }') })
+  resolveIconMap({ ok: true, json: () => Promise.resolve({ icons: {} }) })
+  resolveIconSet({ ok: true, json: () => Promise.resolve({ icons: {} }) })
+  await settle()
+  eq('effect 卸载后迟到的 CSS 不得重新注入', T.doc.getElementById('dsh-theme-style'), null)
+  eq('effect 卸载后迟到的图标数据不得重装图标层', T.doc.getElementById('dsh-theme-icon-style'), null)
+
+  globalThis.fetch = previousFetch
+  globalThis.MutationObserver = previousMutationObserver
+  T.doc.documentElement = previousDocumentElement
+}
 
 console.log('')
 console.log('passed: ' + passed)

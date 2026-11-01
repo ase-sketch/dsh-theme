@@ -6,16 +6,17 @@
 
 **快层（秒级，改完随时跑）**
 
-- 构建 + 守卫校验：`node scripts/build-skin.mjs`（从 design/tokens.css 生成 skin.css + 插件版 theme.css：91 契约 token + 163 个 --dsh-* 变量；校验 patches.css 的 var() 引用、shell 保留变量重名、noise-uri 合法性）。改设计稿后才需 `node scripts/build-skin.mjs --regen-tokens` 重新生成 tokens.css
+- 构建 + 守卫校验：`node scripts/build-skin.mjs`（从 design/tokens.css 生成 skin.css + 插件版 theme.css：91 契约 token + 175 个 --dsh-* 变量；校验 patches.css 的 var() 引用、shell 保留变量重名、noise-uri 合法性）。改设计稿后才需 `node scripts/build-skin.mjs --regen-tokens` 重新生成 tokens.css
+- 纸纹贴图生成：`node scripts/build-paper.mjs --write`（程序化 SVG 纸齿/云斑写回设计稿，再 `build-skin.mjs --regen-tokens`；filter 必须 sRGB，否则夜纸发灰）
 - 图标数据构建：`node scripts/build-icons.mjs`（lucide-static → plugins/dsh-theme/assets/icons/lucide.json，2141 图标）+ `node scripts/build-icon-map.mjs`（shell 指纹 × lucide → icon-map.json，含 5 守卫 + 覆盖率棘轮 111/139 只许收紧）
 - Deepy 素材构建：`node scripts/build-deepy.mjs`（从 E:\dsh-ui 精灵图降采样到 64px/帧 → `plugins/dsh-theme/assets/deepy/`；四条守卫：源图尺寸、产出尺寸、非空格数=帧数、manifest 原子落盘。产物入库，改素材源后才需重跑）
 
-- Deepy/样式行为回归：`node plugins/dsh-theme/test/state-machine.test.mjs` + `node plugins/dsh-theme/test/render-layer.test.mjs` + `node plugins/dsh-theme/test/hooks-layer.test.mjs` + `node plugins/dsh-theme/test/icon-layer.test.mjs` + `node plugins/dsh-theme/test/composer-deepy.test.mjs`。
+- Deepy/样式/host 行为回归：`node plugins/dsh-theme/test/state-machine.test.mjs` + `node plugins/dsh-theme/test/render-layer.test.mjs` + `node plugins/dsh-theme/test/hooks-layer.test.mjs` + `node plugins/dsh-theme/test/icon-layer.test.mjs` + `node plugins/dsh-theme/test/composer-deepy.test.mjs` + `node plugins/dsh-theme/test/host.test.mjs` + `node plugins/dsh-theme/test/today.test.mjs`。
 
 **全量层（收口用）**
 
 - 同步上架：`node scripts/sync-skin.mjs`（skins/dsh-ui/ → C:\Users\pass\.dsh\skins\dsh-ui\，含 preview/ 子目录）
-- 验收：隔离 web profile 实例 + Playwright 跑 `.agents/shots/` 现役脚本——`_m2_verify.py` / `_m3_verify.py` / `_m3_compare.py`（皮肤卡期）、`_m7_t6_verify.py` / `_m8_t8_verify.py` / `_m9_t9_verify.py` / `_m10_verify.py`（插件期，M10 为当前主脚本；完整起停与还原流程见 HANDOFF.md §8；桌面 GUI 有 token 认证，勿硬闯）
+- 验收：隔离 web profile 实例 + Playwright 跑 `.agents/shots/` 现役脚本——`_m2_verify.py` / `_m3_verify.py` / `_m3_compare.py`（皮肤卡期）、`_m7_t6_verify.py` / `_m8_t8_verify.py` / `_m9_t9_verify.py` / `_m10_verify.py` / `_imprint_verify.py`（**M13 现役**，压印层 15 项；URL 用 `DSH_IMPRINT_URL` 注入）/ `_today_verify.py` / `_living_verify.py`（M11/M12 历史视觉断言，已被 M13 取代，仅作历史证据；URL 用 `DSH_TODAY_URL` / `DSH_LIVING_URL` 注入，token 不落盘；完整起停与还原流程见 HANDOFF.md §8；桌面 GUI 有 token 认证，勿硬闯）
 
 ## 项目红线
 
@@ -33,7 +34,8 @@
   - **图标数据是构建生成物**：`assets/icons/lucide.json`（build-icons.mjs 产出，ISC 许可见同目录 LICENSE）与 `assets/icons/icon-map.json`（build-icon-map.mjs 产出）均禁止手改；改映射只改 `scripts/icon-map-overrides.json` 策展表后重跑。
   - **图标层指纹核心单一来源**：client.js 的 `@dsh-theme-icon-core` 标记段是唯一实现，构建脚本从它抽取执行；改了该段必须重跑 build-icon-map.mjs（coreHash 守卫会拦）。
   - **包含块红线（插件兼容）**：patches.css 不得对可能含插件注入内容的容器施加 transform/translate/rotate/scale/filter/perspective/will-change/contain/container-type——它们会把后代的 position:fixed 重新锚定到该容器（M8 的聚焦上浮曾把 po06 面板顶出窗口）。例外：伪元素、叶子元素（svg/按钮）、:active 瞬时态。
-  - **Deepy 单鲸规则**：hero 迎宾位在场时输入卡主位不渲染（deepyMainVisible 纯函数），不要改成并存。
+  - **Deepy 单鲸规则**：M11 起空会话不再注册迎宾鲸，hero 槽由今日工作台使用；若存在 legacy hero 迎宾位，`deepyMainVisible` 仍保证主位不与其并存。
+  - **天气数据边界**：client 只读 host 的天气与地点路由，外网访问集中在 host；没有真实数据时显示不可用，禁止用 mock 冒充实时天气。地点首次默认东莞，但用户选择必须持久化到 `weather-location.json`，天气缓存按地点隔离。
   - **M7 起视觉唯一来源 = design/tokens.css**（不再是 dsh-ui/preview/index.html）；design/preview.html 是设计源：token 增补走 #token-manifest 与 :root/深色变量块同步追加（守卫校验三者一致）；视觉方向重构才需要重新定调。
 - 视觉数值唯一来源 = design/tokens.css（M7 起；由 design/preview.html 的 #token-manifest 经 `--regen-tokens` 机械生成）；skin.css 一律构建生成，**禁止手抄 hex/尺寸**。tokens.css 本身也是生成物，禁手改。手工维护物两个：`mapping.json`（L1 契约 token 映射）与 `skins/dsh-ui/patches.css`（L2/L3 组件规则 + 非 alias 命名空间重绑定），两者都只准用 `var(--dsh-*)` / `var(--dsw-*)` 引用数值，构建期会校验 `--dsh-*` 引用存在。
 - 不改 DSH 本体、不改 dsh-ui（发现规范缺口回 dsh-ui 提）、不 fork dsh-claude-style。

@@ -934,10 +934,17 @@ window.__ModuleLoader__.load({
         var el = streamContainerEl()
         if (el === null || typeof el.getAttribute !== 'function') return
         var has = el.getAttribute(STREAM_ATTR) !== null
-        if (stream.active === true) {
+        var active = stream.active === true
+        if (active) {
           if (!has) el.setAttribute(STREAM_ATTR, '')
         } else if (has) {
           el.removeAttribute(STREAM_ATTR)
+        }
+        // 场景大字只表达真实流态；容器卸载或回合结束立即移除。
+        var region = typeof el.closest === 'function' ? el.closest('[data-conversation-region="chat"]') : null
+        if (region && typeof region.setAttribute === 'function') {
+          if (active) region.setAttribute('data-dsh-scene-label', '生成中')
+          else if (typeof region.removeAttribute === 'function') region.removeAttribute('data-dsh-scene-label')
         }
       }
 
@@ -979,6 +986,7 @@ window.__ModuleLoader__.load({
 
       // ── 2. 滚动浮现（IntersectionObserver） ─────────────────────────────
       var flowObserver = null
+      var flowObservedRoot = undefined
       var flowSeen = new WeakSet()
       var flowPending = []
       var flowRaf = null
@@ -1015,9 +1023,16 @@ window.__ModuleLoader__.load({
 
       /** 把新出现的消息项交给观察器；已观察过的不重复 observe。 */
       function observeFlows() {
-        if (flowObserver === null) return
         var root = flowRoot()
-        if (root === null || typeof root.querySelectorAll !== 'function') return
+        if (root !== flowObservedRoot) {
+          // 切会话后滚动根会替换，旧 root 上的 IntersectionObserver 不再产生有效事件。
+          if (flowObserver !== null) flowObserver.disconnect()
+          flowObservedRoot = root
+          if (typeof IntersectionObserver === 'function') {
+            flowObserver = new IntersectionObserver(onFlowEntries, { root: root, rootMargin: '0px 0px -6% 0px', threshold: 0.01 })
+          }
+        }
+        if (flowObserver === null || root === null || typeof root.querySelectorAll !== 'function') return
         var nodes
         try { nodes = root.querySelectorAll(FLOW_ITEM_SELECTOR) } catch (error) { return }
         for (var i = 0; i < nodes.length; i += 1) {
@@ -1029,7 +1044,8 @@ window.__ModuleLoader__.load({
 
       try {
         if (typeof IntersectionObserver === 'function') {
-          flowObserver = new IntersectionObserver(onFlowEntries, { root: flowRoot(), rootMargin: '0px 0px -6% 0px', threshold: 0.01 })
+          flowObservedRoot = flowRoot()
+          flowObserver = new IntersectionObserver(onFlowEntries, { root: flowObservedRoot, rootMargin: '0px 0px -6% 0px', threshold: 0.01 })
         }
       } catch (error) { flowObserver = null }
 
@@ -1251,6 +1267,8 @@ window.__ModuleLoader__.load({
           // 流态标记与浮现 class 一起撤净（OFF 后不留任何本插件打上的痕迹）
           var container = streamContainer
           if (container && typeof container.removeAttribute === 'function') container.removeAttribute(STREAM_ATTR)
+          var sceneRegion = container && typeof container.closest === 'function' ? container.closest('[data-conversation-region="chat"]') : null
+          if (sceneRegion && typeof sceneRegion.removeAttribute === 'function') sceneRegion.removeAttribute('data-dsh-scene-label')
           try {
             var marked = document.querySelectorAll('.' + FLOW_IN_CLASS)
             for (var k = 0; k < marked.length; k += 1) marked[k].classList.remove(FLOW_IN_CLASS)
@@ -1311,9 +1329,11 @@ window.__ModuleLoader__.load({
         // ── 正在生成的最后一块末尾：朱砂方块光标呼吸 ──
         '@keyframes dsh-theme-caret{0%,100%{opacity:1}50%{opacity:.15}}',
         '[data-dsh-streaming] [data-streaming]>*>*:last-child:not(pre):not(table)::after{content:"";display:inline-block;width:.5em;height:.95em;margin-left:.18em;vertical-align:-.12em;background:var(--dsh-accent);animation:dsh-theme-caret 1.1s var(--dsh-ease-inout,ease-in-out) infinite}',
-        // ── 滚动浮现 ──
-        '@keyframes dsh-theme-flow-in{from{opacity:0;transform:translateY(var(--dsh-space-2,8px))}to{opacity:1;transform:none}}',
+        // ── 滚动浮现：容器只淡入，位移只给文字叶子，不创建插件弹层包含块 ──
+        '@keyframes dsh-theme-flow-in{from{opacity:0}to{opacity:1}}',
+        '@keyframes dsh-theme-flow-leaf{from{opacity:0;transform:translateY(var(--dsh-space-2,8px))}to{opacity:1;transform:none}}',
         '.' + FLOW_IN_CLASS + '{animation:dsh-theme-flow-in var(--dsh-motion-slow,420ms) ' + ease + ' both}',
+        '.' + FLOW_IN_CLASS + ' :is(p,h1,h2,h3,blockquote){animation:dsh-theme-flow-leaf var(--dsh-motion-base,260ms) ' + ease + ' both}',
         // ── 熄灯仪式：从视口中心扩散的圆形擦除 ──
         '@keyframes dsh-theme-wipe{0%{clip-path:circle(0% at 50% 50%);opacity:1}70%{clip-path:circle(142% at 50% 50%);opacity:1}100%{clip-path:circle(142% at 50% 50%);opacity:0}}',
         '#' + WIPE_ID + '{position:fixed;inset:0;z-index:2147483000;pointer-events:none;' +
@@ -1321,7 +1341,7 @@ window.__ModuleLoader__.load({
           'animation:dsh-theme-wipe ' + WIPE_MS + 'ms var(--dsh-ease-inout,ease-in-out) both}',
         // hero 封面的结构规则在 Deepy 样式表里（它属于迎宾位子系统，且与精灵同生共死）。
         // ── 减速偏好：动效全关（擦除直接不放，由 wipePlan 决定；这里再兜一层） ──
-        '@media (prefers-reduced-motion: reduce){[data-dsh-streaming] [data-streaming]>*>*,' + '.' + FLOW_IN_CLASS + '{animation:none !important}#' + WIPE_ID + '{display:none}}',
+        '@media (prefers-reduced-motion: reduce){[data-tool]::before{animation:none !important}[data-dsh-streaming] [data-streaming]>*>*,' + '.' + FLOW_IN_CLASS + ',.' + FLOW_IN_CLASS + ' :is(p,h1,h2,h3,blockquote){animation:none !important}#' + WIPE_ID + '{display:none}}',
       )
       style.textContent = rules.join('')
       document.head.appendChild(style)
@@ -1852,6 +1872,61 @@ window.__ModuleLoader__.load({
       return request
     }
 
+    // ── 今日工作台：本地时间 / 月历 / 天气文案（纯函数，便于回归） ─────────
+    function todayPad(value) { return String(value).padStart(2, '0') }
+    function todayFormatClock(date) { return todayPad(date.getHours()) + ':' + todayPad(date.getMinutes()) }
+    function todayFormatDate(date) {
+      var week = ['日', '一', '二', '三', '四', '五', '六'][date.getDay()]
+      return (date.getMonth() + 1) + '月' + date.getDate() + '日，星期' + week
+    }
+    function todayMonthStart(date) { return new Date(date.getFullYear(), date.getMonth(), 1, 12) }
+    function todayCalendar(now, cursor) {
+      var month = cursor || todayMonthStart(now)
+      var first = new Date(month.getFullYear(), month.getMonth(), 1, 12)
+      var offset = (first.getDay() + 6) % 7
+      var start = new Date(first.getFullYear(), first.getMonth(), 1 - offset, 12)
+      var days = []
+      for (var i = 0; i < 42; i += 1) {
+        var date = new Date(start.getFullYear(), start.getMonth(), start.getDate() + i, 12)
+        days.push({
+          key: date.getFullYear() + '-' + todayPad(date.getMonth() + 1) + '-' + todayPad(date.getDate()),
+          day: date.getDate(),
+          inMonth: date.getMonth() === first.getMonth(),
+          isToday: date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth() && date.getDate() === now.getDate(),
+        })
+      }
+      return { year: first.getFullYear(), month: first.getMonth() + 1, days: days }
+    }
+    function todayWeatherLabel(code) {
+      if (code === 0) return '晴'
+      if (code === 1) return '大部晴朗'
+      if (code === 2) return '局部多云'
+      if (code === 3) return '多云'
+      if (code === 45 || code === 48) return '雾'
+      if ([51, 53, 55, 56, 57].includes(code)) return '毛毛雨'
+      if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return '雨'
+      if ([71, 73, 75, 77, 85, 86].includes(code)) return '雪'
+      if ([95, 96, 99].includes(code)) return '雷暴'
+      return '天气未知'
+    }
+    function todayWeatherKind(code) {
+      if (code === 0 || code === 1) return 'clear'
+      if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82, 95, 96, 99].includes(code)) return 'rain'
+      if ([71, 73, 75, 77, 85, 86].includes(code)) return 'snow'
+      return 'cloud'
+    }
+    function todayForecastLabel(dateText, index) {
+      if (index === 0) return '今天'
+      var date = new Date(dateText + 'T12:00:00')
+      return '周' + ['日', '一', '二', '三', '四', '五', '六'][date.getDay()]
+    }
+    function todayLocationLabel(location) {
+      var parts = [location.name, location.admin1, location.country].filter(function (part, index, all) {
+        return part && all.indexOf(part) === index
+      })
+      return parts.join(' · ')
+    }
+
     // ── 播放器：DOM + rAF 驱动 + 订阅（全部可逆） ─────────────────────────
     /**
      * 装上 Deepy 播放器。返回 { dispose, debug }；dispose 撤掉精灵元素、
@@ -1983,7 +2058,8 @@ window.__ModuleLoader__.load({
           // 主位的「专注档」rim（::after）与 happy 一次性涟漪随底座一起去掉（M10）。
           // 编辑区 filled 的反馈改由**抬头态**（idle-look）承担——鲸鱼抬头看你写，
           // 比一圈无来处的光更符合「轻陪伴」，也不再需要跟呼吸动画抢 box-shadow。
-          '@media (prefers-reduced-motion: reduce){.dsh-theme-deepy-base{animation:none !important;}}',
+          // ── 今日工作台：左侧时间 + 输入，右侧天气 + 月历 ──
+          '[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today){width:100%;max-width:calc(var(--dsh-composer-max) + var(--dsh-menu-w));margin-inline:auto;display:grid;grid-template-columns:minmax(0,1fr) calc(var(--dsh-menu-w) + var(--dsh-space-8));column-gap:var(--dsh-space-6);row-gap:var(--dsh-space-5);align-content:center;}',          '[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today)>[class*="root"],[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today)>div:not([class]),[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today) [class*="root"]:has([data-composer-card]),[data-conversation-region="chat"] [class*="stack"]:has(.dsh-today){display:contents;}',          '[data-conversation-region="chat"] [class*="headline"]:has(.dsh-today),[data-conversation-region="chat"] [class*="fishHitbox"]:has(.dsh-today){display:contents;}',          '[data-conversation-region="chat"] [class*="headline"]:has(.dsh-today) [class*="titleGroup"]{display:none;}',          '[data-conversation-region="chat"] [class*="stack"]:has(.dsh-today)>[class*="body"]{display:contents;}',          '[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today)>[class*="heroWorkspaceRow"]{grid-column:1;grid-row:2;min-width:0;}',          '[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today) [data-composer-card]{grid-column:1;grid-row:3;align-self:start;width:100%;max-width:100%;min-width:0;}',          '.dsh-today{display:contents;}',          '.dsh-today-intro{grid-column:1;grid-row:1;align-self:end;min-width:0;padding-top:var(--dsh-space-2);}',          '.dsh-today-clock{display:block;font-family:var(--dsh-font-sans);font-size:var(--dsh-text-display);font-weight:var(--dsh-weight-body);line-height:var(--dsh-lh-display);letter-spacing:var(--dsh-track-tight);color:var(--dsh-text-primary);font-variant-numeric:tabular-nums;}',          '.dsh-today-date{margin-top:var(--dsh-space-1);font-size:var(--dsh-text-sm);line-height:var(--dsh-lh-sm);color:var(--dsh-text-secondary);}',          '.dsh-today-title{margin:var(--dsh-space-5) 0 0;font-family:var(--dsh-font-sans);font-size:var(--dsh-text-2xl);font-weight:var(--dsh-weight-label);line-height:var(--dsh-lh-2xl);letter-spacing:var(--dsh-track-tight);color:var(--dsh-text-primary);}',          '.dsh-today-rail{grid-column:2;grid-row:1 / span 3;display:grid;align-content:start;gap:var(--dsh-space-5);min-width:0;}',          '.dsh-today-weather{position:relative;min-width:0;min-height:calc(var(--dsh-space-8) * 5);padding:var(--dsh-space-4);overflow:visible;border:0;border-radius:var(--dsh-radius-xl);background:radial-gradient(90% 76% at 92% 0%,var(--dsh-scene-light-cold),transparent 72%),linear-gradient(155deg,var(--dsh-scene-panel-start),var(--dsh-scene-panel-end));box-shadow:inset 0 var(--dsh-space-px) 0 var(--dsh-scene-panel-edge);}',          '.dsh-today-card-head{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:var(--dsh-space-2);min-height:var(--dsh-row-h);color:var(--dsh-text-secondary);font-size:var(--dsh-text-sm);line-height:var(--dsh-lh-sm);}',          '.dsh-today-city{padding:0;border:0;background:transparent;color:var(--dsh-text-primary);font:inherit;font-weight:var(--dsh-weight-label);cursor:pointer;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:var(--dsh-space-0-5);}',          '.dsh-today-city:hover{text-decoration-color:var(--dsh-text-tertiary);}',          '.dsh-today-refresh,.dsh-today-calendar-actions button{min-width:var(--dsh-space-5);min-height:var(--dsh-space-5);padding:0 var(--dsh-space-2);border:0;border-radius:var(--dsh-radius-sm);background:transparent;color:var(--dsh-text-secondary);font:inherit;cursor:pointer;}',          '.dsh-today-refresh:hover,.dsh-today-calendar-actions button:hover{background:var(--dsh-bg-hover);color:var(--dsh-text-primary);}',          '.dsh-today-refresh:focus-visible,.dsh-today-calendar-actions button:focus-visible{outline:var(--dsh-focus-w) solid var(--dsh-warning);outline-offset:var(--dsh-space-0-5);}',          '.dsh-today-location-editor{position:absolute;z-index:8;top:calc(var(--dsh-space-7) + var(--dsh-space-2));left:var(--dsh-space-4);right:var(--dsh-space-4);padding:var(--dsh-space-3);border:var(--dsh-border-w) solid var(--dsh-border-subtle);border-radius:var(--dsh-radius-lg);background:var(--dsh-bg-elevated);box-shadow:var(--dsh-shadow-md);}',          '.dsh-today-location-form{display:flex;align-items:center;gap:var(--dsh-space-2);}',          '.dsh-today-location-form input{flex:1;min-width:0;height:var(--dsh-row-h);padding:0 var(--dsh-space-2);border:var(--dsh-border-w) solid var(--dsh-border-subtle);border-radius:var(--dsh-radius-sm);outline:none;background:var(--dsh-bg-inset);color:var(--dsh-text-primary);font:inherit;font-size:var(--dsh-text-sm);}',          '.dsh-today-location-form input:focus{border-color:var(--dsh-code-fn);}',          '.dsh-today-location-form button,.dsh-today-location-result{min-height:var(--dsh-space-5);padding:0 var(--dsh-space-2);border:0;border-radius:var(--dsh-radius-sm);background:transparent;color:var(--dsh-text-secondary);font:inherit;font-size:var(--dsh-text-xs);cursor:pointer;}',          '.dsh-today-location-form button:hover,.dsh-today-location-result:hover{background:var(--dsh-bg-hover);color:var(--dsh-text-primary);}',          '.dsh-today-location-form button:disabled,.dsh-today-location-result:disabled{cursor:default;opacity:var(--dsh-disabled-opacity);}',          '.dsh-today-location-message{margin-top:var(--dsh-space-2);font-size:var(--dsh-text-xs);line-height:var(--dsh-lh-xs);color:var(--dsh-text-secondary);}',          '.dsh-today-location-results{display:grid;gap:var(--dsh-space-0-5);max-height:calc(var(--dsh-space-8) * 3);margin-top:var(--dsh-space-2);overflow:auto;}',          '.dsh-today-location-result{display:block;width:100%;min-height:var(--dsh-row-h);text-align:left;}',          '.dsh-today-temperature{position:relative;z-index:1;margin-top:var(--dsh-space-2);font-family:var(--dsh-font-sans);font-size:var(--dsh-text-mega);font-weight:var(--dsh-weight-body);line-height:var(--dsh-lh-mega);letter-spacing:var(--dsh-track-mega);color:var(--dsh-text-primary);font-variant-numeric:tabular-nums;}',          '.dsh-today-temperature sup{margin-left:var(--dsh-space-1);font-size:var(--dsh-text-2xl);line-height:var(--dsh-lh-2xl);vertical-align:top;color:var(--dsh-text-secondary);}',          '.dsh-today-weather-status{position:relative;z-index:2;min-height:var(--dsh-lh-sm);font-size:var(--dsh-text-sm);line-height:var(--dsh-lh-sm);color:var(--dsh-text-secondary);}',          '.dsh-today-weather-art{position:absolute;right:calc(var(--dsh-space-5) * -1);top:var(--dsh-space-7);width:88%;height:auto;pointer-events:none;-webkit-mask-image:radial-gradient(ellipse at 54% 46%,black 42%,transparent 78%);mask-image:radial-gradient(ellipse at 54% 46%,black 42%,transparent 78%);}',          '.dsh-today-sun{fill:var(--dsh-warning);opacity:.86;}',          '.dsh-today-cloud-back{fill:color-mix(in srgb,var(--dsh-scene-cloud-shadow) 62%,transparent);}',          '.dsh-today-cloud-front{fill:url(#dsh-today-cloud-volume);}',          '.dsh-today-rain{display:none;stroke:var(--dsh-code-fn);stroke-width:var(--dsh-focus-w);stroke-linecap:round;}',          '.dsh-today-weather[data-weather-kind="rain"] .dsh-today-rain{display:block;}',          '.dsh-today-weather[data-weather-kind="clear"] .dsh-today-cloud-back{opacity:.45;}',          '.dsh-today-forecast{position:relative;z-index:2;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--dsh-space-1);margin-top:var(--dsh-space-6);padding-top:var(--dsh-space-3);border-top:var(--dsh-border-w) solid var(--dsh-rule-hairline);}',          '.dsh-today-forecast-day{display:flex;flex-direction:column;align-items:center;gap:var(--dsh-space-1);min-width:0;font-size:var(--dsh-text-3xs);line-height:var(--dsh-lh-3xs);color:var(--dsh-text-secondary);white-space:nowrap;}',          '.dsh-today-forecast-kind{width:var(--dsh-status-dot);height:var(--dsh-status-dot);border-radius:50%;background:var(--dsh-text-tertiary);}',          '.dsh-today-forecast-kind[data-kind="clear"]{background:var(--dsh-warning);}',          '.dsh-today-forecast-kind[data-kind="rain"]{background:var(--dsh-code-fn);}',          '.dsh-today-calendar{min-width:0;padding:var(--dsh-space-1) var(--dsh-space-2) 0;border-top:var(--dsh-border-w) solid var(--dsh-rule-hairline);}',          '.dsh-today-calendar-actions{display:inline-flex;align-items:center;gap:var(--dsh-space-0-5);}',          '.dsh-today-weekdays,.dsh-today-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:var(--dsh-space-0-5);text-align:center;}',          '.dsh-today-weekdays{margin-top:var(--dsh-space-2);font-size:var(--dsh-text-3xs);line-height:var(--dsh-lh-3xs);color:var(--dsh-text-tertiary);}',          '.dsh-today-days{margin-top:var(--dsh-space-1);font-size:var(--dsh-text-xs);line-height:var(--dsh-lh-xs);color:var(--dsh-text-secondary);font-variant-numeric:tabular-nums;}',          '.dsh-today-days>span{display:flex;align-items:center;justify-content:center;width:var(--dsh-btn-icon);height:var(--dsh-btn-icon);justify-self:center;border-radius:50%;}',          '.dsh-today-days>span.is-outside{color:var(--dsh-text-tertiary);}',          '.dsh-today-days>span[data-today="true"]{background:var(--dsh-warning);color:var(--dsh-on-warning);font-weight:var(--dsh-weight-label);}',          '@media (max-width:1000px){[data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today){grid-template-columns:minmax(0,1fr);max-width:var(--dsh-composer-max);}.dsh-today-rail{grid-column:1;grid-row:4;grid-template-columns:minmax(0,1fr) minmax(0,1fr);}.dsh-today-weather-art{width:52%;}}',          '@media (max-width:760px){.dsh-today-rail{grid-template-columns:minmax(0,1fr);}.dsh-today-calendar{display:none;}.dsh-today-weather-art{display:none;}.dsh-today-weather{min-height:0;}.dsh-today-title{font-size:var(--dsh-text-xl);line-height:var(--dsh-lh-xl);}}',          '@media (max-height:760px) and (min-width:761px){.dsh-today-weather-art{display:none;}.dsh-today-weather{min-height:0;}.dsh-today-forecast{margin-top:var(--dsh-space-4);}.dsh-today-rail{gap:var(--dsh-space-3);}}',          '@media (prefers-reduced-motion: reduce){.dsh-theme-deepy-base{animation:none !important;}}',
         ].join('')
         document.head.appendChild(style)
       }
@@ -2033,32 +2109,292 @@ window.__ModuleLoader__.load({
        * 会话激活后 shell 不再渲染这个 slot，节点随之卸载；我们不持有它的所有权，
        * 每帧按 id 惰性取节点、取不到就不画（与主位同一条「自愈」策略）。
        */
-      function DeepyHero() {
+      // ── 今日工作台 store：仅在空会话组件挂载时运行 ─────────────────────
+      var todayState = {
+        now: new Date(), cursor: null,
+        weather: { status: 'loading', data: null },
+        location: { open: false, query: '', status: 'idle', results: [], error: null },
+      }
+      var todayListeners = new Set()
+      var todayStarted = false
+      var todayWeatherPending = false
+      var todayGeneration = 0
+      var todayLocationRequest = 0
+      var todayClockTimer = null
+      var todayWeatherTimer = null
+      function todayBump() {
+        todayListeners.forEach(function (listener) {
+          try { listener() } catch (error) { /* 单个视图失败不影响其他订阅者 */ }
+        })
+      }
+      function todaySubscribe(listener) {
+        todayListeners.add(listener)
+        return function () { todayListeners.delete(listener) }
+      }
+      function todayLoadWeather() {
+        if (todayWeatherPending) return
+        todayWeatherPending = true
+        var generation = todayGeneration
+        if (!todayState.weather.data) {
+          todayState.weather = { status: 'loading', data: null }
+          todayBump()
+        }
+        fetch('/api/dsh-theme/weather', { credentials: 'same-origin', headers: { accept: 'application/json' } })
+          .then(function (response) {
+            if (!response.ok) throw new Error('HTTP ' + response.status)
+            return response.json()
+          })
+          .then(function (body) {
+            if (generation !== todayGeneration) return
+            if (!body || body.ok !== true || !body.current || !Array.isArray(body.daily)) throw new Error('malformed weather payload')
+            todayWeatherPending = false
+            todayState.weather = { status: 'ready', data: body }
+            todayBump()
+          })
+          .catch(function () {
+            if (generation !== todayGeneration) return
+            todayWeatherPending = false
+            todayState.weather = { status: 'error', data: null }
+            todayBump()
+          })
+      }
+      function todayStart() {
+        if (todayStarted) return
+        todayStarted = true
+        todayGeneration += 1
+        todayLoadWeather()
+        if (typeof window.setInterval === 'function') {
+          todayClockTimer = window.setInterval(function () {
+            todayState.now = new Date()
+            todayBump()
+          }, 30000)
+          todayWeatherTimer = window.setInterval(todayLoadWeather, 30 * 60 * 1000)
+        }
+      }
+      function todayStop() {
+        todayStarted = false
+        todayGeneration += 1
+        todayLocationRequest += 1
+        todayWeatherPending = false
+        if (todayClockTimer !== null && typeof window.clearInterval === 'function') window.clearInterval(todayClockTimer)
+        if (todayWeatherTimer !== null && typeof window.clearInterval === 'function') window.clearInterval(todayWeatherTimer)
+        todayClockTimer = null
+        todayWeatherTimer = null
+      }
+      function todayShiftMonth(delta) {
+        var base = todayState.cursor || todayMonthStart(todayState.now)
+        todayState.cursor = new Date(base.getFullYear(), base.getMonth() + delta, 1, 12)
+        todayBump()
+      }
+      function todayResetMonth() {
+        todayState.cursor = todayMonthStart(todayState.now)
+        todayBump()
+      }
+
+      function todayOpenLocation() {
+        todayState.location.open = true
+        todayState.location.status = 'idle'
+        todayState.location.error = null
+        todayBump()
+      }
+      function todayCloseLocation() {
+        todayLocationRequest += 1
+        todayState.location.open = false
+        todayState.location.error = null
+        todayBump()
+      }
+      function todayLocationQuery(value) {
+        todayState.location.query = value
+        todayState.location.error = null
+        todayBump()
+      }
+      function todaySearchLocations() {
+        var query = todayState.location.query.trim()
+        if (!query) {
+          todayState.location.error = '先输入要查看的城市'
+          todayBump()
+          return
+        }
+        var request = ++todayLocationRequest
+        todayState.location.status = 'loading'
+        todayState.location.error = null
+        todayBump()
+        fetch('/api/dsh-theme/weather/locations?q=' + encodeURIComponent(query), { credentials: 'same-origin', headers: { accept: 'application/json' } })
+          .then(function (response) {
+            if (!response.ok) throw new Error(response.status === 404 ? '没有找到这个地点' : '地点服务暂不可用')
+            return response.json()
+          })
+          .then(function (body) {
+            if (request !== todayLocationRequest) return
+            if (!body || body.ok !== true || !Array.isArray(body.results)) throw new Error('地点服务返回异常')
+            todayState.location.results = body.results
+            todayState.location.status = 'ready'
+            todayState.location.error = body.results.length ? null : '没有找到这个地点'
+            todayBump()
+          })
+          .catch(function (error) {
+            if (request !== todayLocationRequest) return
+            todayState.location.results = []
+            todayState.location.status = 'error'
+            todayState.location.error = error && error.message ? error.message : '地点服务暂不可用'
+            todayBump()
+          })
+      }
+      function todayChooseLocation(location) {
+        var request = ++todayLocationRequest
+        todayState.location.status = 'submitting'
+        todayState.location.error = null
+        todayBump()
+        fetch('/api/dsh-theme/weather/location', {
+          method: 'POST', credentials: 'same-origin',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(location),
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('地点保存失败，请重试')
+            return response.json()
+          })
+          .then(function (body) {
+            if (request !== todayLocationRequest) return
+            if (!body || body.ok !== true || !body.location) throw new Error('地点保存失败，请重试')
+            todayState.location = { open: false, query: '', status: 'idle', results: [], error: null }
+            todayState.weather = { status: 'loading', data: null }
+            todayGeneration += 1
+            todayWeatherPending = false
+            todayLoadWeather()
+            todayBump()
+          })
+          .catch(function (error) {
+            if (request !== todayLocationRequest) return
+            todayState.location.status = 'error'
+            todayState.location.error = error && error.message ? error.message : '地点保存失败，请重试'
+            todayBump()
+          })
+      }
+
+      function TodayWeatherArt() {
+        var cloud = function (className, transform) {
+          return react.createElement('g', { className: className, transform: transform },
+            react.createElement('ellipse', { cx: 98, cy: 104, rx: 66, ry: 30 }),
+            react.createElement('ellipse', { cx: 142, cy: 78, rx: 44, ry: 43 }),
+            react.createElement('ellipse', { cx: 190, cy: 103, rx: 55, ry: 35 }),
+            react.createElement('rect', { x: 55, y: 102, width: 194, height: 37, rx: 18 })
+          )
+        }
+        return react.createElement('svg', { className: 'dsh-today-weather-art', viewBox: '0 0 360 180', 'aria-hidden': 'true', focusable: 'false' },
+          react.createElement('defs', null,
+            react.createElement('linearGradient', { id: 'dsh-today-cloud-volume', x1: '0%', y1: '0%', x2: '0%', y2: '100%' },
+              react.createElement('stop', { offset: '0%', stopColor: 'var(--dsh-scene-cloud-high)' }),
+              react.createElement('stop', { offset: '58%', stopColor: 'var(--dsh-scene-cloud-mid)' }),
+              react.createElement('stop', { offset: '100%', stopColor: 'var(--dsh-scene-cloud-shadow)' })
+            )
+          ),
+          react.createElement('circle', { className: 'dsh-today-sun', cx: 270, cy: 48, r: 30 }),
+          cloud('dsh-today-cloud-back', 'translate(22 10) scale(.86)'),
+          cloud('dsh-today-cloud-front', 'translate(105 45) scale(.72)'),
+          react.createElement('g', { className: 'dsh-today-rain' },
+            react.createElement('line', { x1: 178, y1: 144, x2: 172, y2: 158 }),
+            react.createElement('line', { x1: 204, y1: 144, x2: 198, y2: 158 }),
+            react.createElement('line', { x1: 230, y1: 144, x2: 224, y2: 158 })
+          )
+        )
+      }
+
+      function TodayWorkbench() {
         var tick0 = react.useState(0)
         var rerender = tick0[1]
         react.useEffect(function () {
-          return subscribeView(function () { rerender(function (n) { return n + 1 }) })
+          todayStart()
+          var off = todaySubscribe(function () { rerender(function (n) { return n + 1 }) })
+          return function () { off(); todayStop() }
         }, [])
-        // 封面两行**不依赖素材就绪**：精灵还没解码出来时，刊号/版记照常渲染。
-        // 反过来把封面塞进 viewReady 分支，会让「素材慢一拍」表现为「整个封面缺席」。
-        return react.createElement(
-          'span',
-          { id: DEEPY_HERO_ID, 'data-dsh-part': 'deepy-hero', 'data-dsh-deepy-state': 'idle', 'data-dsh-glow': 'idle' },
-          react.createElement(
-            'span',
-            { className: 'dsh-hero-cover' },
-            react.createElement('span', { className: 'dsh-hero-kicker' }, HERO_KICKER),
-            // 鲸 + 月台裹在一层 stage 里：底座 position:absolute 需要一个**只包住精灵**的
-            // 定位上下文，否则会锚到整列容器底部、跑到版记下面去。
-            react.createElement(
-              'span',
-              { className: 'dsh-hero-stage' },
-              viewReady
-                ? react.createElement('span', { className: 'dsh-theme-deepy-base dsh-theme-deepy-base--hero', 'aria-hidden': 'true' })
-                : null,
-              viewReady ? react.createElement('span', { className: 'dsh-theme-deepy-sprite' }) : null
+        var now = todayState.now
+        var weather = todayState.weather
+        var data = weather.data
+        var current = data && data.current
+        var kind = current ? todayWeatherKind(current.weatherCode) : 'cloud'
+        var calendar = todayCalendar(now, todayState.cursor)
+        var statusText = weather.status === 'loading'
+          ? '正在读取天气…'
+          : weather.status === 'error'
+            ? '天气暂不可用'
+            : todayWeatherLabel(current.weatherCode) + (data.stale ? ' · 较早更新' : '')
+        return react.createElement('div', { className: 'dsh-today', 'data-dsh-part': 'today-workbench' },
+          react.createElement('section', { className: 'dsh-today-intro', 'aria-label': '当前时间与开始任务' },
+            react.createElement('time', { className: 'dsh-today-clock', dateTime: now.toISOString() }, todayFormatClock(now)),
+            react.createElement('div', { className: 'dsh-today-date' }, todayFormatDate(now)),
+            react.createElement('h1', { className: 'dsh-today-title' }, '今天，从哪件事开始？')
+          ),
+          react.createElement('aside', { className: 'dsh-today-rail', 'aria-label': '今日信息' },
+            react.createElement('section', { className: 'dsh-today-weather', 'data-weather-kind': kind, 'aria-label': '天气' },
+              react.createElement('div', { className: 'dsh-today-card-head' },
+                react.createElement('button', {
+                  type: 'button', className: 'dsh-today-city', onClick: todayOpenLocation,
+                  'aria-expanded': todayState.location.open, title: '点击更换地点',
+                }, data && data.city ? data.city : '选择地点'),
+                react.createElement('button', { type: 'button', className: 'dsh-today-refresh', onClick: todayLoadWeather, 'aria-label': '刷新天气' }, '刷新')
+              ),
+              todayState.location.open ? react.createElement('div', { className: 'dsh-today-location-editor' },
+                react.createElement('form', { className: 'dsh-today-location-form', onSubmit: function (event) { event.preventDefault(); todaySearchLocations() } },
+                  react.createElement('input', {
+                    value: todayState.location.query,
+                    onChange: function (event) { todayLocationQuery(event.target.value) },
+                    placeholder: '输入城市，如 北京 / Tokyo', 'aria-label': '城市名称', autoFocus: true,
+                  }),
+                  react.createElement('button', { type: 'submit', disabled: todayState.location.status === 'loading' }, todayState.location.status === 'loading' ? '查找中…' : '搜索'),
+                  react.createElement('button', { type: 'button', onClick: todayCloseLocation }, '取消')
+                ),
+                todayState.location.error ? react.createElement('div', { className: 'dsh-today-location-message', role: 'alert' }, todayState.location.error) : null,
+                todayState.location.results.length ? react.createElement('div', { className: 'dsh-today-location-results' },
+                  todayState.location.results.map(function (location, index) {
+                    var label = todayLocationLabel(location)
+                    return react.createElement('button', {
+                      type: 'button', className: 'dsh-today-location-result', key: location.id || label + index,
+                      disabled: todayState.location.status === 'submitting',
+                      onClick: function () { todayChooseLocation(location) },
+                    }, todayState.location.status === 'submitting' ? '正在保存…' : label)
+                  })
+                ) : null
+              ) : null,
+              react.createElement('div', { className: 'dsh-today-temperature' },
+                react.createElement('span', null, current ? current.temperature : '—'),
+                react.createElement('sup', null, '°')
+              ),
+              react.createElement('div', { className: 'dsh-today-weather-status', 'aria-live': 'polite' }, statusText),
+              react.createElement(TodayWeatherArt),
+              data && Array.isArray(data.daily) ? react.createElement('div', { className: 'dsh-today-forecast' },
+                data.daily.map(function (day, index) {
+                  return react.createElement('div', { className: 'dsh-today-forecast-day', key: day.date },
+                    react.createElement('span', null, todayForecastLabel(day.date, index)),
+                    react.createElement('span', { className: 'dsh-today-forecast-kind', 'data-kind': todayWeatherKind(day.weatherCode) }),
+                    react.createElement('span', null, day.max + '° / ' + day.min + '°')
+                  )
+                })
+              ) : null
             ),
-            react.createElement('span', { className: 'dsh-hero-colophon' }, HERO_COLOPHON)
+            react.createElement('section', { className: 'dsh-today-calendar', 'aria-label': '月历' },
+              react.createElement('div', { className: 'dsh-today-card-head' },
+                react.createElement('strong', null, calendar.year + '年' + calendar.month + '月'),
+                react.createElement('span', { className: 'dsh-today-calendar-actions' },
+                  react.createElement('button', { type: 'button', onClick: function () { todayShiftMonth(-1) }, 'aria-label': '上个月' }, '‹'),
+                  react.createElement('button', { type: 'button', onClick: todayResetMonth }, '今天'),
+                  react.createElement('button', { type: 'button', onClick: function () { todayShiftMonth(1) }, 'aria-label': '下个月' }, '›')
+                )
+              ),
+              react.createElement('div', { className: 'dsh-today-weekdays' },
+                ['一', '二', '三', '四', '五', '六', '日'].map(function (day) { return react.createElement('span', { key: day }, day) })
+              ),
+              react.createElement('div', { className: 'dsh-today-days' },
+                calendar.days.map(function (day) {
+                  return react.createElement('span', {
+                    key: day.key,
+                    className: day.inMonth ? '' : 'is-outside',
+                    'data-today': day.isToday ? 'true' : null,
+                    'aria-current': day.isToday ? 'date' : null,
+                  }, day.day)
+                })
+              )
+            )
           )
         )
       }
@@ -2099,11 +2435,14 @@ window.__ModuleLoader__.load({
         if (!target || !target.isConnected) return false
         // 取帧窗口整体按本位的 px 算（width/height/background-size/background-position 同源）。
         var g = deepyFrameGeometry(frame, meta, manifest, px)
-        target.style.width = g.width            // ← 必须 = 该位的显示尺寸（防相邻帧泄入）
-        target.style.height = g.height
-        target.style.backgroundImage = 'url("' + image.src + '")'
-        target.style.backgroundSize = g.backgroundSize
-        target.style.backgroundPosition = g.backgroundPosition
+        // rAF 通常快于素材帧率；同一帧可能被反复推进。读内联样式做同值跳过，
+        // 既避免重复样式失效，也保留 React/外部改写后下一帧自愈的能力。
+        var backgroundImage = 'url("' + image.src + '")'
+        if (target.style.width !== g.width) target.style.width = g.width  // 必须 = 显示尺寸（防相邻帧泄入）
+        if (target.style.height !== g.height) target.style.height = g.height
+        if (target.style.backgroundImage !== backgroundImage) target.style.backgroundImage = backgroundImage
+        if (target.style.backgroundSize !== g.backgroundSize) target.style.backgroundSize = g.backgroundSize
+        if (target.style.backgroundPosition !== g.backgroundPosition) target.style.backgroundPosition = g.backgroundPosition
         return true
       }
 
@@ -2276,18 +2615,18 @@ window.__ModuleLoader__.load({
           if (typeof offSlot === 'function') disposers.push(offSlot)
         }
       } catch (error) { console.error('[dsh-theme] deepy slot registration failed:', error) }
-      // 空会话 hero 迎宾位。与主位同一个可逆对：slot disposer 一起进 disposers，OFF 时撤。
+      // 空会话「今日工作台」。与主位同一个可逆对：OFF 时撤 slot、时钟与天气请求代际。
       try {
         if (ctx.slots && typeof ctx.slots.inject === 'function') {
-          var offHero = ctx.slots.inject(DEEPY_HERO_SLOT, function () {
+          var offToday = ctx.slots.inject(DEEPY_HERO_SLOT, function () {
             return ctx.slots.register(
-              { name: DEEPY_HERO_SLOT, id: 'dsh-theme-deepy-hero', order: 40, label: function () { return 'Deepy 迎宾' } },
-              DeepyHero
+              { name: DEEPY_HERO_SLOT, id: 'dsh-theme-today', order: 40, label: function () { return '今日工作台' } },
+              TodayWorkbench
             )
           })
-          if (typeof offHero === 'function') disposers.push(offHero)
+          if (typeof offToday === 'function') disposers.push(offToday)
         }
-      } catch (error) { console.error('[dsh-theme] deepy hero slot registration failed:', error) }
+      } catch (error) { console.error('[dsh-theme] today slot registration failed:', error) }
       document.addEventListener('visibilitychange', onVisibility)
       disposers.push(function () { document.removeEventListener('visibilitychange', onVisibility) })
 
@@ -2346,6 +2685,8 @@ window.__ModuleLoader__.load({
 
       return {
         dispose: function () {
+          todayStop()
+          todayListeners.clear()
           if (rafId !== null) { window.cancelAnimationFrame(rafId); rafId = null }
           for (var i = 0; i < disposers.length; i += 1) {
             try { disposers[i]() } catch (error) { console.error('[dsh-theme] deepy dispose failed:', error) }
@@ -2457,12 +2798,164 @@ window.__ModuleLoader__.load({
       return dispose
     }
 
+
+    // ── 账户抽屉（M13.1）：侧栏底部的插件条目统一收进账号菜单 ──────────────────
+    //
+    // 为什么**不搬 DOM**：footerActions 是别的插件渲染的 React 宿主节点（Remote 入口、
+    // 今日消费卡等）。把它搬进我们自己的弹层，会在对端重渲染时丢失、卸载时无法还原。
+    // 这里只改**视觉位置**：footerActions 平时 fixed + 透明 + 不吃指针，账号菜单打开时
+    // 才出现在账号行上方——于是侧栏底部只剩一行账号，插件条目看起来就是"从账号菜单弹出"。
+    //
+    // 开关不吃原生菜单的状态（点抽屉里的控件会触发"点外部"把原生菜单关掉，但抽屉不该跟着关），
+    // 自己维护：点账号行切换、点抽屉外部关闭、Esc 关闭。
+    function installAccountDrawer() {
+      var DRAWER_ATTR = 'data-dsh-account-drawer'
+      var CARD_VAR = '--drawer-card-bottom'
+      var ACTIONS_VAR = '--drawer-actions-bottom'
+      var disposed = false
+      var open = false
+      var rafId = 0
+
+      function drawer() {
+        var nodes = document.querySelectorAll('[class*="footerActions"]')
+        return nodes.length > 0 ? nodes[0] : null
+      }
+      function hasContent(node) {
+        return node !== null && node.children.length > 0
+      }
+      function accountRow() {
+        var area = document.querySelector('[class*="settingsArea"]')
+        return area === null ? null : area.querySelector('[class*="triggerRow"]')
+      }
+      function nearAccountMenu() {
+        var row = accountRow()
+        if (row === null) return null
+        var rr = row.getBoundingClientRect()
+        var menus = document.querySelectorAll('[role="menu"]')
+        for (var i = 0; i < menus.length; i++) {
+          var rect = menus[i].getBoundingClientRect()
+          if (rect.width === 0 || rect.height === 0) continue
+          if (rect.left <= rr.right + 8 && rect.bottom <= rr.top + 8) return menus[i]
+        }
+        return null
+      }
+      function footerCard() {
+        var foot = document.querySelector('[class*="footArea"]')
+        if (foot === null) return null
+        var kids = foot.children
+        for (var i = 0; i < kids.length; i++) {
+          var cls = kids[i].getAttribute('class')
+          if (cls === null || cls === '') return kids[i]
+        }
+        return null
+      }
+      function place() {
+        if (!open) return
+        var row = accountRow()
+        if (row === null) return
+        var menu = nearAccountMenu()
+        var anchorTop = menu !== null ? menu.getBoundingClientRect().top : row.getBoundingClientRect().top
+        var base = Math.max(0, Math.round(window.innerHeight - anchorTop + 8))
+        var card = footerCard()
+        var cardHeight = card === null ? 0 : Math.round(card.getBoundingClientRect().height)
+        document.documentElement.style.setProperty(CARD_VAR, base + 'px')
+        document.documentElement.style.setProperty(ACTIONS_VAR, base + cardHeight + 'px')
+      }
+      function openDrawer() {
+        if (open || disposed) return
+        if (!hasContent(drawer())) return
+        open = true
+        document.body.setAttribute(DRAWER_ATTR, '')
+        place()
+        // 原生菜单在同一帧里渲染，下一帧再量一次把抽屉抬到菜单上方
+        if (rafId === 0 && typeof window !== 'undefined' && typeof window.requestAnimationFrame === 'function') {
+          rafId = window.requestAnimationFrame(function () {
+            rafId = 0
+            place()
+            if (rafId === 0) {
+              rafId = window.requestAnimationFrame(function () { rafId = 0; place() })
+            }
+          })
+        }
+      }
+      function closeDrawer() {
+        if (!open) return
+        open = false
+        document.body.removeAttribute(DRAWER_ATTR)
+        document.documentElement.style.removeProperty(CARD_VAR)
+        document.documentElement.style.removeProperty(ACTIONS_VAR)
+      }
+      function toggleDrawer() {
+        if (open) closeDrawer()
+        else openDrawer()
+      }
+      function isInside(node, el) {
+        return node !== null && el !== null && node.contains(el)
+      }
+      function onClick(event) {
+        if (disposed) return
+        var target = event.target
+        if (!(target instanceof Node)) return
+        var row = accountRow()
+        if (isInside(row, target)) {
+          // 账号行本身由 shell 负责打开原生菜单；这里只负责抽屉的开合
+          if (row !== null && row.contains(target)) toggleDrawer()
+          return
+        }
+        if (isInside(drawer(), target)) return
+        closeDrawer()
+      }
+      function onKey(event) {
+        if (event.key === 'Escape') closeDrawer()
+      }
+      function onResize() { place() }
+
+      // 抽屉里的条目是别家插件渲染的：容器被重建后我们的定位属性要重新生效
+      var observer = null
+      if (typeof MutationObserver === 'function') {
+        observer = new MutationObserver(function () {
+          if (!open) return
+          if (!hasContent(drawer())) closeDrawer()
+          else place()
+        })
+        observer.observe(document.body, { childList: true, subtree: true })
+      }
+      // 测试桩只给了最小 DOM：窗口相关 API 逐个守卫，缺了就不接（不影响主流程）
+      var hasWindowEvents = typeof window !== 'undefined' && typeof window.addEventListener === 'function'
+      document.addEventListener('click', onClick, true)
+      document.addEventListener('keydown', onKey, true)
+      if (hasWindowEvents) window.addEventListener('resize', onResize)
+
+      return {
+        dispose: function () {
+          disposed = true
+          closeDrawer()
+          if (rafId !== 0 && typeof window !== 'undefined' && typeof window.cancelAnimationFrame === 'function') {
+            window.cancelAnimationFrame(rafId)
+            rafId = 0
+          }
+          if (observer !== null) observer.disconnect()
+          document.removeEventListener('click', onClick, true)
+          document.removeEventListener('keydown', onKey, true)
+          if (hasWindowEvents) window.removeEventListener('resize', onResize)
+          document.documentElement.style.removeProperty(CARD_VAR)
+          document.documentElement.style.removeProperty(ACTIONS_VAR)
+        },
+        isOpen: function () { return open },
+        open: openDrawer,
+        close: closeDrawer,
+        hasContent: function () { return hasContent(drawer()) },
+      }
+    }
+
     /**
      * @param ctx - client root context。
      */
     function apply(ctx) {
       // ⚠️ effect body 里做安装、return 卸载函数 —— 见文件头红线二。
       ctx.effect(function () {
+        // 除主题开关外，还要区分「整个 effect 已卸载」：迟到的请求不得复活旧资源。
+        var effectDisposed = false
         var disposePanel = registerPanel(ctx)
         var stopSemantics = startSemanticAdapter()
         // Deepy 播放器与样式注入同属一个可逆对：开关 OFF 时精灵元素、内联 CSS、
@@ -2490,8 +2983,8 @@ window.__ModuleLoader__.load({
           // 数据只在 ON 时拉一次，OFF→ON 不重拉（loadIconData 内部缓存 + 失败可重试）。
           loadIconData().then(function (ok) {
             iconInstallPending = false
-            // 竞态守卫：await 期间开关可能已被关掉
-            if (!ok || !snapshot().enabled || icons !== null) return
+            // 竞态守卫：await 期间开关可能已关，或整个 effect 已卸载
+            if (!ok || effectDisposed || !snapshot().enabled || icons !== null) return
             icons = installIcons()
           })
         }
@@ -2505,21 +2998,33 @@ window.__ModuleLoader__.load({
             hooks = null
           }
         }
+        // 账户抽屉（M13.1）：侧栏底部插件条目收进账号菜单，与其它子系统同一个可逆对。
+        var account = null
+        function syncAccount(enabled) {
+          if (enabled) {
+            if (account === null) account = installAccountDrawer()
+          } else if (account !== null) {
+            account.dispose()
+            account = null
+          }
+        }
         var disposeSubscribe = subscribe(function (view) {
           if (!view.ready) return
           syncDeepy(view.enabled)
           syncIcons(view.enabled)
           syncHooks(view.enabled)
+          syncAccount(view.enabled)
           if (!view.enabled) {
             uninstallStyle()
             return
           }
           loadStyleText()
             .then(function (text) {
-              // 竞态守卫：await 期间开关可能已被关掉
-              if (snapshot().enabled) installStyle(text)
+              // 竞态守卫：await 期间开关可能已关，或整个 effect 已卸载
+              if (!effectDisposed && snapshot().enabled) installStyle(text)
             })
             .catch(function (error) {
+              if (effectDisposed) return
               console.error('[dsh-theme] theme.css load failed:', error)
               setState({ error: 'style-unavailable' })
             })
@@ -2529,6 +3034,7 @@ window.__ModuleLoader__.load({
         readState()
 
         return function () {
+          effectDisposed = true
           disposeSubscribe()
           disposePanel()
           stopSemantics()
@@ -2568,6 +3074,18 @@ window.__ModuleLoader__.load({
       displayWithLook: deepyDisplayWithLook,
       // 渲染层回归测试用：驱动真实 installDeepy（需要调用方自备最小 DOM/React 桩）
       install: installDeepy,
+    }
+
+    // 今日工作台的纯函数导出：时间、月历与 Open-Meteo 天气码映射。
+    exports.__today = {
+      formatClock: todayFormatClock,
+      formatDate: todayFormatDate,
+      monthStart: todayMonthStart,
+      calendar: todayCalendar,
+      weatherLabel: todayWeatherLabel,
+      weatherKind: todayWeatherKind,
+      forecastLabel: todayForecastLabel,
+      locationLabel: todayLocationLabel,
     }
 
     // M8 钩子层的只读导出：纯函数（流态投影/裁决、熄灯决策、光晕档位）+ 真实安装入口。

@@ -4,7 +4,7 @@
 
 ## 用途
 
-把先锋视觉设计做成 DSH Web GUI 的主题。**M7「深空编辑室」是视觉基座**（视觉与 dsh-ui 规范脱钩，design/tokens.css 为唯一数值来源），其上是编辑室 / 输入卡的连续改版，**当前形态 = M10「书写纸」**（M8 质感层 → M8.5 编辑台 → M9 出格 → M10 三行书写纸版式）。
+把先锋视觉设计做成 DSH Web GUI 的主题。**M7「深空编辑室」是视觉基座**（视觉与 dsh-ui 规范脱钩，design/tokens.css 为唯一数值来源），其上是编辑室 / 输入卡的连续改版，**当前形态 = M13「压印层 / IMPRINT」**（M8 质感层 → M8.5 编辑台 → M9 出格 → M10 三行书写纸版式 → M11 今日工作台 → M12 活字剧场 → M13 书刊化重绘：全衬线 + 发丝线 + 目录/页码/页边注，取代 M12 的渐变玻璃与气泡语言）。
 
 当前生效的层共五条：**皮肤卡链**（M1–M4 纯资产目录，保留作回退通道）+ **插件链**（M5 起自研 bundle 插件：样式注入 + 设置面板开关）+ **Deepy 子系统**（M6 接状态机，M7 起主位 / hero 双位与单鲸规则）+ **图标层**（M7，Lucide 非破坏式替换）+ **编辑器 / 书写纸层**（M8–M10，patches.css 的编辑室与输入卡版式 + client 钩子层）。两条加载链并存，视觉数值同源。
 
@@ -60,6 +60,7 @@ flowchart LR
 | 资产路径 | `plugins/dsh-theme/assets/deepy/<state>.png`——构建生成物，**禁止手改**（同 skin.css / theme.css 纪律） |
 | 元数据 | `plugins/dsh-theme/assets/deepy/deepy.json` = `{cols:8, frameMs:50, displayPx:64, states:{<key>:{file,frames,rows}}}` |
 | host 路由 | `ctx.webServer.register({ kind: 'prefix', path: '/api/dsh-theme/deepy' })`——**不能用 `exact`**：框架无参数化路由，`exact` 是 pathname 严格相等，`<name>` 永远匹配不上（依据 dsh-host-webserver/lib/index.js:178 分表、:323-331 匹配、:232 rawPath 取自 `URL.pathname` 且保留 percent 编码）。handler 从 pathname 取前缀后残段、**只解码一次**（解码两次会被 `%252e` 绕过，不解码会被 `%2e%2e%2f` 绕过），再按 `^[a-z][a-z0-9-]*\.(png\|json)$` 校验 + `path.resolve` 后仍在资产目录内；**非法 / 越界 / 不存在一律 404**（响应上不可区分），非 GET/HEAD → 405。现有 `sameOrigin()` 只防跨站写、**不防路径穿越** |
+| 天气路由 | `GET /api/dsh-theme/weather` 使用已保存地点；`GET /weather/locations?q=` 通过 Open-Meteo 地理编码返回候选；`GET/POST /weather/location` 读取或选择地点。首次默认东莞，选择后原子写入 `$DSH_HOME/dsh-theme/weather-location.json`。上游 8s 超时、缓存 10min 且按地点隔离，forecast 时区随地点；失败且无同地点缓存时 503，不生成假天气。 |
 | 显示落点 | slot `conversation.input.left`（空会话与活跃态都渲染）。**不用** `conversation.hero.brand.mark`：它只在空会话渲染，而事件只在活跃时发生 |
 | 状态源 | client 侧 `sessions` + `uiSession` 服务；不引入 host 转发与轮询 |
 | 切帧 | `col=i%8, row=⌊i/8⌋`；`background-size = 8×displayPx × rows×displayPx`；元素宽度 **必须 = displayPx**（防相邻帧泄入） |
@@ -74,17 +75,24 @@ flowchart LR
 - **skins/dsh-ui/patches.css**：手工维护物之二——L2 语义属性规则（data-dsh-surface/part）、L3 最小兜底（class* / 全局）、以及**非 alias 命名空间**（shell 实际消费的 --dsw-specific-* / --dsw-radius-*）的重绑定。规则一律引用 var(--dsh-*) 或 var(--dsw-*)，不写死数值。
 - **scripts/build-skin.mjs**：preview :root + mapping.json → skin.css，并额外发射 --dsh-* 变量全集（明暗双套）供 patches.css 引用。两条守卫：patches.css 引用 preview :root 里不存在的变量 → 报错；preview :root 与 shell 自有变量重名 → 报错。
 - **scripts/sync-skin.mjs**：皮肤源 → $DSH_HOME/skins/dsh-ui/（含子目录，目录册收录点）。
-- **plugins/dsh-theme/**（M5 已落地）：自研 bundle 插件，host/client 双半。host 半 = 开关持久化；client 半 = 样式注入 + 设置面板，顶层零声明（须包在 factory/IIFE 内）。详见上文「插件期结构」。
-- **design/tokens.css**（M7 起）：视觉数值唯一来源，机器生成物（--regen-tokens 显式重生成），163 token 明暗双套。
+- **plugins/dsh-theme/**（M5 已落地）：自研 bundle 插件，host/client 双半。host 半 = 开关持久化 + 天气只读代理；client 半 = 样式注入 + 设置面板 + 今日工作台，顶层零声明（须包在 factory/IIFE 内）。详见上文「插件期结构」。
+- **design/tokens.css**（M7 起）：视觉数值唯一来源，机器生成物（--regen-tokens 显式重生成），175 token 明暗双套。
 - **scripts/build-icons.mjs → plugins/dsh-theme/assets/icons/lucide.json**（M7）：Lucide 图标数据本地化（2141 个，ISC），构建生成物。
 - **scripts/build-icon-map.mjs → assets/icons/icon-map.json**（M7）：shell 图标指纹 → Lucide 名映射。指纹核心只有一份实现（client.js @dsh-theme-icon-core 标记段，构建脚本抽取执行）；策展走 scripts/icon-map-overrides.json（rename/byId/skip）。
 - **图标层**（client.js 内，M7）：MutationObserver（60ms 去抖）+ 非破坏式注入（原 svg 子节点留 DOM，OFF 还原）；双索引（完整指纹优先、几何指纹兜底，歧义不换）；未映射保持原样并计数（html[data-dsh-icons-missed]）。host 半新增 /api/dsh-theme/icons/<name> 路由（与 deepy 路由同一加固模式）。
-- **编辑器 / 书写纸层**（M8–M10）：patches.css 里的消息流版面 / 活字流态 / 熄灯仪式 / hero 封面 / 输入卡逐行锁定与书写纸三行版式；client 半在每张输入卡上维护 `data-dsh-editor="empty"|"filled"` 契约（作品层消费），钩子层负责流态、熄灯、聚焦线与封面装配。容器禁 transform/filter/perspective 等包含块属性（插件兼容红线，登记在 patches.css 头部）。
+- **编辑器 / 书写纸层**（M8–M10）：patches.css 里的消息流版面 / 活字流态 / 熄灯仪式 / 输入卡逐行锁定与书写纸三行版式；client 半在每张输入卡上维护 `data-dsh-editor="empty"|"filled"` 契约（作品层消费）。容器禁 transform/filter/perspective 等包含块属性（插件兼容红线，登记在 patches.css 头部）。
+- **今日工作台**（M11）：slot `conversation.hero.brand.mark` 改挂时间 / 天气 / 月历；共同外层 `composerStack` 组织两栏，左栏依次为标题、工作区、输入卡，右栏为天气与月历。时间本地计算，月历固定 42 格；天气只在空会话挂载时请求与定时刷新，离开即停止。Deepy 不再注册中央迎宾位，只保留输入卡主位。M11.1 新增 12 个场景 token：浅色雾白瓷感、深色暗室雾光，新会话移除网格与排版标尺，天气改为开放环境，云朵使用独立三档体积色。
+- **压印层 / IMPRINT**（M13，当前视觉）：patches.css 的 `M13 · 压印层` 段整体取代 M12 的视觉决定——① 发丝墨线是唯一分隔手段，全站零圆角零阴影零卡片；② 目录 / 页码 / 页边注三母题贯穿（侧栏 01–04 目录、消息 `Nº + 你/助手` 页边注、日历今日墨块）；③ 两族对打：中文全走思源宋体（可变字重 300/350/400 撑层级），拉丁与数字走 Georgia（0.18–0.24em 拉开），等宽只留给代码与工具日志。新会话页是报头版：`今日記事 · THE DAILY SHEET` 刊名小标 + 96px Georgia 时刻 + 72px 衬线主标题 + 双线横格稿纸输入卡 + 右栏页边注（气象/月历去卡片化）。设计依据见 `M7 归属笔记` 的 M13 增补与 `design/preview.html`。
+- **活字剧场聊天区**（M12，已被 M13 取代，保留作历史）：活跃会话与今日工作台共享场景材质。`[data-chat-flow-kind^="assistant"]` 正文采用章节排版，user/steering 为缩进导演批注；工具行用真实 `data-state` 状态轨，场景大字只在 `applyStream` 的真实流态中出现。滚动观察器随 `data-conversation-scroll` 根重建，容器只淡入，位移动效仅落在文字叶子；侧栏与输入卡使用同套场景边缘，全部保留 reduced-motion。
 - **docs/spec.md / docs/milestones.md**：范围与验收的唯一权威。
+
+- **账户抽屉**（M13.1，client 半）：installAccountDrawer() 把侧栏底部的插件节点（footerActions + footArea 里的无类名消费卡包装）改成定位浮层，账号行点击切换 body[data-dsh-account-drawer]，按量出的两个 CSS 变量叠在原生账号菜单上方；不搬 DOM、不接管原生菜单，与其它子系统同一个可逆对。
+
+- **纸面质感**（M13.3，token + patches 层）：6 个 paper token 承载程序化 SVG 纸纹（纸齿 + 云斑）与光照（高光 / 暗角），全部画在表面自身的背景层（`background-blend-mode` multiply / screen），文字之上不加任何叠加层；贴图由 `scripts/build-paper.mjs` 生成。
 
 ## 数据流
 
-视觉数值改动路径：改设计 → 更新 design/preview.html 的 #token-manifest → `build-skin.mjs --regen-tokens` 重生成 tokens.css → 重跑 build + sync。反向不允许：色板类改 mapping.json、组件类改 patches.css，绝不改生成物。Deepy 双位（M7 立位、M10 定稿落点）：主位 conversation.input.left 经 React slot 挂载，96px、绝对定位在输入卡右上缘、无底座；空会话 hero 迎宾位独立保留大号 idle 与迎宾底座；单鲸规则（hero 在场主位不渲染，纯函数 deepyMainVisible + 每帧 DOM 探测自愈）。
+视觉数值改动路径：改设计 → 更新 design/preview.html 的 #token-manifest → `build-skin.mjs --regen-tokens` 重生成 tokens.css → 重跑 build + sync。反向不允许：色板类改 mapping.json、组件类改 patches.css，绝不改生成物。Deepy 主位 conversation.input.left 经 React slot 挂载，96px、绝对定位在输入卡右上缘、无底座；M11 起空会话 hero 槽由今日工作台使用，不再注册迎宾鲸，既有 deepyMainVisible 单鲸防御仍保留。
 
 **两条链并存**：纯皮肤走 build → sync → skin-center 注入；插件走 build（插件版自包含 CSS）→ client 半自注入。两者不互相消费，共用同一份 mapping.json / patches.css / 同一套验收基线。同一时刻只允许一条生效：插件启用时皮肤卡须退到官方默认，防双注入。
 

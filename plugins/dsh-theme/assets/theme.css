@@ -8,99 +8,99 @@
    源: design/tokens.css（深空编辑室 token 机器可读源，由 design/preview.html 机械生成） */
 
 html[data-dsh-theme] {
-  background-color: #F5F1E8;
-  color: #17140E;
-  --dsh-bg-canvas: #E6E0D4;
-  --dsh-bg-base: #F5F1E8;
-  --dsh-bg-subtle: #EFEAE0;
-  --dsh-bg-surface: #FFFDF8;
-  --dsh-bg-elevated: #FFFFFF;
-  --dsh-bg-hover: #EAE4D8;
-  --dsh-bg-active: #E0D8C9;
-  --dsh-bg-inset: #E9E3D7;
-  --dsh-border-subtle: #DED7C9;
-  --dsh-border-strong: #BEB5A2;
-  --dsh-rule-hairline: rgba(23,20,14,.10);
-  --dsh-rule-accent: rgba(210,62,12,.55);
-  --dsh-text-primary: #17140E;
-  --dsh-text-secondary: #5B5445;
-  --dsh-text-tertiary: #8B8474;
-  --dsh-text-inverse: #FFF8F1;
-  --dsh-accent: #D23E0C;
-  --dsh-accent-hover: #B0320A;
-  --dsh-accent-subtle: #FBE7DC;
-  --dsh-on-accent: #FFF6F0;
-  --dsh-accent-glow: rgba(210,62,12,.22);
-  --dsh-link: #B0320A;
-  --dsh-success: #157F4A;
-  --dsh-success-subtle: #E3F1E7;
-  --dsh-warning: #A65A00;
-  --dsh-warning-subtle: #F7EAD6;
-  --dsh-on-warning: #FFF8EC;
-  --dsh-danger: #B4232F;
-  --dsh-danger-subtle: #FBE3E4;
-  --dsh-code-bg: #EFE9DC;
-  --dsh-code-text: #2A2419;
-  --dsh-code-keyword: #B0320A;
-  --dsh-code-string: #157F4A;
-  --dsh-code-number: #8A5A00;
-  --dsh-code-fn: #2C5AA0;
-  --dsh-code-comment: #8B8474;
+  background-color: #F6F3EC;
+  color: #16130F;
+  --dsh-bg-canvas: #E8E3D6;
+  --dsh-bg-base: #F6F3EC;
+  --dsh-bg-subtle: #F1EDE4;
+  --dsh-bg-surface: #FBF8F1;
+  --dsh-bg-elevated: #FFFDF7;
+  --dsh-bg-hover: #EDE8DC;
+  --dsh-bg-active: #E5DFD1;
+  --dsh-bg-inset: #EFEAE0;
+  --dsh-border-subtle: #D8D2C4;
+  --dsh-border-strong: #B5AE9E;
+  --dsh-rule-hairline: rgba(22,19,15,.12);
+  --dsh-rule-accent: rgba(178,58,38,.55);
+  --dsh-text-primary: #16130F;
+  --dsh-text-secondary: #55504A;
+  --dsh-text-tertiary: #8C8577;
+  --dsh-text-inverse: #FBF8F1;
+  --dsh-accent: #B23A26;
+  --dsh-accent-hover: #922E1E;
+  --dsh-accent-subtle: #F3E2DC;
+  --dsh-on-accent: #FDF7F2;
+  --dsh-accent-glow: rgba(178,58,38,.18);
+  --dsh-link: #922E1E;
+  --dsh-success: #2B6B4B;
+  --dsh-success-subtle: #E4EEE6;
+  --dsh-warning: #8A5A0B;
+  --dsh-warning-subtle: #F3E8D5;
+  --dsh-on-warning: #FFF9EF;
+  --dsh-danger: #A3242C;
+  --dsh-danger-subtle: #F7E3E3;
+  --dsh-code-bg: #EDE8DC;
+  --dsh-code-text: #2C261C;
+  --dsh-code-keyword: #922E1E;
+  --dsh-code-string: #2B6B4B;
+  --dsh-code-number: #7A4E00;
+  --dsh-code-fn: #2C4A78;
+  --dsh-code-comment: #8C8577;
   --dsh-noise-uri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  --dsh-noise-opacity: .05;
+  --dsh-noise-opacity: .055;
   --dsh-noise-blend: multiply;
-  --dsh-grid-line: rgba(23,20,14,.045);
+  --dsh-grid-line: rgba(24,20,14,.045);
   --dsh-grid-size: 32px;
-  --dsh-aurora-cold: rgba(64,84,150,.16);
-  --dsh-aurora-violet: rgba(120,86,170,.10);
-  --dsh-aurora-ember: rgba(210,62,12,.10);
-  --dsh-font-display: "Palatino Linotype","Book Antiqua",Georgia,serif;
-  --dsh-font-sans: "Segoe UI Variable Text","Segoe UI",system-ui,"Microsoft YaHei UI",sans-serif;
+  --dsh-aurora-cold: rgba(70,84,120,.09);
+  --dsh-aurora-violet: rgba(150,110,90,.06);
+  --dsh-aurora-ember: rgba(193,57,31,.10);
+  --dsh-font-display: "Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --dsh-font-sans: "Noto Serif SC","Source Han Serif SC",Georgia,serif;
   --dsh-font-mono: "Cascadia Mono",Consolas,"Courier New",monospace;
-  --dsh-font-label: "Cascadia Mono",Consolas,"Courier New",monospace;
-  --dsh-text-3xs: 10px;
-  --dsh-text-2xs: 11px;
-  --dsh-text-xs: 12px;
+  --dsh-font-label: Georgia,"Times New Roman",serif;
+  --dsh-text-3xs: 9px;
+  --dsh-text-2xs: 10px;
+  --dsh-text-xs: 11px;
   --dsh-text-sm: 13px;
-  --dsh-text-md: 14px;
-  --dsh-text-lg: 16px;
+  --dsh-text-md: 13.5px;
+  --dsh-text-lg: 15.5px;
   --dsh-text-xl: 20px;
-  --dsh-text-2xl: 28px;
-  --dsh-text-display: 52px;
-  --dsh-text-mega: 88px;
-  --dsh-lh-3xs: 14px;
-  --dsh-lh-2xs: 16px;
-  --dsh-lh-xs: 18px;
+  --dsh-text-2xl: 34px;
+  --dsh-text-display: 72px;
+  --dsh-text-mega: 96px;
+  --dsh-lh-3xs: 11px;
+  --dsh-lh-2xs: 13px;
+  --dsh-lh-xs: 16px;
   --dsh-lh-sm: 20px;
   --dsh-lh-md: 22px;
-  --dsh-lh-lg: 24px;
-  --dsh-lh-xl: 28px;
-  --dsh-lh-2xl: 34px;
-  --dsh-lh-display: 54px;
-  --dsh-lh-mega: 88px;
-  --dsh-track-mega: -0.05em;
-  --dsh-track-tight: -0.03em;
-  --dsh-track-normal: 0;
-  --dsh-track-wide: 0.16em;
-  --dsh-track-label: 0.28em;
-  --dsh-weight-display: 700;
-  --dsh-weight-label: 600;
-  --dsh-weight-body: 400;
-  --dsh-radius-xs: 2px;
-  --dsh-radius-sm: 4px;
-  --dsh-radius-md: 6px;
-  --dsh-radius-lg: 8px;
-  --dsh-radius-xl: 12px;
+  --dsh-lh-lg: 26px;
+  --dsh-lh-xl: 30px;
+  --dsh-lh-2xl: 44px;
+  --dsh-lh-display: 80px;
+  --dsh-lh-mega: 99px;
+  --dsh-track-mega: -0.012em;
+  --dsh-track-tight: -0.005em;
+  --dsh-track-normal: 0.02em;
+  --dsh-track-wide: .18em;
+  --dsh-track-label: .24em;
+  --dsh-weight-display: 300;
+  --dsh-weight-label: 400;
+  --dsh-weight-body: 350;
+  --dsh-radius-xs: 0px;
+  --dsh-radius-sm: 0px;
+  --dsh-radius-md: 0px;
+  --dsh-radius-lg: 0px;
+  --dsh-radius-xl: 0px;
   --dsh-radius-pill: 999px;
   --dsh-border-w: 1px;
   --dsh-focus-w: 1.5px;
   --dsh-focus-halo: 3px;
-  --dsh-shadow-sm: 0 1px 0 rgba(23,20,14,.05);
-  --dsh-shadow-md: 0 1px 0 rgba(23,20,14,.06), 0 10px 26px -20px rgba(23,20,14,.55);
-  --dsh-shadow-lg: 0 2px 0 rgba(23,20,14,.05), 0 30px 64px -44px rgba(23,20,14,.65);
-  --dsh-shadow-offset: 5px 5px 0 -1px rgba(23,20,14,.07);
-  --dsh-shadow-glow: 0 0 0 1px rgba(210,62,12,.25), 0 12px 40px -20px rgba(210,62,12,.35);
-  --dsh-glass-blur: 10px;
+  --dsh-shadow-sm: none;
+  --dsh-shadow-md: none;
+  --dsh-shadow-lg: none;
+  --dsh-shadow-offset: none;
+  --dsh-shadow-glow: none;
+  --dsh-glass-blur: 0px;
   --dsh-surface-alpha: .94;
   --dsh-tilt-tongue: 0.5deg;
   --dsh-tilt-stamp: 5deg;
@@ -119,20 +119,20 @@ html[data-dsh-theme] {
   --dsh-space-2-5: 10px;
   --dsh-space-3-5: 14px;
   --dsh-ease-out: cubic-bezier(.16,1,.3,1);
-  --dsh-ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --dsh-ease-spring: cubic-bezier(.2,1.5,.32,1);
   --dsh-ease-inout: cubic-bezier(.65,.05,.36,1);
   --dsh-motion-fast: 140ms;
-  --dsh-motion-base: 280ms;
-  --dsh-motion-slow: 560ms;
+  --dsh-motion-base: 600ms;
+  --dsh-motion-slow: 1100ms;
   --dsh-motion-breath: 4200ms;
-  --dsh-stagger: 55ms;
+  --dsh-stagger: 50ms;
   --dsh-motion-hover: 180ms;
   --dsh-drift-period: 60s;
   --dsh-sidebar-width: 264px;
-  --dsh-content-max: 720px;
-  --dsh-header-h: 48px;
+  --dsh-content-max: 700px;
+  --dsh-header-h: 56px;
   --dsh-row-h: 32px;
-  --dsh-session-row-h: 44px;
+  --dsh-session-row-h: 30px;
   --dsh-btn-block-h: 38px;
   --dsh-btn-icon: 28px;
   --dsh-user-card-h: 52px;
@@ -143,7 +143,7 @@ html[data-dsh-theme] {
   --dsh-attach-row-h: 64px;
   --dsh-send-scale: 1.18;
   --dsh-deepy-berth: 14px;
-  --dsh-composer-max: 820px;
+  --dsh-composer-max: 700px;
   --dsh-icon-md: 16px;
   --dsh-icon-sm: 14px;
   --dsh-avatar-sm: 28px;
@@ -173,106 +173,128 @@ html[data-dsh-theme] {
   --dsh-badge-tier-text: var(--dsh-accent);
   --dsh-selected-row-bg: var(--dsh-bg-active);
   --dsh-selected-row-indicator: var(--dsh-accent);
+  --dsh-scene-bg-start: #F6F3EC;
+  --dsh-scene-bg-end: #F1EDE4;
+  --dsh-scene-light-cold: rgba(120,110,90,.05);
+  --dsh-scene-light-warm: rgba(226,201,150,.08);
+  --dsh-scene-vignette: rgba(22,19,15,.04);
+  --dsh-scene-grain: .02;
+  --dsh-scene-panel-start: rgba(255,255,255,.0);
+  --dsh-scene-panel-end: rgba(232,226,212,.0);
+  --dsh-scene-panel-edge: #D8D2C4;
+  --dsh-scene-cloud-high: #FFFDF7;
+  --dsh-scene-cloud-mid: #E3DDCE;
+  --dsh-scene-cloud-shadow: #BFB7A5;
+  --dsh-text-read: 15.5px;
+  --dsh-lh-read: 31px;
+  --dsh-measure-read: 620px;
+  --dsh-gutter-note: 86px;
+  --dsh-paper-tooth: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'256'%20height%3D'256'%3E%3Cfilter%20id%3D't'%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20color-interpolation-filters%3D'sRGB'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.22'%20numOctaves%3D'5'%20seed%3D'1'%20stitchTiles%3D'stitch'%20result%3D'n'%2F%3E%3CfeDiffuseLighting%20in%3D'n'%20surfaceScale%3D'3'%20diffuseConstant%3D'1'%20lighting-color%3D'white'%20result%3D'l'%3E%3CfeDistantLight%20azimuth%3D'235'%20elevation%3D'52'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D'linear'%20slope%3D'0.032'%20intercept%3D'0.968'%2F%3E%3CfeFuncG%20type%3D'linear'%20slope%3D'0.032'%20intercept%3D'0.968'%2F%3E%3CfeFuncB%20type%3D'linear'%20slope%3D'0.032'%20intercept%3D'0.968'%2F%3E%3CfeFuncA%20type%3D'linear'%20slope%3D'0'%20intercept%3D'1'%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D'256'%20height%3D'256'%20filter%3D'url(%23t)'%2F%3E%3C%2Fsvg%3E");
+  --dsh-paper-mottle: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'512'%20height%3D'512'%3E%3Cfilter%20id%3D'm'%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20color-interpolation-filters%3D'sRGB'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.009'%20numOctaves%3D'3'%20seed%3D'7'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20type%3D'saturate'%20values%3D'0'%2F%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D'linear'%20slope%3D'0.03'%20intercept%3D'0.97'%2F%3E%3CfeFuncG%20type%3D'linear'%20slope%3D'0.03'%20intercept%3D'0.97'%2F%3E%3CfeFuncB%20type%3D'linear'%20slope%3D'0.03'%20intercept%3D'0.97'%2F%3E%3CfeFuncA%20type%3D'linear'%20slope%3D'0'%20intercept%3D'1'%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D'512'%20height%3D'512'%20filter%3D'url(%23m)'%2F%3E%3C%2Fsvg%3E");
+  --dsh-paper-blend: multiply;
+  --dsh-paper-tile: 240px;
+  --dsh-paper-sheen: rgba(255,255,255,.55);
+  --dsh-paper-shade: rgba(90,70,45,.12);
 }
 html[data-dsh-theme] body {
-  background-color: #F5F1E8;
+  background-color: #F6F3EC;
 }
 
 
 html[data-dsh-theme] body[data-ds-dark-theme] {
-  background-color: #0B0D14;
-  color: #EDEEF3;
-  --dsh-bg-canvas: #07080D;
-  --dsh-bg-base: #0B0D14;
-  --dsh-bg-subtle: #0F121B;
-  --dsh-bg-surface: #141824;
-  --dsh-bg-elevated: #1B2130;
-  --dsh-bg-hover: #1A1F2E;
-  --dsh-bg-active: #212739;
-  --dsh-bg-inset: #0E1119;
-  --dsh-border-subtle: #212736;
-  --dsh-border-strong: #333B50;
-  --dsh-rule-hairline: rgba(237,238,243,.07);
-  --dsh-rule-accent: rgba(255,106,61,.55);
-  --dsh-text-primary: #EDEEF3;
-  --dsh-text-secondary: #9AA2B8;
-  --dsh-text-tertiary: #5E667E;
-  --dsh-text-inverse: #0B0D14;
-  --dsh-accent: #FF6A3D;
-  --dsh-accent-hover: #FF865F;
-  --dsh-accent-subtle: #2B1A14;
-  --dsh-on-accent: #140806;
-  --dsh-accent-glow: rgba(255,106,61,.34);
-  --dsh-link: #FF865F;
-  --dsh-success: #35D08A;
-  --dsh-success-subtle: #10281E;
-  --dsh-warning: #F2B33D;
-  --dsh-warning-subtle: #2A1F0E;
-  --dsh-on-warning: #1A1206;
-  --dsh-danger: #FF4D5E;
-  --dsh-danger-subtle: #2C1218;
-  --dsh-code-bg: #0E1119;
-  --dsh-code-text: #C8CEDA;
-  --dsh-code-keyword: #FF8A63;
+  background-color: #121110;
+  color: #EFE9DC;
+  --dsh-bg-canvas: #0B0A09;
+  --dsh-bg-base: #121110;
+  --dsh-bg-subtle: #161412;
+  --dsh-bg-surface: #1A1714;
+  --dsh-bg-elevated: #201D19;
+  --dsh-bg-hover: #1E1B17;
+  --dsh-bg-active: #262219;
+  --dsh-bg-inset: #100F0D;
+  --dsh-border-subtle: #2A2620;
+  --dsh-border-strong: #3D382F;
+  --dsh-rule-hairline: rgba(239,233,220,.10);
+  --dsh-rule-accent: rgba(216,86,58,.55);
+  --dsh-text-primary: #EFE9DC;
+  --dsh-text-secondary: #A9A296;
+  --dsh-text-tertiary: #78715F;
+  --dsh-text-inverse: #121110;
+  --dsh-accent: #D8563A;
+  --dsh-accent-hover: #E8755A;
+  --dsh-accent-subtle: #2A1A14;
+  --dsh-on-accent: #14100C;
+  --dsh-accent-glow: rgba(216,86,58,.26);
+  --dsh-link: #E8755A;
+  --dsh-success: #46C48B;
+  --dsh-success-subtle: #0F2A1E;
+  --dsh-warning: #E8B04C;
+  --dsh-warning-subtle: #2A1F0D;
+  --dsh-on-warning: #17110A;
+  --dsh-danger: #F2564F;
+  --dsh-danger-subtle: #2C1214;
+  --dsh-code-bg: #0E0D0B;
+  --dsh-code-text: #CFC8B8;
+  --dsh-code-keyword: #E88A6A;
   --dsh-code-string: #7BD8A8;
-  --dsh-code-number: #F2B33D;
-  --dsh-code-fn: #8FB4FF;
-  --dsh-code-comment: #5E667E;
+  --dsh-code-number: #E8B04C;
+  --dsh-code-fn: #93B6FF;
+  --dsh-code-comment: #78715F;
   --dsh-noise-uri: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-  --dsh-noise-opacity: .045;
-  --dsh-noise-blend: overlay;
-  --dsh-grid-line: rgba(154,162,184,.055);
+  --dsh-noise-opacity: .06;
+  --dsh-noise-blend: multiply;
+  --dsh-grid-line: rgba(160,155,140,.05);
   --dsh-grid-size: 32px;
-  --dsh-aurora-cold: rgba(86,104,190,.22);
-  --dsh-aurora-violet: rgba(138,102,196,.18);
-  --dsh-aurora-ember: rgba(255,106,61,.16);
-  --dsh-font-display: "Palatino Linotype","Book Antiqua",Georgia,serif;
-  --dsh-font-sans: "Segoe UI Variable Text","Segoe UI",system-ui,"Microsoft YaHei UI",sans-serif;
+  --dsh-aurora-cold: rgba(96,110,150,.14);
+  --dsh-aurora-violet: rgba(190,120,90,.09);
+  --dsh-aurora-ember: rgba(255,90,43,.10);
+  --dsh-font-display: "Noto Serif SC","Source Han Serif SC",Georgia,serif;
+  --dsh-font-sans: "Noto Serif SC","Source Han Serif SC",Georgia,serif;
   --dsh-font-mono: "Cascadia Mono",Consolas,"Courier New",monospace;
-  --dsh-font-label: "Cascadia Mono",Consolas,"Courier New",monospace;
-  --dsh-text-3xs: 10px;
-  --dsh-text-2xs: 11px;
-  --dsh-text-xs: 12px;
+  --dsh-font-label: Georgia,"Times New Roman",serif;
+  --dsh-text-3xs: 9px;
+  --dsh-text-2xs: 10px;
+  --dsh-text-xs: 11px;
   --dsh-text-sm: 13px;
-  --dsh-text-md: 14px;
-  --dsh-text-lg: 16px;
+  --dsh-text-md: 13.5px;
+  --dsh-text-lg: 15.5px;
   --dsh-text-xl: 20px;
-  --dsh-text-2xl: 28px;
-  --dsh-text-display: 52px;
-  --dsh-text-mega: 88px;
-  --dsh-lh-3xs: 14px;
-  --dsh-lh-2xs: 16px;
-  --dsh-lh-xs: 18px;
+  --dsh-text-2xl: 34px;
+  --dsh-text-display: 72px;
+  --dsh-text-mega: 96px;
+  --dsh-lh-3xs: 11px;
+  --dsh-lh-2xs: 13px;
+  --dsh-lh-xs: 16px;
   --dsh-lh-sm: 20px;
   --dsh-lh-md: 22px;
-  --dsh-lh-lg: 24px;
-  --dsh-lh-xl: 28px;
-  --dsh-lh-2xl: 34px;
-  --dsh-lh-display: 54px;
-  --dsh-lh-mega: 88px;
-  --dsh-track-mega: -0.05em;
-  --dsh-track-tight: -0.03em;
-  --dsh-track-normal: 0;
-  --dsh-track-wide: 0.16em;
-  --dsh-track-label: 0.28em;
-  --dsh-weight-display: 700;
-  --dsh-weight-label: 600;
-  --dsh-weight-body: 400;
-  --dsh-radius-xs: 6px;
-  --dsh-radius-sm: 9px;
-  --dsh-radius-md: 12px;
-  --dsh-radius-lg: 16px;
-  --dsh-radius-xl: 22px;
+  --dsh-lh-lg: 26px;
+  --dsh-lh-xl: 30px;
+  --dsh-lh-2xl: 44px;
+  --dsh-lh-display: 80px;
+  --dsh-lh-mega: 99px;
+  --dsh-track-mega: -0.012em;
+  --dsh-track-tight: -0.005em;
+  --dsh-track-normal: 0.02em;
+  --dsh-track-wide: .18em;
+  --dsh-track-label: .24em;
+  --dsh-weight-display: 300;
+  --dsh-weight-label: 400;
+  --dsh-weight-body: 350;
+  --dsh-radius-xs: 0px;
+  --dsh-radius-sm: 0px;
+  --dsh-radius-md: 0px;
+  --dsh-radius-lg: 0px;
+  --dsh-radius-xl: 0px;
   --dsh-radius-pill: 999px;
   --dsh-border-w: 1px;
   --dsh-focus-w: 1.5px;
   --dsh-focus-halo: 3px;
-  --dsh-shadow-sm: 0 1px 2px rgba(0,0,0,.5);
-  --dsh-shadow-md: 0 8px 30px -12px rgba(0,0,0,.75);
-  --dsh-shadow-lg: 0 26px 72px -30px rgba(0,0,0,.85);
+  --dsh-shadow-sm: none;
+  --dsh-shadow-md: none;
+  --dsh-shadow-lg: none;
   --dsh-shadow-offset: none;
-  --dsh-shadow-glow: 0 0 0 1px rgba(255,106,61,.45), 0 0 44px -12px rgba(255,106,61,.45);
-  --dsh-glass-blur: 18px;
+  --dsh-shadow-glow: none;
+  --dsh-glass-blur: 0px;
   --dsh-surface-alpha: .72;
   --dsh-tilt-tongue: 0.5deg;
   --dsh-tilt-stamp: 5deg;
@@ -291,20 +313,20 @@ html[data-dsh-theme] body[data-ds-dark-theme] {
   --dsh-space-2-5: 10px;
   --dsh-space-3-5: 14px;
   --dsh-ease-out: cubic-bezier(.16,1,.3,1);
-  --dsh-ease-spring: cubic-bezier(.34,1.56,.64,1);
+  --dsh-ease-spring: cubic-bezier(.2,1.5,.32,1);
   --dsh-ease-inout: cubic-bezier(.65,.05,.36,1);
   --dsh-motion-fast: 140ms;
-  --dsh-motion-base: 280ms;
-  --dsh-motion-slow: 560ms;
+  --dsh-motion-base: 600ms;
+  --dsh-motion-slow: 1100ms;
   --dsh-motion-breath: 4200ms;
-  --dsh-stagger: 55ms;
+  --dsh-stagger: 50ms;
   --dsh-motion-hover: 180ms;
   --dsh-drift-period: 60s;
   --dsh-sidebar-width: 264px;
-  --dsh-content-max: 720px;
-  --dsh-header-h: 48px;
+  --dsh-content-max: 700px;
+  --dsh-header-h: 56px;
   --dsh-row-h: 32px;
-  --dsh-session-row-h: 44px;
+  --dsh-session-row-h: 30px;
   --dsh-btn-block-h: 38px;
   --dsh-btn-icon: 28px;
   --dsh-user-card-h: 52px;
@@ -315,7 +337,7 @@ html[data-dsh-theme] body[data-ds-dark-theme] {
   --dsh-attach-row-h: 64px;
   --dsh-send-scale: 1.18;
   --dsh-deepy-berth: 14px;
-  --dsh-composer-max: 820px;
+  --dsh-composer-max: 700px;
   --dsh-icon-md: 16px;
   --dsh-icon-sm: 14px;
   --dsh-avatar-sm: 28px;
@@ -345,100 +367,122 @@ html[data-dsh-theme] body[data-ds-dark-theme] {
   --dsh-badge-tier-text: var(--dsh-accent);
   --dsh-selected-row-bg: var(--dsh-bg-active);
   --dsh-selected-row-indicator: var(--dsh-accent);
+  --dsh-scene-bg-start: #121110;
+  --dsh-scene-bg-end: #0F0E0C;
+  --dsh-scene-light-cold: rgba(120,133,170,.05);
+  --dsh-scene-light-warm: rgba(216,86,58,.05);
+  --dsh-scene-vignette: rgba(0,0,0,.35);
+  --dsh-scene-grain: .025;
+  --dsh-scene-panel-start: rgba(30,30,36,.0);
+  --dsh-scene-panel-end: rgba(10,10,12,.0);
+  --dsh-scene-panel-edge: rgba(239,233,220,.10);
+  --dsh-scene-cloud-high: #EDE9DF;
+  --dsh-scene-cloud-mid: #8F8A7C;
+  --dsh-scene-cloud-shadow: #4A4740;
+  --dsh-text-read: 15.5px;
+  --dsh-lh-read: 31px;
+  --dsh-measure-read: 620px;
+  --dsh-gutter-note: 86px;
+  --dsh-paper-tooth: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'256'%20height%3D'256'%3E%3Cfilter%20id%3D't'%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20color-interpolation-filters%3D'sRGB'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.22'%20numOctaves%3D'5'%20seed%3D'1'%20stitchTiles%3D'stitch'%20result%3D'n'%2F%3E%3CfeDiffuseLighting%20in%3D'n'%20surfaceScale%3D'3'%20diffuseConstant%3D'1'%20lighting-color%3D'white'%20result%3D'l'%3E%3CfeDistantLight%20azimuth%3D'235'%20elevation%3D'52'%2F%3E%3C%2FfeDiffuseLighting%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D'linear'%20slope%3D'0.03'%20intercept%3D'0'%2F%3E%3CfeFuncG%20type%3D'linear'%20slope%3D'0.03'%20intercept%3D'0'%2F%3E%3CfeFuncB%20type%3D'linear'%20slope%3D'0.03'%20intercept%3D'0'%2F%3E%3CfeFuncA%20type%3D'linear'%20slope%3D'0'%20intercept%3D'1'%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D'256'%20height%3D'256'%20filter%3D'url(%23t)'%2F%3E%3C%2Fsvg%3E");
+  --dsh-paper-mottle: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'512'%20height%3D'512'%3E%3Cfilter%20id%3D'm'%20x%3D'0'%20y%3D'0'%20width%3D'100%25'%20height%3D'100%25'%20color-interpolation-filters%3D'sRGB'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'0.009'%20numOctaves%3D'3'%20seed%3D'7'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20type%3D'saturate'%20values%3D'0'%2F%3E%3CfeComponentTransfer%3E%3CfeFuncR%20type%3D'linear'%20slope%3D'0.022'%20intercept%3D'0'%2F%3E%3CfeFuncG%20type%3D'linear'%20slope%3D'0.022'%20intercept%3D'0'%2F%3E%3CfeFuncB%20type%3D'linear'%20slope%3D'0.022'%20intercept%3D'0'%2F%3E%3CfeFuncA%20type%3D'linear'%20slope%3D'0'%20intercept%3D'1'%2F%3E%3C%2FfeComponentTransfer%3E%3C%2Ffilter%3E%3Crect%20width%3D'512'%20height%3D'512'%20filter%3D'url(%23m)'%2F%3E%3C%2Fsvg%3E");
+  --dsh-paper-blend: screen;
+  --dsh-paper-tile: 240px;
+  --dsh-paper-sheen: rgba(255,214,160,.09);
+  --dsh-paper-shade: rgba(0,0,0,.45);
 }
 
 html[data-dsh-theme] {
-  --dsw-alias-bg-base: #FFFDF8;
-  --dsw-alias-bg-document-preview: #FFFDF8;
-  --dsw-alias-bg-layer-1: #EFEAE0;
-  --dsw-alias-bg-layer-2: #EAE4D8;
-  --dsw-alias-bg-layer-3: #E0D8C9;
-  --dsw-alias-bg-layer-4: #E0D8C9;
-  --dsw-alias-bg-module-platform: #EAE4D8;
-  --dsw-alias-bg-multi-select: #FBE7DC;
-  --dsw-alias-bg-overlay: #FFFDF8;
-  --dsw-alias-bg-skeleton: #EAE4D8;
-  --dsw-alias-border-inverted: #F5F1E8;
-  --dsw-alias-border-inverted2: #F5F1E8;
-  --dsw-alias-border-l1: #DED7C9;
-  --dsw-alias-border-l2: #DED7C9;
-  --dsw-alias-border-l2-darkmode-thin: #DED7C9;
-  --dsw-alias-border-l3: #BEB5A2;
-  --dsw-alias-border-l4: #BEB5A2;
-  --dsw-alias-brand-primary: #D23E0C;
-  --dsw-alias-brand-primary-invert: #F5F1E8;
-  --dsw-alias-brand-primary-new-colorprimary-new-color: #D23E0C;
-  --dsw-alias-brand-text: #D23E0C;
-  --dsw-alias-button-contrast-fill: #D23E0C;
-  --dsw-alias-button-elevated-fill: #FFFDF8;
-  --dsw-alias-button-floating-fill: #FFFDF8;
-  --dsw-alias-button-floating-hover: #EAE4D8;
-  --dsw-alias-button-ghost-active-border: #D23E0C;
-  --dsw-alias-button-ghost-active-fill: #FBE7DC;
-  --dsw-alias-button-ghost-active-hover: #FBE7DC;
-  --dsw-alias-button-info-fill: #D23E0C;
-  --dsw-alias-button-info-hover: #B0320A;
-  --dsw-alias-button-primary-dimmed: #FBE7DC;
-  --dsw-alias-button-primary-fill: #D23E0C;
-  --dsw-alias-button-primary-hover: #B0320A;
-  --dsw-alias-button-tool-bar-fill: #FBE7DC;
-  --dsw-alias-button-tool-bar-fill-invisible: #FBE7DC;
-  --dsw-alias-button-tool-bar-hover: #FBE7DC;
-  --dsw-alias-code-diff-added: #157F4A;
-  --dsw-alias-code-diff-deleted: #B4232F;
-  --dsw-alias-file-diff-added-marker: #157F4A;
-  --dsw-alias-file-diff-deleted-marker: #B4232F;
-  --dsw-alias-interactive-bg-active: #E0D8C9;
-  --dsw-alias-interactive-bg-hover: #EAE4D8;
-  --dsw-alias-interactive-bg-hover-accent: #FBE7DC;
-  --dsw-alias-interactive-bg-hover-solid: #EAE4D8;
-  --dsw-alias-label-caption: #5B5445;
-  --dsw-alias-label-dimmed: #8B8474;
-  --dsw-alias-label-document-preview: #5B5445;
-  --dsw-alias-label-error: #B4232F;
-  --dsw-alias-label-primary: #17140E;
-  --dsw-alias-label-primary-bluish: #D23E0C;
-  --dsw-alias-label-primary-dimmed: #5B5445;
-  --dsw-alias-label-primary-foreground: #FFF6F0;
-  --dsw-alias-label-primary-inverted: #F5F1E8;
-  --dsw-alias-label-secondary: #5B5445;
-  --dsw-alias-label-tertiary: #8B8474;
-  --dsw-alias-link: #D23E0C;
-  --dsw-alias-markdown-citation: #EFEAE0;
-  --dsw-alias-markdown-code-block: #EFE9DC;
-  --dsw-alias-markdown-code-block-banner: #EFE9DC;
-  --dsw-alias-markdown-code-segment-selected: #FFFDF8;
-  --dsw-alias-markdown-code-segment-unselected: #EFE9DC;
-  --dsw-alias-markdown-inline-code: #EFE9DC;
-  --dsw-alias-markdown-placeholder: #EFE9DC;
-  --dsw-alias-markdown-tag: #EFEAE0;
-  --dsw-alias-scrollbar-bg-l1: #BEB5A2;
-  --dsw-alias-scrollbar-bg-l2: #BEB5A2;
-  --dsw-alias-scrollbar-hover-l1: #8B8474;
-  --dsw-alias-scrollbar-hover-l2: #8B8474;
-  --dsw-alias-state-business-primary: #D23E0C;
-  --dsw-alias-state-business-tertiary: #FBE7DC;
-  --dsw-alias-state-error-primary: #B4232F;
-  --dsw-alias-state-error-secondary: #B4232F;
-  --dsw-alias-state-idle-primary: #8B8474;
-  --dsw-alias-state-success-primary: #157F4A;
-  --dsw-alias-state-success-secondary: #157F4A;
-  --dsw-alias-state-warn-label: #A65A00;
-  --dsw-alias-state-warn-primary: #A65A00;
-  --dsw-alias-state-warn-secondary: #A65A00;
-  --dsw-alias-toast-bg: #E0D8C9;
-  --dsw-alias-specific-bubble: #FBE7DC;
-  --dsw-alias-specific-bubble-highlight: #FBE7DC;
-  --dsw-alias-specific-input-major: #FFFDF8;
-  --dsw-alias-specific-login-input: #FFFDF8;
-  --dsw-alias-specific-menu: #FFFDF8;
-  --dsw-alias-specific-selector: #EAE4D8;
-  --dsw-alias-specific-sidebar-fill: #EFEAE0;
-  --dsw-alias-specific-sidebar-nav-item-active: #FBE7DC;
-  --dsw-alias-specific-sidebar-nav-item-active-accent: #D23E0C;
-  --dsw-alias-specific-sidebar-nav-item-hover: #EAE4D8;
-  --dsw-alias-specific-tip: #EFEAE0;
-  --dsw-hovercard-bg: #FFFDF8;
+  --dsw-alias-bg-base: #FBF8F1;
+  --dsw-alias-bg-document-preview: #FBF8F1;
+  --dsw-alias-bg-layer-1: #F1EDE4;
+  --dsw-alias-bg-layer-2: #EDE8DC;
+  --dsw-alias-bg-layer-3: #E5DFD1;
+  --dsw-alias-bg-layer-4: #E5DFD1;
+  --dsw-alias-bg-module-platform: #EDE8DC;
+  --dsw-alias-bg-multi-select: #F3E2DC;
+  --dsw-alias-bg-overlay: #FBF8F1;
+  --dsw-alias-bg-skeleton: #EDE8DC;
+  --dsw-alias-border-inverted: #F6F3EC;
+  --dsw-alias-border-inverted2: #F6F3EC;
+  --dsw-alias-border-l1: #D8D2C4;
+  --dsw-alias-border-l2: #D8D2C4;
+  --dsw-alias-border-l2-darkmode-thin: #D8D2C4;
+  --dsw-alias-border-l3: #B5AE9E;
+  --dsw-alias-border-l4: #B5AE9E;
+  --dsw-alias-brand-primary: #B23A26;
+  --dsw-alias-brand-primary-invert: #F6F3EC;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #B23A26;
+  --dsw-alias-brand-text: #B23A26;
+  --dsw-alias-button-contrast-fill: #B23A26;
+  --dsw-alias-button-elevated-fill: #FBF8F1;
+  --dsw-alias-button-floating-fill: #FBF8F1;
+  --dsw-alias-button-floating-hover: #EDE8DC;
+  --dsw-alias-button-ghost-active-border: #B23A26;
+  --dsw-alias-button-ghost-active-fill: #F3E2DC;
+  --dsw-alias-button-ghost-active-hover: #F3E2DC;
+  --dsw-alias-button-info-fill: #B23A26;
+  --dsw-alias-button-info-hover: #922E1E;
+  --dsw-alias-button-primary-dimmed: #F3E2DC;
+  --dsw-alias-button-primary-fill: #B23A26;
+  --dsw-alias-button-primary-hover: #922E1E;
+  --dsw-alias-button-tool-bar-fill: #F3E2DC;
+  --dsw-alias-button-tool-bar-fill-invisible: #F3E2DC;
+  --dsw-alias-button-tool-bar-hover: #F3E2DC;
+  --dsw-alias-code-diff-added: #2B6B4B;
+  --dsw-alias-code-diff-deleted: #A3242C;
+  --dsw-alias-file-diff-added-marker: #2B6B4B;
+  --dsw-alias-file-diff-deleted-marker: #A3242C;
+  --dsw-alias-interactive-bg-active: #E5DFD1;
+  --dsw-alias-interactive-bg-hover: #EDE8DC;
+  --dsw-alias-interactive-bg-hover-accent: #F3E2DC;
+  --dsw-alias-interactive-bg-hover-solid: #EDE8DC;
+  --dsw-alias-label-caption: #55504A;
+  --dsw-alias-label-dimmed: #8C8577;
+  --dsw-alias-label-document-preview: #55504A;
+  --dsw-alias-label-error: #A3242C;
+  --dsw-alias-label-primary: #16130F;
+  --dsw-alias-label-primary-bluish: #B23A26;
+  --dsw-alias-label-primary-dimmed: #55504A;
+  --dsw-alias-label-primary-foreground: #FDF7F2;
+  --dsw-alias-label-primary-inverted: #F6F3EC;
+  --dsw-alias-label-secondary: #55504A;
+  --dsw-alias-label-tertiary: #8C8577;
+  --dsw-alias-link: #B23A26;
+  --dsw-alias-markdown-citation: #F1EDE4;
+  --dsw-alias-markdown-code-block: #EDE8DC;
+  --dsw-alias-markdown-code-block-banner: #EDE8DC;
+  --dsw-alias-markdown-code-segment-selected: #FBF8F1;
+  --dsw-alias-markdown-code-segment-unselected: #EDE8DC;
+  --dsw-alias-markdown-inline-code: #EDE8DC;
+  --dsw-alias-markdown-placeholder: #EDE8DC;
+  --dsw-alias-markdown-tag: #F1EDE4;
+  --dsw-alias-scrollbar-bg-l1: #B5AE9E;
+  --dsw-alias-scrollbar-bg-l2: #B5AE9E;
+  --dsw-alias-scrollbar-hover-l1: #8C8577;
+  --dsw-alias-scrollbar-hover-l2: #8C8577;
+  --dsw-alias-state-business-primary: #B23A26;
+  --dsw-alias-state-business-tertiary: #F3E2DC;
+  --dsw-alias-state-error-primary: #A3242C;
+  --dsw-alias-state-error-secondary: #A3242C;
+  --dsw-alias-state-idle-primary: #8C8577;
+  --dsw-alias-state-success-primary: #2B6B4B;
+  --dsw-alias-state-success-secondary: #2B6B4B;
+  --dsw-alias-state-warn-label: #8A5A0B;
+  --dsw-alias-state-warn-primary: #8A5A0B;
+  --dsw-alias-state-warn-secondary: #8A5A0B;
+  --dsw-alias-toast-bg: #E5DFD1;
+  --dsw-alias-specific-bubble: #F3E2DC;
+  --dsw-alias-specific-bubble-highlight: #F3E2DC;
+  --dsw-alias-specific-input-major: #FBF8F1;
+  --dsw-alias-specific-login-input: #FBF8F1;
+  --dsw-alias-specific-menu: #FBF8F1;
+  --dsw-alias-specific-selector: #EDE8DC;
+  --dsw-alias-specific-sidebar-fill: #F1EDE4;
+  --dsw-alias-specific-sidebar-nav-item-active: #F3E2DC;
+  --dsw-alias-specific-sidebar-nav-item-active-accent: #B23A26;
+  --dsw-alias-specific-sidebar-nav-item-hover: #EDE8DC;
+  --dsw-alias-specific-tip: #F1EDE4;
+  --dsw-hovercard-bg: #FBF8F1;
 }
 html[data-dsh-theme] {
   --dsw-alias-bg-base: initial;
@@ -534,191 +578,191 @@ html[data-dsh-theme] {
 }
 
 html[data-dsh-theme] body {
-  --dsw-alias-bg-base: #FFFDF8;
-  --dsw-alias-bg-document-preview: #FFFDF8;
-  --dsw-alias-bg-layer-1: #EFEAE0;
-  --dsw-alias-bg-layer-2: #EAE4D8;
-  --dsw-alias-bg-layer-3: #E0D8C9;
-  --dsw-alias-bg-layer-4: #E0D8C9;
-  --dsw-alias-bg-module-platform: #EAE4D8;
-  --dsw-alias-bg-multi-select: #FBE7DC;
-  --dsw-alias-bg-overlay: #FFFDF8;
-  --dsw-alias-bg-skeleton: #EAE4D8;
-  --dsw-alias-border-inverted: #F5F1E8;
-  --dsw-alias-border-inverted2: #F5F1E8;
-  --dsw-alias-border-l1: #DED7C9;
-  --dsw-alias-border-l2: #DED7C9;
-  --dsw-alias-border-l2-darkmode-thin: #DED7C9;
-  --dsw-alias-border-l3: #BEB5A2;
-  --dsw-alias-border-l4: #BEB5A2;
-  --dsw-alias-brand-primary: #D23E0C;
-  --dsw-alias-brand-primary-invert: #F5F1E8;
-  --dsw-alias-brand-primary-new-colorprimary-new-color: #D23E0C;
-  --dsw-alias-brand-text: #D23E0C;
-  --dsw-alias-button-contrast-fill: #D23E0C;
-  --dsw-alias-button-elevated-fill: #FFFDF8;
-  --dsw-alias-button-floating-fill: #FFFDF8;
-  --dsw-alias-button-floating-hover: #EAE4D8;
-  --dsw-alias-button-ghost-active-border: #D23E0C;
-  --dsw-alias-button-ghost-active-fill: #FBE7DC;
-  --dsw-alias-button-ghost-active-hover: #FBE7DC;
-  --dsw-alias-button-info-fill: #D23E0C;
-  --dsw-alias-button-info-hover: #B0320A;
-  --dsw-alias-button-primary-dimmed: #FBE7DC;
-  --dsw-alias-button-primary-fill: #D23E0C;
-  --dsw-alias-button-primary-hover: #B0320A;
-  --dsw-alias-button-tool-bar-fill: #FBE7DC;
-  --dsw-alias-button-tool-bar-fill-invisible: #FBE7DC;
-  --dsw-alias-button-tool-bar-hover: #FBE7DC;
-  --dsw-alias-code-diff-added: #157F4A;
-  --dsw-alias-code-diff-deleted: #B4232F;
-  --dsw-alias-file-diff-added-marker: #157F4A;
-  --dsw-alias-file-diff-deleted-marker: #B4232F;
-  --dsw-alias-interactive-bg-active: #E0D8C9;
-  --dsw-alias-interactive-bg-hover: #EAE4D8;
-  --dsw-alias-interactive-bg-hover-accent: #FBE7DC;
-  --dsw-alias-interactive-bg-hover-solid: #EAE4D8;
-  --dsw-alias-label-caption: #5B5445;
-  --dsw-alias-label-dimmed: #8B8474;
-  --dsw-alias-label-document-preview: #5B5445;
-  --dsw-alias-label-error: #B4232F;
-  --dsw-alias-label-primary: #17140E;
-  --dsw-alias-label-primary-bluish: #D23E0C;
-  --dsw-alias-label-primary-dimmed: #5B5445;
-  --dsw-alias-label-primary-foreground: #FFF6F0;
-  --dsw-alias-label-primary-inverted: #F5F1E8;
-  --dsw-alias-label-secondary: #5B5445;
-  --dsw-alias-label-tertiary: #8B8474;
-  --dsw-alias-link: #D23E0C;
-  --dsw-alias-markdown-citation: #EFEAE0;
-  --dsw-alias-markdown-code-block: #EFE9DC;
-  --dsw-alias-markdown-code-block-banner: #EFE9DC;
-  --dsw-alias-markdown-code-segment-selected: #FFFDF8;
-  --dsw-alias-markdown-code-segment-unselected: #EFE9DC;
-  --dsw-alias-markdown-inline-code: #EFE9DC;
-  --dsw-alias-markdown-placeholder: #EFE9DC;
-  --dsw-alias-markdown-tag: #EFEAE0;
-  --dsw-alias-scrollbar-bg-l1: #BEB5A2;
-  --dsw-alias-scrollbar-bg-l2: #BEB5A2;
-  --dsw-alias-scrollbar-hover-l1: #8B8474;
-  --dsw-alias-scrollbar-hover-l2: #8B8474;
-  --dsw-alias-state-business-primary: #D23E0C;
-  --dsw-alias-state-business-tertiary: #FBE7DC;
-  --dsw-alias-state-error-primary: #B4232F;
-  --dsw-alias-state-error-secondary: #B4232F;
-  --dsw-alias-state-idle-primary: #8B8474;
-  --dsw-alias-state-success-primary: #157F4A;
-  --dsw-alias-state-success-secondary: #157F4A;
-  --dsw-alias-state-warn-label: #A65A00;
-  --dsw-alias-state-warn-primary: #A65A00;
-  --dsw-alias-state-warn-secondary: #A65A00;
-  --dsw-alias-toast-bg: #E0D8C9;
-  --dsw-alias-specific-bubble: #FBE7DC;
-  --dsw-alias-specific-bubble-highlight: #FBE7DC;
-  --dsw-alias-specific-input-major: #FFFDF8;
-  --dsw-alias-specific-login-input: #FFFDF8;
-  --dsw-alias-specific-menu: #FFFDF8;
-  --dsw-alias-specific-selector: #EAE4D8;
-  --dsw-alias-specific-sidebar-fill: #EFEAE0;
-  --dsw-alias-specific-sidebar-nav-item-active: #FBE7DC;
-  --dsw-alias-specific-sidebar-nav-item-active-accent: #D23E0C;
-  --dsw-alias-specific-sidebar-nav-item-hover: #EAE4D8;
-  --dsw-alias-specific-tip: #EFEAE0;
+  --dsw-alias-bg-base: #FBF8F1;
+  --dsw-alias-bg-document-preview: #FBF8F1;
+  --dsw-alias-bg-layer-1: #F1EDE4;
+  --dsw-alias-bg-layer-2: #EDE8DC;
+  --dsw-alias-bg-layer-3: #E5DFD1;
+  --dsw-alias-bg-layer-4: #E5DFD1;
+  --dsw-alias-bg-module-platform: #EDE8DC;
+  --dsw-alias-bg-multi-select: #F3E2DC;
+  --dsw-alias-bg-overlay: #FBF8F1;
+  --dsw-alias-bg-skeleton: #EDE8DC;
+  --dsw-alias-border-inverted: #F6F3EC;
+  --dsw-alias-border-inverted2: #F6F3EC;
+  --dsw-alias-border-l1: #D8D2C4;
+  --dsw-alias-border-l2: #D8D2C4;
+  --dsw-alias-border-l2-darkmode-thin: #D8D2C4;
+  --dsw-alias-border-l3: #B5AE9E;
+  --dsw-alias-border-l4: #B5AE9E;
+  --dsw-alias-brand-primary: #B23A26;
+  --dsw-alias-brand-primary-invert: #F6F3EC;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #B23A26;
+  --dsw-alias-brand-text: #B23A26;
+  --dsw-alias-button-contrast-fill: #B23A26;
+  --dsw-alias-button-elevated-fill: #FBF8F1;
+  --dsw-alias-button-floating-fill: #FBF8F1;
+  --dsw-alias-button-floating-hover: #EDE8DC;
+  --dsw-alias-button-ghost-active-border: #B23A26;
+  --dsw-alias-button-ghost-active-fill: #F3E2DC;
+  --dsw-alias-button-ghost-active-hover: #F3E2DC;
+  --dsw-alias-button-info-fill: #B23A26;
+  --dsw-alias-button-info-hover: #922E1E;
+  --dsw-alias-button-primary-dimmed: #F3E2DC;
+  --dsw-alias-button-primary-fill: #B23A26;
+  --dsw-alias-button-primary-hover: #922E1E;
+  --dsw-alias-button-tool-bar-fill: #F3E2DC;
+  --dsw-alias-button-tool-bar-fill-invisible: #F3E2DC;
+  --dsw-alias-button-tool-bar-hover: #F3E2DC;
+  --dsw-alias-code-diff-added: #2B6B4B;
+  --dsw-alias-code-diff-deleted: #A3242C;
+  --dsw-alias-file-diff-added-marker: #2B6B4B;
+  --dsw-alias-file-diff-deleted-marker: #A3242C;
+  --dsw-alias-interactive-bg-active: #E5DFD1;
+  --dsw-alias-interactive-bg-hover: #EDE8DC;
+  --dsw-alias-interactive-bg-hover-accent: #F3E2DC;
+  --dsw-alias-interactive-bg-hover-solid: #EDE8DC;
+  --dsw-alias-label-caption: #55504A;
+  --dsw-alias-label-dimmed: #8C8577;
+  --dsw-alias-label-document-preview: #55504A;
+  --dsw-alias-label-error: #A3242C;
+  --dsw-alias-label-primary: #16130F;
+  --dsw-alias-label-primary-bluish: #B23A26;
+  --dsw-alias-label-primary-dimmed: #55504A;
+  --dsw-alias-label-primary-foreground: #FDF7F2;
+  --dsw-alias-label-primary-inverted: #F6F3EC;
+  --dsw-alias-label-secondary: #55504A;
+  --dsw-alias-label-tertiary: #8C8577;
+  --dsw-alias-link: #B23A26;
+  --dsw-alias-markdown-citation: #F1EDE4;
+  --dsw-alias-markdown-code-block: #EDE8DC;
+  --dsw-alias-markdown-code-block-banner: #EDE8DC;
+  --dsw-alias-markdown-code-segment-selected: #FBF8F1;
+  --dsw-alias-markdown-code-segment-unselected: #EDE8DC;
+  --dsw-alias-markdown-inline-code: #EDE8DC;
+  --dsw-alias-markdown-placeholder: #EDE8DC;
+  --dsw-alias-markdown-tag: #F1EDE4;
+  --dsw-alias-scrollbar-bg-l1: #B5AE9E;
+  --dsw-alias-scrollbar-bg-l2: #B5AE9E;
+  --dsw-alias-scrollbar-hover-l1: #8C8577;
+  --dsw-alias-scrollbar-hover-l2: #8C8577;
+  --dsw-alias-state-business-primary: #B23A26;
+  --dsw-alias-state-business-tertiary: #F3E2DC;
+  --dsw-alias-state-error-primary: #A3242C;
+  --dsw-alias-state-error-secondary: #A3242C;
+  --dsw-alias-state-idle-primary: #8C8577;
+  --dsw-alias-state-success-primary: #2B6B4B;
+  --dsw-alias-state-success-secondary: #2B6B4B;
+  --dsw-alias-state-warn-label: #8A5A0B;
+  --dsw-alias-state-warn-primary: #8A5A0B;
+  --dsw-alias-state-warn-secondary: #8A5A0B;
+  --dsw-alias-toast-bg: #E5DFD1;
+  --dsw-alias-specific-bubble: #F3E2DC;
+  --dsw-alias-specific-bubble-highlight: #F3E2DC;
+  --dsw-alias-specific-input-major: #FBF8F1;
+  --dsw-alias-specific-login-input: #FBF8F1;
+  --dsw-alias-specific-menu: #FBF8F1;
+  --dsw-alias-specific-selector: #EDE8DC;
+  --dsw-alias-specific-sidebar-fill: #F1EDE4;
+  --dsw-alias-specific-sidebar-nav-item-active: #F3E2DC;
+  --dsw-alias-specific-sidebar-nav-item-active-accent: #B23A26;
+  --dsw-alias-specific-sidebar-nav-item-hover: #EDE8DC;
+  --dsw-alias-specific-tip: #F1EDE4;
 }
 
 
 html[data-dsh-theme] body[data-ds-dark-theme] {
-  --dsw-alias-bg-base: #141824;
-  --dsw-alias-bg-document-preview: #141824;
-  --dsw-alias-bg-layer-1: #0F121B;
-  --dsw-alias-bg-layer-2: #1A1F2E;
-  --dsw-alias-bg-layer-3: #212739;
-  --dsw-alias-bg-layer-4: #212739;
-  --dsw-alias-bg-module-platform: #1A1F2E;
-  --dsw-alias-bg-multi-select: #2B1A14;
-  --dsw-alias-bg-overlay: #141824;
-  --dsw-alias-bg-skeleton: #1A1F2E;
-  --dsw-alias-border-inverted: #0B0D14;
-  --dsw-alias-border-inverted2: #0B0D14;
-  --dsw-alias-border-l1: #212736;
-  --dsw-alias-border-l2: #212736;
-  --dsw-alias-border-l2-darkmode-thin: #212736;
-  --dsw-alias-border-l3: #333B50;
-  --dsw-alias-border-l4: #333B50;
-  --dsw-alias-brand-primary: #FF6A3D;
-  --dsw-alias-brand-primary-invert: #0B0D14;
-  --dsw-alias-brand-primary-new-colorprimary-new-color: #FF6A3D;
-  --dsw-alias-brand-text: #FF6A3D;
-  --dsw-alias-button-contrast-fill: #FF6A3D;
-  --dsw-alias-button-elevated-fill: #141824;
-  --dsw-alias-button-floating-fill: #141824;
-  --dsw-alias-button-floating-hover: #1A1F2E;
-  --dsw-alias-button-ghost-active-border: #FF6A3D;
-  --dsw-alias-button-ghost-active-fill: #2B1A14;
-  --dsw-alias-button-ghost-active-hover: #2B1A14;
-  --dsw-alias-button-info-fill: #FF6A3D;
-  --dsw-alias-button-info-hover: #FF865F;
-  --dsw-alias-button-primary-dimmed: #2B1A14;
-  --dsw-alias-button-primary-fill: #FF6A3D;
-  --dsw-alias-button-primary-hover: #FF865F;
-  --dsw-alias-button-tool-bar-fill: #2B1A14;
-  --dsw-alias-button-tool-bar-fill-invisible: #2B1A14;
-  --dsw-alias-button-tool-bar-hover: #2B1A14;
-  --dsw-alias-code-diff-added: #35D08A;
-  --dsw-alias-code-diff-deleted: #FF4D5E;
-  --dsw-alias-file-diff-added-marker: #35D08A;
-  --dsw-alias-file-diff-deleted-marker: #FF4D5E;
-  --dsw-alias-interactive-bg-active: #212739;
-  --dsw-alias-interactive-bg-hover: #1A1F2E;
-  --dsw-alias-interactive-bg-hover-accent: #2B1A14;
-  --dsw-alias-interactive-bg-hover-solid: #1A1F2E;
-  --dsw-alias-label-caption: #9AA2B8;
-  --dsw-alias-label-dimmed: #5E667E;
-  --dsw-alias-label-document-preview: #9AA2B8;
-  --dsw-alias-label-error: #FF4D5E;
-  --dsw-alias-label-primary: #EDEEF3;
-  --dsw-alias-label-primary-bluish: #FF6A3D;
-  --dsw-alias-label-primary-dimmed: #9AA2B8;
-  --dsw-alias-label-primary-foreground: #140806;
-  --dsw-alias-label-primary-inverted: #0B0D14;
-  --dsw-alias-label-secondary: #9AA2B8;
-  --dsw-alias-label-tertiary: #5E667E;
-  --dsw-alias-link: #FF6A3D;
-  --dsw-alias-markdown-citation: #0F121B;
-  --dsw-alias-markdown-code-block: #0E1119;
-  --dsw-alias-markdown-code-block-banner: #0E1119;
-  --dsw-alias-markdown-code-segment-selected: #141824;
-  --dsw-alias-markdown-code-segment-unselected: #0E1119;
-  --dsw-alias-markdown-inline-code: #0E1119;
-  --dsw-alias-markdown-placeholder: #0E1119;
-  --dsw-alias-markdown-tag: #0F121B;
-  --dsw-alias-scrollbar-bg-l1: #333B50;
-  --dsw-alias-scrollbar-bg-l2: #333B50;
-  --dsw-alias-scrollbar-hover-l1: #5E667E;
-  --dsw-alias-scrollbar-hover-l2: #5E667E;
-  --dsw-alias-state-business-primary: #FF6A3D;
-  --dsw-alias-state-business-tertiary: #2B1A14;
-  --dsw-alias-state-error-primary: #FF4D5E;
-  --dsw-alias-state-error-secondary: #FF4D5E;
-  --dsw-alias-state-idle-primary: #5E667E;
-  --dsw-alias-state-success-primary: #35D08A;
-  --dsw-alias-state-success-secondary: #35D08A;
-  --dsw-alias-state-warn-label: #F2B33D;
-  --dsw-alias-state-warn-primary: #F2B33D;
-  --dsw-alias-state-warn-secondary: #F2B33D;
-  --dsw-alias-toast-bg: #212739;
-  --dsw-alias-specific-bubble: #2B1A14;
-  --dsw-alias-specific-bubble-highlight: #2B1A14;
-  --dsw-alias-specific-input-major: #141824;
-  --dsw-alias-specific-login-input: #141824;
-  --dsw-alias-specific-menu: #141824;
-  --dsw-alias-specific-selector: #1A1F2E;
-  --dsw-alias-specific-sidebar-fill: #0F121B;
-  --dsw-alias-specific-sidebar-nav-item-active: #2B1A14;
-  --dsw-alias-specific-sidebar-nav-item-active-accent: #FF6A3D;
-  --dsw-alias-specific-sidebar-nav-item-hover: #1A1F2E;
-  --dsw-alias-specific-tip: #0F121B;
-  --dsw-hovercard-bg: #141824;
+  --dsw-alias-bg-base: #1A1714;
+  --dsw-alias-bg-document-preview: #1A1714;
+  --dsw-alias-bg-layer-1: #161412;
+  --dsw-alias-bg-layer-2: #1E1B17;
+  --dsw-alias-bg-layer-3: #262219;
+  --dsw-alias-bg-layer-4: #262219;
+  --dsw-alias-bg-module-platform: #1E1B17;
+  --dsw-alias-bg-multi-select: #2A1A14;
+  --dsw-alias-bg-overlay: #1A1714;
+  --dsw-alias-bg-skeleton: #1E1B17;
+  --dsw-alias-border-inverted: #121110;
+  --dsw-alias-border-inverted2: #121110;
+  --dsw-alias-border-l1: #2A2620;
+  --dsw-alias-border-l2: #2A2620;
+  --dsw-alias-border-l2-darkmode-thin: #2A2620;
+  --dsw-alias-border-l3: #3D382F;
+  --dsw-alias-border-l4: #3D382F;
+  --dsw-alias-brand-primary: #D8563A;
+  --dsw-alias-brand-primary-invert: #121110;
+  --dsw-alias-brand-primary-new-colorprimary-new-color: #D8563A;
+  --dsw-alias-brand-text: #D8563A;
+  --dsw-alias-button-contrast-fill: #D8563A;
+  --dsw-alias-button-elevated-fill: #1A1714;
+  --dsw-alias-button-floating-fill: #1A1714;
+  --dsw-alias-button-floating-hover: #1E1B17;
+  --dsw-alias-button-ghost-active-border: #D8563A;
+  --dsw-alias-button-ghost-active-fill: #2A1A14;
+  --dsw-alias-button-ghost-active-hover: #2A1A14;
+  --dsw-alias-button-info-fill: #D8563A;
+  --dsw-alias-button-info-hover: #E8755A;
+  --dsw-alias-button-primary-dimmed: #2A1A14;
+  --dsw-alias-button-primary-fill: #D8563A;
+  --dsw-alias-button-primary-hover: #E8755A;
+  --dsw-alias-button-tool-bar-fill: #2A1A14;
+  --dsw-alias-button-tool-bar-fill-invisible: #2A1A14;
+  --dsw-alias-button-tool-bar-hover: #2A1A14;
+  --dsw-alias-code-diff-added: #46C48B;
+  --dsw-alias-code-diff-deleted: #F2564F;
+  --dsw-alias-file-diff-added-marker: #46C48B;
+  --dsw-alias-file-diff-deleted-marker: #F2564F;
+  --dsw-alias-interactive-bg-active: #262219;
+  --dsw-alias-interactive-bg-hover: #1E1B17;
+  --dsw-alias-interactive-bg-hover-accent: #2A1A14;
+  --dsw-alias-interactive-bg-hover-solid: #1E1B17;
+  --dsw-alias-label-caption: #A9A296;
+  --dsw-alias-label-dimmed: #78715F;
+  --dsw-alias-label-document-preview: #A9A296;
+  --dsw-alias-label-error: #F2564F;
+  --dsw-alias-label-primary: #EFE9DC;
+  --dsw-alias-label-primary-bluish: #D8563A;
+  --dsw-alias-label-primary-dimmed: #A9A296;
+  --dsw-alias-label-primary-foreground: #14100C;
+  --dsw-alias-label-primary-inverted: #121110;
+  --dsw-alias-label-secondary: #A9A296;
+  --dsw-alias-label-tertiary: #78715F;
+  --dsw-alias-link: #D8563A;
+  --dsw-alias-markdown-citation: #161412;
+  --dsw-alias-markdown-code-block: #0E0D0B;
+  --dsw-alias-markdown-code-block-banner: #0E0D0B;
+  --dsw-alias-markdown-code-segment-selected: #1A1714;
+  --dsw-alias-markdown-code-segment-unselected: #0E0D0B;
+  --dsw-alias-markdown-inline-code: #0E0D0B;
+  --dsw-alias-markdown-placeholder: #0E0D0B;
+  --dsw-alias-markdown-tag: #161412;
+  --dsw-alias-scrollbar-bg-l1: #3D382F;
+  --dsw-alias-scrollbar-bg-l2: #3D382F;
+  --dsw-alias-scrollbar-hover-l1: #78715F;
+  --dsw-alias-scrollbar-hover-l2: #78715F;
+  --dsw-alias-state-business-primary: #D8563A;
+  --dsw-alias-state-business-tertiary: #2A1A14;
+  --dsw-alias-state-error-primary: #F2564F;
+  --dsw-alias-state-error-secondary: #F2564F;
+  --dsw-alias-state-idle-primary: #78715F;
+  --dsw-alias-state-success-primary: #46C48B;
+  --dsw-alias-state-success-secondary: #46C48B;
+  --dsw-alias-state-warn-label: #E8B04C;
+  --dsw-alias-state-warn-primary: #E8B04C;
+  --dsw-alias-state-warn-secondary: #E8B04C;
+  --dsw-alias-toast-bg: #262219;
+  --dsw-alias-specific-bubble: #2A1A14;
+  --dsw-alias-specific-bubble-highlight: #2A1A14;
+  --dsw-alias-specific-input-major: #1A1714;
+  --dsw-alias-specific-login-input: #1A1714;
+  --dsw-alias-specific-menu: #1A1714;
+  --dsw-alias-specific-selector: #1E1B17;
+  --dsw-alias-specific-sidebar-fill: #161412;
+  --dsw-alias-specific-sidebar-nav-item-active: #2A1A14;
+  --dsw-alias-specific-sidebar-nav-item-active-accent: #D8563A;
+  --dsw-alias-specific-sidebar-nav-item-hover: #1E1B17;
+  --dsw-alias-specific-tip: #161412;
+  --dsw-hovercard-bg: #1A1714;
 }
 
 html[data-dsh-theme] body {
@@ -828,8 +872,8 @@ html[data-dsh-theme] body {
   --dsw-specific-sidebar-nav-item-hover: var(--dsh-bg-hover);
   --dsw-specific-sidebar-nav-item-active: var(--dsh-selected-row-bg);
   --dsw-specific-sidebar-nav-item-active-accent: var(--dsh-selected-row-indicator);
-  --dsw-specific-bubble: var(--dsh-bubble-user-bg);
-  --dsw-specific-bubble-highlight: var(--dsh-bubble-user-bg);
+  --dsw-specific-bubble: transparent;
+  --dsw-specific-bubble-highlight: transparent;
   --dsw-specific-tip: var(--dsh-bg-elevated);
 }
 html[data-dsh-theme] {
@@ -855,8 +899,8 @@ html[data-dsh-theme] body {
   --dsw-specific-sidebar-nav-item-hover: var(--dsh-bg-hover);
   --dsw-specific-sidebar-nav-item-active: var(--dsh-selected-row-bg);
   --dsw-specific-sidebar-nav-item-active-accent: var(--dsh-selected-row-indicator);
-  --dsw-specific-bubble: var(--dsh-bubble-user-bg);
-  --dsw-specific-bubble-highlight: var(--dsh-bubble-user-bg);
+  --dsw-specific-bubble: transparent;
+  --dsw-specific-bubble-highlight: transparent;
   --dsw-specific-tip: var(--dsh-bg-elevated);
 }
 
@@ -958,7 +1002,6 @@ html[data-dsh-theme] [class*="crumbCurrent"] {
    .xxx_searchResultRow 同属一个 CSS module，但打包产物里找不到挂载点 JSX，
    无法确认 meta 一定嵌在 sessionRow 内——所以同时给「Row 后代」与「侧栏语义锚」两条路径，
    任一成立即生效，都成立也不重复（同一条声明）。 */
-html[data-dsh-theme] [class*="Row"] [class*="meta"],
 html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="meta"] {
   font-family: var(--dsh-font-mono);
   letter-spacing: var(--dsh-track-wide);
@@ -1002,7 +1045,7 @@ html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="ste
    · 回合起止计时：官方 .xxx_timeStart / .xxx_timeEnd 同样只有 font-size / line-height / color。
    · 放弃：.xxx_time（MessageIconActions 里的那个，官方用 font: var(--dsw-font-xxs-12) 简写）
      与分组标题（data-chat-group-key 挂在行元素本身，没有独立的标题元素可锚）。 */
-html[data-dsh-theme] [class*="Row"] [class*="time"],
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="time"],
 html[data-dsh-theme] [data-conversation-region="chat"] [class*="timeStart"],
 html[data-dsh-theme] [data-conversation-region="chat"] [class*="timeEnd"] {
   font-family: var(--dsh-font-mono);
@@ -1113,6 +1156,25 @@ html[data-dsh-theme] [data-conversation-region="chat"]::after {
   background-image: var(--dsh-noise-uri);
   opacity: var(--dsh-noise-opacity);
   mix-blend-mode: var(--dsh-noise-blend);
+}
+
+/* M11.1 · 今日工作台场景：明暗各自材质，共享「低频光影 + 微粒 + 边缘收束」。
+   仅新会话移除规则网格；消息流继续使用上方的编辑室网格，避免全局观感反复。 */
+html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today) {
+  background-color: var(--dsh-scene-bg-start);
+  background-image: radial-gradient(120% 92% at 50% 42%, transparent 55%, var(--dsh-scene-vignette) 100%),
+    radial-gradient(72% 58% at 92% 4%, var(--dsh-scene-light-cold), transparent 70%),
+    radial-gradient(68% 56% at 4% 100%, var(--dsh-scene-light-warm), transparent 72%),
+    linear-gradient(155deg, var(--dsh-scene-bg-start), var(--dsh-scene-bg-end));
+  background-size: auto;
+  animation: none;
+}
+html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today)::after {
+  opacity: var(--dsh-scene-grain);
+  mix-blend-mode: soft-light;
+}
+html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today)::before {
+  content: none;
 }
 
 /* ── 输入卡「书写纸 v3」：三行无稿线 · 单条工具带 · 细中性边框 ────────────────
@@ -1567,3 +1629,1275 @@ html[data-dsh-theme] ::-webkit-scrollbar {
 html[data-dsh-theme] ::-webkit-scrollbar-thumb {
   border-radius: var(--dsh-radius-pill);
 }
+
+/* ── M12 · 活字剧场：消息 / 工具 / 侧栏 / 输入区共享的沉浸场景 ───────────── */
+/* 活跃会话与新会话使用同一材质，但场景大字只由真实生成状态驱动。 */
+html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today)) {
+  background-color: var(--dsh-scene-bg-start);
+  background-image: radial-gradient(120% 92% at 50% 42%, transparent 60%, var(--dsh-scene-vignette) 100%),
+    radial-gradient(85% 62% at 100% 0%, var(--dsh-scene-light-cold), transparent 70%),
+    radial-gradient(70% 55% at 0% 100%, var(--dsh-scene-light-warm), transparent 72%),
+    linear-gradient(160deg, var(--dsh-scene-bg-start), var(--dsh-scene-bg-end));
+  background-size: auto;
+  animation: none;
+}
+html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today))::after {
+  opacity: var(--dsh-scene-grain);
+  mix-blend-mode: soft-light;
+}
+html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today))::before {
+  content: attr(data-dsh-scene-label);
+  position: absolute;
+  top: var(--dsh-space-4);
+  right: var(--dsh-space-5);
+  bottom: auto;
+  left: auto;
+  width: auto;
+  background: none;
+  font-family: var(--dsh-font-sans);
+  font-size: clamp(var(--dsh-text-2xl), 7vw, var(--dsh-text-mega));
+  font-weight: var(--dsh-weight-display);
+  line-height: var(--dsh-lh-mega);
+  letter-spacing: var(--dsh-track-mega);
+  color: transparent;
+  -webkit-text-stroke: var(--dsh-space-px) var(--dsh-text-tertiary);
+  opacity: .12;
+  pointer-events: none;
+}
+
+/* 助手回答是一段连续阅读，而不是聊天气泡；标题和段落负责建立章节节奏。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow] {
+  scroll-margin-top: var(--dsh-space-6);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"] {
+  padding: var(--dsh-space-5) 0 var(--dsh-space-6);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"] [class*="markdown"] {
+  font-size: clamp(var(--dsh-text-md), 1.4vw, var(--dsh-text-lg));
+  line-height: clamp(var(--dsh-lh-lg), 2.2vw, var(--dsh-lh-xl));
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"] [class*="markdown"] :is(p, ul, ol, blockquote) {
+  margin: var(--dsh-space-5) 0;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3) {
+  margin: var(--dsh-space-6) 0 var(--dsh-space-3);
+  font-weight: var(--dsh-weight-display);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] h1 {
+  font-size: var(--dsh-text-display);
+  line-height: var(--dsh-lh-display);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] h2 {
+  font-size: var(--dsh-text-2xl);
+  line-height: var(--dsh-lh-2xl);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] h3 {
+  font-size: var(--dsh-text-xl);
+  line-height: var(--dsh-lh-xl);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] blockquote {
+  padding-left: var(--dsh-space-4);
+  border-left: var(--dsh-indicator-w) solid var(--dsh-code-fn);
+  color: var(--dsh-text-secondary);
+  font-family: var(--dsh-font-display);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] pre {
+  padding: var(--dsh-space-4);
+  border: 0;
+  border-top: var(--dsh-border-w) solid var(--dsh-code-keyword);
+  border-radius: 0;
+  background: linear-gradient(180deg, var(--dsh-code-block-bg), transparent 160%);
+  box-shadow: inset 0 var(--dsh-space-px) 0 var(--dsh-rule-hairline);
+}
+
+/* 用户输入是导演批注：缩进、细线与淡色，不再使用独立气泡。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"],
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="steering"] {
+  max-width: calc(var(--dsh-content-max) - var(--dsh-space-8));
+  margin: var(--dsh-space-5) 0 var(--dsh-space-4) auto;
+  padding: var(--dsh-space-3) var(--dsh-space-4);
+  border: 0;
+  border-left: var(--dsh-indicator-w) solid var(--dsh-accent);
+  background: linear-gradient(90deg, var(--dsh-accent-subtle), transparent 82%);
+}
+
+/* 工具调用是仪器状态轨：真实 data-state 决定颜色与呼吸，取消重复 DONE 章。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool] {
+  margin: var(--dsh-space-3) 0;
+  padding: var(--dsh-space-3) 0 var(--dsh-space-3) var(--dsh-space-5);
+  border-bottom: 0;
+  font-family: var(--dsh-font-sans);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--dsh-indicator-w);
+  background: var(--dsh-text-tertiary);
+  transform-origin: center;
+  pointer-events: none;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="running"]::before,
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="preparing"]::before {
+  background: var(--dsh-code-fn);
+  animation: dsh-tool-signal var(--dsh-motion-breath) var(--dsh-ease-inout) infinite;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="ok"]::before { background: var(--dsh-success); }
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="error"]::before { background: var(--dsh-danger); }
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="ok"]::after { display: none; }
+@keyframes dsh-tool-signal {
+  0%, 100% { transform: scaleY(.28); opacity: .42; }
+  50% { transform: scaleY(1); opacity: 1; }
+}
+
+/* 侧栏是会话时间线：选中由位置与线条表达，hover 用物理位移而非浮起卡片。 */
+html[data-dsh-theme] [class*="sidebarCol"] {
+  background-color: var(--dsh-scene-bg-start);
+  background-image: radial-gradient(90% 44% at 100% 0%, var(--dsh-scene-light-cold), transparent 72%),
+    linear-gradient(180deg, var(--dsh-scene-panel-start), var(--dsh-scene-panel-end));
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"] {
+  margin-inline: var(--dsh-space-1);
+  border-radius: 0;
+  transition: padding var(--dsh-motion-hover) var(--dsh-ease-spring),
+    background-color var(--dsh-motion-hover) var(--dsh-ease-out),
+    color var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"]:hover {
+  padding-left: var(--dsh-space-3);
+  background: var(--dsh-scene-panel-start);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"] {
+  background: transparent;
+  box-shadow: none;
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"]::before {
+  top: var(--dsh-space-2);
+  bottom: var(--dsh-space-2);
+  height: auto;
+  margin-top: 0;
+  transform: none;
+  background: var(--dsh-accent);
+}
+
+/* 输入区保留三行契约，只让材质与场景一致；聚焦只改变边缘，不移动卡片。 */
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card] {
+  border-color: var(--dsh-scene-panel-edge);
+  background: linear-gradient(155deg, var(--dsh-scene-panel-start), var(--dsh-scene-panel-end));
+  box-shadow: inset 0 var(--dsh-space-px) 0 var(--dsh-scene-panel-edge);
+  transition: border-color var(--dsh-motion-hover) var(--dsh-ease-out),
+    box-shadow var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card]:focus-within {
+  border-color: var(--dsh-code-fn);
+  box-shadow: inset 0 var(--dsh-space-px) 0 var(--dsh-scene-panel-edge),
+    0 0 0 var(--dsh-focus-w) color-mix(in srgb, var(--dsh-code-fn) 32%, transparent);
+}
+html[data-dsh-theme] [data-composer-card] > [class*="row"] {
+  border-top-color: var(--dsh-scene-panel-edge);
+}
+
+/* ══ M13 · 压印层（IMPRINT）：把界面排成一本每天出的刊物 ═══════════════════════
+ *
+ * 这一层**取代** M12「活字剧场」的视觉决定（渐变玻璃、胶囊色块、右侧导演批注气泡），
+ * 换成印刷品的三条纪律：
+ *   ① 发丝墨线是唯一的分隔手段——全站零圆角、零阴影、零卡片；
+ *   ② 页码 / 目录序号 / 书脊：所有区域都带编号，版面上有“这是第几页”的信息；
+ *   ③ 两族对打：中文全走思源宋体（可变字重 300/350/400 三档撑层级），
+ *      拉丁与数字走 Georgia（拉开字距），等宽只留给代码与工具日志。
+ * 数值仍只引用 var(--dsh-*)；本轮未新增裸 hex / 裸 px。
+ */
+
+/* ── 1 · 纸与光 ─────────────────────────────────────────────────────── */
+
+html[data-dsh-theme] [class*="sidebarCol"] {
+  background-color: var(--dsh-bg-subtle);
+  background-image: none;
+  box-shadow: inset calc(-1 * var(--dsh-space-px)) 0 0 0 var(--dsh-border-subtle);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] {
+  background-color: var(--dsh-bg-base);
+  background-image: none;
+  animation: none;
+}
+/* 纸的光与纹理统一由 M13 的「纸面」段负责（这里不再单独铺光，避免抢走纹理层） */
+html[data-dsh-theme] [data-conversation-region="chat"]::before {
+  content: none;
+}
+
+/* ── 2 · 侧栏：目录页 ───────────────────────────────────────────────── */
+
+/* 目录项：序号用 Georgia 拉开字距，行与行之间只有一条发丝线，hover 不加底色，
+   只把字重推重一档（“墨加重”）。 */
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="panelList"] {
+  counter-reset: dsh-nav;
+  border-top: var(--dsh-space-px) solid var(--dsh-rule-hairline);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="panelRow"] {
+  counter-increment: dsh-nav;
+  display: grid;
+  grid-template-columns: var(--dsh-space-6) var(--dsh-icon-md) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--dsh-space-2);
+  min-height: var(--dsh-space-7);
+  padding: var(--dsh-space-2) 0;
+  border-radius: 0;
+  border-bottom: var(--dsh-space-px) solid var(--dsh-rule-hairline);
+  background: transparent;
+  color: var(--dsh-text-secondary);
+  transition: color var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="panelRow"]::before {
+  content: counter(dsh-nav, decimal-leading-zero);
+  position: static;
+  width: auto;
+  height: auto;
+  background: none;
+  translate: none;
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="panelRow"]:hover {
+  background: transparent;
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="panelTitle"] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-sm);
+  line-height: var(--dsh-lh-sm);
+  letter-spacing: var(--dsh-track-normal);
+  color: inherit;
+}
+
+/* 新建会话：目录的第一行，编号走同一套 Georgia 数字；朱红只给按下/焦点。 */
+html[data-dsh-theme] [data-dsh-part="new-session"] {
+  display: flex;
+  align-items: center;
+  gap: var(--dsh-space-2);
+  padding-inline: 0;
+  min-height: var(--dsh-space-8);
+  border: 0;
+  border-top: var(--dsh-space-px) solid var(--dsh-text-primary);
+  border-bottom: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  border-radius: 0;
+  background: transparent;
+  color: var(--dsh-text-primary);
+  letter-spacing: var(--dsh-track-normal);
+}
+html[data-dsh-theme] [data-dsh-part="new-session"]::before {
+  content: '01';
+  margin-right: var(--dsh-space-2);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-accent);
+  font-variant-numeric: tabular-nums;
+}
+html[data-dsh-theme] [data-dsh-part="new-session"]:hover:not(:disabled) {
+  background: transparent;
+  color: var(--dsh-accent);
+}
+html[data-dsh-theme] [data-dsh-part="new-session"] [class*="newSessionLabelMask"] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-sm);
+  letter-spacing: var(--dsh-track-normal);
+}
+html[data-dsh-theme] [data-dsh-part="new-session"] [class*="newSessionShortcut"] {
+  margin-left: auto;
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+  opacity: 1;
+}
+
+/* 分节标题：拉丁小标 + 一条拉满的发丝线（“工作区 —————— 09”） */
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sectionHeader"] {
+  display: flex;
+  align-items: center;
+  gap: var(--dsh-space-3);
+  min-height: var(--dsh-space-6);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sectionHeader"]::after {
+  content: '';
+  flex: 1;
+  height: var(--dsh-space-px);
+  background: var(--dsh-border-subtle);
+}
+
+/* 工作区 / 会话行：树行只有缩进与发丝线；当前行用一枚朱红方点标记。 */
+html[data-dsh-theme] [class*="groupSection"] + [class*="groupSection"] {
+  border-top: var(--dsh-space-px) solid var(--dsh-rule-hairline);
+  margin-top: var(--dsh-space-2);
+  padding-top: var(--dsh-space-2);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"] {
+  position: relative;
+  min-height: var(--dsh-session-row-h);
+  margin-inline: 0;
+  padding-inline: var(--dsh-space-3) 0;
+  border-radius: 0;
+  background: transparent;
+  transition: color var(--dsh-motion-hover) var(--dsh-ease-out),
+    padding-left var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"]:hover {
+  background: transparent;
+  padding-left: var(--dsh-space-4);
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"] [class*="title"] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-xs);
+  line-height: var(--dsh-lh-sm);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-secondary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"]:hover [class*="title"],
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"] [class*="title"] {
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"] {
+  background: transparent;
+  box-shadow: none;
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="sessionRow"][class*="selected"]::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: var(--dsh-space-1);
+  height: var(--dsh-space-1);
+  margin-top: calc(-1 * var(--dsh-space-0-5));
+  background: var(--dsh-accent);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="time"] {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+html[data-dsh-theme] [class*="footArea"] {
+  border-top: var(--dsh-space-px) solid var(--dsh-rule-hairline);
+}
+
+/* ── 3 · 消息流：跨页版心（页边注 + 正文栏）──────────────────────────── */
+
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="flowItem"] {
+  max-width: var(--dsh-measure-read);
+  margin-inline: auto;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="column"] {
+  max-width: var(--dsh-measure-read);
+}
+
+/* 用户那一轮：页边注（Nº / 你 / 时间）+ 正文栏。正文是提问，用比正文大一档的衬线。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"],
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="steering"] {
+  counter-increment: dsh-turn;
+  display: grid;
+  grid-template-columns: var(--dsh-gutter-note) minmax(0, 1fr);
+  column-gap: var(--dsh-space-5);
+  max-width: calc(var(--dsh-measure-read) + var(--dsh-gutter-note) + var(--dsh-space-5));
+  margin: var(--dsh-space-7) auto var(--dsh-space-5);
+  padding: 0;
+  border: 0;
+  background: none;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] > *,
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="steering"] > * {
+  grid-column: 2;
+  min-width: 0;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"]::before,
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="steering"]::before {
+  content: counter(dsh-turn, decimal-leading-zero) '\A 你';
+  white-space: pre;
+  grid-column: 1;
+  grid-row: 1;
+  position: static;
+  padding-top: var(--dsh-space-1);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-2xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+  text-align: left;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] [class*="bubble"],
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="steering"] [class*="bubble"] {
+  max-width: 100%;
+  width: 100%;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] [class*="userStack"],
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] [class*="userRow"] {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  justify-content: flex-start;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] [class*="markdown"],
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] [class*="run"],
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="steering"] [class*="markdown"] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-xl);
+  line-height: var(--dsh-lh-xl);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="user"] [class*="markdown"] :is(p, ul, ol) {
+  margin-block: var(--dsh-space-2);
+}
+
+/* 助手正文：15.5 / 31，两端对齐，页边注放“助手”与序号。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"]) {
+  display: grid;
+  grid-template-columns: var(--dsh-gutter-note) minmax(0, 1fr);
+  column-gap: var(--dsh-space-5);
+  max-width: calc(var(--dsh-measure-read) + var(--dsh-gutter-note) + var(--dsh-space-5));
+  width: 100%;
+  margin-inline: auto;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"]) > * {
+  grid-column: 2;
+  min-width: 0;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])::before {
+  content: '—' '\A 助手';
+  white-space: pre;
+  grid-column: 1;
+  grid-row: 1;
+  padding-top: var(--dsh-space-1);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-2xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-read);
+  line-height: var(--dsh-lh-read);
+  letter-spacing: var(--dsh-track-normal);
+  text-align: justify;
+  color: var(--dsh-text-primary);
+  width: 100%;
+  max-width: 100%;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] :is(p, ul, ol) {
+  margin-block: var(--dsh-space-4);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3) {
+  font-family: var(--dsh-font-display);
+  font-weight: var(--dsh-weight-display);
+  letter-spacing: var(--dsh-track-tight);
+  color: var(--dsh-text-primary);
+  text-align: left;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] h1 { font-size: var(--dsh-text-2xl); line-height: var(--dsh-lh-2xl); margin-block: var(--dsh-space-6) var(--dsh-space-3); }
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] h2 { font-size: var(--dsh-text-xl); line-height: var(--dsh-lh-xl); margin-block: var(--dsh-space-5) var(--dsh-space-2); }
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] h3 { font-size: var(--dsh-text-lg); line-height: var(--dsh-lh-lg); letter-spacing: var(--dsh-track-normal); margin-block: var(--dsh-space-4) var(--dsh-space-2); }
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] ul,
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] ol {
+  padding-left: var(--dsh-space-5);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] li { margin-block: var(--dsh-space-1); }
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] li::marker {
+  color: var(--dsh-accent);
+  font-size: var(--dsh-text-xs);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] blockquote {
+  margin-inline: 0;
+  padding-left: var(--dsh-space-4);
+  border-left: var(--dsh-indicator-w) solid var(--dsh-accent);
+  color: var(--dsh-text-secondary);
+  text-align: left;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] :is(code) {
+  font-family: var(--dsh-font-mono);
+  font-size: var(--dsh-text-sm);
+  background: var(--dsh-code-bg);
+  border-radius: 0;
+  padding: var(--dsh-space-0-5) var(--dsh-space-1);
+  letter-spacing: var(--dsh-track-normal);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] :is(pre) {
+  font-family: var(--dsh-font-mono);
+  font-size: var(--dsh-text-sm);
+  line-height: var(--dsh-lh-md);
+  border-radius: 0;
+  border: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  text-align: left;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] a {
+  color: var(--dsh-link);
+  text-decoration: underline;
+  text-decoration-thickness: var(--dsh-space-px);
+  text-underline-offset: var(--dsh-space-0-75);
+}
+
+/* 工具调用：点线引导的数据行（动作 —— 参数 —— 耗时/状态） */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="tool-call"] {
+  width: 100%;
+  max-width: calc(var(--dsh-measure-read) + var(--dsh-gutter-note) + var(--dsh-space-5));
+  margin-inline: auto;
+  padding-left: calc(var(--dsh-gutter-note) + var(--dsh-space-5));
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool] {
+  margin-block: var(--dsh-space-1);
+  padding: var(--dsh-space-1) 0;
+  border: 0;
+  background: none;
+  font-family: var(--dsh-font-mono);
+  font-size: var(--dsh-text-xs);
+  line-height: var(--dsh-lh-xs);
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="running"]::before,
+html[data-dsh-theme] [data-conversation-region="chat"] [data-tool][data-state="preparing"]::before {
+  width: var(--dsh-space-1);
+  background: var(--dsh-accent);
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="turn-process"] {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-label);
+  color: var(--dsh-text-tertiary);
+  text-align: center;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="turn-tail"] {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 4 · 输入卡：横格稿纸 ─────────────────────────────────────────────── */
+
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card] {
+  border: 0;
+  border-top: var(--dsh-space-px) solid var(--dsh-text-primary);
+  border-radius: 0;
+  /* 第二条墨线画在卡自己的背景上：背景先于子元素绘制，站在卡沿的鲸鱼会自然压住它，
+     不再需要跟伪元素打 z-index 战争（上一版 z-index 无效正是这个原因）。 */
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, var(--dsh-text-primary) 0 var(--dsh-space-px), transparent var(--dsh-space-px));
+  background-repeat: no-repeat;
+  background-size: 100% var(--dsh-space-px);
+  background-position: 0 var(--dsh-space-1);
+  box-shadow: none;
+  position: relative;
+}
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card]::before {
+  width: var(--dsh-space-1);
+  background: var(--dsh-accent);
+  opacity: 0;
+  transition: opacity var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card]:focus-within::before {
+  opacity: 1;
+}
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card]:focus-within {
+  border-top-color: var(--dsh-text-primary);
+  box-shadow: none;
+}
+/* 稿纸横格 v2：节距绑到行高（--dsh-lh-lg = 26px），每条线正好落在每一行字的盒子下沿，
+   于是它读起来是“垫在字下面的横线”，而不是从字身上穿过去。
+   位置算式：上留白 12 + 输入框自带 4 + 一行行高 26 = 第一条线落在 42px。
+   右端用亮度掩膜淡出，像写在纸边淡掉。 */
+html[data-dsh-theme] [data-composer-card] [class*="scroll"] {
+  padding-top: var(--dsh-space-3);
+  padding-bottom: var(--dsh-space-1);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--dsh-rule-hairline) 0 var(--dsh-space-px),
+    transparent var(--dsh-space-px) var(--dsh-lh-lg)
+  );
+  background-position: 0 calc(var(--dsh-space-3) + var(--dsh-lh-lg));
+  /* 掩膜里的 rgba(0,0,0,*) 是亮度掩膜（不透明度通道），不是设计色，故不引 token。 */
+  -webkit-mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.6) 62%, rgba(0,0,0,.18) 100%);
+  mask-image: linear-gradient(90deg, #000 0%, rgba(0,0,0,.6) 62%, rgba(0,0,0,.18) 100%);
+}
+html[data-dsh-theme] [data-composer-card] [data-composer-placeholder] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-lg);
+  line-height: var(--dsh-lh-lg);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] [data-composer-input] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-lg);
+  line-height: var(--dsh-lh-lg);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-composer-card] > [class*="row"] {
+  border-top: var(--dsh-space-px) solid var(--dsh-border-subtle);
+}
+html[data-dsh-theme] [data-composer-card] [class*="tools"] button,
+html[data-dsh-theme] [data-composer-card] [class*="standardControls"] button,
+html[data-dsh-theme] [data-composer-card] [class*="standardControls"] [role="button"] {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-2xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-secondary);
+  border-radius: 0;
+}
+html[data-dsh-theme] [data-composer-card] button[class*="primary"] {
+  border-radius: 0;
+  background: var(--dsh-accent);
+  color: var(--dsh-on-accent);
+  transition: translate var(--dsh-motion-base) var(--dsh-ease-out),
+    background-color var(--dsh-motion-hover) var(--dsh-ease-out);
+}
+html[data-dsh-theme] [data-composer-card] button[class*="primary"]:hover:not(:disabled) {
+  translate: 0 calc(-1 * var(--dsh-space-px));
+  background: var(--dsh-accent-hover);
+}
+html[data-dsh-theme] [data-composer-card] button[class*="primary"]:disabled {
+  background: transparent;
+  color: var(--dsh-text-tertiary);
+  border: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  opacity: 1;
+}
+html[data-dsh-theme] [data-composer-card] button[class*="add"] {
+  border: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  border-radius: 0;
+  color: var(--dsh-text-secondary);
+}
+
+/* ── 6 · 页码零件（client 半注入的 DOM 用这些类）────────────────────── */
+
+html[data-dsh-theme] .dsh-register {
+  display: flex;
+  align-items: baseline;
+  gap: var(--dsh-space-3);
+  padding: var(--dsh-space-3) 0 var(--dsh-space-2);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] .dsh-register::after {
+  content: '';
+  flex: 1;
+  height: var(--dsh-space-px);
+  background: var(--dsh-border-subtle);
+}
+html[data-dsh-theme] .dsh-spine {
+  position: absolute;
+  left: var(--dsh-space-4);
+  top: 0;
+  bottom: 0;
+  writing-mode: vertical-rl;
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+  opacity: .8;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+html[data-dsh-theme] .dsh-folio {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--dsh-space-3) var(--dsh-space-6);
+  border-top: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+  pointer-events: none;
+}
+
+/* ── 7 · 新会话：报头版（覆盖 client 半注入的 M11 今日工作台样式）──────────
+ * client 半的样式在 theme.css 之后注入，同特异性下它会赢；这里的每条选择器都
+ * 带着构建期加上的 html[data-dsh-theme] 前缀（+1 特异性），所以能稳定压过它。 */
+
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today) {
+  max-width: calc(var(--dsh-content-max) + var(--dsh-menu-w) + var(--dsh-space-5));
+  grid-template-columns: minmax(0, 1fr) calc(var(--dsh-menu-w) + var(--dsh-space-4));
+  column-gap: var(--dsh-space-6);
+  row-gap: var(--dsh-space-5);
+  align-content: center;
+  padding-inline: 0;
+}
+
+/* 报头：一道顶线 + 拉丁刊名小标，下面是时刻与日期 */
+html[data-dsh-theme] .dsh-today-intro {
+  border-top: var(--dsh-space-px) solid var(--dsh-text-primary);
+  padding-top: var(--dsh-space-3);
+  align-self: start;
+}
+html[data-dsh-theme] .dsh-today-intro::before {
+  content: '今日記事 · THE DAILY SHEET';
+  display: block;
+  margin-bottom: var(--dsh-space-4);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] .dsh-today-clock {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-mega);
+  font-weight: var(--dsh-weight-label);
+  line-height: .82;
+  letter-spacing: -0.03em;
+  color: var(--dsh-text-primary);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+html[data-dsh-theme] .dsh-today-date {
+  margin-top: var(--dsh-space-4);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-2xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] .dsh-today-title {
+  margin-top: var(--dsh-space-6);
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-display);
+  font-weight: var(--dsh-weight-display);
+  line-height: 1.04;
+  letter-spacing: var(--dsh-track-mega);
+  color: var(--dsh-text-primary);
+}
+
+/* 页边注栏：一条竖栏线，内容全部去卡片化，只留发丝线与数字 */
+html[data-dsh-theme] .dsh-today-rail {
+  gap: var(--dsh-space-5);
+  border-left: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  padding-left: var(--dsh-space-5);
+}
+html[data-dsh-theme] .dsh-today-weather,
+html[data-dsh-theme] .dsh-today-calendar {
+  min-height: 0;
+  padding: var(--dsh-space-3) 0 0;
+  border: 0;
+  border-top: var(--dsh-space-px) solid var(--dsh-text-primary);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  overflow: visible;
+}
+html[data-dsh-theme] .dsh-today-card-head,
+html[data-dsh-theme] .dsh-today-calendar-actions {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] .dsh-today-city {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-sm);
+  font-weight: var(--dsh-weight-label);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] .dsh-today-refresh,
+html[data-dsh-theme] .dsh-today-calendar-actions button {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  border-radius: 0;
+}
+html[data-dsh-theme] .dsh-today-temperature {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-mega);
+  font-weight: var(--dsh-weight-label);
+  line-height: .82;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+html[data-dsh-theme] .dsh-today-weather-art {
+  opacity: .45;
+}
+html[data-dsh-theme] .dsh-today-weather-status,
+html[data-dsh-theme] .dsh-today-forecast-kind {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-2xs);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-secondary);
+}
+html[data-dsh-theme] .dsh-today-forecast {
+  border-top: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  /* 页边注栏只有 240px，五天数字挤在一格必然重影（client 半单元格是 nowrap 定宽 flex）。
+     本轮整条收起，留作后续用 client 半重排成"日期 + 温度"两行竖排。 */
+  display: none;
+}
+html[data-dsh-theme] .dsh-today-forecast-day {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: var(--dsh-track-wide);
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] .dsh-today-calendar {
+  border-top-color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] .dsh-today-weekdays,
+html[data-dsh-theme] .dsh-today-days {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-2xs);
+  letter-spacing: var(--dsh-track-wide);
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* ── 8 · 侧栏树行：去掉底色带，回到纯线条目录 ─────────────────────────── */
+
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"] {
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"]:hover {
+  background-color: transparent;
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"] [class*="title"],
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"] [class*="name"] {
+  font-family: var(--dsh-font-display);
+  font-size: var(--dsh-text-sm);
+  letter-spacing: var(--dsh-track-normal);
+  color: var(--dsh-text-secondary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"]:hover [class*="title"],
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"]:hover [class*="name"] {
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"] svg {
+  opacity: .55;
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"]:hover svg {
+  opacity: .9;
+}
+
+/* ── 9 · 右栏细节：预报不撞字、今日用墨块 ───────────────────────────── */
+
+html[data-dsh-theme] .dsh-today-forecast-day {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dsh-space-1);
+}
+html[data-dsh-theme] .dsh-today-forecast {
+  gap: var(--dsh-space-2);
+}
+html[data-dsh-theme] .dsh-today-forecast [class*="temp"],
+html[data-dsh-theme] .dsh-today-forecast [class*="range"] {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  letter-spacing: 0;
+  font-variant-numeric: tabular-nums;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] .dsh-today-forecast [class*="hi"],
+html[data-dsh-theme] .dsh-today-forecast [class*="low"] {
+  display: inline-block;
+}
+html[data-dsh-theme] .dsh-today-days [class*="today"],
+html[data-dsh-theme] .dsh-today-days [aria-current] {
+  background: var(--dsh-text-primary);
+  color: var(--dsh-bg-base);
+  border-radius: 0;
+}
+html[data-dsh-theme] .dsh-today-calendar-actions button {
+  letter-spacing: var(--dsh-track-wide);
+}
+
+/* ── 10 · 入场：墨从左刷过 / 段落上浮（唯一缓动 expo-out）────────────── */
+
+@keyframes dsh-imprint-wipe {
+  from { clip-path: inset(0 100% 0 0); opacity: .2; }
+  to   { clip-path: inset(0 -2% 0 0); opacity: 1; }
+}
+@keyframes dsh-imprint-rise {
+  from { transform: translateY(var(--dsh-space-2)); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+html[data-dsh-theme] .dsh-today-intro {
+  animation: dsh-imprint-wipe var(--dsh-motion-slow) var(--dsh-ease-out) both;
+}
+html[data-dsh-theme] .dsh-today-title {
+  animation: dsh-imprint-wipe var(--dsh-motion-slow) var(--dsh-ease-out) both;
+  animation-delay: var(--dsh-stagger);
+}
+html[data-dsh-theme] .dsh-today-rail > * {
+  animation: dsh-imprint-rise var(--dsh-motion-base) var(--dsh-ease-out) both;
+}
+html[data-dsh-theme] .dsh-today-rail > *:nth-child(1) { animation-delay: calc(var(--dsh-stagger) * 6); }
+html[data-dsh-theme] .dsh-today-rail > *:nth-child(2) { animation-delay: calc(var(--dsh-stagger) * 8); }
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today) [data-composer-card] {
+  animation: dsh-imprint-rise var(--dsh-motion-base) var(--dsh-ease-out) both;
+  animation-delay: calc(var(--dsh-stagger) * 8);
+}
+html[data-dsh-theme] [class*="panelRow"],
+html[data-dsh-theme] [data-dsh-part="new-session"] {
+  animation: dsh-imprint-rise var(--dsh-motion-base) var(--dsh-ease-out) both;
+}
+html[data-dsh-theme] [class*="panelRow"]:nth-child(1) { animation-delay: calc(var(--dsh-stagger) * 1); }
+html[data-dsh-theme] [class*="panelRow"]:nth-child(2) { animation-delay: calc(var(--dsh-stagger) * 2); }
+html[data-dsh-theme] [class*="panelRow"]:nth-child(3) { animation-delay: calc(var(--dsh-stagger) * 3); }
+
+
+/* ── 11 · 收口修正 ─────────────────────────────────────────────────── */
+
+html[data-dsh-theme] .dsh-today-forecast-day {
+  min-width: 0;
+  overflow: hidden;
+}
+html[data-dsh-theme] .dsh-today-forecast-day > * {
+  display: block;
+  white-space: nowrap;
+  text-overflow: clip;
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"] {
+  min-height: var(--dsh-space-6);
+  padding-block: var(--dsh-space-1);
+}
+html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="Row"] [class*="title"] {
+  font-size: var(--dsh-text-xs);
+}
+
+
+/* ── 13 · 修：M12 场景大字在会话页压字 / 噪点吃字形 / 鲸鱼被墨线穿过 ──────── */
+
+/* M12 的整屏"生成中"大字（-webkit-text-stroke + opacity .12）在压印层里是噪音，
+   而且它盖在消息上方，会被误读成"文字重叠"。它的选择器比我们早先那条多一层
+   :not(:has(...))，所以这里用同形选择器（后写胜出）把它关掉。 */
+html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today))::before {
+  content: none;
+}
+
+/* 鲸鱼站在输入卡上沿：抬到双墨线之上，让它压住线而不是被线穿过。
+   （deepy 是带背景图的叶子元素，用 translate/z-index 不建包含块，安全） */
+html[data-dsh-theme] [data-composer-card] [data-dsh-part="deepy"] {
+  z-index: 4;
+  translate: 0 calc(-1 * var(--dsh-space-0-5));
+}
+
+
+/* ── 14 · 账户抽屉：侧栏底部的插件条目收进账号菜单 ─────────────────────────
+ * footArea 里除了账号行，还有两类由别的插件渲染的节点：footerActions（Remote 入口）
+ * 与一个无类名的包装 div（今日消费卡）。这里不搬 DOM——只把这两类节点改成 fixed：
+ * 平时不可见、不吃指针（侧栏底部只剩一行账号），账号菜单打开时叠成一条纸条，
+ * 排在原生菜单上方。位置由 client 半量出来的两个 CSS 变量决定。 */
+
+html[data-dsh-theme] [class*="footerActions"],
+html[data-dsh-theme] [class*="footArea"] > div:not([class]) {
+  position: fixed;
+  left: var(--dsh-space-2);
+  width: calc(var(--dsh-sidebar-width) - var(--dsh-space-4));
+  z-index: 60;
+  background: var(--dsh-bg-elevated);
+  border: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  translate: 0 var(--dsh-space-1);
+  transition: opacity var(--dsh-motion-hover) var(--dsh-ease-out),
+    translate var(--dsh-motion-hover) var(--dsh-ease-out),
+    visibility 0s linear var(--dsh-motion-hover);
+}
+html[data-dsh-theme] [class*="footerActions"] {
+  bottom: var(--drawer-actions-bottom, 64px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--dsh-space-3);
+  padding: var(--dsh-space-3);
+}
+html[data-dsh-theme] [class*="footArea"] > div:not([class]) {
+  bottom: var(--drawer-card-bottom, 64px);
+  padding: var(--dsh-space-2);
+  border-top: 0;
+}
+html[data-dsh-theme] [class*="footerActions"]::before {
+  content: '账户 · ACCOUNT';
+  display: block;
+  padding-bottom: var(--dsh-space-2);
+  border-bottom: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-label);
+  text-transform: uppercase;
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] body[data-dsh-account-drawer] [class*="footerActions"],
+html[data-dsh-theme] body[data-dsh-account-drawer] [class*="footArea"] > div:not([class]) {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  translate: 0 0;
+  transition: opacity var(--dsh-motion-hover) var(--dsh-ease-out),
+    translate var(--dsh-motion-hover) var(--dsh-ease-out),
+    visibility 0s;
+}
+html[data-dsh-theme] [class*="footArea"] {
+  border-top: 0;
+}
+
+/* ── 15 · 抽屉收口：Remote 保持单行；消费卡用它自己的样子，不再套第二层边框 ── */
+
+html[data-dsh-theme] [class*="footerActions"] [class*="RemoteSidebarEntry"] {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dsh-space-2);
+  width: 100%;
+}
+html[data-dsh-theme] [class*="footerActions"] [class*="RemoteSidebarEntry"] > button {
+  flex: 0 0 auto;
+  width: auto;
+}
+html[data-dsh-theme] [class*="footArea"] > div:not([class]) {
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+/* ── 16 · 抽屉收口二：容器回到 block（保住 Remote 条目的原样），消费卡用纸底 ── */
+
+html[data-dsh-theme] [class*="footerActions"] {
+  display: block;
+}
+html[data-dsh-theme] [class*="footerActions"] > * + * {
+  margin-top: var(--dsh-space-2);
+}
+html[data-dsh-theme] [class*="footerActions"] [class*="RemoteSidebarEntry"] {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--dsh-space-2);
+}
+html[data-dsh-theme] [class*="footArea"] > div:not([class]) {
+  background: var(--dsh-bg-elevated);
+  border: var(--dsh-space-px) solid var(--dsh-border-subtle);
+  padding: var(--dsh-space-2);
+}
+
+
+/* ── 17 · 报头与页签（收窄版）：只作用于会话头，刊名只写中文 ───────────────
+ * 教训：早先这些选择器是裸的 [class*=titleRow] / [class*=tabs]，命中了插件管理页的
+ * 同名类，导致每个插件名前面都被塞了一句刊名、还把行内布局挤成竖排。
+ * 现在全部收窄到会话头（titleCluster）与会话页签条（viewTabs）。 */
+
+html[data-dsh-theme] [class*="titleRow"]:has([class*="titleCluster"])::before {
+  content: '会话刊';
+  display: block;
+  margin-bottom: 0;
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-3xs);
+  letter-spacing: var(--dsh-track-label);
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] [class*="titleRow"]:has([class*="titleCluster"]) {
+  align-items: baseline;
+  gap: var(--dsh-space-2);
+}
+html[data-dsh-theme] [class*="viewTabs"] {
+  gap: var(--dsh-space-5);
+  border-bottom: var(--dsh-space-px) solid var(--dsh-rule-hairline);
+  padding-inline: 0;
+}
+html[data-dsh-theme] [class*="viewTabs"] [class*="tabLabel"] {
+  font-family: var(--dsh-font-label);
+  font-size: var(--dsh-text-3xs);
+  line-height: var(--dsh-lh-2xs);
+  letter-spacing: var(--dsh-track-label);
+  color: var(--dsh-text-tertiary);
+}
+html[data-dsh-theme] [class*="viewTabs"] [class*="tabActive"] {
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [class*="viewTabs"] [class*="tabActive"] [class*="tabLabel"] {
+  color: var(--dsh-text-primary);
+}
+html[data-dsh-theme] [class*="viewTabs"] [class*="tab"]:hover [class*="tabLabel"] {
+  color: var(--dsh-text-secondary);
+}
+/* ── 18 · 正文行高锁死（M12 同名规则是三条属性选择器，这里多一层 [data-chat-flow-kind]）── */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind] [class*="markdown"] {
+  font-size: var(--dsh-text-read);
+  line-height: var(--dsh-lh-read);
+}
+
+
+/* ── 19 · 消息流与输入卡之间留出安全距离 ─────────────────────────────────
+ * 输入卡的顶部双墨线是版面上最重的一根线；消息流最后一条的「操作行 + 悬停提示」
+ * 如果贴着它，看起来就像压在线上（用户报：复制提示叠到墨线上）。
+ * 给滚动内容末尾补 24px，滚到底时最后一条内容与卡顶保持 40px。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [class*="viewArea"] {
+  padding-bottom: var(--dsh-space-5);
+}
+
+
+/* ── 20 · 纸面：把纹理画在表面自身的背景上（在文字之下，不碰字形）──────────
+ * 参考 rinDBeans/dsh-nocturne 的判断：一层均匀噪声不等于纸，纸要有「结构 + 光」。
+ * 这里用两张程序化 SVG（feDiffuseLighting 斜光浮雕的纸齿 + 超低频云斑）作为背景层：
+ *   · 浅色 multiply（压暗到 0.84 一带）——冷压水彩纸的齿感；
+ *   · 夜版 screen（只取 0~0.085 的暗纹理）——在暗纸上「提亮一点点」，不是糊一层灰。
+ * 因为画在背景上，字形永远是干净的黑/白，不会被颗粒吃掉。 */
+
+html[data-dsh-theme] [class*="sidebarCol"] {
+  background-image: var(--dsh-paper-tooth), var(--dsh-paper-mottle),
+    radial-gradient(120% 90% at 28% -12%, var(--dsh-paper-sheen), transparent 58%),
+    radial-gradient(110% 100% at 102% 104%, var(--dsh-paper-shade), transparent 62%);
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
+  background-size: var(--dsh-paper-tile) var(--dsh-paper-tile),
+    calc(var(--dsh-paper-tile) * 2) calc(var(--dsh-paper-tile) * 2), auto, auto;
+  background-blend-mode: var(--dsh-paper-blend), var(--dsh-paper-blend), screen, multiply;
+}
+
+
+/* ── 21 · 纸的「光」：纹理之外还得有光，纸才立得住 ────────────────────────
+ * 层序（从上层到底层）：纸齿 → 云斑 → 左上高光 → 右下暗角 → 纸色。
+ * 混合：纹理按主题 multiply / screen；高光 screen（提亮）；暗角 multiply（压暗）。
+ * 选择器写成双属性是为了压过 M12 的场景规则（它带 :has / :not，同权重靠后写胜出）。 */
+
+html[data-dsh-theme] [data-conversation-region="chat"][data-conversation-region] {
+  background-image: var(--dsh-paper-tooth), var(--dsh-paper-mottle),
+    radial-gradient(120% 90% at 28% -12%, var(--dsh-paper-sheen), transparent 58%),
+    radial-gradient(110% 100% at 102% 104%, var(--dsh-paper-shade), transparent 62%);
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
+  background-size: var(--dsh-paper-tile) var(--dsh-paper-tile),
+    calc(var(--dsh-paper-tile) * 2) calc(var(--dsh-paper-tile) * 2), auto, auto;
+  background-blend-mode: var(--dsh-paper-blend), var(--dsh-paper-blend), screen, multiply;
+}
+
+
+
+/* ── 22 · 纸面铺满全站：不再只罩聊天区 ───────────────────────────────────
+ * 把四层叠法抽成内部变量（纹理 / 尺寸 / 平铺 / 混合），所有曲面共用一套，
+ * 于是"纸"是同一个材质，不会出现主区有纸、弹层是平塑料的割裂。
+ * 需要"一张纸盖在另一张纸上"的曲面（菜单、卡片、输入卡）额外补纸色。 */
+
+html[data-dsh-theme] body {
+  --paper-image: var(--dsh-paper-tooth), var(--dsh-paper-mottle),
+    radial-gradient(120% 90% at 28% -12%, var(--dsh-paper-sheen), transparent 58%),
+    radial-gradient(110% 100% at 102% 104%, var(--dsh-paper-shade), transparent 62%);
+  --paper-size: var(--dsh-paper-tile) var(--dsh-paper-tile),
+    calc(var(--dsh-paper-tile) * 2) calc(var(--dsh-paper-tile) * 2), auto, auto;
+  --paper-repeat: repeat, repeat, no-repeat, no-repeat;
+  --paper-blend: var(--dsh-paper-blend), var(--dsh-paper-blend), screen, multiply;
+}
+
+/* ① 基底曲面：侧栏与主区（纸色沿用各自的底色） */
+html[data-dsh-theme] [class*="sidebarCol"],
+html[data-dsh-theme] [data-conversation-region="chat"][data-conversation-region] {
+  background-image: var(--paper-image);
+  background-size: var(--paper-size);
+  background-repeat: var(--paper-repeat);
+  background-blend-mode: var(--paper-blend);
+}
+
+/* ② 浮在纸上的纸：输入卡、菜单、弹层、设置页、卡片、toast —— 补纸色再叠同一套 */
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card],
+html[data-dsh-theme] [role="menu"],
+html[data-dsh-theme] [class*="popover"],
+html[data-dsh-theme] [class*="dialog"],
+html[data-dsh-theme] [class*="toast"],
+html[data-dsh-theme] [class*="footCard"],
+html[data-dsh-theme] [class*="menuSurface"],
+html[data-dsh-theme] .dsh-today-weather,
+html[data-dsh-theme] .dsh-today-calendar {
+  background-color: var(--dsh-bg-surface);
+  background-image: var(--paper-image);
+  background-size: var(--paper-size);
+  background-repeat: var(--paper-repeat);
+  background-blend-mode: var(--paper-blend);
+}
+
+/* 输入卡要保留卡顶那条墨线：纸层在前，墨线作为最后一层（normal 混合） */
+html[data-dsh-theme] [data-conversation-region="composer"] [data-composer-card] {
+  background-image: var(--dsh-paper-tooth), var(--dsh-paper-mottle),
+    radial-gradient(120% 90% at 28% -12%, var(--dsh-paper-sheen), transparent 58%),
+    radial-gradient(110% 100% at 102% 104%, var(--dsh-paper-shade), transparent 62%),
+    linear-gradient(to bottom, var(--dsh-text-primary) 0 var(--dsh-space-px), transparent var(--dsh-space-px));
+  background-size: var(--dsh-paper-tile) var(--dsh-paper-tile),
+    calc(var(--dsh-paper-tile) * 2) calc(var(--dsh-paper-tile) * 2), auto, auto, 100% var(--dsh-space-px);
+  background-repeat: repeat, repeat, no-repeat, no-repeat, no-repeat;
+  background-position: 0 0, 0 0, 0 0, 0 0, 0 var(--dsh-space-1);
+  background-blend-mode: var(--dsh-paper-blend), var(--dsh-paper-blend), screen, multiply, normal;
+}
+
+
+/* ── 23 · 纸铺到"页"这一层：插件页 / 设置页 / 任何视图都同一张纸 ─────────────
+ * 之前只铺 [chat] 与 sidebar：聊天区有纸、插件页是平色 → 割裂。
+ * 改为铺 shell 的两根柱子：侧栏 sidebarCol + 主列 centerCol；聊天区自己让出底色，
+ * 让主列的纸透上来（避免纸叠纸变深）。 */
+
+html[data-dsh-theme] [class*="sidebarCol"],
+html[data-dsh-theme] [class*="centerCol"] {
+  background-image: var(--paper-image);
+  background-size: var(--paper-size);
+  background-repeat: var(--paper-repeat);
+  background-blend-mode: var(--paper-blend);
+}
+
+/* 聊天区让出底色与背景：纸由 centerCol 提供，这里只保留自己的排版 */
+html[data-dsh-theme] [data-conversation-region="chat"][data-conversation-region] {
+  background-color: transparent;
+  background-image: none;
+}
+
+
+/* ── 24 · 纸面收口：直接把四层写在选择器上（变量间接层在部分容器上没生效） ── */
+
+html[data-dsh-theme] [class*="sidebarCol"],
+html[data-dsh-theme] [class*="centerCol"] {
+  background-image: var(--dsh-paper-tooth), var(--dsh-paper-mottle),
+    radial-gradient(120% 90% at 28% -12%, var(--dsh-paper-sheen), transparent 58%),
+    radial-gradient(110% 100% at 102% 104%, var(--dsh-paper-shade), transparent 62%);
+  background-size: var(--dsh-paper-tile) var(--dsh-paper-tile),
+    calc(var(--dsh-paper-tile) * 2) calc(var(--dsh-paper-tile) * 2), auto, auto;
+  background-repeat: repeat, repeat, no-repeat, no-repeat;
+  background-blend-mode: var(--dsh-paper-blend), var(--dsh-paper-blend), screen, multiply;
+}
+
+
+/* ── 25 · 让壳自己的不透明包装层让出底色（纸才透得上来）───────────────────
+ * 实测：paper 铺在 sidebarCol / centerCol 上，但壳在这两根柱子里各有一层不透明底色
+ * （侧栏 wtg9ga_root、会话 an3WzG_root），把纸整块盖住了——这就是"看着不像纸"的原因。
+ * 这两层是纯包装，让它们透明即可；内容自己的底色不动。 */
+
+html[data-dsh-theme] [class*="wtg9ga_root"],
+html[data-dsh-theme] [class*="an3WzG_root"] {
+  background-color: transparent;
+}
+

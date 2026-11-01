@@ -35,6 +35,14 @@ export const name = 'dsh-theme'
 export const inject = ['webServer']
 
 const ROUTE_PREFIX = '/api/dsh-theme'
+const WEATHER_ROUTE = ROUTE_PREFIX + '/weather'
+const WEATHER_LOCATIONS_ROUTE = WEATHER_ROUTE + '/locations'
+const WEATHER_LOCATION_ROUTE = WEATHER_ROUTE + '/location'
+// 仅作首次默认值；用户选择后持久化到 $DSH_HOME/dsh-theme/weather-location.json。
+const DEFAULT_WEATHER_LOCATION = Object.freeze({ id: 'dongguan', name: '东莞', admin1: '广东省', country: '中国', latitude: 23.0207, longitude: 113.7518 })
+const GEOCODING_URL = 'https://geocoding-api.open-meteo.com/v1/search?count=6&language=zh&format=json&name='
+const WEATHER_CACHE_MS = 10 * 60 * 1000
+const WEATHER_TIMEOUT_MS = 8000
 /** 默认状态：插件启用时主题默认 ON（M5 功能契约）。 */
 const DEFAULT_ENABLED = true
 /** 构建产物，与 lib/client.js 相对定位；插件自注入时不依赖 skin-center。 */
@@ -106,6 +114,61 @@ export function resolveIconAsset(rawSegment, baseDir = ICON_ASSET_DIR) {
   return { ok: true, name, file, contentType: 'application/json; charset=utf-8' }
 }
 
+function weatherUrl(location) {
+  const query = new URLSearchParams({
+    latitude: String(location.latitude), longitude: String(location.longitude),
+    current: 'temperature_2m,weather_code',
+    daily: 'weather_code,temperature_2m_max,temperature_2m_min',
+    forecast_days: '5', timezone: 'auto',
+  })
+  return 'https://api.open-meteo.com/v1/forecast?' + query.toString()
+}
+
+/** 校验并规范化城市级地点；不接受精确坐标外的额外字段。 */
+export function normalizeLocation(input) {
+  const name = typeof input?.name === 'string' ? input.name.trim() : ''
+  const admin1 = typeof input?.admin1 === 'string' ? input.admin1.trim() : ''
+  const country = typeof input?.country === 'string' ? input.country.trim() : ''
+  const latitude = Number(input?.latitude)
+  const longitude = Number(input?.longitude)
+  if (!name || name.length > 80 || admin1.length > 80 || country.length > 80) throw new Error('invalid-location-name')
+  if (!Number.isFinite(latitude) || latitude < -90 || latitude > 90 || !Number.isFinite(longitude) || longitude < -180 || longitude > 180) {
+    throw new Error('invalid-location-coordinates')
+  }
+  const location = { name, admin1, country, latitude, longitude }
+  if (input?.id !== undefined && input?.id !== null) location.id = String(input.id)
+  return location
+}
+
+export function normalizeGeocoding(payload) {
+  if (!Array.isArray(payload?.results)) throw new Error('malformed-geocoding-response')
+  return payload.results.slice(0, 6).map(normalizeLocation)
+}
+
+/** 把 Open-Meteo 响应收敛成工作台需要的只读契约；异常 payload 直接拒绝。 */
+export function normalizeWeather(payload, location = DEFAULT_WEATHER_LOCATION) {
+  const temperature = Number(payload?.current?.temperature_2m)
+  const weatherCode = Number(payload?.current?.weather_code)
+  if (!Number.isFinite(temperature) || !Number.isFinite(weatherCode)) throw new Error('malformed current weather')
+  const daily = payload?.daily
+  if (!Array.isArray(daily?.time) || !Array.isArray(daily?.weather_code)) throw new Error('malformed daily weather')
+  const days = daily.time.slice(0, 5).map((date, index) => ({
+    date,
+    weatherCode: Number(daily.weather_code[index]),
+    max: Math.round(Number(daily.temperature_2m_max?.[index])),
+    min: Math.round(Number(daily.temperature_2m_min?.[index])),
+  }))
+  if (days.length === 0 || days.some((day) => !day.date || !Number.isFinite(day.weatherCode) || !Number.isFinite(day.max) || !Number.isFinite(day.min))) {
+    throw new Error('incomplete daily weather')
+  }
+  return {
+    city: location.name,
+    location,
+    current: { temperature: Math.round(temperature), weatherCode },
+    daily: days,
+  }
+}
+
 /** $DSH_HOME，缺省 ~/.dsh。与 dsh-claude-style 的 harness-home 同口径。 */
 function harnessHome(ctx) {
   const resolvePath = typeof ctx?.get === 'function' ? ctx.get('dshHomePath') : undefined
@@ -114,6 +177,22 @@ function harnessHome(ctx) {
 }
 function stateFile(ctx) {
   return path.join(harnessHome(ctx), 'dsh-theme', 'state.json')
+}
+function weatherLocationFile(ctx) {
+  return path.join(harnessHome(ctx), 'dsh-theme', 'weather-location.json')
+}
+export function readWeatherLocation(ctx) {
+  try { return normalizeLocation(JSON.parse(fs.readFileSync(weatherLocationFile(ctx), 'utf8'))) }
+  catch { return { ...DEFAULT_WEATHER_LOCATION } }
+}
+export function writeWeatherLocation(ctx, input) {
+  const location = normalizeLocation(input)
+  const file = weatherLocationFile(ctx)
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  const tmp = file + '.tmp'
+  fs.writeFileSync(tmp, JSON.stringify({ ...location, updatedAt: new Date().toISOString() }, null, 2) + '\n', 'utf8')
+  fs.renameSync(tmp, file)
+  return location
 }
 
 /**
@@ -181,6 +260,42 @@ export function apply(ctx) {
   try {
     ctx.effect(() => {
       const disposers = []
+      let weatherCache = null
+      let weatherPending = null
+      async function loadWeather() {
+        const location = readWeatherLocation(ctx)
+        const key = [location.name, location.latitude, location.longitude].join('|')
+        if (weatherCache && weatherCache.key === key && Date.now() - weatherCache.at < WEATHER_CACHE_MS) return weatherCache.value
+        if (weatherPending) return weatherPending
+        weatherPending = (async () => {
+          const controller = new AbortController()
+          const timer = setTimeout(() => controller.abort(), WEATHER_TIMEOUT_MS)
+          try {
+            const response = await fetch(weatherUrl(location), { signal: controller.signal, headers: { accept: 'application/json' } })
+            if (!response.ok) throw new Error('Open-Meteo HTTP ' + response.status)
+            const value = { ...normalizeWeather(await response.json(), location), updatedAt: new Date().toISOString(), stale: false }
+            weatherCache = { at: Date.now(), key, value }
+            return value
+          } catch (error) {
+            // 只有同一地点的旧数据才可降级为 stale；换地点后绝不展示旧城市。
+            if (weatherCache && weatherCache.key === key) return { ...weatherCache.value, stale: true }
+            throw error
+          } finally {
+            clearTimeout(timer)
+            weatherPending = null
+          }
+        })()
+        return weatherPending
+      }
+      async function searchWeatherLocations(query) {
+        const controller = new AbortController()
+        const timer = setTimeout(() => controller.abort(), WEATHER_TIMEOUT_MS)
+        try {
+          const response = await fetch(GEOCODING_URL + encodeURIComponent(query), { signal: controller.signal, headers: { accept: 'application/json' } })
+          if (!response.ok) throw new Error('Open-Meteo geocoding HTTP ' + response.status)
+          return normalizeGeocoding(await response.json())
+        } finally { clearTimeout(timer) }
+      }
       try {
         disposers.push(ctx.webServer.register({
           kind: 'exact',
@@ -202,6 +317,56 @@ export function apply(ctx) {
               return
             }
             writeJson(res, 405, { ok: false, error: 'method-not-allowed' })
+          },
+        }))
+        disposers.push(ctx.webServer.register({
+          kind: 'exact',
+          path: WEATHER_ROUTE,
+          handler: async (req, res) => {
+            if (req.method !== 'GET') { writeJson(res, 405, { ok: false, error: 'method-not-allowed' }); return }
+            try { writeJson(res, 200, { ok: true, ...await loadWeather() }) }
+            catch (error) {
+              console.error('[dsh-theme] weather unavailable:', error)
+              writeJson(res, 503, { ok: false, error: 'weather-unavailable' })
+            }
+          },
+        }))
+        disposers.push(ctx.webServer.register({
+          kind: 'exact',
+          path: WEATHER_LOCATIONS_ROUTE,
+          handler: async (req, res) => {
+            if (req.method !== 'GET') { writeJson(res, 405, { ok: false, error: 'method-not-allowed' }); return }
+            const query = String(new URL(req.url ?? '/', 'http://x').searchParams.get('q') ?? '').trim()
+            if (!query || query.length > 64) { writeJson(res, 400, { ok: false, error: 'invalid-location-query' }); return }
+            try {
+              const results = await searchWeatherLocations(query)
+              if (results.length === 0) { writeJson(res, 404, { ok: false, error: 'location-not-found' }); return }
+              writeJson(res, 200, { ok: true, results })
+            } catch (error) {
+              console.error('[dsh-theme] location search unavailable:', error)
+              writeJson(res, 503, { ok: false, error: 'location-search-unavailable' })
+            }
+          },
+        }))
+        disposers.push(ctx.webServer.register({
+          kind: 'exact',
+          path: WEATHER_LOCATION_ROUTE,
+          handler: async (req, res) => {
+            if (req.method === 'GET') { writeJson(res, 200, { ok: true, location: readWeatherLocation(ctx) }); return }
+            if (req.method !== 'POST') { writeJson(res, 405, { ok: false, error: 'method-not-allowed' }); return }
+            if (!sameOrigin(req)) { writeJson(res, 403, { ok: false, error: 'cross-origin' }); return }
+            const body = await readJsonBody(req)
+            let location
+            try { location = normalizeLocation(body) }
+            catch { writeJson(res, 400, { ok: false, error: 'invalid-location' }); return }
+            try {
+              writeWeatherLocation(ctx, location)
+              weatherCache = null
+              writeJson(res, 200, { ok: true, location })
+            } catch (error) {
+              console.error('[dsh-theme] location write failed:', error)
+              writeJson(res, 500, { ok: false, error: 'location-write-failed' })
+            }
           },
         }))
         disposers.push(ctx.webServer.register({

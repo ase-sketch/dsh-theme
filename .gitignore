@@ -2,6 +2,14 @@
 _agents-shots-tmp
 .agents/shots/_instance_url.txt
 
+# 验收截图与本地安装备份不入库：它们来自真实会话，含会话标题 / 工作区名 / 账号信息。
+# 需要图示时用 README 的 preview/（在独立 DSH_HOME 的空实例里拍）。
+.agents/shots/*.png
+.agents/shots/*.jpg
+.agents/shots/*.jpeg
+.agents/shots/*.json
+.agents/tmp/
+
 # 临时实验产物里的第三方包/压缩包（实验脚本与结果仍入库，见 .agents/tmp/m7-icons/）
 .agents/tmp/m7-icons/package/
 .agents/tmp/m7-icons/lucide-static-*.tgz
