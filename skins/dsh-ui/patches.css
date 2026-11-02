@@ -1263,6 +1263,14 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
   letter-spacing: var(--dsh-track-wide);
   color: var(--dsh-text-tertiary);
 }
+/* hidden="until-found" 仍保留 DOM 供查找唤醒；别让正文版心和页边注继续撑出空白。 */
+[data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])[hidden] {
+  display: block;
+  padding-block: 0;
+}
+[data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])[hidden]::before {
+  content: none;
+}
 [data-conversation-region="chat"] [class*="markdown"] {
   font-family: var(--dsh-font-display);
   font-size: var(--dsh-text-read);

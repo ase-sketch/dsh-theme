@@ -2093,6 +2093,14 @@ html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="as
   letter-spacing: var(--dsh-track-wide);
   color: var(--dsh-text-tertiary);
 }
+/* hidden="until-found" 仍保留 DOM 供查找唤醒；别让正文版心和页边注继续撑出空白。 */
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])[hidden] {
+  display: block;
+  padding-block: 0;
+}
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])[hidden]::before {
+  content: none;
+}
 html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] {
   font-family: var(--dsh-font-display);
   font-size: var(--dsh-text-read);
