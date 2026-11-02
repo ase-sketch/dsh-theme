@@ -560,13 +560,17 @@ const player2 = D.install(ctx)
 check('可重新 install（可逆）', typeof player2.dispose === 'function')
 player2.dispose()
 
-// ── 测试 4：异步请求途中卸载整个 effect ─────────────────────────────
-// 主题开关仍为 ON，但插件 effect 已销毁；旧回调只查开关，会把样式/图标层重新装回。
+// ── 测试 4：整个 effect 卸载可逆（含异步请求途中） ──────────────────
+// 主题开关仍为 ON，但插件 effect 已销毁；账户抽屉必须释放监听，旧回调也不得把样式/图标层重新装回。
 {
   const previousFetch = globalThis.fetch
   const previousMutationObserver = globalThis.MutationObserver
   const previousDocumentElement = T.doc.documentElement
   T.doc.documentElement = makeNode('html')
+  T.doc.documentElement.style = {
+    setProperty(name, value) { this[name] = value },
+    removeProperty(name) { delete this[name] },
+  }
   globalThis.MutationObserver = class { observe() {} disconnect() {} }
 
   let resolveCss
@@ -592,8 +596,12 @@ player2.dispose()
   check('effect ON 后样式请求已开始', cssRequested)
   check('effect ON 后图标请求已开始', iconsRequested)
   eq('effect body 返回卸载函数', typeof disposeEffect, 'function')
+  eq('effect ON 后账户抽屉挂上 click 监听', (T.doc._listeners.click || []).length, 1)
+  eq('effect ON 后账户抽屉挂上 keydown 监听', (T.doc._listeners.keydown || []).length, 1)
 
   disposeEffect()
+  eq('effect 卸载后账户抽屉 click 监听归零', (T.doc._listeners.click || []).length, 0)
+  eq('effect 卸载后账户抽屉 keydown 监听归零', (T.doc._listeners.keydown || []).length, 0)
   resolveCss({ ok: true, text: () => Promise.resolve('body { color: red }') })
   resolveIconMap({ ok: true, json: () => Promise.resolve({ icons: {} }) })
   resolveIconSet({ ok: true, json: () => Promise.resolve({ icons: {} }) })

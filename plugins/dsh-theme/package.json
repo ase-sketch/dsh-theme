@@ -1,9 +1,12 @@
 {
   "name": "dsh-theme",
   "version": "0.1.0",
-  "description": "dsh-ui 设计规范皮肤插件：自包含样式注入 + 设置面板开关（开关状态由 host 半落盘）",
+  "description": "DeepSeek Harness 压印主题：纸面质感、今日工作台、Deepy 状态精灵与 Lucide 图标层。",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "dsh": ">=0.1.7"
+  },
   "main": "host/index.js",
   "exports": {
     ".": "./host/index.js",
@@ -11,9 +14,6 @@
     "./package.json": "./package.json"
   },
   "dsh": {
-    "engines": {
-      "dsh": ">=0.1.7"
-    },
     "bundle": {
       "patch": "./cordis.patch.yml"
     },

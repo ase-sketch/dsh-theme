@@ -48,9 +48,15 @@
 
 ### 方式 A · 作为 Bundle 插件
 
-1. 在目标 profile 里装入本仓库的 `plugins/dsh-theme`（`file:` 依赖即可）；
-2. 该包自带 `cordis.patch.yml`，会把 client 半插进 web roster；把 `dsh-theme` 加进 profile 的 `bundles`；
-3. 打开 DSH → **设置 → dsh-theme 主题**，开关即时生效，状态跨重启保留。
+1. 在本仓库根目录运行 `node scripts/build-skin.mjs`，确认插件样式产物已生成；
+2. 桌面端在 **Plugins** 页面添加本仓库的 `plugins/dsh-theme` 包目录。独立 CLI profile 也可使用插件管理命令（路径必须是绝对路径）：
+
+   ```bash
+   dsh plugin --profile <profile> add "file:/absolute/path/to/dsh-theme/plugins/dsh-theme"
+   ```
+
+   管理器会读取包自带的 `cordis.patch.yml` 并选择 bundle，无需手工编辑 profile 的依赖或 bundles。本地开发需要保留源码链接时，把 `file:` 换成 `link:`。
+3. 按管理结果等待热应用；若提示 `restart-required`，重启 DSH。随后打开 **设置 → dsh-theme 主题**，开关即时生效，状态跨重启保留。
 
 > 插件激活时会把皮肤中心切回官方默认，避免双重注入。与 `dsh-claude-style` 存在全屏视觉冲突，二者只开其一。
 

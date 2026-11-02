@@ -2740,7 +2740,7 @@ window.__ModuleLoader__.load({
         react.createElement(
           'p',
           { style: { margin: 0, fontSize: '13px', color: 'var(--dsw-alias-label-tertiary)' } },
-          '按 dsh-ui 设计规范注入皮肤（蓝调画布 · 纯白卡片 · DeepSeek 品牌蓝）。关闭后立即还原官方外观，面板保留。'
+          '以纸纹、发丝线与留白重排界面，包含今日工作台、Deepy 与 Lucide 图标。关闭后立即还原官方外观，面板保留。'
         ),
         react.createElement(
           'label',
@@ -3042,6 +3042,7 @@ window.__ModuleLoader__.load({
           syncDeepy(false)
           syncIcons(false)
           syncHooks(false)
+          syncAccount(false)
         }
       }, 'dsh-theme: skin injection + settings panel')
     }
