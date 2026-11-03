@@ -35,9 +35,12 @@ function grain({ size = 512, fx = 0.009, octaves = 3, slope, intercept, seed = 7
   return enc("<svg xmlns='http://www.w3.org/2000/svg' width='" + size + "' height='" + size + "'>" + f + "<rect width='" + size + "' height='" + size + "' filter='url(#m)'/></svg>")
 }
 
+// 2026-11-03「纸质感再强一档」：实测 1:1 对照，浅色 0.032/s3 在真机几乎看不出来；
+// 抬到 0.075/s5 才是冷压水彩纸的齿感（约 2.4 倍），再往上 0.10 就粗得抢字了。
+// 夜纸走 screen，靠亮度抬升而不是压暗，所以数值单列（0.062 / 0.05），不然会糊成灰。
 const PAPER = {
-  '--dsh-paper-tooth': [relief({ slope: 0.032, intercept: 0.968 }), relief({ slope: 0.03, intercept: 0.0 })],
-  '--dsh-paper-mottle': [grain({ slope: 0.03, intercept: 0.97 }), grain({ slope: 0.022, intercept: 0.0 })],
+  '--dsh-paper-tooth': [relief({ scale: 5, slope: 0.075, intercept: 0.925 }), relief({ scale: 5, slope: 0.062, intercept: 0.0 })],
+  '--dsh-paper-mottle': [grain({ slope: 0.065, intercept: 0.935 }), grain({ slope: 0.05, intercept: 0.0 })],
 }
 
 const html = fs.readFileSync(PREVIEW, 'utf8')
