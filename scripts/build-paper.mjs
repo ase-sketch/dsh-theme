@@ -15,11 +15,11 @@ import fs from 'node:fs'
 const PREVIEW = 'design/preview.html'
 const enc = (svg) => 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '")'
 
-function relief({ size = 256, fx = 0.22, octaves = 5, scale = 3.0, slope, intercept, az = 235, el = 52, seed = 1 }) {
+function relief({ size = 256, fx = 0.22, octaves = 5, scale = 3.0, slope, intercept, az = 235, el = 52, seed = 1, light = 'white' }) {
   const f = [
     "<filter id='t' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'>",
     "<feTurbulence type='fractalNoise' baseFrequency='" + fx + "' numOctaves='" + octaves + "' seed='" + seed + "' stitchTiles='stitch' result='n'/>",
-    "<feDiffuseLighting in='n' surfaceScale='" + scale + "' diffuseConstant='1' lighting-color='white' result='l'><feDistantLight azimuth='" + az + "' elevation='" + el + "'/></feDiffuseLighting>",
+    "<feDiffuseLighting in='n' surfaceScale='" + scale + "' diffuseConstant='1' lighting-color='" + light + "' result='l'><feDistantLight azimuth='" + az + "' elevation='" + el + "'/></feDiffuseLighting>",
     "<feComponentTransfer><feFuncR type='linear' slope='" + slope + "' intercept='" + intercept + "'/><feFuncG type='linear' slope='" + slope + "' intercept='" + intercept + "'/><feFuncB type='linear' slope='" + slope + "' intercept='" + intercept + "'/><feFuncA type='linear' slope='0' intercept='1'/></feComponentTransfer>",
     "</filter>"].join('')
   return enc("<svg xmlns='http://www.w3.org/2000/svg' width='" + size + "' height='" + size + "'>" + f + "<rect width='" + size + "' height='" + size + "' filter='url(#t)'/></svg>")
@@ -35,12 +35,23 @@ function grain({ size = 512, fx = 0.009, octaves = 3, slope, intercept, seed = 7
   return enc("<svg xmlns='http://www.w3.org/2000/svg' width='" + size + "' height='" + size + "'>" + f + "<rect width='" + size + "' height='" + size + "' filter='url(#m)'/></svg>")
 }
 
-// 2026-11-03「纸质感再强一档」：实测 1:1 对照，浅色 0.032/s3 在真机几乎看不出来；
-// 抬到 0.075/s5 才是冷压水彩纸的齿感（约 2.4 倍），再往上 0.10 就粗得抢字了。
-// 夜纸走 screen，靠亮度抬升而不是压暗，所以数值单列（0.062 / 0.05），不然会糊成灰。
+// 纸纹强度调参史（都是真机 1:1 比对后定的，别再凭感觉抬）：
+//   · 0.032 / fx 0.22：M13.3 初版，观感接近平色——"几乎不像纸"。
+//   · 0.075 / fx 0.22：用户要"更强"，上机后反馈"不如之前好看，配色被吃掉了"。
+//     复盘：颗粒粗（fx 0.22 ≈ 4px 一团）+ 云斑 .065，在奶油底上会被读成旧纸/污渍，
+//     不是"纸更厚"，而是"纸更脏"。强度不是问题，**频率**才是。
+//   · 现在：fx 0.38 把齿变细，强度只到 0.06；云斑压到 0.018（只留自然不匀）。
+//     另外给斜光一盏暖白（#FFF6E6），纸齿的暗部带一点暖，不再把奶油底往灰里拉。
+// 夜纸走 screen，靠亮度抬升而不是压暗，所以数值单列，不然会糊成灰。
 const PAPER = {
-  '--dsh-paper-tooth': [relief({ scale: 5, slope: 0.075, intercept: 0.925 }), relief({ scale: 5, slope: 0.062, intercept: 0.0 })],
-  '--dsh-paper-mottle': [grain({ slope: 0.065, intercept: 0.935 }), grain({ slope: 0.05, intercept: 0.0 })],
+  // 截距不是"随便留一点白"：feDiffuseLighting 的输出均值约 0.85，按 slope+intercept 折算，
+  // 旧版 0.94 的截距会让整页平均掉 9 级亮度（实测 241.9 → 232.9），奶油底就"脏"了。
+  // 现在取 0.95 / 0.985，让两层贴图的均值都落回 1.0 附近——纸纹只做局部起伏，不再整体压暗。
+  '--dsh-paper-tooth': [
+    relief({ fx: 0.38, scale: 5, slope: 0.06, intercept: 0.95, light: '#FFF6E6' }),
+    relief({ fx: 0.38, scale: 5, slope: 0.05, intercept: 0.0, light: '#FFF6E6' }),
+  ],
+  '--dsh-paper-mottle': [grain({ slope: 0.018, intercept: 0.985 }), grain({ slope: 0.02, intercept: 0.0 })],
 }
 
 const html = fs.readFileSync(PREVIEW, 'utf8')
