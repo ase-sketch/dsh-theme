@@ -1,6 +1,6 @@
 {
   "name": "dsh-theme",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "DeepSeek Harness 压印主题：纸面质感、今日工作台、Deepy 状态精灵与 Lucide 图标层。",
   "type": "module",
   "license": "MIT",
