@@ -1160,7 +1160,7 @@ html[data-dsh-theme] [data-conversation-region="chat"]::after {
 
 /* M11.1 · 今日工作台场景：明暗各自材质，共享「低频光影 + 微粒 + 边缘收束」。
    仅新会话移除规则网格；消息流继续使用上方的编辑室网格，避免全局观感反复。 */
-html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today) {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="hero"], [data-content-phase="blank"]) {
   background-color: var(--dsh-scene-bg-start);
   background-image: radial-gradient(120% 92% at 50% 42%, transparent 55%, var(--dsh-scene-vignette) 100%),
     radial-gradient(72% 58% at 92% 4%, var(--dsh-scene-light-cold), transparent 70%),
@@ -1169,11 +1169,11 @@ html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today) {
   background-size: auto;
   animation: none;
 }
-html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today)::after {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="hero"], [data-content-phase="blank"])::after {
   opacity: var(--dsh-scene-grain);
   mix-blend-mode: soft-light;
 }
-html[data-dsh-theme] [data-conversation-region="chat"]:has(.dsh-today)::before {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="hero"], [data-content-phase="blank"])::before {
   content: none;
 }
 
@@ -1632,7 +1632,7 @@ html[data-dsh-theme] ::-webkit-scrollbar-thumb {
 
 /* ── M12 · 活字剧场：消息 / 工具 / 侧栏 / 输入区共享的沉浸场景 ───────────── */
 /* 活跃会话与新会话使用同一材质，但场景大字只由真实生成状态驱动。 */
-html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today)) {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="active"], [data-content-phase="settling"]) {
   background-color: var(--dsh-scene-bg-start);
   background-image: radial-gradient(120% 92% at 50% 42%, transparent 60%, var(--dsh-scene-vignette) 100%),
     radial-gradient(85% 62% at 100% 0%, var(--dsh-scene-light-cold), transparent 70%),
@@ -1641,11 +1641,11 @@ html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today)) {
   background-size: auto;
   animation: none;
 }
-html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today))::after {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="active"], [data-content-phase="settling"])::after {
   opacity: var(--dsh-scene-grain);
   mix-blend-mode: soft-light;
 }
-html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today))::before {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="active"], [data-content-phase="settling"])::before {
   content: attr(data-dsh-scene-label);
   position: absolute;
   top: var(--dsh-space-4);
@@ -2069,7 +2069,7 @@ html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind="use
 }
 
 /* 助手正文：17 / 32，两端对齐，页边注放“助手”与序号。 */
-html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"]) {
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"][data-chat-group-part="response"] {
   display: grid;
   grid-template-columns: var(--dsh-gutter-note) minmax(0, 1fr);
   column-gap: var(--dsh-space-5);
@@ -2077,11 +2077,11 @@ html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="as
   width: 100%;
   margin-inline: auto;
 }
-html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"]) > * {
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"][data-chat-group-part="response"] > * {
   grid-column: 2;
   min-width: 0;
 }
-html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])::before {
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"][data-chat-group-part="response"]::before {
   content: '—' '\A 助手';
   white-space: pre;
   grid-column: 1;
@@ -2094,11 +2094,11 @@ html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="as
   color: var(--dsh-text-tertiary);
 }
 /* hidden="until-found" 仍保留 DOM 供查找唤醒；别让正文版心和页边注继续撑出空白。 */
-html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])[hidden] {
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"][data-chat-group-part="response"][hidden] {
   display: block;
   padding-block: 0;
 }
-html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"])[hidden]::before {
+html[data-dsh-theme] [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"][data-chat-group-part="response"][hidden]::before {
   content: none;
 }
 html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] {
@@ -2351,7 +2351,7 @@ html[data-dsh-theme] .dsh-folio {
  * client 半的样式在 theme.css 之后注入，同特异性下它会赢；这里的每条选择器都
  * 带着构建期加上的 html[data-dsh-theme] 前缀（+1 特异性），所以能稳定压过它。 */
 
-html[data-dsh-theme] [data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today) {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="hero"], [data-content-phase="blank"]) [class*="composerStack"] {
   max-width: calc(var(--dsh-content-max) + var(--dsh-menu-w) + var(--dsh-space-5));
   grid-template-columns: minmax(0, 1fr) calc(var(--dsh-menu-w) + var(--dsh-space-4));
   column-gap: var(--dsh-space-6);
@@ -2569,7 +2569,7 @@ html[data-dsh-theme] .dsh-today-rail > * {
 }
 html[data-dsh-theme] .dsh-today-rail > *:nth-child(1) { animation-delay: calc(var(--dsh-stagger) * 6); }
 html[data-dsh-theme] .dsh-today-rail > *:nth-child(2) { animation-delay: calc(var(--dsh-stagger) * 8); }
-html[data-dsh-theme] [data-conversation-region="chat"] [class*="composerStack"]:has(.dsh-today) [data-composer-card] {
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="hero"], [data-content-phase="blank"]) [class*="composerStack"] [data-composer-card] {
   animation: dsh-imprint-rise var(--dsh-motion-base) var(--dsh-ease-out) both;
   animation-delay: calc(var(--dsh-stagger) * 8);
 }
@@ -2606,8 +2606,8 @@ html[data-dsh-theme] [data-dsh-surface="sidebar"] [class*="listArea"] [class*="R
 
 /* M12 的整屏"生成中"大字（-webkit-text-stroke + opacity .12）在压印层里是噪音，
    而且它盖在消息上方，会被误读成"文字重叠"。它的选择器比我们早先那条多一层
-   :not(:has(...))，所以这里用同形选择器（后写胜出）把它关掉。 */
-html[data-dsh-theme] [data-conversation-region="chat"]:not(:has(.dsh-today))::before {
+   结构判断，本版统一用 data-content-phase；这里用同形选择器（后写胜出）把它关掉。 */
+html[data-dsh-theme] [data-conversation-region="chat"]:is([data-content-phase="active"], [data-content-phase="settling"])::before {
   content: none;
 }
 
@@ -2722,9 +2722,9 @@ html[data-dsh-theme] [class*="footArea"] > div:not([class]) {
 /* ── 17 · 报头与页签（收窄版）：只作用于会话头，刊名只写中文 ───────────────
  * 教训：早先这些选择器是裸的 [class*=titleRow] / [class*=tabs]，命中了插件管理页的
  * 同名类，导致每个插件名前面都被塞了一句刊名、还把行内布局挤成竖排。
- * 现在全部收窄到会话头（titleCluster）与会话页签条（viewTabs）。 */
+ * 现在全部收窄到会话头（conversation.session.header）与会话页签条（viewTabs）。 */
 
-html[data-dsh-theme] [class*="titleRow"]:has([class*="titleCluster"])::before {
+html[data-dsh-theme] [data-slot="conversation.session.header"] [class*="titleRow"]::before {
   content: '会话刊';
   display: block;
   margin-bottom: 0;
@@ -2734,7 +2734,7 @@ html[data-dsh-theme] [class*="titleRow"]:has([class*="titleCluster"])::before {
   letter-spacing: var(--dsh-track-label);
   color: var(--dsh-text-tertiary);
 }
-html[data-dsh-theme] [class*="titleRow"]:has([class*="titleCluster"]) {
+html[data-dsh-theme] [data-slot="conversation.session.header"] [class*="titleRow"] {
   align-items: baseline;
   gap: var(--dsh-space-2);
 }

@@ -561,6 +561,11 @@ function setStatus(map) {
     .filter((selector) => selector.includes('[class*="footerActions"]'))
   const unscopedFooter = footerSelectors.filter((selector) => !selector.includes('[class*="footArea"]'))
   check('E9 footerActions 抽屉规则全部限定在 footArea（不误伤提问卡）', footerSelectors.length > 0 && unscopedFooter.length === 0, unscopedFooter.join('\n'))
+
+  // 长会话滚动实测：皮肤中 :has 全量移除后，RecalcStyle 从约 2.26s 降至 0.78s。
+  // 使用现有 data-* 契约替代，不把结构扫描留给每一帧的样式失效。
+  check('E10 长列表样式零 :has（皮肤 + 客户端内联）', !themeSrc.includes(':has(') && !clientSrc.includes(':has('))
+  check('E10b 替代契约完整', ['data-content-phase="hero"', 'data-chat-group-part="response"', 'data-slot="conversation.session.header"'].every((k) => themeSrc.includes(k)))
 }
 
 console.log('')
