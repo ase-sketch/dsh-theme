@@ -180,7 +180,7 @@ body {
 
 /* M8 · 消息列编辑版心：官方 .xxx_column 用 --dsh-chat-content-width（shell 自有变量，
    由 --dsh-chat-user-width 的 clamp(680px, …, 920px) 算出），会随窗口在 680–920px 之间浮动。
-   设计要固定 720px 版心 → 直接覆盖 max-width（不走 shell 变量，避免发射保留名）。
+   设计采用 760–1000px 响应式版心 → 直接覆盖 max-width（不走 shell 变量，避免发射保留名）。
    特异性 (0,0,3,0) 压过官方 (0,0,1,0)。 */
 [data-conversation-region="chat"] [class*="column"][data-chat-flow] {
   max-width: var(--dsh-content-max);
@@ -1238,7 +1238,7 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
   margin-block: var(--dsh-space-2);
 }
 
-/* 助手正文：15.5 / 31，两端对齐，页边注放“助手”与序号。 */
+/* 助手正文：17 / 32，两端对齐，页边注放“助手”与序号。 */
 [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"]:has([class*="markdown"]) {
   display: grid;
   grid-template-columns: var(--dsh-gutter-note) minmax(0, 1fr);
@@ -1795,7 +1795,7 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
  * 平时不可见、不吃指针（侧栏底部只剩一行账号），账号菜单打开时叠成一条纸条，
  * 排在原生菜单上方。位置由 client 半量出来的两个 CSS 变量决定。 */
 
-[class*="footerActions"],
+[class*="footArea"] [class*="footerActions"],
 [class*="footArea"] > div:not([class]) {
   position: fixed;
   left: var(--dsh-space-2);
@@ -1811,7 +1811,7 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
     translate var(--dsh-motion-hover) var(--dsh-ease-out),
     visibility 0s linear var(--dsh-motion-hover);
 }
-[class*="footerActions"] {
+[class*="footArea"] [class*="footerActions"] {
   bottom: var(--drawer-actions-bottom, 64px);
   display: flex;
   flex-direction: column;
@@ -1823,7 +1823,7 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
   padding: var(--dsh-space-2);
   border-top: 0;
 }
-[class*="footerActions"]::before {
+[class*="footArea"] [class*="footerActions"]::before {
   content: '账户 · ACCOUNT';
   display: block;
   padding-bottom: var(--dsh-space-2);
@@ -1835,7 +1835,7 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
   text-transform: uppercase;
   color: var(--dsh-text-tertiary);
 }
-body[data-dsh-account-drawer] [class*="footerActions"],
+body[data-dsh-account-drawer] [class*="footArea"] [class*="footerActions"],
 body[data-dsh-account-drawer] [class*="footArea"] > div:not([class]) {
   visibility: visible;
   opacity: 1;
@@ -1851,14 +1851,14 @@ body[data-dsh-account-drawer] [class*="footArea"] > div:not([class]) {
 
 /* ── 15 · 抽屉收口：Remote 保持单行；消费卡用它自己的样子，不再套第二层边框 ── */
 
-[class*="footerActions"] [class*="RemoteSidebarEntry"] {
+[class*="footArea"] [class*="footerActions"] [class*="RemoteSidebarEntry"] {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   gap: var(--dsh-space-2);
   width: 100%;
 }
-[class*="footerActions"] [class*="RemoteSidebarEntry"] > button {
+[class*="footArea"] [class*="footerActions"] [class*="RemoteSidebarEntry"] > button {
   flex: 0 0 auto;
   width: auto;
 }
@@ -1870,13 +1870,13 @@ body[data-dsh-account-drawer] [class*="footArea"] > div:not([class]) {
 
 /* ── 16 · 抽屉收口二：容器回到 block（保住 Remote 条目的原样），消费卡用纸底 ── */
 
-[class*="footerActions"] {
+[class*="footArea"] [class*="footerActions"] {
   display: block;
 }
-[class*="footerActions"] > * + * {
+[class*="footArea"] [class*="footerActions"] > * + * {
   margin-top: var(--dsh-space-2);
 }
-[class*="footerActions"] [class*="RemoteSidebarEntry"] {
+[class*="footArea"] [class*="footerActions"] [class*="RemoteSidebarEntry"] {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;

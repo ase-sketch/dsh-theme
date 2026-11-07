@@ -553,6 +553,14 @@ function setStatus(map) {
   check('E8 注入 CSS 覆盖了三个交付点（hero 封面的结构规则在 Deepy 样式表里，见 render-layer M8-14~21）', ['data-dsh-streaming', 'dsh-flow-in', H.WIPE_ID].every((k) => cssText.indexOf(k) !== -1))
   check('E8b 朱砂光标 keyframes 在', cssText.indexOf('dsh-theme-caret') !== -1)
   eq('E8c 钩子样式里不再残留 hero 浮层规则（已改纵向块级，规则挪去 Deepy 样式表）', cssText.indexOf('dsh-hero-') === -1, true)
+
+  // 账户抽屉的 footerActions 只能落在 footArea 内；官方提问卡也使用同名 class，
+  // 裸选择器会把它的「跳过 / 提交」区设成 hidden + pointer-events:none。
+  const footerSelectors = [...themeSrc.matchAll(/([^{}]+)\{[^{}]*\}/g)]
+    .flatMap((m) => m[1].split(','))
+    .filter((selector) => selector.includes('[class*="footerActions"]'))
+  const unscopedFooter = footerSelectors.filter((selector) => !selector.includes('[class*="footArea"]'))
+  check('E9 footerActions 抽屉规则全部限定在 footArea（不误伤提问卡）', footerSelectors.length > 0 && unscopedFooter.length === 0, unscopedFooter.join('\n'))
 }
 
 console.log('')
