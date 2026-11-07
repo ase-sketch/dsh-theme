@@ -1021,6 +1021,17 @@ window.__ModuleLoader__.load({
         try { return el.querySelector(STREAM_SCROLL_SELECTOR) || el } catch (error) { return el }
       }
 
+      /** 0.2.2 起外层 flowItem 与内层根可能同时携带 flow key；只观察最外层，
+       * 否则同一条消息会叠加两遍容器动画，并在滚动时制造双倍样式失效。 */
+      function flowNested(node) {
+        var parent = node && node.parentNode
+        while (parent) {
+          if (parent.nodeType === 1 && typeof parent.hasAttribute === 'function' && parent.hasAttribute('data-chat-flow-key')) return true
+          parent = parent.parentNode
+        }
+        return false
+      }
+
       /** 把新出现的消息项交给观察器；已观察过的不重复 observe。 */
       function observeFlows() {
         var root = flowRoot()
@@ -1036,7 +1047,7 @@ window.__ModuleLoader__.load({
         var nodes
         try { nodes = root.querySelectorAll(FLOW_ITEM_SELECTOR) } catch (error) { return }
         for (var i = 0; i < nodes.length; i += 1) {
-          if (flowSeen.has(nodes[i])) continue
+          if (flowNested(nodes[i]) || flowSeen.has(nodes[i])) continue
           flowSeen.add(nodes[i])
           try { flowObserver.observe(nodes[i]) } catch (error) { /* 单个节点失败不连累其余 */ }
         }
@@ -1939,6 +1950,7 @@ window.__ModuleLoader__.load({
       var frameIndex = 0
       var rafId = null
       var lastFrameAt = 0
+      var lastTickAt = 0              // 完整循环节拍：素材只有 20fps，不随 120/165Hz 屏幕空转
       // Route A：DOM 由 slot 的 React 组件拥有。我们只在渲染时从 ref 拿到
       // sprite 节点往它身上写 style —— 不再手动 appendChild 进 React 容器
       //（切会话时 React 会清掉它不认识的子节点，旧写法因此永久失效）。
@@ -2489,6 +2501,11 @@ window.__ModuleLoader__.load({
         if (hidden) return
         var manifest = deepyManifest
         if (!manifest) return
+        var frameMs = manifest.frameMs
+        // rAF 仍负责跟浏览器生命周期对齐，但完整状态读取、几何测量与绘制检查
+        // 每个素材帧周期最多跑一次；状态切换最坏只延迟一个 frameMs。
+        if (lastTickAt !== 0 && timestamp - lastTickAt < frameMs) return
+        lastTickAt = timestamp
         var now = Date.now()
         // 栖木跟随先于素材就绪判断：停靠面板一出现就要抬，别等某一态素材解码完
         applyPerchLift(now)
@@ -2513,7 +2530,7 @@ window.__ModuleLoader__.load({
           baseState = display
           bumpView()
         }
-        var interval = manifest.frameMs
+        var interval = frameMs
         if (reduceMotion) {
           // 减速偏好：停在代表帧（首帧），不推进
           frameIndex = 0
@@ -2554,6 +2571,7 @@ window.__ModuleLoader__.load({
           if (rafId !== null) { window.cancelAnimationFrame(rafId); rafId = null }
         } else if (rafId === null) {
           lastFrameAt = 0
+          lastTickAt = 0
           rafId = window.requestAnimationFrame(tick)
         }
       }

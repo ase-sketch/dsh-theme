@@ -334,14 +334,19 @@ if (typeof ref1 === 'function') {
   // 同一个动画帧被重复推进时，帧号与几何都没变，不应再写一遍内联样式。
   // Proxy 记录所有赋值（包括同值赋值），旧实现在这里会写 5 次。
   let sameFrameWrites = 0
+  let subframeDomReads = 0
   const rawStyle = node1.style
+  const rawGetById = T.doc.getElementById
   node1.style = new Proxy(rawStyle, {
     set(target, key, value) { sameFrameWrites += 1; target[key] = value; return true },
   })
+  T.doc.getElementById = function (id) { subframeDomReads += 1; return rawGetById.call(this, id) }
   const sameFrameJobs = T.rafQueue.splice(0, T.rafQueue.length)
   for (const fn of sameFrameJobs) fn(rafClock)
-  eq('同一帧重复 rAF 不再重复写精灵样式', sameFrameWrites, 0)
   node1.style = rawStyle
+  T.doc.getElementById = rawGetById
+  eq('同一帧重复 rAF 不再重复写精灵样式', sameFrameWrites, 0)
+  eq('未跨素材帧周期时不做 DOM 状态读取（高刷新率节拍门控）', subframeDomReads, 0)
 
   // ── 直接验证 isConnected 守卫 ──
   // 真实风险：React 协调过程中节点可能已从 DOM 摘掉、但 ref 清理尚未跑到，

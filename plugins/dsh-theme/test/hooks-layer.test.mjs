@@ -330,8 +330,9 @@ function setStatus(map) {
 
   const flowA = makeNode('div'); flowA.setAttribute('data-chat-flow-key', 'a')
   const flowB = makeNode('div'); flowB.setAttribute('data-chat-flow-key', 'b')
-  scroll.appendChild(flowA); scroll.appendChild(flowB)
-  scroll._queryAll['[data-chat-flow-key]'] = [flowA, flowB]
+  const flowNested = makeNode('div'); flowNested.setAttribute('data-chat-flow-key', 'a-inner')
+  scroll.appendChild(flowA); scroll.appendChild(flowB); flowA.appendChild(flowNested)
+  scroll._queryAll['[data-chat-flow-key]'] = [flowA, flowNested, flowB]
   doc._docQueryAll['.dsh-flow-in'] = []
 
   const hooks = H.install(ctx)
@@ -404,6 +405,7 @@ function setStatus(map) {
   check('D13 装了 IntersectionObserver', Boolean(io))
   eq('D13b 两条消息项都被 observe 了', io.targets.size, 2)
   eq('D13c IO root 是滚动口', io.options && io.options.root, scroll)
+  eq('D13d 新版嵌套 flow key 只观察最外层', io.targets.has(flowNested), false)
   io.fire([{ target: flowA, isIntersecting: true }, { target: flowB, isIntersecting: false }])
   eq('D14 rAF 之前不写 class（回调保持轻量）', flowA.classList.contains(H.FLOW_IN_CLASS), false)
   pumpRaf(1)
