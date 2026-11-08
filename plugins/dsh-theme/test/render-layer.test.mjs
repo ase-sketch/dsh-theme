@@ -576,7 +576,11 @@ player2.dispose()
     setProperty(name, value) { this[name] = value },
     removeProperty(name) { delete this[name] },
   }
-  globalThis.MutationObserver = class { observe() {} disconnect() {} }
+  let activeObservers = 0
+  globalThis.MutationObserver = class {
+    observe() { if (!this.active) { this.active = true; activeObservers += 1 } }
+    disconnect() { if (this.active) { this.active = false; activeObservers -= 1 } }
+  }
 
   let resolveCss
   let resolveIconMap
@@ -603,8 +607,10 @@ player2.dispose()
   eq('effect body 返回卸载函数', typeof disposeEffect, 'function')
   eq('effect ON 后账户抽屉挂上 click 监听', (T.doc._listeners.click || []).length, 1)
   eq('effect ON 后账户抽屉挂上 keydown 监听', (T.doc._listeners.keydown || []).length, 1)
+  check('effect ON 后观察器处于活动状态', activeObservers > 0)
 
   disposeEffect()
+  eq('effect 卸载后全部观察器断开', activeObservers, 0)
   eq('effect 卸载后账户抽屉 click 监听归零', (T.doc._listeners.click || []).length, 0)
   eq('effect 卸载后账户抽屉 keydown 监听归零', (T.doc._listeners.keydown || []).length, 0)
   resolveCss({ ok: true, text: () => Promise.resolve('body { color: red }') })

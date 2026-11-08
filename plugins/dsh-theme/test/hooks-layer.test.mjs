@@ -414,6 +414,65 @@ function setStatus(map) {
   eq('D15c 已处理的被 unobserve（不重复观察）', io.targets.has(flowA), false)
   doc._docQueryAll['.dsh-flow-in'] = [flowA]
 
+  // —— 增量 DOM 工作：普通插入不全扫、新 flow 只处理候选、根替换仍全量重建 ——
+  const domObserverForPerf = moInstances.find((m) => m.targets.some((x) => x.o && x.o.childList && x.o.subtree))
+  let fullFlowQueries = 0
+  const rawScrollQueryAll = scroll.querySelectorAll
+  scroll.querySelectorAll = (selector) => {
+    if (selector === '[data-chat-flow-key]') fullFlowQueries += 1
+    return rawScrollQueryAll(selector)
+  }
+  let fullEditorQueries = 0
+  const rawDocQueryAll = doc.querySelectorAll
+  doc.querySelectorAll = (selector) => {
+    if (selector === H.EDITOR_CARD_SELECTOR) fullEditorQueries += 1
+    return rawDocQueryAll(selector)
+  }
+  const unrelated = makeNode('p')
+  doc.body.appendChild(unrelated)
+  domObserverForPerf.fire([{ addedNodes: [unrelated], removedNodes: [] }])
+  eq('P1 普通文本插入不安排 rAF 全量工作', rafQueue.length, 0)
+  pumpRaf(1)
+  eq('P1b 普通文本插入后仍没有全根 flow 查询', fullFlowQueries, 0)
+  eq('P1c 普通文本插入后仍没有全文档输入卡查询', fullEditorQueries, 0)
+
+  const flowC = makeNode('div'); flowC.setAttribute('data-chat-flow-key', 'c')
+  scroll.appendChild(flowC)
+  domObserverForPerf.fire([{ addedNodes: [flowC], removedNodes: [] }])
+  pumpRaf(1)
+  eq('P2 新增 flow 被增量 observe', io.targets.has(flowC), true)
+  eq('P2b 新增 flow 不触发全根查询', fullFlowQueries, 0)
+  eq('P2c 新增 flow 不触发输入卡全文档查询', fullEditorQueries, 0)
+
+  const bulkFlows = []
+  for (let i = 0; i < 9; i += 1) {
+    const node = makeNode('div'); node.setAttribute('data-chat-flow-key', 'bulk-' + i)
+    scroll.appendChild(node); bulkFlows.push(node)
+  }
+  scroll._queryAll['[data-chat-flow-key]'] = [flowA, flowNested, flowB, flowC, ...bulkFlows]
+  domObserverForPerf.fire([{ addedNodes: bulkFlows, removedNodes: [] }])
+  pumpRaf(1)
+  eq('P2d 大批量候选只做一次全根查询', fullFlowQueries, 1)
+  eq('P2e 大批量消息仍全部挂上观察', bulkFlows.every((node) => io.targets.has(node)), true)
+  eq('P2f 大批量 flow 不触发输入卡全文档查询', fullEditorQueries, 0)
+
+  const container2 = makeNode('div'); container2.setAttribute('data-conversation-content', '')
+  const scroll2 = makeNode('div'); scroll2.setAttribute('data-conversation-scroll', '')
+  const flowD = makeNode('div'); flowD.setAttribute('data-chat-flow-key', 'd')
+  container2.appendChild(scroll2); scroll2.appendChild(flowD)
+  container2._query['[data-conversation-scroll]'] = scroll2
+  scroll2._queryAll['[data-chat-flow-key]'] = [flowD]
+  sceneRegion.appendChild(container2)
+  sceneRegion.removeChild(container)
+  doc._docQuery['[data-conversation-content]'] = container2
+  domObserverForPerf.fire([{ addedNodes: [container2], removedNodes: [container] }])
+  pumpRaf(1)
+  const io2 = ioInstances[ioInstances.length - 1]
+  eq('P3 会话根替换后 IO 根更新', io2.options && io2.options.root, scroll2)
+  eq('P3b 新根执行一次完整消息重建', io2.targets.has(flowD), true)
+  eq('P3c 旧 IO 已断开', io.targets.size, 0)
+  doc.querySelectorAll = rawDocQueryAll
+
   // —— 编辑台状态钩子（M8.5）——
   const deepyHost = makeNode('span')
   deepyHost.id = 'dsh-theme-deepy'
@@ -566,6 +625,9 @@ function setStatus(map) {
   // 使用现有 data-* 契约替代，不把结构扫描留给每一帧的样式失效。
   check('E10 长列表样式零 :has（皮肤 + 客户端内联）', !themeSrc.includes(':has(') && !clientSrc.includes(':has('))
   check('E10b 替代契约完整', ['data-content-phase="hero"', 'data-chat-group-part="response"', 'data-slot="conversation.session.header"'].every((k) => themeSrc.includes(k)))
+  check('E11 选区继承挂在 body，不做全元素匹配', themeSrc.includes('html[data-dsh-theme] body::selection') && !themeSrc.includes('html[data-dsh-theme] ::selection'))
+  const headingRule = 'html[data-dsh-theme] [data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3)'
+  eq('E12 Markdown 标题选择器只保留一条', themeSrc.split(headingRule).length - 1, 1)
 }
 
 console.log('')

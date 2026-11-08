@@ -804,6 +804,10 @@ window.__ModuleLoader__.load({
     var EDITOR_CARD_SELECTOR = '[data-composer-card]'
     /** shell 的 Lexical 可编辑根：div[contenteditable][role=textbox][data-composer-input]（读源码确认）。 */
     var EDITOR_INPUT_SELECTOR = '[data-composer-input]'
+    /** DOM 增量观察只展开这些相关节点；普通文本/代码插入不做全根查询。 */
+    var HOOK_RELEVANT_SELECTOR = STREAM_CONTAINER_SELECTOR + ',' + STREAM_SCROLL_SELECTOR + ',' + FLOW_ITEM_SELECTOR + ',' + EDITOR_CARD_SELECTOR + ',' + EDITOR_INPUT_SELECTOR + ',#dsh-theme-deepy'
+    /** 小批增量、成批一次全根：避免会话切换时每个 flow 都各扫一遍子树。 */
+    var FLOW_INCREMENTAL_LIMIT = 8
     /** hero 封面两行文案（T4 只管排版，文案在这里）。 */
     var HERO_KICKER = 'DEEP SPACE EDITING ROOM · VOL.01'
     var HERO_COLOPHON = '深空编辑室 · DSH-THEME · MMXXVI'
@@ -1032,10 +1036,61 @@ window.__ModuleLoader__.load({
         return false
       }
 
-      /** 把新出现的消息项交给观察器；已观察过的不重复 observe。 */
-      function observeFlows() {
+      /** 测试桩没有 matches()/closest()；真实浏览器走原生路径，桩按稳定 data-* 回退。 */
+      function hookMatches(node, selector) {
+        if (!node || node.nodeType !== 1) return false
+        if (typeof node.matches === 'function') {
+          try { return node.matches(selector) } catch (error) { return false }
+        }
+        if (selector === FLOW_ITEM_SELECTOR) return node.hasAttribute('data-chat-flow-key')
+        if (selector === STREAM_CONTAINER_SELECTOR) return node.hasAttribute('data-conversation-content')
+        if (selector === STREAM_SCROLL_SELECTOR) return node.hasAttribute('data-conversation-scroll')
+        if (selector === EDITOR_CARD_SELECTOR) return node.hasAttribute('data-composer-card')
+        if (selector === EDITOR_INPUT_SELECTOR) return node.hasAttribute('data-composer-input')
+        if (selector === '#dsh-theme-deepy') return node.id === 'dsh-theme-deepy'
+        return false
+      }
+
+      function hookClosest(node, selector) {
+        var current = node
+        while (current) {
+          if (hookMatches(current, selector)) return current
+          current = current.parentNode
+        }
+        return null
+      }
+
+      function hookQueryAll(node, selector) {
+        if (!node || typeof node.querySelectorAll !== 'function') return []
+        try { return node.querySelectorAll(selector) } catch (error) { return [] }
+      }
+
+      function hookWithin(root, node) {
+        if (!root || !node) return false
+        if (root === node) return true
+        if (typeof root.contains === 'function') {
+          try { return root.contains(node) } catch (error) { /* 回退父链 */ }
+        }
+        var parent = node.parentNode
+        while (parent) {
+          if (parent === root) return true
+          parent = parent.parentNode
+        }
+        return false
+      }
+
+      function observeFlowNode(node) {
+        if (flowNested(node) || flowSeen.has(node)) return
+        flowSeen.add(node)
+        try { flowObserver.observe(node) } catch (error) { /* 单个节点失败不连累其余 */ }
+      }
+
+      /** 根替换时才全量重建；普通新增只扫描新增子树，flowSeen 继续负责去重。 */
+      function observeFlows(fullScan, candidates) {
+        if (fullScan === undefined) fullScan = true
         var root = flowRoot()
-        if (root !== flowObservedRoot) {
+        var rootChanged = root !== flowObservedRoot
+        if (rootChanged) {
           // 切会话后滚动根会替换，旧 root 上的 IntersectionObserver 不再产生有效事件。
           if (flowObserver !== null) flowObserver.disconnect()
           flowObservedRoot = root
@@ -1044,13 +1099,19 @@ window.__ModuleLoader__.load({
           }
         }
         if (flowObserver === null || root === null || typeof root.querySelectorAll !== 'function') return
+        if (!fullScan && !rootChanged && candidates && candidates.length > 0 && candidates.length <= FLOW_INCREMENTAL_LIMIT) {
+          for (var i = 0; i < candidates.length; i += 1) {
+            var candidate = candidates[i]
+            if (!hookWithin(root, candidate)) continue
+            if (hookMatches(candidate, FLOW_ITEM_SELECTOR)) observeFlowNode(candidate)
+            var nested = hookQueryAll(candidate, FLOW_ITEM_SELECTOR)
+            for (var j = 0; j < nested.length; j += 1) observeFlowNode(nested[j])
+          }
+          return
+        }
         var nodes
         try { nodes = root.querySelectorAll(FLOW_ITEM_SELECTOR) } catch (error) { return }
-        for (var i = 0; i < nodes.length; i += 1) {
-          if (flowNested(nodes[i]) || flowSeen.has(nodes[i])) continue
-          flowSeen.add(nodes[i])
-          try { flowObserver.observe(nodes[i]) } catch (error) { /* 单个节点失败不连累其余 */ }
-        }
+        for (var k = 0; k < nodes.length; k += 1) observeFlowNode(nodes[k])
       }
 
       try {
@@ -1191,11 +1252,17 @@ window.__ModuleLoader__.load({
         if (card && typeof card.removeAttribute === 'function') card.removeAttribute(EDITOR_ATTR)
       }
 
-      /** 扫一轮输入卡：新卡接上，被移除的卡摘干净。幂等。 */
-      function scanEditors() {
-        var cards = []
-        try { cards = document.querySelectorAll(EDITOR_CARD_SELECTOR) } catch (error) { cards = [] }
-        for (var i = 0; i < cards.length; i += 1) wireEditorCard(cards[i])
+      /** 首轮全量接卡；后续只处理相关候选。移除路径仍检查 stale，保证监听可逆。 */
+      function scanEditors(candidates) {
+        var cards = candidates
+        if (cards === undefined || cards === null) {
+          try { cards = document.querySelectorAll(EDITOR_CARD_SELECTOR) } catch (error) { cards = [] }
+        }
+        for (var i = 0; i < cards.length; i += 1) {
+          var card = cards[i]
+          if (hookMatches(card, EDITOR_INPUT_SELECTOR)) card = hookClosest(card, EDITOR_CARD_SELECTOR)
+          if (card) wireEditorCard(card)
+        }
         if (editorCards.size > 0) {
           var stale = []
           editorCards.forEach(function (card) { if (card.isConnected === false) stale.push(card) })
@@ -1204,34 +1271,75 @@ window.__ModuleLoader__.load({
         recomputeEditing()
       }
 
-      // ── 5. DOM 观察：会话体/消息项/输入卡出现时补挂 ──────────────────────
+      // ── 5. DOM 观察：只让相关新增/移除节点驱动增量工作 ────────────────
       var domObserver = null
       var domRaf = null
+      var domFlowReset = false
+      var domFlowCandidates = []
+      var domEditorDirty = false
+      var domEditorCandidates = []
+      var domStreamDirty = false
+      var domEditingDirty = false
+
+      function inspectHookNode(node, removed) {
+        if (!node || node.nodeType !== 1) return
+        var related = [node]
+        // 外层 flow 内的嵌套 key 本来就要跳过；不为它再做一次无关的全子树查询。
+        var descendants = hookMatches(node, FLOW_ITEM_SELECTOR) ? [] : hookQueryAll(node, HOOK_RELEVANT_SELECTOR)
+        for (var d = 0; d < descendants.length; d += 1) related.push(descendants[d])
+        for (var i = 0; i < related.length; i += 1) {
+          var item = related[i]
+          if (hookMatches(item, STREAM_CONTAINER_SELECTOR) || hookMatches(item, STREAM_SCROLL_SELECTOR)) {
+            domStreamDirty = true
+            domFlowReset = true
+          }
+          if (hookMatches(item, FLOW_ITEM_SELECTOR)) domFlowCandidates.push(item)
+          if (hookMatches(item, EDITOR_CARD_SELECTOR) || hookMatches(item, EDITOR_INPUT_SELECTOR)) {
+            domEditorDirty = true
+            if (!removed) domEditorCandidates.push(item)
+          }
+          if (hookMatches(item, '#dsh-theme-deepy')) domEditingDirty = true
+        }
+      }
+
+      function scheduleDomFlush() {
+        if (stopped || domRaf !== null || typeof window.requestAnimationFrame !== 'function') return
+        if (!domFlowReset && domFlowCandidates.length === 0 && !domEditorDirty && !domStreamDirty && !domEditingDirty) return
+        domRaf = window.requestAnimationFrame(onDomFlush)
+      }
 
       function onDomFlush() {
         domRaf = null
         if (stopped) return
-        applyStream()
-        observeFlows()
-        scanEditors()      // 输入卡（含 hero 态的卡）出现/消失时接上或摘掉
-        applyEditing()     // 月台容器由 React 后挂，属性要在它出现后补写
+        var flowReset = domFlowReset
+        var flowCandidates = domFlowCandidates
+        var editorDirty = domEditorDirty
+        var editorCandidates = domEditorCandidates
+        var streamDirty = domStreamDirty
+        var editingDirty = domEditingDirty
+        domFlowReset = false
+        domFlowCandidates = []
+        domEditorDirty = false
+        domEditorCandidates = []
+        domStreamDirty = false
+        domEditingDirty = false
+        if (streamDirty) applyStream()
+        if (flowReset || flowCandidates.length > 0) observeFlows(flowReset, flowCandidates)
+        if (editorDirty) scanEditors(editorCandidates)
+        if (editingDirty) applyEditing()
       }
 
       try {
         if (document.body) {
           domObserver = new MutationObserver(function (records) {
-            // 回调保持轻量：只判断「有没有元素被加进来」，查询与写入推到 rAF
+            // 只展开新增/移除子树中的稳定锚点；普通流式文本插入不再安排全根扫描。
             for (var i = 0; i < records.length; i += 1) {
               var added = records[i].addedNodes
-              for (var j = 0; j < added.length; j += 1) {
-                if (added[j] && added[j].nodeType === 1) {
-                  if (domRaf === null && typeof window.requestAnimationFrame === 'function') {
-                    domRaf = window.requestAnimationFrame(onDomFlush)
-                  }
-                  return
-                }
-              }
+              for (var j = 0; j < added.length; j += 1) inspectHookNode(added[j], false)
+              var removed = records[i].removedNodes
+              for (var k = 0; k < removed.length; k += 1) inspectHookNode(removed[k], true)
             }
+            scheduleDomFlush()
           })
           domObserver.observe(document.body, { childList: true, subtree: true })
         }
@@ -2975,7 +3083,16 @@ window.__ModuleLoader__.load({
         // 除主题开关外，还要区分「整个 effect 已卸载」：迟到的请求不得复活旧资源。
         var effectDisposed = false
         var disposePanel = registerPanel(ctx)
-        var stopSemantics = startSemanticAdapter()
+        // 语义观察器同样随主题开关启停；OFF 不再留下全局 DOM 工作。
+        var stopSemantics = null
+        function syncSemantics(enabled) {
+          if (enabled) {
+            if (stopSemantics === null) stopSemantics = startSemanticAdapter()
+          } else if (stopSemantics !== null) {
+            stopSemantics()
+            stopSemantics = null
+          }
+        }
         // Deepy 播放器与样式注入同属一个可逆对：开关 OFF 时精灵元素、内联 CSS、
         // 全部订阅一起撤（ARCHITECTURE.md「卸载」行）。装/卸都由开关驱动，幂等。
         var deepy = null
@@ -3028,6 +3145,7 @@ window.__ModuleLoader__.load({
         }
         var disposeSubscribe = subscribe(function (view) {
           if (!view.ready) return
+          syncSemantics(view.enabled)
           syncDeepy(view.enabled)
           syncIcons(view.enabled)
           syncHooks(view.enabled)
@@ -3055,7 +3173,7 @@ window.__ModuleLoader__.load({
           effectDisposed = true
           disposeSubscribe()
           disposePanel()
-          stopSemantics()
+          syncSemantics(false)
           uninstallStyle()
           syncDeepy(false)
           syncIcons(false)

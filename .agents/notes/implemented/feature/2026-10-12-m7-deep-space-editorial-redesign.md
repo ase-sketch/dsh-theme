@@ -143,3 +143,13 @@ Status: implemented — 隔离实例验收全绿（编排方亲验），桌面�
 
 **后果**：M12 的视觉断言（`_living_verify.py`）不再有效，已由 `_imprint_verify.py`（15 项）取代；M12 规则仍留在 patches.css 里作历史层，M13 段整体压在它上面（未删旧段，便于对照回退）。已知欠账：窄窗口响应式、会话页真实期号/页码。
 
+---
+
+## 性能增补（2026-11-08）：选择器成本与增量观察
+
+- Problem：长会话与流式插入仍卡。CDP + SelectorStats 证明主因不是观察器回调本身：停用主题 JS 后，约 9.02s 的 Style 中仍剩 8.18s；全局 `html[data-dsh-theme] ::selection` 与重复 Markdown 标题选择器占据显著匹配成本。宿主自身的复杂 :has 也占耗时，不归入本插件收益。
+- Decision：选区改挂 `body::selection`，利用高亮伪元素继承消除全元素匹配；标题重复声明并入 M13 最终规则，保持当前级联计算值。flow/editor 观察改为相关子树增量处理，但超过 8 个 flow 候选时只全根扫描一次，会话根替换始终完整重建；语义观察器随主题 OFF 断开。
+- Alternatives considered：默认关闭纸纹、Deepy、图标或消息动效被否决；给容器加 transform/contain/will-change 被否决；单纯合并 Observer 但保留全量扫描被否决；真实模型输出用于压测被否决，沿用真实会话快照 + 明确标注的合成 DOM 场景。
+- Consequences：当前视觉声明不变，但历史重复标题规则不再逐字保留，后续修改应只维护 M13 的最终规则。小批流式插入不再全根扫描；批量切会话仍有锚点展开成本，不能宣称所有场景都快。
+- Confirmation：同节点选区与 Markdown 计算样式逐项一致；SelectorStats 高 instrumentation 下主题表匹配耗时 547.7ms → 275.2ms、尝试数 484 万 → 247 万。最终 672 条断言通过，真实 UI OFF 后主题 Observer/rAF/定时器均归零。DSH 0.2.2-rc.1 隔离 Web profile + Chromium 已验证；Electron 桌面真机、真实模型持续流式输出、带第三方内容的账户抽屉未验证。
+

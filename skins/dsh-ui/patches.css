@@ -140,8 +140,9 @@ body {
     color var(--dsh-motion-hover) var(--dsh-ease-out);
 }
 
-/* 选区：朱砂底 + 反相文字（官方用系统默认高亮，与设计语言冲突） */
-::selection {
+/* 选区：朱砂底 + 反相文字。高亮伪元素按选择树继承，挂在 body 即可覆盖所有
+   后代；不要再对每个元素做一次 ::selection 匹配（SelectorStats 实测的最大主题规则）。 */
+body::selection {
   background: var(--dsh-accent);
   color: var(--dsh-on-accent);
 }
@@ -151,13 +152,8 @@ body {
    sans 正文层与 mono 代码层已在 §① 通过变量重绑全局生效（能穿透 font: 简写），
    这里只补需要**定向**接管的两个面：display 衬线标题层、mono micro-label 层。 */
 
-/* 消息区标题：官方 .xxx_markdown h1{font: var(--dsw-font-markdown-h1)} 是 font: 简写，
-   官方特异性 (0,0,1,1)；这里用 [data-conversation-region="chat"] [class*="markdown"] :is(h1,h2,h3)
-   = (0,0,2,1) 压过它，且只覆盖 font-family / letter-spacing——字号、字重、行高仍走官方简写。 */
-[data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3) {
-  font-family: var(--dsh-font-display);
-  letter-spacing: var(--dsh-track-tight);
-}
+/* 消息区标题的字体、字重、颜色与节奏统一在 M13 的同一条规则里维护；
+   同一特异性仍压过官方 font: 简写，但不重复做三次全树选择器匹配。 */
 
 /* 会话头标题（面包屑当前项）：官方 .xxx_crumbCurrent 只设 color / font-weight，
    既无 font-family 也无 font: 简写 → 直接接管，零冲突。 */
@@ -849,10 +845,6 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
 [data-conversation-region="chat"] [data-chat-flow-kind^="assistant"] [class*="markdown"] :is(p, ul, ol, blockquote) {
   margin: var(--dsh-space-5) 0;
 }
-[data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3) {
-  margin: var(--dsh-space-6) 0 var(--dsh-space-3);
-  font-weight: var(--dsh-weight-display);
-}
 [data-conversation-region="chat"] [class*="markdown"] h1 {
   font-size: var(--dsh-text-display);
   line-height: var(--dsh-lh-display);
@@ -1281,10 +1273,8 @@ body[data-ds-dark-theme] [data-conversation-region="chat"] {
   width: 100%;
   max-width: 100%;
 }
-[data-conversation-region="chat"] [class*="markdown"] :is(p, ul, ol) {
-  margin-block: var(--dsh-space-4);
-}
 [data-conversation-region="chat"] [class*="markdown"] :is(h1, h2, h3) {
+  margin: var(--dsh-space-6) 0 var(--dsh-space-3);
   font-family: var(--dsh-font-display);
   font-weight: var(--dsh-weight-display);
   letter-spacing: var(--dsh-track-tight);
