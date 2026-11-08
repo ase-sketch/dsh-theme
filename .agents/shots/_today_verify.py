@@ -41,7 +41,7 @@ with sync_playwright() as p:
         rec("T04", "旧迎宾封面移除", page.locator(".dsh-hero-cover").count() == 0, page.locator(".dsh-hero-cover").count())
         scene = page.evaluate("""() => { const chat=document.querySelector('[data-conversation-region=chat]'); const weather=document.querySelector('.dsh-today-weather'); return {background:getComputedStyle(chat).backgroundImage, ruler:getComputedStyle(chat,'::before').content, border:getComputedStyle(weather).borderTopWidth, shadow:getComputedStyle(weather).boxShadow}; }""")
         rec("S01", "新会话无网格与排版标尺", "repeating-linear-gradient" not in scene["background"] and scene["ruler"] == "none", scene)
-        rec("S02", "天气为开放环境而非贴纸卡", scene["border"] == "0px" and "inset" in scene["shadow"], scene)
+        rec("S02", "天气卡使用墨线且无阴影", scene["border"] == "1px" and scene["shadow"] == "none", scene)
 
         layout = page.evaluate("""() => {
           const rect = s => { const el = document.querySelector(s); if (!el) return null; const r = el.getBoundingClientRect(); return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,width:r.width,height:r.height}; };
@@ -82,7 +82,7 @@ with sync_playwright() as p:
         page.evaluate("""() => { document.body.setAttribute('data-ds-dark-theme',''); }""")
         page.wait_for_timeout(800)
         dark_bg = page.evaluate("""() => getComputedStyle(document.body).backgroundColor""")
-        rec("V01", "深色 token 实渲染", dark_bg == "rgb(11, 13, 20)", dark_bg)
+        rec("V01", "夜版纸色（#121110）实渲染", dark_bg == "rgb(18, 17, 16)", dark_bg)
         page.screenshot(path=str(OUT / "today-dark.png"), full_page=True)
 
         page.set_viewport_size({"width": 900, "height": 800})

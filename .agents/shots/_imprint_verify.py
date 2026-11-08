@@ -50,9 +50,9 @@ with sync_playwright() as p:
     rec("I06", "输入卡零圆角 + 顶部墨线", hero["cardRadius"] == "0px" and hero["cardTop"].startswith("1px"), hero)
 
     nav = pg.evaluate("""() => { const r = document.querySelector('[class*=panelRow]'); if (!r) return null; const s = getComputedStyle(r, '::before'); return {content: s.content, family: s.fontFamily.split(',')[0], size: s.fontSize}; }""")
-    rec("I07", "目录项带 Georgia 序号", bool(nav) and nav["family"] == "Georgia" and nav["size"] == "9px", nav)
+    rec("I07", "目录项带 Georgia 序号", bool(nav) and nav["family"] == "Georgia" and nav["size"] == "10px", nav)
 
-    cal = pg.evaluate("""() => { const d = document.querySelector('.dsh-today-days'); if (!d) return null; const t = [...d.querySelectorAll('*')].find(e => e.textContent.trim() === '1'); return t ? {bg: getComputedStyle(t).backgroundColor, radius: getComputedStyle(t).borderRadius} : null; }""")
+    cal = pg.evaluate("""() => { const d = document.querySelector('.dsh-today-days'); if (!d) return null; const t = d.querySelector('[aria-current="date"]'); return t ? {bg: getComputedStyle(t).backgroundColor, radius: getComputedStyle(t).borderRadius} : null; }""")
     rec("I08", "日历今日用墨块而非色块", bool(cal) and cal["bg"] in ("rgb(22, 19, 15)", "rgb(18, 17, 16)") and cal["radius"] == "0px", cal)
 
     pg.evaluate("() => document.body.setAttribute('data-ds-dark-theme','')")
@@ -89,7 +89,7 @@ with sync_playwright() as p:
     }""")
     rec("I11", "用户消息带页边注（序号 + 你）", chat["gutterFamily"] == "Georgia" and ("你" in (chat["gutter"] or "")), chat)
     rec("I12", "用户消息不再有气泡底色", chat["bubbleBg"] in ("rgba(0, 0, 0, 0)", None), chat["bubbleBg"])
-    rec("I13", "助手正文思源宋体 15.5/31", chat["mdFamily"] == '"Noto Serif SC"' and chat["mdSize"] == "15.5px" and chat["mdLh"] == "31px", {"family": chat["mdFamily"], "size": chat["mdSize"], "lh": chat["mdLh"]})
+    rec("I13", "助手正文思源宋体 17/32", chat["mdFamily"] == '"Noto Serif SC"' and chat["mdSize"] == "17px" and chat["mdLh"] == "32px", {"family": chat["mdFamily"], "size": chat["mdSize"], "lh": chat["mdLh"]})
 
     tool = pg.evaluate("""() => { const t = document.querySelector('[data-tool]'); if (!t) return null; const s = getComputedStyle(t); return {family: s.fontFamily.split(',')[0], size: s.fontSize, border: s.borderBottomWidth}; }""")
     rec("I14", "工具行等宽小字", bool(tool) and tool["family"] == '"Cascadia Mono"', tool)
@@ -106,3 +106,4 @@ passed = sum(1 for r in RESULTS if r["pass"])
 report = {"total": len(RESULTS), "passed": passed, "results": RESULTS, "errors": ERRORS}
 (OUT / "m13-report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
 print("RESULT: %d/%d passed" % (passed, len(RESULTS)))
+raise SystemExit(0 if passed == len(RESULTS) else 1)
